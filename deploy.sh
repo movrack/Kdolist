@@ -1,4 +1,4 @@
-#!bin/bash
+#!/bin/bash
 
 export SYMFONY_ENV=prod
 cd /home/movrack/www/kdolist
