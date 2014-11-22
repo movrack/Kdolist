@@ -2,8 +2,9 @@
 
 export SYMFONY_ENV=prod
 cd /home/movrack/www/kdolist
+echo `pwd`
 git pull
-composer install --no-dev --optimize-autoloader
+./composer.phar install --no-dev --optimize-autoloader
 app/console cache:clear --env=prod --no-debug
 app/console assetic:dump --env=prod --no-debug
 app/console assets:install --symlink --env=prod --no-debug
