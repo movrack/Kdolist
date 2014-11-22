@@ -81,3 +81,8 @@ mopa_bootstrap:
     initializr:
 
         diagnostic_mode: false
+
+fos_user:
+    db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
+    firewall_name: main
+    user_class: KDO\Bundle\KDOBundle\Entity\User

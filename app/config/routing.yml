@@ -8,3 +8,8 @@ kdokdo:
 welcome:
     pattern:  /
     defaults: { _controller: GiftlistHomeBundle:Default:index }
+
+
+# app/config/routing.yml
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
