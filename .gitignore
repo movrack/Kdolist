@@ -12,3 +12,4 @@
 .idea
 web/css
 web/js
+deployToRemote.sh

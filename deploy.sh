@@ -1,6 +1,7 @@
 #!bin/bash
 
 export SYMFONY_ENV=prod
+cd /home/movrack/www/kdolist
 git pull
 composer install --no-dev --optimize-autoloader
 app/console cache:clear --env=prod --no-debug
