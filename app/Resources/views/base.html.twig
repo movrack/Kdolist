@@ -1,13 +1,99 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
-</html>
+{% extends 'MopaBootstrapBundle::base_initializr.html.twig' %}
+
+{% block title %}Giftlist{% endblock title %}
+
+{% block head_style %}
+    {{ parent() }}
+    {% stylesheets  filter='?yui_css'
+        '@KDOKDOBundle/Resources/public/css/main.css'
+    %}
+    <link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="screen" />
+    {% endstylesheets %}
+{% endblock head_style %} 
+    
+{% block head_scripts %}
+    {{ parent() }}    
+    {#{% javascripts
+        'http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js'
+    %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}#}
+{% endblock head_scripts %}
+
+        
+{% block body %}
+    {% include '::navbar.html.twig'%}
+    {% block container %}
+        {% block container_div_start %}<div class="{% block container_class %}container{% endblock container_class %}">{% endblock container_div_start %}
+            {% block header %}
+            {% endblock header %}
+
+            {% block content_div_start %}<div class="content">{% endblock content_div_start %}
+                {% block page_header %}
+                    <div class="page-header">
+                        <h1>{% block headline %}Giftlist{% endblock headline %}</h1>
+                    </div>
+                {% endblock page_header %}
+
+                {% include '::flashes.html.twig' %}
+
+
+
+                {% block content_row %}
+                <div class="row">
+                    {%  set _content_left = block('content_left') %}
+                    {%  set _content_right = block('content_right') %}
+
+                    {%  if _content_left is not empty %}
+                        {% block content_left_block %}
+                            <div class="col-sm-3">
+                                {{ block('content_left') }}
+                            </div>
+                        {%  endblock content_left_block %}
+                    {% endif %}
+
+                    {% block content_middle %}
+                        {%  if (_content_left is not empty) and (_content_right is not empty) %}
+                            <div class="col-sm-6">
+                                {{ block('content_content') }}
+                            </div>
+                        {%  elseif _content_left is not empty %}
+                            <div class="col-sm-9">
+                                {{ block('content_content') }}
+                            </div>
+                        {% elseif _content_right is not empty %}
+                            <div class="col-sm-9">
+                                {{ block('content_content') }}
+                            </div>
+                        {% else %}
+                            <div class="col-sm-12">
+                                {{ block('content_content') }}
+                            </div>
+                        {% endif %}
+                    {%  endblock content_middle %}
+
+                    {%  if _content_right is not empty %}
+                        {% block content_right_block %}
+                            <div class="col-sm-3">
+                                {{ block('content_right') }}
+                            </div>
+                        {%  endblock content_right_block %}
+                    {% endif %}
+                </div>
+
+
+
+                {% endblock content_row %}
+
+            {% block content_div_end %}</div>{% endblock content_div_end %}
+
+        {% block container_div_end %}</div><!-- /container -->{% endblock container_div_end %}
+    {% endblock container %}
+
+    {% include '::footer.html.twig' %}
+        
+    {% block body_end_before_js %}
+    {% endblock body_end_before_js %}
+    {% include '::footScripts.html.twig'%}
+{% endblock body %}
+        

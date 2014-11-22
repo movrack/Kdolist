@@ -1,0 +1,10 @@
+kdokdo:
+    resource: "@KDOKDOBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+
+
+welcome:
+    pattern:  /
+    defaults: { _controller: GiftlistHomeBundle:Default:index }

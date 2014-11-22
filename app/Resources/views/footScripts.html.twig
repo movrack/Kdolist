@@ -1,0 +1,52 @@
+{% block foot_script %}
+    {# Load jQuery from Google CDN
+       http://encosia.com/3-reasons-why-you-should-let-google-host-jquery-for-you/ #}
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script>
+        window.jQuery || document.write('<script src="../js/libs/jquery-1.9.1.min.js"><\/script>')
+    </script>
+
+    {# Asynchronous Google Analytics snippet grabbed from:
+       http://mathiasbynens.be/notes/async-analytics-snippet#dont-push-it #}
+    {# more GA tweaks:
+       http://html5boilerplate.com/docs/ga-augments/ #}
+    {% if google['analytics'] is defined %}
+    <script>
+        var _gaq = [['_setAccount', '{{ google['analytics'] }}'], ['_trackPageview']];
+        (function(d, t) {
+            var g = d.createElement(t),
+                s = d.getElementsByTagName(t)[0];
+            g.async = g.src = '//www.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g, s);
+        }(document, 'script'));
+    </script>
+    {% endif %}
+    
+    {% block foot_script_assetic %}
+        {% javascripts  filter='?yui_js'
+            '@MopaBootstrapBundle/Resources/public/bootstrap/js/tooltip.js'
+            '@MopaBootstrapBundle/Resources/public/bootstrap/js/affix.js'
+            '@MopaBootstrapBundle/Resources/public/bootstrap/js/alert.js'
+            '@MopaBootstrapBundle/Resources/public/bootstrap/js/button.js'
+            '@MopaBootstrapBundle/Resources/public/bootstrap/js/carousel.js'
+            '@MopaBootstrapBundle/Resources/public/bootstrap/js/collapse.js'
+            '@MopaBootstrapBundle/Resources/public/bootstrap/js/dropdown.js'
+            '@MopaBootstrapBundle/Resources/public/bootstrap/js/modal.js'
+            '@MopaBootstrapBundle/Resources/public/bootstrap/js/popover.js'
+            '@MopaBootstrapBundle/Resources/public/bootstrap/js/scrollspy.js'
+            '@MopaBootstrapBundle/Resources/public/bootstrap/js/tab.js'
+            '@MopaBootstrapBundle/Resources/public/bootstrap/js/transition.js'
+            '@MopaBootstrapBundle/Resources/public/js/mopabootstrap-collection.js'
+            '@MopaBootstrapBundle/Resources/public/js/mopabootstrap-subnav.js'
+        %}
+            <script type="text/javascript" src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+    {% endblock foot_script_assetic %}
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+            $('[data-toggle="popover"]').popover();
+        });
+    </script>
+{% endblock foot_script %}

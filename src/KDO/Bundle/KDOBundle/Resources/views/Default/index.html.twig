@@ -1,0 +1,77 @@
+{%  extends  '::base.html.twig' %}
+
+{#
+    {% block content_left %}
+        allo
+    {% endblock content_left %}
+    {% block content_right %}
+        allo
+    {% endblock content_right %}
+#}
+{% block content_content %}
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="jumbotron">
+                <h2>Offrez un cadeau</h2>
+                <!--<p>
+                    Chercher la liste d'une connaissance pour savoir ce qu'il ou elle souhaite.<br />
+                    Vous pourrez ensuite l'offrir en tout sécurité sans que quelqu'un d'autre ne le fasse.
+                </p>-->
+
+                <form class="form-inline" role="form">
+
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="chercheName" placeholder="Tapez un nom ici">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Chercher</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="jumbotron">
+                <h2>Partager votre liste</h2>
+                {#% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                    Connecté en tant que {{ app.user.username }} - <a href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
+                {% else %}
+                    <a href="{{ path('fos_user_security_login') }}"
+                       class="btn btn-success">Connexion</a>
+                    <a href="{{ path('fos_user_security_login') }}"
+                       class="btn btn-info">Inscription</a>
+                {% endif %}
+
+                {% for key, message in app.session.flashbag.all() %}
+                    <div class="alert alert-{{ key }}">
+                        {{ message|trans({}, 'FOSUserBundle') }}
+                    </div>
+                {% endfor %}
+
+                {# On définit ce block, dans lequel vont venir s'insérer les autres vues du bundle # }
+                {% block fos_user_content %}
+                {% endblock fos_user_content %}
+                #}
+                <p>
+                    <a href="#">Pourquoi une liste?</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-12">
+            <p>Gift list, votre nouvelle liste pour faire savoir à tous vos amis les cadeaux que vous aimeriez recevoir.</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 jumbotron">
+            C'est noël, et vous ne savez pas comment faire pour offrir vos cadeaux ? <br />
+            <a href="#" class="btn btn-info">Voici quelques idées...</a>
+        </div>
+    </div>
+
+{% endblock content_content %}

@@ -14,3 +14,9 @@ monolog/monolog suggests installing ext-mongo (Allow sending log messages to a M
 monolog/monolog suggests installing aws/aws-sdk-php (Allow sending log messages to AWS services like DynamoDB)
 monolog/monolog suggests installing rollbar/rollbar (Allow sending log messages to Rollbar)
 
+mopa/bootstrap-bundle suggests installing twbs/bootstrap (2.*)
+mopa/bootstrap-bundle suggests installing knplabs/knp-paginator-bundle (dev-master)
+mopa/bootstrap-bundle suggests installing knplabs/knp-menu-bundle (2.0.*)
+mopa/bootstrap-bundle suggests installing mopa/bootstrap-sandbox-bundle (~2.3)
+mopa/bootstrap-bundle suggests installing craue/formflow-bundle (dev-master)
+mopa/bootstrap-bundle suggests installing jlong/sass-twitter-bootstrap (dev-master)
