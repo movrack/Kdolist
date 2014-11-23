@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ "$1" = "dev" ]; then
+if [[ "$1" = "dev" ]]; then
     DEV=1
 fi
 
@@ -8,7 +8,7 @@ cd /home/movrack/www/kdolist
 echo `pwd`
 git pull
 
-if [ $DEV = "1" ]; then
+if [[ $DEV = "1" ]]; then
         ./composer.phar install
         app/console cache:clear
         app/console assetic:dump
