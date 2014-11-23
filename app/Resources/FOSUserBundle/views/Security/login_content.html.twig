@@ -1,0 +1,42 @@
+
+{% trans_default_domain 'FOSUserBundle' %}
+
+{%  block login_content %}
+{% if error %}
+    <div>{{ error|trans }}</div>
+{% endif %}
+
+<div class="row">
+    <div class="well col-md-6 col-md-offset-3">
+
+        <form action="{{ path("fos_user_security_check") }}" method="post" role="form">
+
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+            <div class="form-group">
+                <label for="username">{{ 'security.login.username'|trans }}</label>
+                <input  class="form-control" type="text" id="username" name="_username" value="{{ last_username }}" required="required" />
+            </div>
+            <div class="form-group">
+                <label for="password">{{ 'security.login.password'|trans }}</label>
+                <input  class="form-control" type="password" id="password" name="_password" required="required" />
+            </div>
+
+            <div class="checkbox">
+                <label for="remember_me">
+                    <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
+                    {{ 'security.login.remember_me'|trans }}
+                </label>
+            </div>
+
+            <input type="submit" class="btn btn-default"  id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />
+            <a class="btn btn-info"href="{{ path("fos_user_registration_register") }}">Inscription</a>
+        </form>
+        <br />
+        {#
+        <a href="{{path("hwi_oauth_service_redirect", {'service':'google'})}}">google</a><br />
+        <a href="{{path("hwi_oauth_service_redirect", {'service':'windows_live'})}}">windows live</a><br />
+        <a href="{{path("hwi_oauth_service_redirect", {'service':'facebook'})}}">facebook</a>
+        #}<br />
+        <br /></div>
+</div>
+{%  endblock %}

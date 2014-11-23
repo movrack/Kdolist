@@ -8,7 +8,6 @@
             {#{ mopa_bootstrap_menu('MopaBootstrapSandboxBundle:Builder:createMainMenu') }}
             {{ mopa_bootstrap_menu('exampledropdown', {'automenu': 'navbar', 'pull-right': true}) }#}
 
-{#
         <ul class="nav navbar-nav navbar-right">
         {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
           <li class="dropdown">
@@ -17,8 +16,10 @@
             </a>
             <ul class="dropdown-menu">
               <li><a href="{{ path('fos_user_profile_show')}}">Profile</a></li>
-              <li><a href="#">Something else here</a></li>
-              <li class="divider"></li>
+{#
+                <li><a href="#">Something else here</a></li>
+#}
+                <li class="divider"></li>
               <li>
                   <a href="{{ path('fos_user_security_logout') }}">
                     {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
@@ -31,7 +32,7 @@
         {% endif %}
 
         </ul>
-#}
+
         {% endblock %}
     {% endembed %}
 {% endblock navbar %}
