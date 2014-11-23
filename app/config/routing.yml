@@ -10,3 +10,27 @@ welcome:
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"
 
+google_login:
+    pattern: /loginOauth/check-google
+
+windows_live_login:
+    pattern: /loginOauth/check-windows_live
+
+facebook_login:
+    pattern: /loginOauth/check-facebook
+
+hwi_oauth_redirect:
+    resource: "@HWIOAuthBundle/Resources/config/routing/redirect.xml"
+    prefix:   /connect
+
+hwi_oauth_security:
+    resource: "@HWIOAuthBundle/Resources/config/routing/login.xml"
+    prefix: /loginOauth
+
+hwi_oauth_connect:
+    resource: "@HWIOAuthBundle/Resources/config/routing/connect.xml"
+    prefix: /connectOauth
+
+hwi_oauth_redirect:
+    resource: "@HWIOAuthBundle/Resources/config/routing/redirect.xml"
+    prefix:   /connect

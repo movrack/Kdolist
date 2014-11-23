@@ -10,14 +10,59 @@ security:
         fos_userbundle:
             id: fos_user.user_provider.username
 
+#    firewalls:
+#        main:
+#            pattern: ^/
+#            form_login:
+#                provider: fos_userbundle
+#                csrf_provider: form.csrf_provider
+#            logout:       true
+#            anonymous:    true
     firewalls:
+        dev:
+            pattern:  ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        #secured_area:
+        #    form_login:
+        #        provider: fos_userbundle
+
         main:
             pattern: ^/
             form_login:
                 provider: fos_userbundle
                 csrf_provider: form.csrf_provider
-            logout:       true
+                login_path: fos_user_security_login
+                check_path: fos_user_security_check
+            logout:
+                path: fos_user_security_logout
+                target: /
+            remember_me:
+                key:    %secret%
             anonymous:    true
+            #provider: main
+
+            provider: fos_userbundle
+            oauth:
+                use_forward: false
+                resource_owners:
+                    google:             "/loginOauth/check-google"
+                    windows_live:       "/loginOauth/check-windows_live"
+                    facebook:           "/loginOauth/check-facebook"
+                login_path:        /loginOauth
+                failure_path:      /loginOauth
+                oauth_user_provider:
+                    service: hwi_oauth.user.provider.fosub_bridge
+
+        login:
+            pattern:  ^/login$
+            security: false
+
+            remember_me:
+                key: "%secret%"
+                lifetime: 31536000 # 365 days in seconds
+                path: /
+                domain: ~ # Defaults to the current domain from $_SERVER
 
     access_control:
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }

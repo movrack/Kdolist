@@ -22,3 +22,11 @@ parameters:
     debug_toolbar:          true
     debug_redirects:        false
     use_assetic_controller: true
+
+
+    google_id: id
+    google_secret: secret
+    facebook_id: id
+    facebook_secret: secret
+    windows_live_id: id
+    windows_live_secret: secret
