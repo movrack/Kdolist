@@ -2,4 +2,6 @@
 
 {% block hwi_oauth_content %}
     <h3>{{ 'header.registration_success' | trans({'%username%': app.user.username}, 'HWIOAuthBundle') }}</h3>
+
+    Retour à <a class="navbar-brand" href="{{ path('welcome') }}">l'acceuil</a>
 {% endblock hwi_oauth_content %}
