@@ -101,11 +101,13 @@ swiftmailer:
     spool:     { type: memory }
 
 mopa_bootstrap:
-    form: ~  # Adds twig form theme  support
-    # menu: ~  # enables twig helpers for menu
+    form:  # Adds twig form theme  support
+        show_legend: false # default is true
+        show_child_legend: false # default is true
+        error_type: block # or inline which is default
     initializr:
-
         diagnostic_mode: false
+    # menu: ~  # enables twig helpers for menu
 
 fos_user:
     db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
