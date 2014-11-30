@@ -3,6 +3,7 @@
 namespace KDO\Bundle\KDOBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Lists
@@ -49,6 +50,26 @@ class Lists
      */
     private $event;
 
+
+    /**
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="lists")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     */
+    protected $user;
+
+
+    /**
+     * @ORM\OneToMany(targetEntity="Gift", mappedBy="list")
+     */
+    protected $gifts;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->gifts = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -150,5 +171,65 @@ class Lists
     public function getEvent()
     {
         return $this->event;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \KDO\Bundle\KDOBundle\Entity\User $user
+     * @return Lists
+     */
+    public function setUser(\KDO\Bundle\KDOBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \KDO\Bundle\KDOBundle\Entity\User 
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * Add gifts
+     *
+     * @param \KDO\Bundle\KDOBundle\Entity\Gift $gifts
+     * @return Lists
+     */
+    public function addGift(\KDO\Bundle\KDOBundle\Entity\Gift $gifts)
+    {
+        $this->gifts[] = $gifts;
+
+        return $this;
+    }
+
+    /**
+     * Remove gifts
+     *
+     * @param \KDO\Bundle\KDOBundle\Entity\Gift $gifts
+     */
+    public function removeGift(\KDO\Bundle\KDOBundle\Entity\Gift $gifts)
+    {
+        $this->gifts->removeElement($gifts);
+    }
+
+    /**
+     * Get gifts
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getGifts()
+    {
+        return $this->gifts;
+    }
+
+    public function __toString() {
+        return $this->name;
     }
 }

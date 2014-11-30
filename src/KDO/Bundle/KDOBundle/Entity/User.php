@@ -3,6 +3,7 @@ namespace KDO\Bundle\KDOBundle\Entity;
 
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass="KDO\Bundle\KDOBundle\Repository\UserRepository")
@@ -37,11 +38,16 @@ class User extends BaseUser
     /** @ORM\Column(name="facebook_access_token", type="string", length=255, nullable=true) */
     protected $facebook_access_token;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Lists", mappedBy="user")
+     */
+    protected $lists;
 
     public function __construct()
     {
         parent::__construct();
         // your own logic
+        $this->lists = new ArrayCollection();
     }
 
     /**
@@ -141,4 +147,47 @@ class User extends BaseUser
     }
 
 
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Add lists
+     *
+     * @param \KDO\Bundle\KDOBundle\Entity\Lists $lists
+     * @return User
+     */
+    public function addList(\KDO\Bundle\KDOBundle\Entity\Lists $lists)
+    {
+        $this->lists[] = $lists;
+
+        return $this;
+    }
+
+    /**
+     * Remove lists
+     *
+     * @param \KDO\Bundle\KDOBundle\Entity\Lists $lists
+     */
+    public function removeList(\KDO\Bundle\KDOBundle\Entity\Lists $lists)
+    {
+        $this->lists->removeElement($lists);
+    }
+
+    /**
+     * Get lists
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getLists()
+    {
+        return $this->lists;
+    }
 }

@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class ListsType extends AbstractType
+class GiftType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -17,10 +17,22 @@ class ListsType extends AbstractType
         $builder
             ->add('name')
             ->add('description')
-            ->add('type')
-            ->add('event')
-            ->add('user')
-            ->add('gifts')
+            ->add('picture')
+            ->add('link')
+            ->add('price')
+            ->add('isSecondHand', 'checkbox', array(
+                'required' => false
+            ))
+            ->add('giveMoney', 'checkbox', array(
+                'required' => false
+            ))
+            ->add('accepteMultipleParts', 'checkbox', array(
+                'required' => false
+            ))
+            ->add('numberOfParts', 'integer', array(
+                'required' => false
+            ))
+            ->add('list')
         ;
     }
     
@@ -30,7 +42,7 @@ class ListsType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'KDO\Bundle\KDOBundle\Entity\Lists'
+            'data_class' => 'KDO\Bundle\KDOBundle\Entity\Gift'
         ));
     }
 
@@ -39,6 +51,6 @@ class ListsType extends AbstractType
      */
     public function getName()
     {
-        return 'kdo_bundle_kdobundle_lists';
+        return 'kdo_bundle_kdobundle_gift';
     }
 }
