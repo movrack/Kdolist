@@ -32,6 +32,7 @@
             <a class="btn btn-info"href="{{ path("fos_user_registration_register") }}">Inscription</a>
         </form>
         <br />
+        {{ render(url('hwi_oauth_connect')) }}
         {#
         <a href="{{path("hwi_oauth_service_redirect", {'service':'google'})}}">google</a><br />
         <a href="{{path("hwi_oauth_service_redirect", {'service':'windows_live'})}}">windows live</a><br />

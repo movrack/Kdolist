@@ -13,3 +13,5 @@
 web/css
 web/js
 deployToRemote.sh
+/src/KDO/Bundle/KDOBundle/Resources/public/bower
+/web/fonts/
