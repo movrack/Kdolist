@@ -94,6 +94,8 @@
         
     {% block body_end_before_js %}
     {% endblock body_end_before_js %}
-    {% include '::footScripts.html.twig'%}
+    {% include '::footScripts.html.twig' %}
+    {% block page_script %}
+    {% endblock page_script %}
 {% endblock body %}
         

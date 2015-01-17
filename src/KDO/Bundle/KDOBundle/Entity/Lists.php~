@@ -55,10 +55,13 @@ class Lists
      */
     protected $gifts;
 
+//    /**
+//     * @ORM\OneToMany(targetEntity="ListOwner", cascade={"persist", "remove", "merge"})
+//     */
     /**
-     * @ORM\ManyToMany(targetEntity="ListOwner", cascade={"persist", "remove", "merge"}, orphanRemoval=true)
+     * @ORM\ManyToMany(targetEntity="ListOwner")
      * @ORM\JoinTable(name="list_listowner",
-     *      joinColumns={@ORM\JoinColumn(name="list_id", referencedColumnName="id", onDelete="CASCADE")},
+     *      joinColumns={@ORM\JoinColumn(name="list_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="owner_id", referencedColumnName="id", unique=true)}
      *      )
      **/

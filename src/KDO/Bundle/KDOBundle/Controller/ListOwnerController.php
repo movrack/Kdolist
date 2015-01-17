@@ -7,22 +7,21 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use KDO\Bundle\KDOBundle\Entity\Gift;
-use KDO\Bundle\KDOBundle\Form\GiftType;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use KDO\Bundle\KDOBundle\Entity\ListOwner;
+use KDO\Bundle\KDOBundle\Form\ListOwnerType;
 
 /**
- * Gift controller.
+ * ListOwner controller.
  *
- * @Route("/gift")
+ * @Route("/listowner")
  */
-class GiftController extends Controller
+class ListOwnerController extends Controller
 {
 
     /**
-     * Lists all Gift entities.
+     * Lists all ListOwner entities.
      *
-     * @Route("/", name="gift")
+     * @Route("/", name="listowner")
      * @Method("GET")
      * @Template()
      */
@@ -30,22 +29,22 @@ class GiftController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('KDOKDOBundle:Gift')->findAll();
+        $entities = $em->getRepository('KDOKDOBundle:ListOwner')->findAll();
 
         return array(
             'entities' => $entities,
         );
     }
     /**
-     * Creates a new Gift entity.
+     * Creates a new ListOwner entity.
      *
-     * @Route("/", name="gift_create")
+     * @Route("/", name="listowner_create")
      * @Method("POST")
-     * @Template("KDOKDOBundle:Gift:new.html.twig")
+     * @Template("KDOKDOBundle:ListOwner:new.html.twig")
      */
     public function createAction(Request $request)
     {
-        $entity = new Gift();
+        $entity = new ListOwner();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
@@ -54,7 +53,7 @@ class GiftController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('gift_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('listowner_show', array('id' => $entity->getId())));
         }
 
         return array(
@@ -64,16 +63,16 @@ class GiftController extends Controller
     }
 
     /**
-     * Creates a form to create a Gift entity.
+     * Creates a form to create a ListOwner entity.
      *
-     * @param Gift $entity The entity
+     * @param ListOwner $entity The entity
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(Gift $entity)
+    private function createCreateForm(ListOwner $entity)
     {
-        $form = $this->createForm(new GiftType(), $entity, array(
-            'action' => $this->generateUrl('gift_create'),
+        $form = $this->createForm(new ListOwnerType(), $entity, array(
+            'action' => $this->generateUrl('listowner_create'),
             'method' => 'POST',
         ));
 
@@ -82,20 +81,16 @@ class GiftController extends Controller
         return $form;
     }
 
-
-
     /**
-     * Displays a form to create a new Gift entity.
+     * Displays a form to create a new ListOwner entity.
      *
-     * @Route("/new/{list}", name="gift_new")
-     * @ParamConverter("list", class="KDOKDOBundle:Lists")
+     * @Route("/new", name="listowner_new")
      * @Method("GET")
      * @Template()
      */
-    public function newAction(Lists $lists)
+    public function newAction()
     {
-        $entity = new Gift();
-        $entity->setList($lists);
+        $entity = new ListOwner();
         $form   = $this->createCreateForm($entity);
 
         return array(
@@ -105,9 +100,9 @@ class GiftController extends Controller
     }
 
     /**
-     * Finds and displays a Gift entity.
+     * Finds and displays a ListOwner entity.
      *
-     * @Route("/{id}", name="gift_show")
+     * @Route("/{id}", name="listowner_show")
      * @Method("GET")
      * @Template()
      */
@@ -115,10 +110,10 @@ class GiftController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('KDOKDOBundle:Gift')->find($id);
+        $entity = $em->getRepository('KDOKDOBundle:ListOwner')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Gift entity.');
+            throw $this->createNotFoundException('Unable to find ListOwner entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -130,9 +125,9 @@ class GiftController extends Controller
     }
 
     /**
-     * Displays a form to edit an existing Gift entity.
+     * Displays a form to edit an existing ListOwner entity.
      *
-     * @Route("/{id}/edit", name="gift_edit")
+     * @Route("/{id}/edit", name="listowner_edit")
      * @Method("GET")
      * @Template()
      */
@@ -140,10 +135,10 @@ class GiftController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('KDOKDOBundle:Gift')->find($id);
+        $entity = $em->getRepository('KDOKDOBundle:ListOwner')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Gift entity.');
+            throw $this->createNotFoundException('Unable to find ListOwner entity.');
         }
 
         $editForm = $this->createEditForm($entity);
@@ -157,16 +152,16 @@ class GiftController extends Controller
     }
 
     /**
-    * Creates a form to edit a Gift entity.
+    * Creates a form to edit a ListOwner entity.
     *
-    * @param Gift $entity The entity
+    * @param ListOwner $entity The entity
     *
     * @return \Symfony\Component\Form\Form The form
     */
-    private function createEditForm(Gift $entity)
+    private function createEditForm(ListOwner $entity)
     {
-        $form = $this->createForm(new GiftType(), $entity, array(
-            'action' => $this->generateUrl('gift_update', array('id' => $entity->getId())),
+        $form = $this->createForm(new ListOwnerType(), $entity, array(
+            'action' => $this->generateUrl('listowner_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
 
@@ -175,20 +170,20 @@ class GiftController extends Controller
         return $form;
     }
     /**
-     * Edits an existing Gift entity.
+     * Edits an existing ListOwner entity.
      *
-     * @Route("/{id}", name="gift_update")
+     * @Route("/{id}", name="listowner_update")
      * @Method("PUT")
-     * @Template("KDOKDOBundle:Gift:edit.html.twig")
+     * @Template("KDOKDOBundle:ListOwner:edit.html.twig")
      */
     public function updateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('KDOKDOBundle:Gift')->find($id);
+        $entity = $em->getRepository('KDOKDOBundle:ListOwner')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Gift entity.');
+            throw $this->createNotFoundException('Unable to find ListOwner entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -198,7 +193,7 @@ class GiftController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('gift_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('listowner_edit', array('id' => $id)));
         }
 
         return array(
@@ -208,9 +203,9 @@ class GiftController extends Controller
         );
     }
     /**
-     * Deletes a Gift entity.
+     * Deletes a ListOwner entity.
      *
-     * @Route("/{id}", name="gift_delete")
+     * @Route("/{id}", name="listowner_delete")
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, $id)
@@ -220,21 +215,21 @@ class GiftController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('KDOKDOBundle:Gift')->find($id);
+            $entity = $em->getRepository('KDOKDOBundle:ListOwner')->find($id);
 
             if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Gift entity.');
+                throw $this->createNotFoundException('Unable to find ListOwner entity.');
             }
 
             $em->remove($entity);
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('gift'));
+        return $this->redirect($this->generateUrl('listowner'));
     }
 
     /**
-     * Creates a form to delete a Gift entity by id.
+     * Creates a form to delete a ListOwner entity by id.
      *
      * @param mixed $id The entity id
      *
@@ -243,7 +238,7 @@ class GiftController extends Controller
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('gift_delete', array('id' => $id)))
+            ->setAction($this->generateUrl('listowner_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()

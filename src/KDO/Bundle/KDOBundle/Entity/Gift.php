@@ -92,6 +92,10 @@ class Gift
      */
     protected $list;
 
+    function __toString() {
+        return $this->name;
+    }
+
     /**
      * Get id
      *

@@ -27,7 +27,6 @@
             </tr>
         </tbody>
     </table>
-
     <ul class="record_actions">
         <li>
             <a href="{{ path('lists') }}">
@@ -41,4 +40,29 @@
         </li>
     </ul>
     {{ form(delete_form) }}
+{#
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal">
+        Ajouter un cadeau
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Ajouter un cadeau</h4>
+                </div>
+                <div class="modal-body">
+                    {{ render(controller('KDOKDOBundle:Gift:new', { 'list': {{ entity.id }} })) }}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                    <button type="button" class="btn btn-primary">Enregistrer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    #}
 {% endblock %}

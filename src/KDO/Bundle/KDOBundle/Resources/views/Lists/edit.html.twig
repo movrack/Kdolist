@@ -1,16 +1,102 @@
 {% extends '::base.html.twig' %}
-
+{% block headline %}Edition de liste{% endblock headline %}
 {% block content_content%}
-    <h1>Lists edit</h1>
 
-    {{ form(edit_form) }}
+    <a class="btn btn-primary" href="{{ path('lists') }}">Retour à la liste</a>
 
-    <ul class="record_actions">
-        <li>
-            <a href="{{ path('lists') }}">
-                Back to the list
+    {{ form_start(form) }}
+    {{ form_row(form.name) }}
+    {{ form_row(form.event) }}
+    {{ form_row(form.description) }}
+    {{ form_row(form.type) }}
+
+    <div>
+    <h4>A qui appartient cette liste ?</h4>
+    <div id="owners" class="container-fluid"  data-prototype="{{ form_widget(form.owners.vars.prototype)|e }}">
+    {% for owner in form.owners %}
+
+        <div class="row">
+            <div class="col-md-11">
+                {{ form_row(owner.firstName) }}
+                {{ form_row(owner.lastName) }}
+            </div>
+            <div class="col-md-1"><a class="deleteOwner btn btn-danger" href="#"><i class="fa fa-trash"></i></a></div>
+        </div>
+    {% endfor %}
+    </div>
+    <a class="btn btn-default" href="#" id="add_owner_link">Ajouter un nom</a>
+    </div>
+    <br />
+
+
+
+    {% if entity.owners|length == 0 %}<div class="hide">{{ form_row(form.owners) }}</div>{% endif %}
+    {{ form_widget(form.submit, {'label': 'Enregister'}) }}
+    {{ form_end(form) }}
+
+
+    {{ form_start(delete_form) }}
+    {{ form_widget(delete_form.submit, {'label': 'Supprimer'}) }}
+    {{ form_end(delete_form) }}
+
+
+
+<div id="ownerTemplate" class="hide">
+    <div class="row">
+        <div class="col-md-11 ownerForm">
+        </div>
+        <div class="col-md-1">
+            <a class="deleteOwner btn btn-danger" href="#">
+                <i class="fa fa-trash"></i>
             </a>
-        </li>
-        <li>{{ form(delete_form) }}</li>
-    </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block page_script %}
+<script type="text/javascript" >
+
+function addOwnerForm($collectionHolder) {
+    // Get the data-prototype and the index
+    var prototype = $collectionHolder.data('prototype');
+
+    var index = $collectionHolder.data('index');
+    console.log(index);
+
+    // Replace '__name__' in the prototype's HTML to
+    // instead be a number based on how many items we have
+    var newForm = prototype.replace(/__name__/g, index);
+    $('#ownerTemplate .ownerForm').html(newForm);
+    var form = $('#ownerTemplate').children();
+
+    // increase the index with one for the next item
+    $collectionHolder.data('index', index + 1);
+
+    // Display the form in the page in an div
+    form.clone().appendTo($collectionHolder);
+    $('#ownerTemplate .ownerForm').html();
+}
+
+$(document).ready(function() {
+    ////
+    // Delete owner
+    $('#owners').on('click', '.deleteOwner', function(e) {
+        e.preventDefault();
+        $(this).parent().parent().remove();
+    });
+
+    ////
+    // Add owner
+    // count the current form inputs we have (e.g. 2), use that as the new
+    // index when inserting a new item and finally, add the form
+    $('#owners').data('index', $(this).find(':input').length);
+    $('#add_owner_link').on('click', function(e) {
+        e.preventDefault();
+        addOwnerForm($('#owners'));
+    });
+});
+
+
+</script>
 {% endblock %}

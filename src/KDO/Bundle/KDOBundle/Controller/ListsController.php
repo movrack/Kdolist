@@ -7,8 +7,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use KDO\Bundle\KDOBundle\Entity\Lists;
 use KDO\Bundle\KDOBundle\Form\ListsType;
+use KDO\Bundle\KDOBundle\Entity\ListType;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Lists controller.
@@ -28,11 +31,13 @@ class ListsController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-
-        $entities = $em->getRepository('KDOKDOBundle:Lists')->findAll();
-
+        $user = $this->get('security.context')->getToken()->getUser();
+        $entities = $em->getRepository('KDOKDOBundle:Lists')->listOfUser($user);
+        //findAll();
+        $listeTypes = $em->getRepository('KDOKDOBundle:ListType')->findAll();
         return array(
             'entities' => $entities,
+            'listeTypes' => $listeTypes
         );
     }
     /**
@@ -50,6 +55,8 @@ class ListsController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $user = $this->get('security.context')->getToken()->getUser();
+            $entity->setUser($user);
             $em->persist($entity);
             $em->flush();
 
@@ -84,18 +91,21 @@ class ListsController extends Controller
     /**
      * Displays a form to create a new Lists entity.
      *
-     * @Route("/new", name="lists_new")
+     * @Route("/new/{id}", name="lists_new")
+     * @ParamConverter("type", class="KDOKDOBundle:ListType")
      * @Method("GET")
      * @Template()
      */
-    public function newAction()
+    public function newAction(ListType $type)
     {
         $entity = new Lists();
+        $entity->setType($type);
         $form   = $this->createCreateForm($entity);
 
         return array(
             'entity' => $entity,
             'form'   => $form->createView(),
+            'type' => $type
         );
     }
 
@@ -146,7 +156,7 @@ class ListsController extends Controller
 
         return array(
             'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }
@@ -169,6 +179,9 @@ class ListsController extends Controller
 
         return $form;
     }
+
+
+
     /**
      * Edits an existing Lists entity.
      *
@@ -190,10 +203,28 @@ class ListsController extends Controller
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 
+
+        $originalOwners = new ArrayCollection();
+        foreach ($entity->getOwners() as $owner) {
+            $originalOwners->add($owner);
+            $this->get('session')->getFlashBag()->add(
+                'notice',
+                $owner->getFirstName()
+            );
+        }
+
+
         if ($editForm->isValid()) {
+            foreach ($originalOwners as $owner) {
+                if ($entity->getOwners()->contains($owner) == false) {
+                    $owner->getList()->removeElement($entity);
+                }
+            }
+
+            $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('lists_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('lists'));
         }
 
         return array(

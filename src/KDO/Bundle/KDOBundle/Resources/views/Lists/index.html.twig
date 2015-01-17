@@ -1,47 +1,92 @@
 {% extends '::base.html.twig' %}
+{% block headline %}
+    <div class="right" style="float: right">
+            {##}
+
+        <div class="btn-group">
+            <button type="button" class="btn btn-default dropdown-toggle"
+                    data-toggle="dropdown" aria-expanded="false">
+                Ajouter une nouvelle liste <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+                {% for type in listeTypes %}
+                <li>
+                    <a href="{{ path('lists_new', {'id': type.id } ) }}"
+                       title="{{ type.description }}">
+                        {{ type.name }}
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    Mes listes
+{% endblock headline %}
 
 {% block content_content %}
-    <h1>Lists list</h1>
 
-    <table class="records_list">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Type</th>
-                <th>Event</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for entity in entities %}
-            <tr>
-                <td><a href="{{ path('lists_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                <td>{{ entity.name }}</td>
-                <td>{{ entity.description }}</td>
-                <td>{{ entity.type }}</td>
-                <td>{{ entity.event }}</td>
-                <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('lists_show', { 'id': entity.id }) }}">show</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('lists_edit', { 'id': entity.id }) }}">edit</a>
-                    </li>
-                </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    {% for entity in entities %}
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div style="float: right" >
+                    {%  if not entity.owners is empty %}
+                        Liste de
+                    {% endif %}
+                    {% for user in entity.owners %}
+                        {% if user != entity.owners|first and  user == entity.owners|last %}
+                            {% if entity.owners|length == 2 %}
+                                et
+                            {% else %}
+                                ,
+                            {% endif %}
+                        {% endif %}
+                        {{ user.firstname|capitalize }} {{ user.lastname|capitalize }}
+                    {% endfor %}
+                </div>
+                <h1 class="panel-title">
+                    {{ entity.name }}
+                    <small>
+                        {%  if not entity.event is empty %} ({{ entity.event }}) {% endif %}
+                    </small>
+                </h1>
+            </div>
+            <div class="panel-body">
+                <div class="container-fluid">
+                    <div class="row" >
+                        <div class="col-md-3"><img src="http://baconmockup.com/200/100/"/></div>
+                        <div class="col-md-7">
+                            {{ entity.description }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-footer ">
+                <div class="container-fluid">
+                    <div class="row" >
+                        <div class="col-md-6">
+                            {#{ entity.type }#}
+                        </div>
+                        <div class="col-md-6 right">
+                            <a class="btn btn-primary"
+                               href="{{ path('lists_show', { 'id': entity.id }) }}">
+                                Afficher la liste
+                            </a>
+                            <a class="btn btn-default"
+                                href="{{ path('lists_edit', { 'id': entity.id }) }}">
+                                Modifier
+                            </a>
+                        </div>
+                    </div>
+                </div>
 
-    <ul>
-        <li>
-            <a href="{{ path('lists_new') }}">
-                Create a new entry
-            </a>
-        </li>
-    </ul>
+            </div>
+        </div>
+    <br />
+    {% endfor %}
+{#
+<a href="{{ path('lists_show', { 'id': entity.id }) }}">{{ entity.id }}</a>
+<a href="{{ path('lists_show', { 'id': entity.id }) }}">show</a>
+
+#}
+
 {% endblock %}
