@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class ListsType extends AbstractType
+class PictureType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -15,24 +15,7 @@ class ListsType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name')
-            ->add('event')
-            ->add('description')
-            ->add('type')
-            ->add('picture', new PictureType())
-
-            //->add('users')
-
-            ->add('owners', 'collection',
-                array(
-                    'type' => new ListOwnerType(),
-                    'allow_add' => true,
-                    'allow_delete' => true,
-                    'by_reference' => false
-                )
-            )
-
-            // ->add('gifts')
+            ->add('picture', null , array('label'=> ' '))
         ;
     }
     
@@ -42,7 +25,7 @@ class ListsType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'KDO\Bundle\KDOBundle\Entity\Lists'
+            'data_class' => 'KDO\Bundle\KDOBundle\Entity\Picture'
         ));
     }
 
@@ -51,6 +34,6 @@ class ListsType extends AbstractType
      */
     public function getName()
     {
-        return 'kdo_bundle_kdobundle_lists';
+        return 'kdo_bundle_kdobundle_picture';
     }
 }

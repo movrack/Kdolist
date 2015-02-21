@@ -40,6 +40,41 @@ class ListsController extends Controller
             'listeTypes' => $listeTypes
         );
     }
+
+
+    /**
+     * Deletes a Lists entity.
+     *
+     * @Route("/{id}", name="lists_delete")
+     * @Method("DELETE")
+     */
+    public function deleteAction(Request $request, $id)
+    {
+        $form = $this->createDeleteForm($id);
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $entity = $em->getRepository('KDOKDOBundle:Lists')->find($id);
+
+            if (!$entity) {
+                throw $this->createNotFoundException('Unable to find Lists entity.');
+            }
+
+            foreach( $entity->getOwners() as $owner) {
+                $entity->getOwners()->removeElement($owner);
+                $em->remove($owner);
+                $em->flush();
+            }
+
+            $em->remove($entity);
+            $em->flush();
+        }
+
+        return $this->redirect($this->generateUrl('lists'));
+    }
+
+
     /**
      * Creates a new Lists entity.
      *
@@ -56,7 +91,7 @@ class ListsController extends Controller
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $user = $this->get('security.context')->getToken()->getUser();
-            $entity->setUser($user);
+            $entity->addUser($user);
             $em->persist($entity);
             $em->flush();
 
@@ -134,11 +169,89 @@ class ListsController extends Controller
         );
     }
 
+
+
+    /**
+    * Creates a form to edit a Lists entity.
+    *
+    * @param Lists $entity The entity
+    *
+    * @return \Symfony\Component\Form\Form The form
+    */
+    private function createEditForm(Lists $entity)
+    {
+        $form = $this->createForm(new ListsType(), $entity, array(
+            'action' => $this->generateUrl('lists_update', array('id' => $entity->getId())),
+            'method' => 'POST',
+        ));
+
+        $form->add('submit', 'submit', array('label' => 'Enregistrer'));
+
+        return $form;
+    }
+
+
+
+    /**
+     * Edits an existing Lists entity.
+     *
+     * @Route("/{id}", name="lists_update")
+     * @Template("KDOKDOBundle:Lists:edit.html.twig")
+     * @Method("POST")
+     */
+    public function updateAction(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('KDOKDOBundle:Lists')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Lists entity.');
+        }
+
+        $deleteForm = $this->createDeleteForm($id);
+        $editForm = $this->createEditForm($entity);
+        $editForm->handleRequest($request);
+
+
+        if ($editForm->isValid()) {
+
+            $originalOwners = new ArrayCollection();
+
+            foreach ($entity->getOwners() as $owner) {
+                $originalOwners->add($owner);
+                $this->get('session')->getFlashBag()->add(
+                    'notice',
+                    $owner->getFirstName()
+                );
+            }
+
+
+            foreach ($originalOwners as $owner) {
+                if ($entity->getOwners()->contains($owner) == false) {
+                    $owner->getList()->removeElement($entity);
+                }
+            }
+
+            $entity->getPicture()->preUpload();
+
+            $em->persist($entity);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('lists_show', array('id' => $entity->getId())));
+        }
+
+        return array(
+            'entity'      => $entity,
+            'form'   => $editForm->createView(),
+            'delete_form' => $deleteForm->createView(),
+        );
+    }
+
     /**
      * Displays a form to edit an existing Lists entity.
      *
      * @Route("/{id}/edit", name="lists_edit")
-     * @Method("GET")
      * @Template()
      */
     public function editAction($id)
@@ -159,104 +272,6 @@ class ListsController extends Controller
             'form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
-    }
-
-    /**
-    * Creates a form to edit a Lists entity.
-    *
-    * @param Lists $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
-    private function createEditForm(Lists $entity)
-    {
-        $form = $this->createForm(new ListsType(), $entity, array(
-            'action' => $this->generateUrl('lists_update', array('id' => $entity->getId())),
-            'method' => 'PUT',
-        ));
-
-        $form->add('submit', 'submit', array('label' => 'Update'));
-
-        return $form;
-    }
-
-
-
-    /**
-     * Edits an existing Lists entity.
-     *
-     * @Route("/{id}", name="lists_update")
-     * @Method("PUT")
-     * @Template("KDOKDOBundle:Lists:edit.html.twig")
-     */
-    public function updateAction(Request $request, $id)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('KDOKDOBundle:Lists')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Lists entity.');
-        }
-
-        $deleteForm = $this->createDeleteForm($id);
-        $editForm = $this->createEditForm($entity);
-        $editForm->handleRequest($request);
-
-
-        $originalOwners = new ArrayCollection();
-        foreach ($entity->getOwners() as $owner) {
-            $originalOwners->add($owner);
-            $this->get('session')->getFlashBag()->add(
-                'notice',
-                $owner->getFirstName()
-            );
-        }
-
-
-        if ($editForm->isValid()) {
-            foreach ($originalOwners as $owner) {
-                if ($entity->getOwners()->contains($owner) == false) {
-                    $owner->getList()->removeElement($entity);
-                }
-            }
-
-            $em->persist($entity);
-            $em->flush();
-
-            return $this->redirect($this->generateUrl('lists'));
-        }
-
-        return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        );
-    }
-    /**
-     * Deletes a Lists entity.
-     *
-     * @Route("/{id}", name="lists_delete")
-     * @Method("DELETE")
-     */
-    public function deleteAction(Request $request, $id)
-    {
-        $form = $this->createDeleteForm($id);
-        $form->handleRequest($request);
-
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('KDOKDOBundle:Lists')->find($id);
-
-            if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Lists entity.');
-            }
-
-            $em->remove($entity);
-            $em->flush();
-        }
-
-        return $this->redirect($this->generateUrl('lists'));
     }
 
     /**

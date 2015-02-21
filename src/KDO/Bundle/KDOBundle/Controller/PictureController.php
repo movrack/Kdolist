@@ -7,21 +7,21 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use KDO\Bundle\KDOBundle\Entity\ListOwner;
-use KDO\Bundle\KDOBundle\Form\ListOwnerType;
+use KDO\Bundle\KDOBundle\Entity\Picture;
+use KDO\Bundle\KDOBundle\Form\PictureType;
 
 /**
- * ListOwner controller.
+ * Picture controller.
  *
- * @Route("/listowner")
+ * @Route("/picture")
  */
-class ListOwnerController extends Controller
+class PictureController extends Controller
 {
 
     /**
-     * Lists all ListOwner entities.
+     * Lists all Picture entities.
      *
-     * @Route("/", name="listowner")
+     * @Route("/", name="picture")
      * @Method("GET")
      * @Template()
      */
@@ -29,22 +29,51 @@ class ListOwnerController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('KDOKDOBundle:ListOwner')->findAll();
+        $entities = $em->getRepository('KDOKDOBundle:Picture')->findAll();
 
         return array(
             'entities' => $entities,
         );
     }
+
     /**
-     * Creates a new ListOwner entity.
+     * @Route("/upload", name="picture_upload")
+     * @Template()
+     */
+    public function uploadAction()
+    {
+        $picture = new Picture();
+        $form = $this->createFormBuilder($picture)
+            ->add('file')
+            ->getForm()
+        ;
+
+        if ($this->getRequest()->isMethod('POST')) {
+            $form->handleRequest($this->getRequest());
+            if ($form->isValid()) {
+                $em = $this->getDoctrine()->getManager();
+
+
+                $em->persist($picture);
+                $em->flush();
+
+                $this->redirect($this->generateUrl('picture_show', array('id' => $picture->getId())));
+            }
+        }
+
+        return array('form' => $form->createView());
+    }
+
+    /**
+     * Creates a new Picture entity.
      *
-     * @Route("/", name="listowner_create")
+     * @Route("/", name="picture_create")
      * @Method("POST")
-     * @Template("KDOKDOBundle:ListOwner:new.html.twig")
+     * @Template("KDOKDOBundle:Picture:new.html.twig")
      */
     public function createAction(Request $request)
     {
-        $entity = new ListOwner();
+        $entity = new Picture();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
@@ -53,7 +82,7 @@ class ListOwnerController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('listowner_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('picture_show', array('id' => $entity->getId())));
         }
 
         return array(
@@ -63,16 +92,16 @@ class ListOwnerController extends Controller
     }
 
     /**
-     * Creates a form to create a ListOwner entity.
+     * Creates a form to create a Picture entity.
      *
-     * @param ListOwner $entity The entity
+     * @param Picture $entity The entity
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(ListOwner $entity)
+    private function createCreateForm(Picture $entity)
     {
-        $form = $this->createForm(new ListOwnerType(), $entity, array(
-            'action' => $this->generateUrl('listowner_create'),
+        $form = $this->createForm(new PictureType(), $entity, array(
+            'action' => $this->generateUrl('picture_create'),
             'method' => 'POST',
         ));
 
@@ -82,15 +111,15 @@ class ListOwnerController extends Controller
     }
 
     /**
-     * Displays a form to create a new ListOwner entity.
+     * Displays a form to create a new Picture entity.
      *
-     * @Route("/new", name="listowner_new")
+     * @Route("/new", name="picture_new")
      * @Method("GET")
      * @Template()
      */
     public function newAction()
     {
-        $entity = new ListOwner();
+        $entity = new Picture();
         $form   = $this->createCreateForm($entity);
 
         return array(
@@ -100,9 +129,9 @@ class ListOwnerController extends Controller
     }
 
     /**
-     * Finds and displays a ListOwner entity.
+     * Finds and displays a Picture entity.
      *
-     * @Route("/{id}", name="listowner_show")
+     * @Route("/{id}", name="picture_show")
      * @Method("GET")
      * @Template()
      */
@@ -110,10 +139,10 @@ class ListOwnerController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('KDOKDOBundle:ListOwner')->find($id);
+        $entity = $em->getRepository('KDOKDOBundle:Picture')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find ListOwner entity.');
+            throw $this->createNotFoundException('Unable to find Picture entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -125,9 +154,9 @@ class ListOwnerController extends Controller
     }
 
     /**
-     * Displays a form to edit an existing ListOwner entity.
+     * Displays a form to edit an existing Picture entity.
      *
-     * @Route("/{id}/edit", name="listowner_edit")
+     * @Route("/{id}/edit", name="picture_edit")
      * @Method("GET")
      * @Template()
      */
@@ -135,10 +164,10 @@ class ListOwnerController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('KDOKDOBundle:ListOwner')->find($id);
+        $entity = $em->getRepository('KDOKDOBundle:Picture')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find ListOwner entity.');
+            throw $this->createNotFoundException('Unable to find Picture entity.');
         }
 
         $editForm = $this->createEditForm($entity);
@@ -152,16 +181,16 @@ class ListOwnerController extends Controller
     }
 
     /**
-    * Creates a form to edit a ListOwner entity.
+    * Creates a form to edit a Picture entity.
     *
-    * @param ListOwner $entity The entity
+    * @param Picture $entity The entity
     *
     * @return \Symfony\Component\Form\Form The form
     */
-    private function createEditForm(ListOwner $entity)
+    private function createEditForm(Picture $entity)
     {
-        $form = $this->createForm(new ListOwnerType(), $entity, array(
-            'action' => $this->generateUrl('listowner_update', array('id' => $entity->getId())),
+        $form = $this->createForm(new PictureType(), $entity, array(
+            'action' => $this->generateUrl('picture_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
 
@@ -170,20 +199,20 @@ class ListOwnerController extends Controller
         return $form;
     }
     /**
-     * Edits an existing ListOwner entity.
+     * Edits an existing Picture entity.
      *
-     * @Route("/{id}", name="listowner_update")
+     * @Route("/{id}", name="picture_update")
      * @Method("PUT")
-     * @Template("KDOKDOBundle:ListOwner:edit.html.twig")
+     * @Template("KDOKDOBundle:Picture:edit.html.twig")
      */
     public function updateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('KDOKDOBundle:ListOwner')->find($id);
+        $entity = $em->getRepository('KDOKDOBundle:Picture')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find ListOwner entity.');
+            throw $this->createNotFoundException('Unable to find Picture entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -191,9 +220,11 @@ class ListOwnerController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
+            $entity->preUpload();
+            $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('listowner_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('picture_show', array('id' => $id)));
         }
 
         return array(
@@ -203,9 +234,9 @@ class ListOwnerController extends Controller
         );
     }
     /**
-     * Deletes a ListOwner entity.
+     * Deletes a Picture entity.
      *
-     * @Route("/{id}", name="listowner_delete")
+     * @Route("/{id}", name="picture_delete")
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, $id)
@@ -215,21 +246,21 @@ class ListOwnerController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('KDOKDOBundle:ListOwner')->find($id);
+            $entity = $em->getRepository('KDOKDOBundle:Picture')->find($id);
 
             if (!$entity) {
-                throw $this->createNotFoundException('Unable to find ListOwner entity.');
+                throw $this->createNotFoundException('Unable to find Picture entity.');
             }
 
             $em->remove($entity);
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('listowner'));
+        return $this->redirect($this->generateUrl('picture'));
     }
 
     /**
-     * Creates a form to delete a ListOwner entity by id.
+     * Creates a form to delete a Picture entity by id.
      *
      * @param mixed $id The entity id
      *
@@ -238,7 +269,7 @@ class ListOwnerController extends Controller
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('listowner_delete', array('id' => $id)))
+            ->setAction($this->generateUrl('picture_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()

@@ -4,12 +4,14 @@ namespace KDO\Bundle\KDOBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Lists
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="KDO\Bundle\KDOBundle\Repository\ListsRepository")
+ * @ORM\HasLifecycleCallbacks
  */
 class Lists
 {
@@ -55,17 +57,19 @@ class Lists
      */
     protected $gifts;
 
-//    /**
-//     * @ORM\OneToMany(targetEntity="ListOwner", cascade={"persist", "remove", "merge"})
-//     */
     /**
-     * @ORM\ManyToMany(targetEntity="ListOwner")
+     * @ORM\ManyToMany(targetEntity="ListOwner", cascade={"persist", "remove", "merge"}, orphanRemoval=true)
      * @ORM\JoinTable(name="list_listowner",
-     *      joinColumns={@ORM\JoinColumn(name="list_id", referencedColumnName="id")},
+     *      joinColumns={@ORM\JoinColumn(name="list_id", referencedColumnName="id", onDelete="CASCADE")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="owner_id", referencedColumnName="id", unique=true)}
      *      )
      **/
     private $owners;
+    /**
+     * @ORM\OneToOne(targetEntity="Picture")
+     * @ORM\JoinColumn(name="picture_id", referencedColumnName="id")
+     **/
+    private $picture;
 
     /**
      * @ORM\ManyToMany(targetEntity="User", mappedBy="lists")
@@ -303,4 +307,7 @@ class Lists
     {
         $this->owners->removeElement($owners);
     }
+
+
+
 }

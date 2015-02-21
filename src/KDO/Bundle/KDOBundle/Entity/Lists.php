@@ -4,12 +4,14 @@ namespace KDO\Bundle\KDOBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Lists
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="KDO\Bundle\KDOBundle\Repository\ListsRepository")
+ * @ORM\HasLifecycleCallbacks
  */
 class Lists
 {
@@ -63,6 +65,12 @@ class Lists
      *      )
      **/
     private $owners;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Picture", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="picture_id", referencedColumnName="id")
+     */
+    private $picture;
 
     /**
      * @ORM\ManyToMany(targetEntity="User", mappedBy="lists")
@@ -226,10 +234,15 @@ class Lists
      */
     public function addUser(\KDO\Bundle\KDOBundle\Entity\User $user)
     {
-        if (!$user->getLists()->contains(this)) {
+        if ($this->users->contains($user)) {
+            return $this;
+        }
+
+        $this->users->add($user);
+
+        if (!$user->getLists()->contains($this)) {
             $user->addList($this); // synchronously updating inverse side
         }
-        $this->users[] = $user;
 
         return $this;
     }
@@ -242,7 +255,7 @@ class Lists
     public function removeUser(\KDO\Bundle\KDOBundle\Entity\User $user)
     {
         $this->users->removeElement($user);
-        if ($user->getLists()->contains(this)) {
+        if ($user->getLists()->contains($this)) {
             $user->removeList($this); // synchronously updating inverse side
         }
 
@@ -256,6 +269,17 @@ class Lists
     public function getUsers()
     {
         return $this->users;
+    }
+
+
+    public function setUsers(ArrayCollection $users)
+    {
+        foreach ($users as $user) {
+            $user->setList($this);
+        }
+
+        $this->users = $users;
+        return $this;
     }
 
     public function setOwners(ArrayCollection $owners)
@@ -299,5 +323,31 @@ class Lists
     public function removeOwner(\KDO\Bundle\KDOBundle\Entity\ListOwner $owners)
     {
         $this->owners->removeElement($owners);
+    }
+
+
+
+
+    /**
+     * Set picture
+     *
+     * @param \KDO\Bundle\KDOBundle\Entity\Picture $picture
+     * @return Lists
+     */
+    public function setPicture(\KDO\Bundle\KDOBundle\Entity\Picture $picture = null)
+    {
+        $this->picture = $picture;
+
+        return $this;
+    }
+
+    /**
+     * Get picture
+     *
+     * @return \KDO\Bundle\KDOBundle\Entity\Picture 
+     */
+    public function getPicture()
+    {
+        return $this->picture;
     }
 }

@@ -38,11 +38,7 @@ class ListOwner
     private $firstName;
 
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="list", type="string", length=255)
-     */
+
     private $list;
 
 
@@ -120,5 +116,15 @@ class ListOwner
     {
             $this->list = $list;
         return $this;
+    }
+
+    /**
+     * Get list
+     *
+     * @return string 
+     */
+    public function getList()
+    {
+        return $this->list;
     }
 }

@@ -4,11 +4,14 @@
 
     <a class="btn btn-primary" href="{{ path('lists') }}">Retour à la liste</a>
 
-    {{ form_start(form) }}
+<form action="{{  path('lists_update', {'id': entity.id}) }}" method="post" {{ form_enctype(form) }}>
+
+    {{ form_widget(form.submit) }}
     {{ form_row(form.name) }}
     {{ form_row(form.event) }}
     {{ form_row(form.description) }}
     {{ form_row(form.type) }}
+    {{ form_row(form.picture) }}
 
     <div>
     <h4>A qui appartient cette liste ?</h4>
@@ -31,8 +34,9 @@
 
 
     {% if entity.owners|length == 0 %}<div class="hide">{{ form_row(form.owners) }}</div>{% endif %}
-    {{ form_widget(form.submit, {'label': 'Enregister'}) }}
+
     {{ form_end(form) }}
+</form>
 
 
     {{ form_start(delete_form) }}

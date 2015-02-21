@@ -177,11 +177,15 @@ class User extends BaseUser
      */
     public function addList(\KDO\Bundle\KDOBundle\Entity\Lists $list)
     {
+        if ($this->lists->contains($list)) {
+            return $this;
+        }
 
-        if (!$list->getLists()->contains(this)) {
+        $this->lists->add($list);
+
+        if (!$list->getUsers()->contains($this)) {
             $list->addUser($this); // synchronously updating inverse side
         }
-        $this->lists[] = $list;
         return $this;
     }
 
@@ -194,7 +198,7 @@ class User extends BaseUser
     {
 
         $this->lists->removeElement($lists);
-        if ($lists->getUsers()->contains(this)) {
+        if ($lists->getUsers()->contains($this)) {
             $lists->removeUser($this); // synchronously updating inverse side
         }
 

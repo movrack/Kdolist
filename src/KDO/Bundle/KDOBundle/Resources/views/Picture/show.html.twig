@@ -1,7 +1,7 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
-    <h1>ListOwner</h1>
+    <h1>Picture</h1>
 
     <table class="record_properties">
         <tbody>
@@ -10,24 +10,20 @@
                 <td>{{ entity.id }}</td>
             </tr>
             <tr>
-                <th>Lastname</th>
-                <td>{{ entity.lastName }}</td>
-            </tr>
-            <tr>
-                <th>Firstname</th>
-                <td>{{ entity.firstName }}</td>
+                <th>Path</th>
+                <td><img src="{{ asset(entity.webPath) }}"/></td>
             </tr>
         </tbody>
     </table>
 
         <ul class="record_actions">
     <li>
-        <a href="{{ path('listowner') }}">
+        <a href="{{ path('picture') }}">
             Back to the list
         </a>
     </li>
     <li>
-        <a href="{{ path('listowner_edit', { 'id': entity.id }) }}">
+        <a href="{{ path('picture_edit', { 'id': entity.id }) }}">
             Edit
         </a>
     </li>
