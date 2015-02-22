@@ -2,18 +2,36 @@
 
 namespace KDO\Bundle\KDOBundle\Form;
 
+use KDO\Bundle\KDOBundle\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\Security\Core\SecurityContext;
+
+use KDO\Bundle\KDOBundle\Repository\ListsRepository;
 
 class GiftType extends AbstractType
 {
+    /**
+     * @var \KDO\Bundle\KDOBundle\Entity\User
+     */
+    protected $user;
+
+    /**
+     * @param \KDO\Bundle\KDOBundle\Entity\User $user
+     */
+    public function __construct(User $user)
+    {
+        $this->user = $user;
+    }
+
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+
         $builder
             ->add('name')
             ->add('description')
@@ -32,7 +50,14 @@ class GiftType extends AbstractType
             ->add('numberOfParts', 'integer', array(
                 'required' => false
             ))
-            ->add('list')
+            ->add('list', 'entity', array(
+                'class'=>'KDOKDOBundle:Lists',
+                'query_builder' => function(ListsRepository $er)  {
+                    return $er->listOfUserQueryBuilder($this->user);
+                    //return $er->createQueryBuilder('u')
+                    //    ->orderBy('u.username', 'ASC');
+                }
+            ))
         ;
     }
     

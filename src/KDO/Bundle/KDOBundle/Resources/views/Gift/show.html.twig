@@ -31,7 +31,7 @@
             </tr>
             <tr>
                 <th>List</th>
-                <td>{{ entity.list }}</td>
+                <td>{% for list in entity.list %}list.name{% endfor %}</td>
             </tr>
             <tr>
                 <th>Issecondhand</th>

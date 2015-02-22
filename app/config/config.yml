@@ -168,3 +168,8 @@ hwi_oauth:
             client_id:           %windows_live_id%
             client_secret:       %windows_live_secret%
             scope:               "wl.basic wl.signin"
+
+#jms_di_extra:
+#    locations:
+#        all_bundles: true
+#        directories: ["%kernel.root_dir%/../src"]

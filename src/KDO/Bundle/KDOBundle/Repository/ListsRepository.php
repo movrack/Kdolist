@@ -3,6 +3,7 @@
 namespace KDO\Bundle\KDOBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use KDO\Bundle\KDOBundle\Entity\User;
 
 /**
  * ListsRepository
@@ -13,12 +14,16 @@ use Doctrine\ORM\EntityRepository;
 class ListsRepository extends EntityRepository
 {
 
-    public function listOfUser($user) {
-        $query = $this->createQueryBuilder('list')
+    public function listOfUserQueryBuilder(User $user)
+    {
+        return $this->createQueryBuilder('list')
             ->join('list.users', 'u', 'WITH', 'u.id = :userId')
             ->setParameter('userId', $user->getId())
-            ->getQuery();
+            ;
+    }
 
-        return $query->getResult();
+    public function listOfUser(User $user) {
+
+        return $this->listOfUserQueryBuilder($user)->getQuery()->getResult();
     }
 }

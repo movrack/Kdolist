@@ -1,15 +1,21 @@
 {% extends '::base.html.twig' %}
-{% block headline %}Edition de liste{% endblock headline %}
+{% block headline %}
+    <div class="right" style="float: right">
+        <a class="btn btn-primary" href="{{ path('lists') }}">Retour à mes listes</a>
+        <a class="btn btn-default" href="{{ path('lists_show', { 'id': entity.id }) }}">Voir cette liste</a>
+    </div>
+    Edition de '{{ entity.title }}'
+{% endblock headline %}
 {% block content_content%}
 
-    <a class="btn btn-primary" href="{{ path('lists') }}">Retour à la liste</a>
 
 <form action="{{  path('lists_update', {'id': entity.id}) }}" method="post" {{ form_enctype(form) }}>
 
     {{ form_widget(form.submit) }}
-    {{ form_row(form.name) }}
-    {{ form_row(form.event) }}
+    {{ form_row(form.title) }}
+    {{ form_row(form.subTitle) }}
     {{ form_row(form.description) }}
+    {{ form_row(form.event) }}
     {{ form_row(form.type) }}
     {{ form_row(form.picture) }}
 

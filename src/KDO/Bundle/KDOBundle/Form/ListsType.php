@@ -15,7 +15,8 @@ class ListsType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name')
+            ->add('title')
+            ->add('subTitle')
             ->add('event')
             ->add('description')
             ->add('type')

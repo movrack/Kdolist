@@ -1,7 +1,6 @@
 {% extends '::base.html.twig' %}
 {% block headline %}
     <div class="right" style="float: right">
-            {##}
 
         <div class="btn-group">
             <button type="button" class="btn btn-default dropdown-toggle"
@@ -44,8 +43,8 @@
                     {% endfor %}
                 </div>
                 <h1 class="panel-title">
-                    {{ entity.name }}
-                    <small>
+                    {{ entity.title }}
+                    <small>{{ entity.subTitle }}
                         {%  if not entity.event is empty %} ({{ entity.event }}) {% endif %}
                     </small>
                 </h1>

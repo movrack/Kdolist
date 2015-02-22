@@ -88,7 +88,7 @@ class Gift
 
     /**
      * @ORM\ManyToOne(targetEntity="Lists", inversedBy="gifts")
-     * @ORM\JoinColumn(name="list_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="list_id", referencedColumnName="id", nullable=false)
      */
     protected $list;
 

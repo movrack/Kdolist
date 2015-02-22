@@ -3,7 +3,7 @@
 {% block content_content %}
     <h1>Gift list</h1>
 
-    <table class="records_list">
+    <table class="table records_list">
         <thead>
             <tr>
                 <th>Id</th>
@@ -29,7 +29,7 @@
                 <td>{{ entity.picture }}</td>
                 <td>{{ entity.link }}</td>
                 <td>{{ entity.price }}</td>
-                <td>{{ entity.list }}</td>
+                <td>{% for list in entity.list %}list.name{% endfor %}</td>
                 <td>{{ entity.isSecondHand }}</td>
                 <td>{{ entity.giveMoney }}</td>
                 <td>{{ entity.accepteMultipleParts }}</td>

@@ -94,10 +94,6 @@ class Lists
         $this->owners = new ArrayCollection();
     }
 
-    public function __toString() {
-        return "".$this->title;
-    }
-
     /**
      * Get id
      *
@@ -210,6 +206,10 @@ class Lists
     public function getGifts()
     {
         return $this->gifts;
+    }
+
+    public function __toString() {
+        return $this->name;
     }
 
     /**
@@ -335,51 +335,5 @@ class Lists
     public function getPicture()
     {
         return $this->picture;
-    }
-
-    /**
-     * Set title
-     *
-     * @param string $title
-     * @return Lists
-     */
-    public function setTitle($title)
-    {
-        $this->title = $title;
-
-        return $this;
-    }
-
-    /**
-     * Get title
-     *
-     * @return string 
-     */
-    public function getTitle()
-    {
-        return $this->title;
-    }
-
-    /**
-     * Set subTitle
-     *
-     * @param string $subTitle
-     * @return Lists
-     */
-    public function setSubTitle($subTitle)
-    {
-        $this->subTitle = $subTitle;
-
-        return $this;
-    }
-
-    /**
-     * Get subTitle
-     *
-     * @return string 
-     */
-    public function getSubTitle()
-    {
-        return $this->subTitle;
     }
 }

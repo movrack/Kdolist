@@ -8,8 +8,10 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use KDO\Bundle\KDOBundle\Entity\Gift;
+use KDO\Bundle\KDOBundle\Entity\Lists;
 use KDO\Bundle\KDOBundle\Form\GiftType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use JMS\DiExtraBundle\Annotation as DI;
 
 /**
  * Gift controller.
@@ -72,7 +74,9 @@ class GiftController extends Controller
      */
     private function createCreateForm(Gift $entity)
     {
-        $form = $this->createForm(new GiftType(), $entity, array(
+        $user = $this->get('security.context')->getToken()->getUser();
+
+        $form = $this->createForm(new GiftType($user), $entity, array(
             'action' => $this->generateUrl('gift_create'),
             'method' => 'POST',
         ));
@@ -92,10 +96,10 @@ class GiftController extends Controller
      * @Method("GET")
      * @Template()
      */
-    public function newAction(Lists $lists)
+    public function newAction(Lists $list)
     {
         $entity = new Gift();
-        $entity->setList($lists);
+        $entity->setList($list);
         $form   = $this->createCreateForm($entity);
 
         return array(
