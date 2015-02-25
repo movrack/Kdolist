@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "da66f9d677c486f969304c74dd499fb0",
+    "hash": "563bc382a34f4faa7e350ca4742174d1",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -1064,12 +1064,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Atlantic18/DoctrineExtensions.git",
-                "reference": "61a13a7d5febaae676519c595b6caeda1e23ff4c"
+                "reference": "54d080e6862d41a6b0294710e721550de6380d17"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Atlantic18/DoctrineExtensions/zipball/61a13a7d5febaae676519c595b6caeda1e23ff4c",
-                "reference": "61a13a7d5febaae676519c595b6caeda1e23ff4c",
+                "url": "https://api.github.com/repos/Atlantic18/DoctrineExtensions/zipball/54d080e6862d41a6b0294710e721550de6380d17",
+                "reference": "54d080e6862d41a6b0294710e721550de6380d17",
                 "shasum": ""
             },
             "require": {
@@ -1134,7 +1134,7 @@
                 "tree",
                 "uploadable"
             ],
-            "time": "2015-02-10 16:59:37"
+            "time": "2015-02-25 20:53:08"
         },
         {
             "name": "hwi/oauth-bundle",
@@ -1442,6 +1442,48 @@
                 "code generation"
             ],
             "time": "2012-01-02 20:40:52"
+        },
+        {
+            "name": "jms/debugging-bundle",
+            "version": "dev-master",
+            "target-dir": "JMS/DebuggingBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/schmittjoh/JMSDebuggingBundle.git",
+                "reference": "430daab75b88d78ee9e06ed2ae7811ea3da947af"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/schmittjoh/JMSDebuggingBundle/zipball/430daab75b88d78ee9e06ed2ae7811ea3da947af",
+                "reference": "430daab75b88d78ee9e06ed2ae7811ea3da947af",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2",
+                "symfony/framework-bundle": "~2.0"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-0": {
+                    "JMS\\DebuggingBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache2"
+            ],
+            "authors": [
+                {
+                    "name": "Johannes M. Schmitt",
+                    "email": "schmittjoh@gmail.com"
+                }
+            ],
+            "description": "This bundle provides advanced debugging tools (for your Symfony2 project).",
+            "homepage": "http://jmsyst.com/bundles/JMSDebuggingBundle",
+            "keywords": [
+                "debugging"
+            ],
+            "time": "2015-01-25 19:32:21"
         },
         {
             "name": "jms/di-extra-bundle",
@@ -1761,12 +1803,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phiamo/MopaBootstrapBundle.git",
-                "reference": "b74fcd2e1682fa14d13cf532a41cf4d81e51fc22"
+                "reference": "2ee2242c6b77c63eb7fe15863699a417154431c3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phiamo/MopaBootstrapBundle/zipball/b74fcd2e1682fa14d13cf532a41cf4d81e51fc22",
-                "reference": "b74fcd2e1682fa14d13cf532a41cf4d81e51fc22",
+                "url": "https://api.github.com/repos/phiamo/MopaBootstrapBundle/zipball/2ee2242c6b77c63eb7fe15863699a417154431c3",
+                "reference": "2ee2242c6b77c63eb7fe15863699a417154431c3",
                 "shasum": ""
             },
             "require": {
@@ -1817,23 +1859,24 @@
                 "form",
                 "template"
             ],
-            "time": "2015-01-21 14:38:07"
+            "time": "2015-02-25 13:21:05"
         },
         {
             "name": "mopa/composer-bridge",
-            "version": "v1.3.1",
+            "version": "v1.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phiamo/MopaComposerBridge.git",
-                "reference": "bbbd9b4595993cda248a996f21af3298f12fa331"
+                "reference": "6f64e2f626bcdf2a6cab5d5c1be1d46a53905c13"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phiamo/MopaComposerBridge/zipball/bbbd9b4595993cda248a996f21af3298f12fa331",
-                "reference": "bbbd9b4595993cda248a996f21af3298f12fa331",
+                "url": "https://api.github.com/repos/phiamo/MopaComposerBridge/zipball/6f64e2f626bcdf2a6cab5d5c1be1d46a53905c13",
+                "reference": "6f64e2f626bcdf2a6cab5d5c1be1d46a53905c13",
                 "shasum": ""
             },
             "require": {
+                "symfony/class-loader": ">=2.0.0",
                 "symfony/console": ">=2.0.0"
             },
             "type": "symfony-bridge",
@@ -1867,7 +1910,7 @@
                 "Symfony2",
                 "composer"
             ],
-            "time": "2014-12-29 13:24:12"
+            "time": "2015-02-23 10:26:44"
         },
         {
             "name": "psr/log",
@@ -2473,12 +2516,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/twbs/bootstrap.git",
-                "reference": "33d49f632411434eb5ba070274bda44ec4ddc493"
+                "reference": "804457c474c686d4b5f45545da0dbad5ed56e387"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/33d49f632411434eb5ba070274bda44ec4ddc493",
-                "reference": "33d49f632411434eb5ba070274bda44ec4ddc493",
+                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/804457c474c686d4b5f45545da0dbad5ed56e387",
+                "reference": "804457c474c686d4b5f45545da0dbad5ed56e387",
                 "shasum": ""
             },
             "replace": {
@@ -2516,7 +2559,7 @@
                 "responsive",
                 "web"
             ],
-            "time": "2015-02-22 05:28:27"
+            "time": "2015-02-25 07:49:08"
         },
         {
             "name": "twig/extensions",
@@ -2686,6 +2729,7 @@
         "friendsofsymfony/user-bundle": 20,
         "gedmo/doctrine-extensions": 20,
         "hwi/oauth-bundle": 20,
+        "jms/debugging-bundle": 20,
         "jms/di-extra-bundle": 20,
         "mopa/bootstrap-bundle": 20,
         "stof/doctrine-extensions-bundle": 20,

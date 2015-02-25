@@ -34,10 +34,18 @@ class GiftType extends AbstractType
 
         $builder
             ->add('name')
-            ->add('description')
+            ->add('list', 'entity', array(
+                'class'=>'KDOKDOBundle:Lists',
+                'query_builder' => function(ListsRepository $er)  {
+                    return $er->listOfUserQueryBuilder($this->user);
+                }
+            ))
             ->add('picture')
+
+            ->add('description')
             ->add('link')
             ->add('price')
+            ->add('picture', new PictureType())
             ->add('isSecondHand', 'checkbox', array(
                 'required' => false
             ))
@@ -49,14 +57,6 @@ class GiftType extends AbstractType
             ))
             ->add('numberOfParts', 'integer', array(
                 'required' => false
-            ))
-            ->add('list', 'entity', array(
-                'class'=>'KDOKDOBundle:Lists',
-                'query_builder' => function(ListsRepository $er)  {
-                    return $er->listOfUserQueryBuilder($this->user);
-                    //return $er->createQueryBuilder('u')
-                    //    ->orderBy('u.username', 'ASC');
-                }
             ))
         ;
     }

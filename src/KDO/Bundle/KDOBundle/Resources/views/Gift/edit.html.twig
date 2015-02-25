@@ -1,16 +1,16 @@
 {% extends '::base.html.twig' %}
 
-{% block content_content %}
+{% block headline %}
+    <div style="float: right">
+        {{ form(delete_form) }}
+    </div>
     <h1>Gift edit</h1>
 
-    {{ form(edit_form) }}
+    <a class="btn btn-default" href="{{ path('lists_show', { 'id': entity.list.id }) }}">
+        Retour à la liste
+    </a>
+{% endblock %}
+{% block content_content %}
 
-    <ul class="record_actions">
-        <li>
-            <a href="{{ path('gift') }}">
-                Back to the list
-            </a>
-        </li>
-        <li>{{ form(delete_form) }}</li>
-    </ul>
+    {{ form(edit_form) }}
 {% endblock %}

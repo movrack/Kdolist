@@ -1,13 +1,12 @@
-{% block content_content %}
+{% extends '::base.html.twig' %}
+
+{% block headline %}
     <h1>Gift creation</h1>
+    <a class="btn btn-default" href="{{ path('lists_show', { 'id': entity.list.id }) }}">
+        Retour à la liste
+    </a>
+{% endblock %}
 
+{% block content_content %}
     {{ form(form) }}
-
-    <ul class="record_actions">
-        <li>
-            <a href="{{ path('gift') }}">
-                Back to the list
-            </a>
-        </li>
-    </ul>
 {% endblock %}

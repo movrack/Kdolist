@@ -31,28 +31,28 @@ class Gift
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="text")
+     * @ORM\Column(name="description", type="text", nullable=true)
      */
     private $description;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="picture", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="Picture", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="picture_id", referencedColumnName="id")
      */
     private $picture;
+
 
     /**
      * @var string
      *
-     * @ORM\Column(name="link", type="string", length=255)
+     * @ORM\Column(name="link", type="string", length=255, nullable=true)
      */
     private $link;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="price", type="decimal")
+     * @ORM\Column(name="price", type="decimal", nullable=true)
      */
     private $price;
 
@@ -152,28 +152,6 @@ class Gift
         return $this->description;
     }
 
-    /**
-     * Set picture
-     *
-     * @param string $picture
-     * @return Gift
-     */
-    public function setPicture($picture)
-    {
-        $this->picture = $picture;
-
-        return $this;
-    }
-
-    /**
-     * Get picture
-     *
-     * @return string 
-     */
-    public function getPicture()
-    {
-        return $this->picture;
-    }
 
     /**
      * Set link
@@ -336,5 +314,28 @@ class Gift
     public function getList()
     {
         return $this->list;
+    }
+
+    /**
+     * Set picture
+     *
+     * @param \KDO\Bundle\KDOBundle\Entity\Picture $picture
+     * @return Gift
+     */
+    public function setPicture(\KDO\Bundle\KDOBundle\Entity\Picture $picture = null)
+    {
+        $this->picture = $picture;
+
+        return $this;
+    }
+
+    /**
+     * Get picture
+     *
+     * @return \KDO\Bundle\KDOBundle\Entity\Picture 
+     */
+    public function getPicture()
+    {
+        return $this->picture;
     }
 }

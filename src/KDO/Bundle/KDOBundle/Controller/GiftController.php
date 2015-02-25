@@ -53,6 +53,8 @@ class GiftController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+
+            $entity->getPicture()->preUpload();
             $em->persist($entity);
             $em->flush();
 
@@ -169,7 +171,9 @@ class GiftController extends Controller
     */
     private function createEditForm(Gift $entity)
     {
-        $form = $this->createForm(new GiftType(), $entity, array(
+
+        $user = $this->get('security.context')->getToken()->getUser();
+        $form = $this->createForm(new GiftType($user), $entity, array(
             'action' => $this->generateUrl('gift_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
@@ -200,6 +204,8 @@ class GiftController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
+
+            $entity->getPicture()->preUpload();
             $em->flush();
 
             return $this->redirect($this->generateUrl('gift_edit', array('id' => $id)));
