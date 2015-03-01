@@ -3,6 +3,7 @@
 namespace KDO\Bundle\KDOBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Gift
@@ -81,8 +82,11 @@ class Gift
      * @var integer
      *
      * @ORM\Column(name="numberOfParts", type="integer")
+     * @Assert\GreaterThan(
+     *     value = 0
+     * )
      */
-    private $numberOfParts;
+    private $numberOfParts = 1;
 
 
 
