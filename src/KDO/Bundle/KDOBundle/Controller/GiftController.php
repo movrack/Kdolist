@@ -58,7 +58,7 @@ class GiftController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('gift_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('lists_show', array('id' => $entity->getList()->getId())));
         }
 
         return array(

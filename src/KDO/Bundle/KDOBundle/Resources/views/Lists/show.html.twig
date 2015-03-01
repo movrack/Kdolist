@@ -2,15 +2,15 @@
 {% block headline %}
     <div class="right" style="float: right">
         <a class="btn btn-default" href="{{ path('lists') }}">
-            Retour au listes
+            <i class="fa fa-angle-left"></i><i class="fa fa-angle-left"></i> Retour au listes
         </a>
         <a class="btn btn-primary" href="{{ path('lists_edit', { 'id': entity.id }) }}">
-            Modifier
+            <i class="fa fa-pencil"></i> Modifier
         </a>
 
         <!-- Button trigger modal -->
         <button type="button" class="btn btn-warning btn-lg" data-toggle="modal" data-target="#myModal">
-            Ajouter un cadeau
+            <i class="fa fa-gift"></i> Ajouter un cadeau
         </button>
     </div>
     {{ entity.title }} <small>{{ entity.subTitle }}</small>
@@ -70,12 +70,12 @@
                     <div class="row">
                         <div class="col-md-6">
                             <a class="btn btn-primary btn-block" href="{{ path('gift_new', { 'list': entity.id }) }}">
-                                Cadeau simple
+                                <i class="fa fa-gift"></i> Cadeau simple
                             </a>
                         </div>
                         <div class="col-md-6">
                             <a class="btn btn-default btn-block" href="{{ path('gift_new', { 'list': entity.id }) }}">
-                                Cadeau Sous-liste
+                                <i class="fa fa-list"></i> Cadeau sous-liste
                             </a>
                         </div>
                     </div>
@@ -98,18 +98,27 @@
     {% for gift in entity.gifts %}
         <div class="col-sm-6 col-md-4">
             <div class="thumbnail">
-                <img src="{{ gift.picture }}" alt="{{ gift.name }}">
+                {%  if gift.picture|trim != "" %}
+                    <img src="{{ gift.picture }}" alt="{{ gift.name }}">
+                {%  endif %}
                 <div class="caption">
                     <h3>{{ gift.name }}</h3>
-                    <p>{{ gift.description }}</p>
-                    <p>Prix: {{ gift.price }}</p>
+                    <p><i class="fa fa-quote-left"></i> <i class="fa fa-quote-right"></i> {{ gift.description }}</p>
+                    {%  if gift.price is not empty %}
+                        <p><i class="fa fa-money"></i> {{ gift.price }} €</p>
+                    {%  endif %}
                     {%  if gift.link is not empty %}
-                        <p><a href="{{ gift.link }}" class="" role="button">Voir le site</a></p>
+                        <p><a href="{{ gift.link }}" class="" role="button">
+                                <i class="fa fa-external-link"></i> Voir le site</a>
+                        </p>
                     {%  endif %}
                     <p>
-                        <a href="" class="btn btn-primary" role="button">Offrir</a>
-                        <a href="{{ path('gift_edit', { 'id': gift.id }) }}" class="btn btn-default" role="button">Modifier</a>
-                        <a href="#" class="btn btn-success">Plus de détails</a>
+                        <a href="" class="btn btn-primary" role="button"><i class="fa fa-gift"></i> Offrir</a>
+                        <a href="{{ path('gift_edit', { 'id': gift.id }) }}" class="btn btn-default" role="button">
+                            <i class="fa fa-pencil"></i> Modifier</a>
+                        <a href="#" class="btn btn-success">
+                            <i class="fa fa-eye"></i> Plus de détails
+                        </a>
                     </p>
                 </div>
             </div>

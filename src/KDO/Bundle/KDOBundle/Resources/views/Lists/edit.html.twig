@@ -10,10 +10,14 @@
         <div class="right" style="float: right">
             <!-- Button trigger modal delete-->
             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">
-                <span class="icon-trash"></span> Supprimer
+                <i class="fa fa-trash"></i> Supprimer
             </button>
-            <a class="btn btn-primary" href="{{ path('lists') }}">Retour à mes listes</a>
-            <a class="btn btn-default" href="{{ path('lists_show', { 'id': entity.id }) }}">Voir cette liste</a>
+            <a class="btn btn-primary" href="{{ path('lists') }}">
+                <i class="fa fa-angle-left"></i><i class="fa fa-angle-left"></i> Retour à mes listes
+            </a>
+            <a class="btn btn-default" href="{{ path('lists_show', { 'id': entity.id }) }}">
+                <i class="fa fa-eye"></i> Voir cette liste
+            </a>
         </div>
         Edition de '{{ entity.title }}'
 
@@ -65,19 +69,21 @@
     {{ form_row(form.picture) }}
 
     <div>
-    <h4>A qui appartient cette liste ?</h4>
-    <div id="owners" class="container-fluid"  data-prototype="{{ form_widget(form.owners.vars.prototype)|e }}">
-    {% for owner in form.owners %}
+        <h4>A qui appartient cette liste ?</h4>
+        <div id="owners" class="container-fluid"  data-prototype="{{ form_widget(form.owners.vars.prototype)|e }}">
+        {% for owner in form.owners %}
 
-        <div class="row">
-            <div class="col-md-11">
-                {{ form_row(owner.firstName) }}
+            <div class="row">
+                <div class="col-md-11">
+                    {{ form_row(owner.firstName) }}
+                </div>
+                <div class="col-md-1"><a class="deleteOwner btn btn-danger" href="#"><i class="fa fa-trash"></i></a></div>
             </div>
-            <div class="col-md-1"><a class="deleteOwner btn btn-danger" href="#"><i class="fa fa-trash"></i></a></div>
+        {% endfor %}
         </div>
-    {% endfor %}
-    </div>
-    <a class="btn btn-default" href="#" id="add_owner_link">Ajouter un nom</a>
+        <a class="btn btn-default" href="#" id="add_owner_link">
+            <i class="fa fa-user"></i> <i class="fa fa-plus"></i> Ajouter un nom
+        </a>
     </div>
     <br />
     {% if entity.owners|length == 0 %}<div class="hide">{{ form_row(form.owners) }}</div>{% endif %}
@@ -85,7 +91,7 @@
     {{ form_rest(form) }}
 
     <button type="submit" class="btn btn-success">
-        <span class=""></span> Enregistrer
+        <i class="fa fa-save"></i> Enregistrer
     </button>
 
     {{ form_end(form) }}

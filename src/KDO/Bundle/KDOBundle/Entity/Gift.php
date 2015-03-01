@@ -82,7 +82,7 @@ class Gift
      *
      * @ORM\Column(name="numberOfParts", type="integer")
      */
-    private $numberOfParts;
+    private $numberOfParts = 1;
 
 
 
