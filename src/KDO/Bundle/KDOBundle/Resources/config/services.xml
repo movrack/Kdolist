@@ -16,6 +16,7 @@
 
     <parameters>
         <parameter key="kdo.oauth.user_provider.class">KDO\KDOBundle\OAuth\UserProvider</parameter>
+        <parameter key="kdo.twig.extension.controllerActionExtension.class">KDO\KDOBundle\Twig\Extension\ControllerActionExtension</parameter>
     </parameters>
     <services>
         <service id="kdo.oauth.user_provider" class="%kdo.oauth.user_provider.class%">

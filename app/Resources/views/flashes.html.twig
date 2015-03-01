@@ -1,9 +1,17 @@
 {% block flashes %}
-{% if app.session.flashbag.peekAll|length > 0 %}
-<div class="row">
-    <div class="col-sm-12">
-    {#{ session_flash() }#}
-    </div>
-</div>
-{% endif %}
+    {% for flashMessage in app.session.flashbag.get('success') %}
+        <div class="alert alert-success" role="alert">{{ flashMessage }}</div>
+    {% endfor %}
+
+    {% for flashMessage in app.session.flashbag.get('info') %}
+        <div class="alert alert-info" role="alert">{{ flashMessage }}</div>
+    {% endfor %}
+
+    {% for flashMessage in app.session.flashbag.get('warning') %}
+        <div class="alert alert-warning" role="alert">{{ flashMessage }}</div>
+    {% endfor %}
+
+    {% for flashMessage in app.session.flashbag.get('danger') %}>
+        <div class="alert alert-danger" role="alert">{{ flashMessage }}</div>
+    {% endfor %}
 {% endblock flashes %}

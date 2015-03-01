@@ -7,14 +7,87 @@
         <a class="btn btn-primary" href="{{ path('lists_edit', { 'id': entity.id }) }}">
             Modifier
         </a>
-        <a class="btn btn-warning" href="{{ path('gift_new', { 'list': entity.id }) }}">
-            Ajouter un cadeau
-        </a>
 
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-warning btn-lg" data-toggle="modal" data-target="#myModal">
+            Ajouter un cadeau
+        </button>
     </div>
     {{ entity.title }} <small>{{ entity.subTitle }}</small>
 {% endblock headline %}
 {% block content_content %}
+
+    <!-- popup ajout cadeau -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Quel cadeau souhaitez-vous ajouter ?</h4>
+                </div>
+                <div class="modal-body">
+
+                    <div class="row">
+
+                        <div class="col-md-6">
+                            <dl>
+                                <dt>Cadeau simple</dt>
+                                <dd>Cadeau composé d'un seul objet.</dd>
+                            </dl>
+                        </div>
+
+                        <div class="col-md-6">
+                            <dl>
+                                <dt>Cadeau sous-liste</dt>
+                                <dd>Cadeau sous forme de liste a part entière composé de plusieurs
+                                    éléments pouvant être offert séparément.</dd>
+                            </dl>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            Exemple:
+                            <ul>
+                                <li>Un jeu de carte;</li>
+                                <li>Une bague;</li>
+                                <li>Une assiette;</li>
+                                <li>...</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            Exemple:
+                            <ul>
+                                <li>Un service
+                                    <ul>12 assiètes plates</ul>
+                                    <ul>12 assiètes creuses</ul>
+                                    <ul>12 verres à vin blanc</ul>
+                                    <ul>...</ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <a class="btn btn-primary btn-block" href="{{ path('gift_new', { 'list': entity.id }) }}">
+                                Cadeau simple
+                            </a>
+                        </div>
+                        <div class="col-md-6">
+                            <a class="btn btn-default btn-block" href="{{ path('gift_new', { 'list': entity.id }) }}">
+                                Cadeau Sous-liste
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <div class="panel panel-default">
         <div class="panel-body">
             {{  entity.description }}
@@ -43,4 +116,5 @@
         </div>
     {% endfor %}
     </div>
+
 {% endblock %}

@@ -1,23 +1,14 @@
 {% extends '::base.html.twig' %}
+
 {% block headline %}
     <div class="right" style="float: right">
-
-        <div class="btn-group">
-            <button type="button" class="btn btn-default dropdown-toggle"
-                    data-toggle="dropdown" aria-expanded="false">
-                Ajouter une nouvelle liste <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" role="menu">
-                {% for type in listeTypes %}
-                <li>
-                    <a href="{{ path('lists_new', {'id': type.id } ) }}"
-                       title="{{ type.description }}">
-                        {{ type.name }}
-                    </a>
-                </li>
-                {% endfor %}
-            </ul>
-        </div>
+        {% for type in listeTypes %}
+            <a class="btn btn-primary"
+                href="{{ path('lists_new', {'id': "1" } ) }}"
+                title="{{ type.description }}">
+                Créer une liste
+            </a>
+        {% endfor %}
     </div>
     Mes listes
 {% endblock headline %}

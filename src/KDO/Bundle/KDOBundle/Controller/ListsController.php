@@ -33,42 +33,69 @@ class ListsController extends Controller
         $em = $this->getDoctrine()->getManager();
         $user = $this->get('security.context')->getToken()->getUser();
         $entities = $em->getRepository('KDOKDOBundle:Lists')->listOfUser($user);
-        //findAll();
         $listeTypes = $em->getRepository('KDOKDOBundle:ListType')->findAll();
         return array(
             'entities' => $entities,
             'listeTypes' => $listeTypes
         );
     }
+    /**
+     * Deletes a Formule entity.
+     *
+     * @return Response Twig response
+     *
+     * @Route("/delete")
+     * @Method("POST")
+     */
+    public function delete2Action()
+    {
+        $entity_id = $this->getRequest()->get('id');
+        $entity = $this->em->getRepository('EwFinanceBundle:Formule')->find($entity_id);
+        $form = $this->createDeleteForm($entity->getId());
+        $form->handleRequest($this->getRequest());
 
+        if ($form->isValid()) {
+            $this->em->remove($entity);
+            $this->em->flush();
+            $this->get('session')->getFlashBag()->set('success', 'entity.delete.success');
+        } else {
+            $this->get('session')->getFlashBag()->set('error', 'entity.delete.error');
+        }
+
+
+        return $this->redirect($this->generateUrl('ew_finance_formule_index'));
+    }
 
     /**
      * Deletes a Lists entity.
      *
      * @Route("/{id}", name="lists_delete")
+     * @ParamConverter("type", class="KDOKDOBundle:Lists")
      * @Method("DELETE")
      */
-    public function deleteAction(Request $request, $id)
+    public function deleteAction(Request $request, Lists $list)
     {
-        $form = $this->createDeleteForm($id);
+        $form = $this->createDeleteForm($list->getId());
         $form->handleRequest($request);
-
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('KDOKDOBundle:Lists')->find($id);
+            $list = $em->getRepository('KDOKDOBundle:Lists')->find($list->getId());
 
-            if (!$entity) {
+            if (!$list) {
                 throw $this->createNotFoundException('Unable to find Lists entity.');
             }
 
-            foreach( $entity->getOwners() as $owner) {
-                $entity->getOwners()->removeElement($owner);
+            foreach( $list->getOwners() as $owner) {
+                $list->getOwners()->removeElement($owner);
                 $em->remove($owner);
                 $em->flush();
             }
 
-            $em->remove($entity);
+            $em->remove($list);
             $em->flush();
+            $this->get('session')->getFlashBag()->add('success', 'entity.delete.success');
+        } else {
+            $this->get('session')->getFlashBag()->add('error', 'entity.delete.error');
         }
 
         return $this->redirect($this->generateUrl('lists'));
@@ -99,6 +126,7 @@ class ListsController extends Controller
         }
 
         return array(
+            'action' => "new",
             'entity' => $entity,
             'form'   => $form->createView(),
         );
@@ -118,7 +146,7 @@ class ListsController extends Controller
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
+        //$form->add('submit', 'submit', array('label' => 'Create'));
 
         return $form;
     }
@@ -129,7 +157,7 @@ class ListsController extends Controller
      * @Route("/new/{id}", name="lists_new")
      * @ParamConverter("type", class="KDOKDOBundle:ListType")
      * @Method("GET")
-     * @Template()
+     * @Template("KDOKDOBundle:Lists:edit.html.twig")
      */
     public function newAction(ListType $type)
     {
@@ -138,6 +166,8 @@ class ListsController extends Controller
         $form   = $this->createCreateForm($entity);
 
         return array(
+
+            'action' => "new",
             'entity' => $entity,
             'form'   => $form->createView(),
             'type' => $type
@@ -185,7 +215,7 @@ class ListsController extends Controller
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Enregistrer'));
+        //$form->add('submit', 'submit', array('label' => 'Enregistrer'));
 
         return $form;
     }
@@ -242,6 +272,7 @@ class ListsController extends Controller
         }
 
         return array(
+            'action' => "edit",
             'entity'      => $entity,
             'form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
@@ -268,6 +299,7 @@ class ListsController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
+            'action' => "edit",
             'entity'      => $entity,
             'form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
@@ -286,8 +318,7 @@ class ListsController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('lists_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
-            ->getForm()
+            ->getForm();
         ;
     }
 }
