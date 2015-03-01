@@ -168,11 +168,7 @@ hwi_oauth:
             client_id:           %windows_live_id%
             client_secret:       %windows_live_secret%
             scope:               "wl.basic wl.signin"
-jms_debugging:
-    # You can set this to true if you want to automatically retrieve help
-    # messages for public exceptions. If you leave this set to false, you have
-    # to click the "search" button manually each time.
-    auto_help: true
+
 
 #jms_di_extra:
 #    locations:
