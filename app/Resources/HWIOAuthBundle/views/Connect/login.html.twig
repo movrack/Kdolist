@@ -21,13 +21,15 @@
                     href="{{ hwi_oauth_login_url(owner) }}">Facebook
                 </a>
             </div>
-        {% elseif owner == 'windows_live' %}
+        {#
+         {% elseif owner == 'windows_live' %}
             <div class="btn-group btn-group-sm" role="group" >
                 <button type="button" class="btn btn-default" style="background: #222222; color: white;"><i class="fa fa-windows"></i></button>
                 <a class="btn btn-default" style="background: #222222; color: white;"
                   href="{{ hwi_oauth_login_url(owner) }}">Windows Live
                 </a>
             </div>
+            #}
         {% endif %}
     {% endfor %}
 {% endblock hwi_oauth_content %}
