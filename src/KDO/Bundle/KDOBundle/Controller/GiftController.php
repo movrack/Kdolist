@@ -179,6 +179,7 @@ class GiftController extends Controller
 
         return $form;
     }
+
     /**
      * Edits an existing Gift entity.
      *
@@ -193,22 +194,27 @@ class GiftController extends Controller
             throw $this->createNotFoundException('Unable to find Gift entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($entity-getId());
+        $deleteForm = $this->createDeleteForm($entity->getId());
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 
+        // Todo Why is not working ?
         if ($editForm->isValid()) {
 
             $em = $this->getDoctrine()->getManager();
             $entity->getPicture()->preUpload();
             $em->flush();
 
+            $this->get('session')->getFlashBag()->add('success', 'entity.updated.success');
+
             return $this->redirect($this->generateUrl('lists_show', array('id' => $entity->getList()->getId())));
+        } else {
+            $this->get('session')->getFlashBag()->add('error', 'entity.updated.error');
         }
 
         return array(
             'action' => "edit",
-            'entity'      => $entity,
+            'entity' => $entity,
             'form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
