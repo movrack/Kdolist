@@ -1,16 +1,82 @@
 {% extends '::base.html.twig' %}
 
 {% block headline %}
-    <div style="float: right">
-        {{ form(delete_form) }}
-    </div>
-    <h1>Gift edit</h1>
 
-    <a class="btn btn-default" href="{{ path('lists_show', { 'id': entity.list.id }) }}">
-        Retour à la liste
-    </a>
+    {% if action == "new" %}
+        <div class="right" style="float: right">
+            <a class="btn btn-default" href="{{ path('lists_show', { 'id': entity.list.id }) }}">
+                <i class="fa fa-angle-left"></i><i class="fa fa-angle-left"></i> Retour à la liste
+            </a>
+        </div>
+        Nouveau cadeau
+
+    {%  else %}
+        <div class="right" style="float: right">
+            <!-- Button trigger modal delete-->
+            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">
+                <i class="fa fa-trash"></i> Supprimer
+            </button>
+            <a class="btn btn-default" href="{{ path('lists_show', { 'id': entity.list.id }) }}">
+                <i class="fa fa-angle-left"></i><i class="fa fa-angle-left"></i> Retour à la liste
+            </a>
+        </div>
+        Edition de '{{ entity.name }}'
+
+    {% endif %}
+
 {% endblock %}
 {% block content_content %}
+    {% if action == "new" %}
+        {% set actionPost = path('gift_create') %}
+    {%  else %}
+        {% set actionPost = path('gift_update', {'id': entity.id}) %}
+    {% endif %}
 
-    {{ form(edit_form) }}
+    {{ form(form) }}
+
+        {{ form_start(form) }}
+        {{ form_row(form.list) }}
+        {{ form_row(form.name) }}
+        {{ form_row(form.picture) }}
+        {{ form_row(form.price) }}
+        {{ form_row(form.isSecondHand) }}
+        {{ form_row(form.giveMoney) }}
+        {{ form_row(form.accepteMultipleParts) }}
+        {{ form_row(form.numberOfParts) }}
+        {{ form_rest(form) }}
+
+        <button type="submit" class="btn btn-success">
+            <i class="fa fa-save"></i> Enregistrer
+        </button>
+
+    {{ form_end(form) }}
+
+
+    <!-- Modal delete -->
+    {% if action != "new" %}
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Suppression</h4>
+                    </div>
+                    <div class="modal-body">
+                        Etes-vous sûr de vouloir supprimer "{{ entity.name }}" ?<br />
+                        Cette action est irréversible.<br />
+
+                        {{ form_start(delete_form)}}
+                        <button type="submit" class="btn btn-danger">
+                            <span class="icon-trash"></span> Supprimer
+                        </button>
+                        {{ form_rest(delete_form)}}
+                        {{ form_end(delete_form)}}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
 {% endblock %}

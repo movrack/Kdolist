@@ -7,10 +7,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use KDO\Bundle\KDOBundle\Entity\Gift;
 use KDO\Bundle\KDOBundle\Entity\Lists;
 use KDO\Bundle\KDOBundle\Form\GiftType;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use JMS\DiExtraBundle\Annotation as DI;
 
 /**
@@ -43,7 +43,7 @@ class GiftController extends Controller
      *
      * @Route("/", name="gift_create")
      * @Method("POST")
-     * @Template("KDOKDOBundle:Gift:new.html.twig")
+     * @Template("KDOKDOBundle:Gift:edit.html.twig")
      */
     public function createAction(Request $request)
     {
@@ -62,6 +62,7 @@ class GiftController extends Controller
         }
 
         return array(
+            'action' => "new",
             'entity' => $entity,
             'form'   => $form->createView(),
         );
@@ -96,7 +97,7 @@ class GiftController extends Controller
      * @Route("/new/{list}", name="gift_new")
      * @ParamConverter("list", class="KDOKDOBundle:Lists")
      * @Method("GET")
-     * @Template()
+     * @Template("KDOKDOBundle:Gift:edit.html.twig")
      */
     public function newAction(Lists $list)
     {
@@ -105,6 +106,7 @@ class GiftController extends Controller
         $form   = $this->createCreateForm($entity);
 
         return array(
+            'action' => "new",
             'entity' => $entity,
             'form'   => $form->createView(),
         );
@@ -156,8 +158,9 @@ class GiftController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
+            'action' => "edit",
             'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }
@@ -177,8 +180,6 @@ class GiftController extends Controller
             'action' => $this->generateUrl('gift_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
-
-        $form->add('submit', 'submit', array('label' => 'Update'));
 
         return $form;
     }
@@ -208,12 +209,13 @@ class GiftController extends Controller
             $entity->getPicture()->preUpload();
             $em->flush();
 
-            return $this->redirect($this->generateUrl('gift_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('lists_show', array('id' => $entity->getList()->getId())));
         }
 
         return array(
+            'action' => "edit",
             'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }
