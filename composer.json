@@ -25,7 +25,7 @@
         "stof/doctrine-extensions-bundle": "1.2.*@dev",
         "symfony/assetic-bundle": "~2.3",
         "symfony/monolog-bundle": "~2.4",
-        "symfony/symfony": "3.0.*@dev",
+        "symfony/symfony": "2.5.*",
         "symfony/swiftmailer-bundle": "~2.3",
         "twbs/bootstrap": "dev-master",
         "twig/extensions": "~1.0"
