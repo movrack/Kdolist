@@ -2,7 +2,9 @@
 {% block headline %}
     {% if action == "new" %}
         <div class="right" style="float: right">
-            <a class="btn btn-primary" href="{{ path('lists') }}">Retour à mes listes</a>
+            <a class="btn btn-primary" href="{{ path('lists') }}">
+                <i class="fa fa-angle-left"></i><i class="fa fa-angle-left"></i> Retour à mes listes
+            </a>
         </div>
         Nouvelle liste
 

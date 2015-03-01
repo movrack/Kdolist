@@ -72,6 +72,7 @@ class GiftController extends Controller
      * Creates a form to create a Gift entity.
      *
      * @param Gift $entity The entity
+     * @ParamConverter("entity", class="KDOKDOBundle:Gift")
      *
      * @return \Symfony\Component\Form\Form The form
      */
@@ -116,20 +117,17 @@ class GiftController extends Controller
      * Finds and displays a Gift entity.
      *
      * @Route("/{id}", name="gift_show")
+     * @ParamConverter("Gift", class="KDOKDOBundle:Gift")
      * @Method("GET")
      * @Template()
      */
-    public function showAction($id)
+    public function showAction(Gift $entity)
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('KDOKDOBundle:Gift')->find($id);
-
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Gift entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
+        $deleteForm = $this->createDeleteForm($entity->getId());
 
         return array(
             'entity'      => $entity,
@@ -142,20 +140,18 @@ class GiftController extends Controller
      *
      * @Route("/{id}/edit", name="gift_edit")
      * @Method("GET")
+     * @ParamConverter("type", class="KDOKDOBundle:Gift")
      * @Template()
      */
-    public function editAction($id)
+    public function editAction(Gift $entity)
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('KDOKDOBundle:Gift')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Gift entity.');
         }
 
         $editForm = $this->createEditForm($entity);
-        $deleteForm = $this->createDeleteForm($id);
+        $deleteForm = $this->createDeleteForm($entity->getId());
 
         return array(
             'action' => "edit",
@@ -187,25 +183,23 @@ class GiftController extends Controller
      * Edits an existing Gift entity.
      *
      * @Route("/{id}", name="gift_update")
+     * @ParamConverter("type", class="KDOKDOBundle:Gift")
      * @Method("PUT")
      * @Template("KDOKDOBundle:Gift:edit.html.twig")
      */
-    public function updateAction(Request $request, $id)
+    public function updateAction(Request $request, Gift $entity)
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('KDOKDOBundle:Gift')->find($id);
-
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Gift entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
+        $deleteForm = $this->createDeleteForm($entity-getId());
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
 
+            $em = $this->getDoctrine()->getManager();
             $entity->getPicture()->preUpload();
             $em->flush();
 
@@ -223,26 +217,30 @@ class GiftController extends Controller
      * Deletes a Gift entity.
      *
      * @Route("/{id}", name="gift_delete")
+     * @ParamConverter("type", class="KDOKDOBundle:Gift")
      * @Method("DELETE")
      */
-    public function deleteAction(Request $request, $id)
+    public function deleteAction(Request $request, Gift $entity)
     {
-        $form = $this->createDeleteForm($id);
+        $form = $this->createDeleteForm($entity->getId());
         $form->handleRequest($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('KDOKDOBundle:Gift')->find($id);
-
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find Gift entity.');
             }
 
             $em->remove($entity);
             $em->flush();
+
+            $this->get('session')->getFlashBag()->add('success', 'entity.delete.success');
+        } else {
+            $this->get('session')->getFlashBag()->add('error', 'entity.delete.error');
         }
 
-        return $this->redirect($this->generateUrl('gift'));
+        return $this->redirect($this->generateUrl('lists_show', array('id' => $entity->getList()->getId())));
+
     }
 
     /**
@@ -257,7 +255,6 @@ class GiftController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('gift_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()
         ;
     }
