@@ -1,4 +1,5 @@
 {% extends '::base.html.twig' %}
+
 {% block headline %}
     {% if action == "new" %}
         <div class="right" style="float: right">
@@ -14,15 +15,14 @@
             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">
                 <i class="fa fa-trash"></i> Supprimer
             </button>
-            <a class="btn btn-primary" href="{{ path('lists') }}">
-                <i class="fa fa-angle-left"></i><i class="fa fa-angle-left"></i> Retour à mes listes
+            <a class="btn btn-default" href="{{ path('lists') }}">
+                <i class="fa fa-angle-left"></i><i class="fa fa-angle-left"></i> Retour aux listes
             </a>
             <a class="btn btn-default" href="{{ path('lists_show', { 'id': entity.id }) }}">
                 <i class="fa fa-eye"></i> Voir
             </a>
         </div>
         Edition de '{{ entity.title }}'
-
     {% endif %}
 {% endblock headline %}
 
@@ -39,11 +39,8 @@
     {{ form_row(form.subTitle) }}
     {{ form_row(form.description) }}
     {{ form_row(form.event) }}
-    <div class="hide">
-        {{ form_row(form.type) }}
-    </div>
-
     {{ form_row(form.picture) }}
+
 
     <div>
         <h4>A qui appartient cette liste ?</h4>

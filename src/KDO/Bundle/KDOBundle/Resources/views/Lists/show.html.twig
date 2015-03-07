@@ -1,12 +1,26 @@
 {% extends '::base.html.twig' %}
 {% block headline %}
     <div class="right" style="float: right">
-        <a class="btn btn-default" href="{{ path('lists') }}">
-            <i class="fa fa-angle-left"></i><i class="fa fa-angle-left"></i> Retour aux listes
-        </a>
-        <a class="btn btn-primary" href="{{ path('lists_edit', { 'id': entity.id }) }}">
-            <i class="fa fa-pencil"></i> Modifier
-        </a>
+        {{ entity.parent }}
+        {% if entity.parent is empty %}
+            <a class="btn btn-default" href="{{ path('lists') }}">
+                <i class="fa fa-angle-left"></i><i class="fa fa-angle-left"></i> Retour aux listes
+            </a>
+
+            <a class="btn btn-primary" href="{{ path('lists_edit', { 'id': entity.id }) }}">
+                <i class="fa fa-pencil"></i> Modifier
+            </a>
+        {% else %}
+            <a class="btn btn-default" href="{{ path('lists_show', { 'id': entity.parent.id }) }}">
+                <i class="fa fa-angle-left"></i><i class="fa fa-angle-left"></i> Retour à {{ entity.parent }}
+            </a>
+
+            <a class="btn btn-primary"  href="{{ path('lists_edit_sublist', { 'id': entity.id }) }}" >
+                <i class="fa fa-pencil"></i> Modifier
+            </a>
+        {% endif %}
+
+
 
         <!-- Button trigger modal -->
         <button type="button" class="btn btn-warning btn-lg" data-toggle="modal" data-target="#myModal">
@@ -14,6 +28,11 @@
         </button>
     </div>
     {{ entity.title }} <small>{{ entity.subTitle }}</small>
+    {% if entity.parent is not empty %}
+        <small><br />
+            (dans la liste "{{ entity.parent }}")
+        </small>
+    {% endif %}
 {% endblock headline %}
 {% block content_content %}
 
@@ -74,7 +93,7 @@
                             </a>
                         </div>
                         <div class="col-md-6">
-                            <a class="btn btn-default btn-block" href="{{ path('gift_new', { 'list': entity.id }) }}">
+                            <a class="btn btn-default btn-block" href="{{ path('lists_new_sublist', { "parent_id" : entity.id }) }}">
                                 <i class="fa fa-list"></i> Cadeau sous-liste
                             </a>
                         </div>
@@ -86,7 +105,6 @@
             </div>
         </div>
     </div>
-
 
     <div class="panel panel-default">
         <div class="panel-body">
@@ -102,7 +120,9 @@
         </div>
     </div>
 
-    <div id="showList" style="display: none">
+
+
+    <div class="showList" style="display: none">
         <table class="table  table-striped table-hover table-condensed">
             <tr>
                 <th>Nom</th>
@@ -111,6 +131,20 @@
                 <th>Prix</th>
                 <th>Action</th>
             </tr>
+
+        {% for child in entity.children %}
+            <tr>
+                <td>{{ child.title }}</td>
+                <td>{{ child.description }}</td>
+                <td></td>
+                <td></td>
+                <td>
+                    <a href="{{ path('lists_show', { 'id': child.id }) }}" class="btn btn-success">
+                        <i class="fa fa-eye"></i> Plus de détails
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
         {% for gift in entity.gifts %}
             <tr>
                 <td>
@@ -141,7 +175,31 @@
         {%  endfor %}
         </table>
     </div>
-    <div id="showGrid" class="row">
+
+    <div class="showGrid" class="row">
+
+        {% for child in entity.children %}
+        <div class="col-sm-6 col-md-4">
+            <div class="thumbnail">
+                {%  if child.picture|trim != "" %}
+                    <img src="{{ child.picture }}" alt="{{ child.title }}">
+                {%  endif %}
+                <div class="caption">
+                    <h3>{{ child.title }}</h3>
+                    <p><i class="fa fa-quote-left"></i> <i class="fa fa-quote-right"></i> {{ child.description }}</p>
+
+                    <p>
+                        <a href="{{ path('lists_edit_sublist', { 'id': child.id }) }}" class="btn btn-default" role="button">
+                            <i class="fa fa-pencil"></i> Modifier</a>
+                        <a href="{{ path('lists_show', { 'id': child.id }) }}" class="btn btn-success">
+                            <i class="fa fa-eye"></i> Plus de détails
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
         {% for gift in entity.gifts %}
             <div class="col-sm-6 col-md-4">
                 <div class="thumbnail">
@@ -180,12 +238,12 @@
 <script type="text/javascript" >
 $(document).ready(function() {
     $('#showInList').on('click', function() {
-        $('#showGrid').hide('slow');
-        $('#showList').show('slow');
+        $('.showGrid').hide('slow');
+        $('.showList').show('slow');
     });
     $('#showInGrid').on('click', function() {
-        $('#showList').hide('slow');
-        $('#showGrid').show('slow');
+        $('.showList').hide('slow');
+        $('.showGrid').show('slow');
     });
 
 });

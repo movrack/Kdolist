@@ -18,6 +18,7 @@ class ListsRepository extends EntityRepository
     {
         return $this->createQueryBuilder('list')
             ->join('list.users', 'u', 'WITH', 'u.id = :userId')
+            ->where('list.parent is NULL')
             ->setParameter('userId', $user->getId())
             ;
     }

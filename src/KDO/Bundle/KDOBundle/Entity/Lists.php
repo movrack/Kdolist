@@ -34,23 +34,17 @@ class Lists
     /**
      * @var string
      *
-     * @ORM\Column(name="subTitle", type="string", length=255)
+     * @ORM\Column(name="subTitle", type="string", length=255, nullable=true)
      */
     private $subTitle;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="string", length=255)
+     * @ORM\Column(name="description", type="string", length=255, nullable=true)
      */
     private $description;
 
-    /**
-     * @var string
-     * @ORM\ManyToOne(targetEntity="ListType", inversedBy="lists")
-     * @ORM\JoinColumn(name="type_id", referencedColumnName="id", nullable=false)
-     */
-    private $type;
 
     /**
      * @var string
@@ -85,6 +79,18 @@ class Lists
     protected $users;
 
     /**
+     * @ORM\OneToMany(targetEntity="Lists", mappedBy="parent", cascade={"persist"})
+     **/
+    private $children;
+
+    /**
+     * @var Lists
+     * @ORM\ManyToOne(targetEntity="Lists", inversedBy="children", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
+     **/
+    private $parent;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -92,6 +98,7 @@ class Lists
         $this->gifts = new ArrayCollection();
         $this->users = new ArrayCollection();
         $this->owners = new ArrayCollection();
+        $this->children = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     public function __toString() {
@@ -133,28 +140,6 @@ class Lists
         return $this->description;
     }
 
-    /**
-     * Set type
-     *
-     * @param string $type
-     * @return Lists
-     */
-    public function setType($type)
-    {
-        $this->type = $type;
-
-        return $this;
-    }
-
-    /**
-     * Get type
-     *
-     * @return string 
-     */
-    public function getType()
-    {
-        return $this->type;
-    }
 
     /**
      * Set event
@@ -381,5 +366,101 @@ class Lists
     public function getSubTitle()
     {
         return $this->subTitle;
+    }
+
+    /**
+     * Add children
+     *
+     * @param \KDO\Bundle\KDOBundle\Entity\Lists $children
+     * @return Lists
+     */
+    public function addChild(\KDO\Bundle\KDOBundle\Entity\Lists $children)
+    {
+        if ($children->getParent() != null) {
+            return $this;
+        }
+
+        if ($children->getParent() == $this) {
+            return $this;
+        }
+
+        if ($this->children->contains($children)) {
+            return $this;
+        }
+
+        $this->children->add($children);
+
+        if ($children->getParent() != $this) {
+            $children->setParent($this); // synchronously updating inverse side
+        }
+
+        return $this;
+    }
+
+    /**
+     * Remove children
+     *
+     * @param \KDO\Bundle\KDOBundle\Entity\Lists $children
+     */
+    public function removeChild(\KDO\Bundle\KDOBundle\Entity\Lists $child)
+    {
+        $this->children->removeElement($child);
+        if ($child->getParent() != null) {
+            $child->setParent(null);
+        }
+    }
+
+    /**
+     * Get children
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getChildren()
+    {
+        return $this->children;
+    }
+
+    /**
+     * Set parent
+     *
+     * @param \KDO\Bundle\KDOBundle\Entity\Lists $parent
+     * @return Lists
+     */
+    public function setParent(\KDO\Bundle\KDOBundle\Entity\Lists $parent = null)
+    {
+        if ($parent == null) {
+            $thisParent = $this->getParent();
+            $this->parent = null;
+            if($thisParent != null) {
+                $thisParent->removeChild($this);
+            }
+            return $this;
+        }
+
+        if ($parent == $this) {
+            return $this;
+        }
+
+        if ($this->parent == $this) {
+            return $this;
+        }
+
+        $this->parent = $parent;
+
+        if (!$parent->getChildren()->contains($this)) {
+            $parent->addChild($this); // synchronously updating inverse side
+        }
+
+        return $this;
+    }
+
+    /**
+     * Get parent
+     *
+     * @return \KDO\Bundle\KDOBundle\Entity\Lists 
+     */
+    public function getParent()
+    {
+        return $this->parent;
     }
 }

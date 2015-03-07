@@ -2,15 +2,17 @@
 
 namespace KDO\Bundle\KDOBundle\Controller;
 
+use KDO\Bundle\KDOBundle\Form\SubListsType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use JMS\DiExtraBundle\Annotation as DI;
+use KDO\Bundle\KDOBundle\Entity\User;
 use KDO\Bundle\KDOBundle\Entity\Lists;
 use KDO\Bundle\KDOBundle\Form\ListsType;
-use KDO\Bundle\KDOBundle\Entity\ListType;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
@@ -20,7 +22,24 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 class ListsController extends Controller
 {
-
+    /**
+     * @var User
+     */
+    private $user;
+    
+    /** @DI\Inject("doctrine.orm.entity_manager") */
+    private $em;
+    
+    /**
+     * @DI\InjectParams({
+     *     "securityContext" = @DI\Inject("security.context")
+     * })
+     */
+    function __construct($securityContext) {
+        $this->user = $securityContext->getToken()->getUser();
+    }
+    
+    
     /**
      * Lists all Lists entities.
      *
@@ -30,84 +49,39 @@ class ListsController extends Controller
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
-        $user = $this->get('security.context')->getToken()->getUser();
-        $entities = $em->getRepository('KDOKDOBundle:Lists')->listOfUser($user);
-        $listeTypes = $em->getRepository('KDOKDOBundle:ListType')->findAll();
+        $entities = $this->em->getRepository('KDOKDOBundle:Lists')->listOfUser($this->user);
         return array(
-            'entities' => $entities,
-            'listeTypes' => $listeTypes
+            'entities' => $entities
         );
     }
-    /**
-     * Deletes a Formule entity.
-     *
-     * @return Response Twig response
-     *
-     * @Route("/delete")
-     * @Method("POST")
-     */
-    public function delete2Action()
-    {
-        $entity_id = $this->getRequest()->get('id');
-        $entity = $this->em->getRepository('EwFinanceBundle:Formule')->find($entity_id);
-        $form = $this->createDeleteForm($entity->getId());
-        $form->handleRequest($this->getRequest());
-
-        if ($form->isValid()) {
-            $this->em->remove($entity);
-            $this->em->flush();
-            $this->get('session')->getFlashBag()->set('success', 'entity.delete.success');
-        } else {
-            $this->get('session')->getFlashBag()->set('error', 'entity.delete.error');
-        }
 
 
-        return $this->redirect($this->generateUrl('ew_finance_formule_index'));
-    }
 
     /**
-     * Deletes a Lists entity.
+     * Displays a form to create a new Lists entity.
      *
-     * @Route("/{id}", name="lists_delete")
-     * @ParamConverter("type", class="KDOKDOBundle:Lists")
-     * @Method("DELETE")
+     * @Route("/new", name="lists_new")
+     * @Method("GET")
+     * @Template("KDOKDOBundle:Lists:edit.html.twig")
      */
-    public function deleteAction(Request $request, Lists $list)
+    public function newAction()
     {
-        $form = $this->createDeleteForm($list->getId());
-        $form->handleRequest($request);
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $list = $em->getRepository('KDOKDOBundle:Lists')->find($list->getId());
+        $entity = new Lists();
+        $form   = $this->createCreateForm($entity);
 
-            if (!$list) {
-                throw $this->createNotFoundException('Unable to find Lists entity.');
-            }
-
-            foreach( $list->getOwners() as $owner) {
-                $list->getOwners()->removeElement($owner);
-                $em->remove($owner);
-                $em->flush();
-            }
-
-            $em->remove($list);
-            $em->flush();
-            $this->get('session')->getFlashBag()->add('success', 'entity.delete.success');
-        } else {
-            $this->get('session')->getFlashBag()->add('error', 'entity.delete.error');
-        }
-
-        return $this->redirect($this->generateUrl('lists'));
+        return array(
+            'action' => "new",
+            'entity' => $entity,
+            'form'   => $form->createView()
+        );
     }
-
 
     /**
      * Creates a new Lists entity.
      *
      * @Route("/", name="lists_create")
      * @Method("POST")
-     * @Template("KDOKDOBundle:Lists:new.html.twig")
+     * @Template("KDOKDOBundle:Lists:edit.html.twig")
      */
     public function createAction(Request $request)
     {
@@ -116,12 +90,45 @@ class ListsController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $user = $this->get('security.context')->getToken()->getUser();
-            $entity->addUser($user);
-            $em->persist($entity);
-            $em->flush();
+            $entity->addUser($this->user);
 
+            $this->em->persist($entity);
+            $this->em->flush();
+
+            return $this->redirect($this->generateUrl('lists_show', array('id' => $entity->getId())));
+        }
+
+        return array(
+            'action' => "new",
+            'entity' => $entity,
+            'form'   => $form->createView(),
+        );
+    }
+
+
+    /**
+     * Creates a new Lists entity.
+     *
+     * @Route("/subList/{parent_id}", name="lists_create_sublist")
+     * @ParamConverter("parentList", class="KDOKDOBundle:Lists", options={"id" = "parent_id"})
+     * @Method("POST")
+     * @Template("KDOKDOBundle:Lists:editSubList.html.twig")
+     */
+    public function createSubListAction(Request $request, Lists $parentList)
+    {
+        $entity = new Lists();
+        $form = $this->createSubListCreateForm($entity, $parentList);
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+
+            $entity->addUser($this->user);
+            $parentList->addChild($entity);
+            $entity->setParent($parentList);
+
+            $this->em->persist($parentList);
+            $this->em->persist($entity);
+            $this->em->flush();
             return $this->redirect($this->generateUrl('lists_show', array('id' => $entity->getId())));
         }
 
@@ -146,31 +153,45 @@ class ListsController extends Controller
             'method' => 'POST',
         ));
 
-        //$form->add('submit', 'submit', array('label' => 'Create'));
-
         return $form;
     }
 
     /**
+     * Creates a form to create a Lists entity.
+     *
+     * @param Lists $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createSubListCreateForm(Lists $entity, Lists $parentList)
+    {
+        $form = $this->createForm(new SubListsType(), $entity, array(
+            'action' => $this->generateUrl('lists_create_sublist', array('parent_id' => $parentList->getId())),
+            'method' => 'POST',
+        ));
+
+        return $form;
+    }
+
+
+    /**
      * Displays a form to create a new Lists entity.
      *
-     * @Route("/new/{id}", name="lists_new")
-     * @ParamConverter("type", class="KDOKDOBundle:ListType")
+     * @Route("/sublistnew/{parent_id}", name="lists_new_sublist")
+     * @ParamConverter("parentList", class="KDOKDOBundle:Lists", options={"id" = "parent_id"})
      * @Method("GET")
-     * @Template("KDOKDOBundle:Lists:edit.html.twig")
+     * @Template("KDOKDOBundle:Lists:editSubList.html.twig")
      */
-    public function newAction(ListType $type)
+    public function newSubListAction(Lists $parentList )
     {
         $entity = new Lists();
-        $entity->setType($type);
-        $form   = $this->createCreateForm($entity);
+        $entity->setParent($parentList);
+        $form   = $this->createSubListCreateForm($entity, $parentList);
 
         return array(
-
             'action' => "new",
             'entity' => $entity,
             'form'   => $form->createView(),
-            'type' => $type
         );
     }
 
@@ -181,17 +202,14 @@ class ListsController extends Controller
      * @Method("GET")
      * @Template()
      */
-    public function showAction($id)
+    public function showAction(Lists $entity)
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('KDOKDOBundle:Lists')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Lists entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
+        $deleteForm = $this->createDeleteForm($entity);
 
         return array(
             'entity'      => $entity,
@@ -215,7 +233,22 @@ class ListsController extends Controller
             'method' => 'POST',
         ));
 
-        //$form->add('submit', 'submit', array('label' => 'Enregistrer'));
+        return $form;
+    }
+
+    /**
+     * Creates a form to edit a Lists entity.
+     *
+     * @param Lists $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createSubListEditForm(Lists $entity)
+    {
+        $form = $this->createForm(new SubListsType(), $entity, array(
+            'action' => $this->generateUrl('lists_update', array('id' => $entity->getId())),
+            'method' => 'POST',
+        ));
 
         return $form;
     }
@@ -229,18 +262,19 @@ class ListsController extends Controller
      * @Template("KDOKDOBundle:Lists:edit.html.twig")
      * @Method("POST")
      */
-    public function updateAction(Request $request, $id)
+    public function updateAction(Request $request, Lists $entity)
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('KDOKDOBundle:Lists')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Lists entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
-        $editForm = $this->createEditForm($entity);
+        $deleteForm = $this->createDeleteForm($entity);
+        if($entity->getParent() != null) {
+            $editForm = $this->createSubListEditForm($entity);
+        } else {
+            $editForm = $this->createEditForm($entity);
+        }
         $editForm->handleRequest($request);
 
 
@@ -265,8 +299,8 @@ class ListsController extends Controller
 
             $entity->getPicture()->preUpload();
 
-            $em->persist($entity);
-            $em->flush();
+            $this->em->persist($entity);
+            $this->em->flush();
 
             return $this->redirect($this->generateUrl('lists_show', array('id' => $entity->getId())));
         }
@@ -285,18 +319,15 @@ class ListsController extends Controller
      * @Route("/{id}/edit", name="lists_edit")
      * @Template()
      */
-    public function editAction($id)
+    public function editAction(Lists $entity)
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('KDOKDOBundle:Lists')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Lists entity.');
         }
 
+        $deleteForm = $this->createDeleteForm($entity);
         $editForm = $this->createEditForm($entity);
-        $deleteForm = $this->createDeleteForm($id);
 
         return array(
             'action' => "edit",
@@ -307,18 +338,79 @@ class ListsController extends Controller
     }
 
     /**
+     * Displays a form to edit an existing Lists entity.
+     *
+     * @Route("/{id}/editSubList", name="lists_edit_sublist")
+     * @Template()
+     */
+    public function editSubListAction(Lists $entity)
+    {
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Lists entity.');
+        }
+
+        $deleteForm = $this->createDeleteForm($entity);
+        $editForm = $this->createSubListEditForm($entity);
+
+        return array(
+            'action' => "edit",
+            'entity'      => $entity,
+            'form'   => $editForm->createView(),
+            'delete_form' => $deleteForm->createView(),
+        );
+    }
+    /**
      * Creates a form to delete a Lists entity by id.
      *
      * @param mixed $id The entity id
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm($id)
+    private function createDeleteForm(Lists $list)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('lists_delete', array('id' => $id)))
+            ->setAction($this->generateUrl('lists_delete', array('id' => $list->getId())))
             ->setMethod('DELETE')
             ->getForm();
         ;
+    }
+
+
+    /**
+     * Deletes a Lists entity.
+     *
+     * @Route("/{id}", name="lists_delete")
+     * @Method("DELETE")
+     */
+    public function deleteAction(Request $request, Lists $list)
+    {
+        $form = $this->createDeleteForm($list);
+        $form->handleRequest($request);
+        if ($form->isValid()) {
+            $list = $this->em->getRepository('KDOKDOBundle:Lists')->find($list->getId());
+
+            if (!$list) {
+                throw $this->createNotFoundException('Unable to find Lists entity.');
+            }
+
+            foreach( $list->getOwners() as $owner) {
+                $list->getOwners()->removeElement($owner);
+                $this->em->remove($owner);
+                $this->em->flush();
+            }
+
+            $parent = $list->getParent();
+            $list->setParent(null);
+            $this->em->remove($list);
+            $this->em->flush();
+            $this->get('session')->getFlashBag()->add('success', 'entity.delete.success');
+        } else {
+            $this->get('session')->getFlashBag()->add('error', 'entity.delete.error');
+        }
+
+        if ($parent != null) {
+            return $this->redirect($this->generateUrl('lists_show', array('id' => $parent->getId())));
+        }
+        return $this->redirect($this->generateUrl('lists'));
     }
 }

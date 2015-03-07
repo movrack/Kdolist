@@ -2,13 +2,11 @@
 
 {% block headline %}
     <div class="right" style="float: right">
-        {% for type in listeTypes %}
-            <a class="btn btn-primary"
-                href="{{ path('lists_new', {'id': "1" } ) }}"
-                title="{{ type.description }}">
-                <i class="fa fa-list"></i> <i class="fa fa-plus"></i> Créer une liste
-            </a>
-        {% endfor %}
+        <a class="btn btn-primary"
+            href="{{ path('lists_new') }}"
+            title="Créer une nouvelle liste">
+            <i class="fa fa-list"></i> <i class="fa fa-plus"></i> Créer une liste
+        </a>
     </div>
     Mes listes
 {% endblock headline %}

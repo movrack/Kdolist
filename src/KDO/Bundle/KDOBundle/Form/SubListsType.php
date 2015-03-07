@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class ListsType extends AbstractType
+class SubListsType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -17,18 +17,8 @@ class ListsType extends AbstractType
         $builder
             ->add('title')
             ->add('subTitle')
-            ->add('event')
             ->add('description')
             ->add('picture', new PictureType())
-
-            ->add('owners', 'collection',
-                array(
-                    'type' => new ListOwnerType(),
-                    'allow_add' => true,
-                    'allow_delete' => true,
-                    'by_reference' => false
-                )
-            )
         ;
     }
     
