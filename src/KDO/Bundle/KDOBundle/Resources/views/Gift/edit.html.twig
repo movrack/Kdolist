@@ -3,8 +3,11 @@
 {% block headline %}
 
     {% if action == "new" %}
-            <div class="right" style="float: right">
-            </div>
+        <div class="right" style="float: right">
+            <a class="btn btn-default" href="{{ path('lists_show', { 'id': entity.list.id }) }}">
+                <i class="fa fa-angle-left"></i><i class="fa fa-angle-left"></i> Retour à la liste
+            </a>
+        </div>
         Nouveau cadeau
 
     {%  else %}
