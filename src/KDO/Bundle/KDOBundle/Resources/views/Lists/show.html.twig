@@ -20,11 +20,13 @@
             </a>
         {% endif %}
 
-
-
         <!-- Button trigger modal -->
-        <button type="button" class="btn btn-warning btn-lg" data-toggle="modal" data-target="#myModal">
+        <button type="button" class="btn btn-warning btn-lg" data-toggle="modal" data-target="#modalAddGift">
             <i class="fa fa-gift"></i> Ajouter un cadeau
+        </button>
+
+        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modalShare">
+            <i class="fa fa-share-alt"></i> Partager
         </button>
     </div>
     {{ entity.title }} <small>{{ entity.subTitle }}</small>
@@ -35,9 +37,8 @@
     {% endif %}
 {% endblock headline %}
 {% block content_content %}
-
     <!-- popup ajout cadeau -->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal fade" id="modalAddGift" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -98,6 +99,27 @@
                             </a>
                         </div>
                     </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- popup share -->
+    <div class="modal fade" id="modalShare" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2" aria-hidden="false">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Partager la liste</h4>
+                </div>
+                <div class="modal-body">
+                    <strong>Lien publique : </strong>
+                    <a href="{{ path('public_list', { 'list_id': entity.id, 'slug': entity.slug }) }}">
+                        {{ url('public_list', { 'list_id': entity.id, 'slug': entity.slug }) }}
+                    </a>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>

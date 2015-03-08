@@ -19,6 +19,7 @@ class ListsType extends AbstractType
             ->add('subTitle')
             ->add('event')
             ->add('description')
+            ->add('isPublic')
             ->add('picture', new PictureType())
 
             ->add('owners', 'collection',

@@ -5,10 +5,18 @@ namespace KDO\Bundle\KDOBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use KDO\Bundle\KDOBundle\Entity\User;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use JMS\DiExtraBundle\Annotation as DI;
+use KDO\Bundle\KDOBundle\Entity\User;
+use KDO\Bundle\KDOBundle\Entity\Lists;
 
-class DefaultController extends Controller
+/**
+ * Class PublicListController
+ * @package KDO\Bundle\KDOBundle\Controller
+ * @Route("/pl")
+ */
+class PublicListController extends Controller
 {
 
     /**
@@ -27,16 +35,21 @@ class DefaultController extends Controller
     function __construct($securityContext) {
         $this->user = $securityContext->getToken()->getUser();
     }
+
     /**
-     * @Route("/")
+     * @Route("/{list_id}", name="public_list_noSlug")
+     * @Route("/{list_id}/{slug}", name="public_list")
+     * @ParamConverter("list", class="KDOKDOBundle:Lists", options={"id" = "list_id"})
      * @Template()
      */
-    public function indexAction()
+    public function listAction(Lists $list)
     {
-        $container = $this->container;
+        /*$container = $this->container;
         if( $container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY') ){
             return $this->redirect($this->generateUrl('lists'));
-        }
-        return array();
+        }*/
+        return array(
+            'entity' => $list
+        );
     }
 }

@@ -38,6 +38,16 @@
     {{ form_row(form.title) }}
     {{ form_row(form.subTitle) }}
     {{ form_row(form.description) }}
+    <div class="form-group">
+        <label for="kdo_bundle_kdobundle_lists_description" class="control-label col-sm-3 optional">
+            Est publique
+        </label>
+        <div class="col-sm-9">
+            {{ form_widget(form.isPublic) }}
+            Indique si cette liste peut-être retrouvée avec le champ de recherche
+            (où au contraire juste disponible avec un lien).<br />
+        </div>
+    </div>
     {{ form_row(form.event) }}
     {{ form_row(form.picture) }}
 

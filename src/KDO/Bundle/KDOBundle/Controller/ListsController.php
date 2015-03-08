@@ -2,7 +2,6 @@
 
 namespace KDO\Bundle\KDOBundle\Controller;
 
-use KDO\Bundle\KDOBundle\Form\SubListsType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -13,6 +12,7 @@ use JMS\DiExtraBundle\Annotation as DI;
 use KDO\Bundle\KDOBundle\Entity\User;
 use KDO\Bundle\KDOBundle\Entity\Lists;
 use KDO\Bundle\KDOBundle\Form\ListsType;
+use KDO\Bundle\KDOBundle\Form\SubListsType;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**

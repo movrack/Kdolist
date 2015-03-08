@@ -3,6 +3,7 @@
 namespace KDO\Bundle\KDOBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -23,6 +24,12 @@ class Lists
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+
+    /**
+     * @Gedmo\Slug(fields={"title"})
+     * @ORM\Column(name="slug", type="string", length=255)
+     */
+    private $slug;
 
     /**
      * @var string
@@ -91,6 +98,13 @@ class Lists
     private $parent;
 
     /**
+     * @var boolean
+     *
+     * @ORM\Column(name="isPublic", type="boolean", nullable=true)
+     */
+    private $isPublic;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -115,7 +129,10 @@ class Lists
         return $this->id;
     }
 
-
+    public function getSlug()
+    {
+        return $this->slug;
+    }
 
     /**
      * Set description
@@ -463,4 +480,29 @@ class Lists
     {
         return $this->parent;
     }
+
+
+    /**
+     * Set isPublic
+     *
+     * @param boolean $isPublic
+     * @return Gift
+     */
+    public function setIsPublic($isPublic)
+    {
+        $this->isPublic = $isPublic;
+
+        return $this;
+    }
+
+    /**
+     * Get isPublic
+     *
+     * @return boolean
+     */
+    public function getIsPublic()
+    {
+        return $this->isPublic;
+    }
+
 }

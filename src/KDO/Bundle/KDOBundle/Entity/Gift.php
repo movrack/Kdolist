@@ -86,6 +86,7 @@ class Gift
      */
     private $numberOfParts = 1;
 
+
     function __toString() {
         return $this->name;
     }
