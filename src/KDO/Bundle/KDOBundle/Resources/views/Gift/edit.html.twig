@@ -3,14 +3,8 @@
 {% block headline %}
 
     {% if action == "new" %}
-
-        {% if entity.list is not null %}
             <div class="right" style="float: right">
-                <a class="btn btn-default" href="{{ path('lists_show', { 'id': entity.list.id }) }}">
-                    <i class="fa fa-angle-left"></i><i class="fa fa-angle-left"></i> Retour à la liste
-                </a>
             </div>
-        {% endif %}
         Nouveau cadeau
 
     {%  else %}
@@ -35,22 +29,23 @@
         {% set actionPost = path('gift_update', {'id': entity.id}) %}
     {% endif %}
 
-    {{ form(form) }}
-
-        {{ form_start(form) }}
+    {{ form_start(form) }}
         {{ form_row(form.list) }}
         {{ form_row(form.name) }}
-        {{ form_row(form.picture) }}
+        {{ form_row(form.description) }}
+        {{ form_row(form.link) }}
         {{ form_row(form.price) }}
-        {{ form_row(form.isSecondHand) }}
-        {{ form_row(form.giveMoney) }}
-        {{ form_row(form.accepteMultipleParts) }}
-        {{ form_row(form.numberOfParts) }}
+        {{ form_row(form.picture) }}
+        <div style="display: none;">
+            {{ form_row(form.giveMoney) }}
+            {{ form_row(form.accepteMultipleParts) }}
+            {{ form_row(form.numberOfParts) }}
+        </div>
         {{ form_rest(form) }}
 
-        <button type="submit" class="btn btn-success">
-            <i class="fa fa-save"></i> Enregistrer
-        </button>
+    <button type="submit" class="btn btn-success">
+        <i class="fa fa-save"></i> Enregistrer
+    </button>
 
     {{ form_end(form) }}
 

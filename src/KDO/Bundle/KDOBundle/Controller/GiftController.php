@@ -60,9 +60,10 @@ class GiftController extends Controller
 
             return $this->redirect($this->generateUrl('lists_show', array('id' => $entity->getList()->getId())));
         }
-
+echo $entity->getList();
         return array(
             'action' => "new",
+            'list' => $entity->getList(),
             'entity' => $entity,
             'form'   => $form->createView(),
         );
@@ -107,6 +108,7 @@ class GiftController extends Controller
 
         return array(
             'action' => "new",
+            'list' => $list,
             'entity' => $entity,
             'form'   => $form->createView(),
         );

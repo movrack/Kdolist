@@ -46,9 +46,6 @@ class GiftType extends AbstractType
             ->add('link')
             ->add('price')
             ->add('picture', new PictureType())
-            ->add('isSecondHand', 'checkbox', array(
-                'required' => false
-            ))
             ->add('giveMoney', 'checkbox', array(
                 'required' => false
             ))

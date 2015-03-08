@@ -42,6 +42,11 @@ class Gift
      */
     private $picture;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Lists", inversedBy="gifts")
+     * @ORM\JoinColumn(name="list_id", referencedColumnName="id", nullable=false)
+     */
+    protected $list;
 
     /**
      * @var string
@@ -56,13 +61,6 @@ class Gift
      * @ORM\Column(name="price", type="decimal", nullable=true)
      */
     private $price;
-
-    /**
-     * @var boolean
-     *
-     * @ORM\Column(name="isSecondHand", type="boolean")
-     */
-    private $isSecondHand;
 
     /**
      * @var string
@@ -87,14 +85,6 @@ class Gift
      * )
      */
     private $numberOfParts = 1;
-
-
-
-    /**
-     * @ORM\ManyToOne(targetEntity="Lists", inversedBy="gifts")
-     * @ORM\JoinColumn(name="list_id", referencedColumnName="id", nullable=false)
-     */
-    protected $list;
 
     function __toString() {
         return $this->name;
@@ -201,30 +191,6 @@ class Gift
     public function getPrice()
     {
         return $this->price;
-    }
-
-
-    /**
-     * Set isSecondHand
-     *
-     * @param boolean $isSecondHand
-     * @return Gift
-     */
-    public function setIsSecondHand($isSecondHand)
-    {
-        $this->isSecondHand = $isSecondHand;
-
-        return $this;
-    }
-
-    /**
-     * Get isSecondHand
-     *
-     * @return boolean 
-     */
-    public function getIsSecondHand()
-    {
-        return $this->isSecondHand;
     }
 
     /**
