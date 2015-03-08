@@ -116,10 +116,20 @@
                     <h4 class="modal-title" id="myModalLabel">Partager la liste</h4>
                 </div>
                 <div class="modal-body">
-                    <strong>Lien publique : </strong>
-                    <a href="{{ path('public_list', { 'list_id': entity.id, 'slug': entity.slug }) }}">
-                        {{ url('public_list', { 'list_id': entity.id, 'slug': entity.slug }) }}
-                    </a>
+                    <div>
+                        <strong>Lien publique : </strong>
+                        <a href="{{ path('public_list', { 'list_id': entity.id, 'slug': entity.slug }) }}">
+                            {{ url('public_list', { 'list_id': entity.id, 'slug': entity.slug }) }}
+                        </a>
+                    </div>
+
+                    <button class="g-plus" data-action="share" data-annotation="none"
+                            data-href="{{ url('public_list', { 'list_id': entity.id, 'slug': entity.slug }) }}"></button>
+
+                    <div class="fb-share-button"
+                         data-href="{{ url('public_list', { 'list_id': entity.id, 'slug': entity.slug }) }}"
+                         data-layout="button">
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
@@ -253,6 +263,7 @@
         {% endfor %}
     </div>
 
+    <div id="fb-root"></div>
 {% endblock %}
 
 
@@ -269,5 +280,17 @@ $(document).ready(function() {
     });
 
 });
+
+(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/fr_FR/sdk.js#xfbml=1&appId=104528756291510&version=v2.0";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+</script>
+
+<script src="https://apis.google.com/js/platform.js" async defer>
+    {lang: 'fr'}
 </script>
 {% endblock %}

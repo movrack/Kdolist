@@ -2,6 +2,7 @@
 
 namespace KDO\Bundle\KDOBundle\Controller;
 
+use Symfony\Component\Finder\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -35,7 +36,8 @@ class ListsController extends Controller
      *     "securityContext" = @DI\Inject("security.context")
      * })
      */
-    function __construct($securityContext) {
+    function __construct($securityContext)
+    {
         $this->user = $securityContext->getToken()->getUser();
     }
     

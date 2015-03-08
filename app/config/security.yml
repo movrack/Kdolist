@@ -49,8 +49,8 @@ security:
                     google:             "/loginOauth/check-google"
                     windows_live:       "/loginOauth/check-windows_live"
                     facebook:           "/loginOauth/check-facebook"
-                login_path:        /loginOauth
-                failure_path:      /loginOauth
+                login_path:        /login
+                failure_path:      /login
                 oauth_user_provider:
                     service: hwi_oauth.user.provider.fosub_bridge
 
@@ -69,3 +69,7 @@ security:
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin/, role: ROLE_ADMIN }
+        - { path: ^/gift, roles: ROLE_USER }
+        - { path: ^/lists, roles: ROLE_USER }
+        - { path: ^/picture, roles: ROLE_SUPER_ADMIN }
+        - { path: ^/, roles: IS_AUTHENTICATED_ANONYMOUSLY }
