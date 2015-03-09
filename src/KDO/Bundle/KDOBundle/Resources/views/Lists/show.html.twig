@@ -1,7 +1,6 @@
 {% extends '::base.html.twig' %}
 {% block headline %}
     <div class="right" style="float: right">
-        {{ entity.parent }}
         {% if entity.parent is empty %}
             <a class="btn btn-default" href="{{ path('lists') }}">
                 <i class="fa fa-angle-left"></i><i class="fa fa-angle-left"></i> Retour aux listes
@@ -196,9 +195,9 @@
                     {% endif %}
                 </td>
                 <td class="btn-group">
-                    <a href="" class="btn btn-primary" role="button"><i class="fa fa-gift"></i> Offrir</a>
                     <a href="{{ path('gift_edit', { 'id': gift.id }) }}" class="btn btn-default" role="button">
-                        <i class="fa fa-pencil"></i> Modifier</a>
+                        <i class="fa fa-pencil"></i> Modifier
+                    </a>
                     <a href="#" class="btn btn-success">
                         <i class="fa fa-eye"></i> Plus de détails
                     </a>
