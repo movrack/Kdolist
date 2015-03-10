@@ -10,11 +10,12 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use JMS\DiExtraBundle\Annotation as DI;
 use KDO\Bundle\KDOBundle\Entity\User;
 use KDO\Bundle\KDOBundle\Entity\Lists;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class PublicListController
  * @package KDO\Bundle\KDOBundle\Controller
- * @Route("/pl")
+ * @Route("/p")
  */
 class PublicListController extends Controller
 {
@@ -37,8 +38,8 @@ class PublicListController extends Controller
     }
 
     /**
-     * @Route("/{list_id}", name="public_list_noSlug")
-     * @Route("/{list_id}/{slug}", name="public_list")
+     * @Route("/l{list_id}", name="public_list_noSlug")
+     * @Route("/l{list_id}/{slug}", name="public_list")
      * @ParamConverter("list", class="KDOKDOBundle:Lists", options={"id" = "list_id"})
      * @Template()
      */
@@ -52,4 +53,5 @@ class PublicListController extends Controller
             'entity' => $list
         );
     }
+
 }

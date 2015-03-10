@@ -115,20 +115,25 @@
                     <h4 class="modal-title" id="myModalLabel">Partager la liste</h4>
                 </div>
                 <div class="modal-body">
-                    <div>
-                        <strong>Lien publique : </strong>
-                        <a href="{{ path('public_list', { 'list_id': entity.id, 'slug': entity.slug }) }}">
-                            {{ url('public_list', { 'list_id': entity.id, 'slug': entity.slug }) }}
-                        </a>
-                    </div>
 
-                    <button class="g-plus" data-action="share" data-annotation="none"
-                            data-href="{{ url('public_list', { 'list_id': entity.id, 'slug': entity.slug }) }}"></button>
+                    <a target="_blank"
+                       href="https://plus.google.com/share?url={{ url('public_list', { 'list_id': entity.id, 'slug': entity.slug }) }}">
+                        <i class="fa fa-google-plus-square" style="font-size: 2em; color:#cc3732;"></i>
+                    </a>
 
-                    <div class="fb-share-button"
-                         data-href="{{ url('public_list', { 'list_id': entity.id, 'slug': entity.slug }) }}"
-                         data-layout="button">
-                    </div>
+
+                    <a target="_blank"
+                       href="https://www.facebook.com/sharer/sharer.php?u={{ url('public_list', { 'list_id': entity.id, 'slug': entity.slug }) }}">
+                        <i class="fa fa-facebook-square" style="font-size: 2em; color:#4c66a4;"></i>
+                    </a><br />
+
+                    <strong><i class="fa fa-share-alt" ></i> Lien publique : </strong>
+                    <a target="_blank"
+                       href="{{ path('public_list', { 'list_id': entity.id, 'slug': entity.slug }) }}"
+                       style="color: black;">
+
+                        {{ url('public_list', { 'list_id': entity.id, 'slug': entity.slug }) }}
+                    </a>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>

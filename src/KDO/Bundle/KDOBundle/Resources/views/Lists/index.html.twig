@@ -53,9 +53,27 @@
             <div class="panel-footer ">
                 <div class="container-fluid">
                     <div class="row" >
+
                         <div class="col-md-6">
-                            {#{ entity.type }#}
+                            <a target="_blank"
+                               href="https://plus.google.com/share?url={{ url('public_list', { 'list_id': entity.id, 'slug': entity.slug }) }}">
+                                <i class="fa fa-google-plus-square" style="font-size: 2em; color:#cc3732;"></i>
+                            </a>
+
+
+                            <a target="_blank"
+                               href="https://www.facebook.com/sharer/sharer.php?u={{ url('public_list', { 'list_id': entity.id, 'slug': entity.slug }) }}">
+                                <i class="fa fa-facebook-square" style="font-size: 2em; color:#4c66a4;"></i>
+                            </a>
+
+                            <a target="_blank"
+                               href="{{ path('public_list', { 'list_id': entity.id, 'slug': entity.slug }) }}"
+                               style="color: black;">
+                                <i class="fa fa-share-alt" ></i>
+                                {{ url('public_list', { 'list_id': entity.id, 'slug': entity.slug }) }}
+                            </a><br />
                         </div>
+
                         <div class="col-md-6 right">
                             <a class="btn btn-primary"
                                href="{{ path('lists_show', { 'id': entity.id }) }}">
@@ -72,5 +90,19 @@
             </div>
         </div>
     <br />
+        <style type="text/css">
+
+            #share-buttons img {
+                width: 35px;
+                padding: 5px;
+                border: 0;
+                box-shadow: 0;
+                display: inline;
+            }
+
+        </style>
     {% endfor %}
+{% endblock %}
+
+{% block page_script %}
 {% endblock %}
