@@ -7,11 +7,19 @@
         <div class="alert alert-info" role="alert">{{ flashMessage }}</div>
     {% endfor %}
 
+    {% for flashMessage in app.session.flashbag.get('info') %}
+        <div class="alert alert-info" role="alert">{{ flashMessage }}</div>
+    {% endfor %}
+
     {% for flashMessage in app.session.flashbag.get('warning') %}
         <div class="alert alert-warning" role="alert">{{ flashMessage }}</div>
     {% endfor %}
 
     {% for flashMessage in app.session.flashbag.get('danger') %}>
+        <div class="alert alert-danger" role="alert">{{ flashMessage }}</div>
+    {% endfor %}
+
+    {% for flashMessage in app.session.flashbag.get('error') %}>
         <div class="alert alert-danger" role="alert">{{ flashMessage }}</div>
     {% endfor %}
 {% endblock flashes %}

@@ -44,29 +44,31 @@
             </tr>
 
             {% for child in entity.children %}
-                <tr>
-                    <td>{{ child.title }}</td>
+                <tr class='clickable-row' data-href='{{ path('public_list', { 'list_id': child.id, 'slug': child.slug }) }}'>
+                    <td><strong>{{ child.title }}</strong></td>
                     <td>{{ child.description }}</td>
                     <td></td>
                     <td></td>
                     <td>
                         <a href="{{ path('public_list', { 'list_id': child.id, 'slug': child.slug }) }}" class="btn btn-success">
-                            <i class="fa fa-eye"></i> Plus de détails
+                            <i class="fa fa-eye"></i> Voir la liste
                         </a>
                     </td>
                 </tr>
             {% endfor %}
             {% for gift in entity.gifts %}
-                <tr>
+                <tr class='offer'>
                     <td>
-                        {{ gift.name }}
+                        <strong>{{ gift.name }}</strong>
                     </td>
                     <td>
-                        {{ gift.description }}
+                        {{ gift.description | truncate(100) }}
                     </td>
                     <td>
                         {%  if gift.link is not empty %}
-                            <i class="fa fa-external-link"></i> <a href="{{ gift.link }}">Lien</a>
+                            <a href="{{ gift.link }}">
+                                <i class="fa fa-external-link"></i> Lien
+                            </a>
                         {% endif %}
                     </td>
                     <td>
@@ -75,13 +77,19 @@
                         {% endif %}
                     </td>
                     <td class="btn-group">
-                        <a href="javascript:void(0)" class="btn btn-primary" role="button">
-                            <i class="fa fa-gift"></i> Offrir
-                        </a>
 
-                        <a href="javascript:void(0)" class="btn btn-success">
-                            <i class="fa fa-eye"></i> Plus de détails
-                        </a>
+                        <button class="offer btn btn-primary btn-block" role="button">
+                            <i class="fa fa-gift"></i> Offrir / Plus de détails
+                        </button>
+                        <div class="hide">
+                            <div class="gift-id">{{ gift.id }}</div>
+                            <div class="gift-name">{{ gift.name }}</div>
+                            <div class="gift-link">{{ gift.link }}</div>
+                            <div class="gift-description">{{ gift.description }}</div>
+                            <div class="gift-img">{{ gift.picture }}</div>
+                            <div class="gift-price">{{ gift.price }}</div>
+                            <div class="gift-offer">{{ path('public_send_mail', { 'gift_id': gift.id }) }}</div>
+                        </div>
                     </td>
                 </tr>
             {%  endfor %}
@@ -89,7 +97,6 @@
     </div>
 
     <div class="showGrid" class="row">
-
         {% for child in entity.children %}
             <div class="col-sm-6 col-md-4">
                 <div class="thumbnail">
@@ -115,36 +122,160 @@
             <div class="col-sm-6 col-md-4">
                 <div class="thumbnail">
                     {%  if gift.picture|trim != "" %}
-                        <img src="{{ gift.picture }}" alt="{{ gift.name }}">
+                        <img src="{{ gift.picture }}" alt="{{ gift.name }}"
+                            style="height: auto; max-width:200px; max-height:200px;">
                     {%  endif %}
-                    <div class="caption">
+                    <div class="caption ">
                         <h3>{{ gift.name }}</h3>
-                        <p><i class="fa fa-quote-left"></i> <i class="fa fa-quote-right"></i> {{ gift.description }}</p>
+                        {%  if gift.description is not empty %}
+                            <p style="text-align: justify">
+                                <i class="fa fa-quote-left"></i>
+                                <i class="fa fa-quote-right"></i>
+                                {{ gift.description | truncate(100) }}
+                            </p>
+                        {%  endif %}
                         {%  if gift.price is not empty %}
                             <p><i class="fa fa-money"></i> {{ gift.price }} €</p>
                         {%  endif %}
                         {%  if gift.link is not empty %}
                             <p>
-                                <a href="{{ gift.link }}" class="" role="button">
+                                <a href="{{ gift.link }}" role="button">
                                     <i class="fa fa-external-link"></i> Voir le site
                                 </a>
                             </p>
                         {%  endif %}
-                        <p>
-                            <a href="javascript:void(0)" class="btn btn-primary" role="button">
-                                <i class="fa fa-gift"></i> Offrir
-                            </a>
-
-                            <a href="javascript:void(0)" class="btn btn-success">
-                                <i class="fa fa-eye"></i> Plus de détails
-                            </a>
-                        </p>
+                        <button class="offer btn btn-primary btn-block" role="button">
+                            <i class="fa fa-gift"></i> Offrir / Plus de détails
+                        </button>
+                        <div class="hide">
+                            <div class="gift-id">{{ gift.id }}</div>
+                            <div class="gift-name">{{ gift.name }}</div>
+                            <div class="gift-link">{{ gift.link }}</div>
+                            <div class="gift-description">{{ gift.description }}</div>
+                            <div class="gift-img">{{ gift.picture }}</div>
+                            <div class="gift-price">{{ gift.price }}</div>
+                            <div class="gift-offer">{{ path('public_send_mail', { 'gift_id': gift.id }) }}</div>
+                        </div>
                     </div>
                 </div>
             </div>
         {% endfor %}
     </div>
 
+
+    <!-- popup offrir cadeau -->
+    <div class="modal fade" id="modalOffer" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"
+                            aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel"></h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-4">
+
+                            <div id="offerShowImg" style="text-align: center">
+                                <img id="offerGiftImg" class="img-circle" width="150"/>
+                                <br />
+                            </div>
+
+                            <div id="offerShowPrice">
+                                <i class="fa fa-money"></i> <span id="offerGiftPrice"></span> €
+                            </div>
+
+                            <div id="offerShowLink">
+                                <a id="offerGiftLink" target="_blanck">
+                                    <i class="fa fa-external-link"></i> Voir le site
+                                </a>
+                            </div>
+
+                        </div>
+                        <div class="col-md-8">
+                            <div>
+                                <i class="fa fa-quote-left"></i>
+                                <i class="fa fa-quote-right"></i>
+                                <div id="offerGiftDescription" style="text-align: justify"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="panel panel-info">
+                        <div class="panel-heading"><strong>Offrir</strong></div>
+                        <div class="row panel-body">
+                            <div class="col-md-7">
+                                <p class="text-align: justify">
+                                    Afin d'offrir un cadeau, un email va vous être envoyé.<br />
+                                    Dans celui-ci, vous devrez confirmer votre cadeau et celui-ci sera alors enlevé de la liste des souhaits.<br />
+                                    Personne d'autre ne pourra alors l'offrir.
+                                </p>
+                                {#
+                                <p style="font-weight: bold">
+                                    {%  if not entity.owners is empty %}
+                                        {% for user in entity.owners %}
+                                            {% if user != entity.owners|first and  user == entity.owners|last %}
+                                                {% if entity.owners|length == 2 %}
+                                                    et
+                                                {% else %}
+                                                    ,
+                                                {% endif %}
+                                            {% endif %}
+                                            {{ user.firstname|capitalize }} {{ user.lastname|capitalize }}
+                                        {% endfor %}
+                                        {% if entity.owners|length == 1 %}
+                                            souhaite
+                                        {% else %}
+                                            souhaitent
+                                        {% endif %}
+                                        recevoir ce cadeau :
+                                        <ul>
+                                            <li style="text-decoration: line-through">emballé et donné en main propre</li>
+                                            <li>sous la forme d'un virement</li>
+                                        </ul>
+                                    {% endif %}
+                                </p>
+                                #}
+                            </div>
+                            <div class="col-md-5">
+                                <form class="form-horizontal" id="offerGiftForm" method="POST">
+                                    <div class="form-group">
+                                        <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
+                                        <div class="col-sm-10">
+                                            {{ form_widget(form.email) }}
+                                        </div>
+                                    </div>
+                                    {{ form_rest(form) }}
+                                    <div class="form-group">
+                                        <div class="col-sm-12">
+                                            <button type="submit" class="btn btn-primary btn-block">
+                                                Offrir
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div style="text-align: center;">
+{#
+        <iframe src="http://rcm-eu.amazon-adsystem.com/e/cm?t=kdolist-21&o=8&p=48&l=ez&f=ifr&f=ifr" width="728" height="90" scrolling="no" marginwidth="0" marginheight="0" border="0" frameborder="0" style="border:none;"></iframe>
+        <iframe src="http://rcm-eu.amazon-adsystem.com/e/cm?t=kdolist-21&o=8&p=48&l=ur1&category=generic&banner=04STT8487M4Y6AJ773R2&f=ifr" width="728" height="90" scrolling="no" border="0" marginwidth="0" style="border:none;" frameborder="0"></iframe>
+#}
+{#
+        <iframe src="http://rcm-eu.amazon-adsystem.com/e/cm?t=kdolist-21&o=8&p=48&l=ur1&category=gift_certificates&banner=1FRDGNQKNPQV59SZXMG2&f=ifr" width="728" height="90" scrolling="no" border="0" marginwidth="0" style="border:none;" frameborder="0"></iframe>
+#}
+    </div>
 {% endblock %}
 
 
@@ -152,11 +283,58 @@
 
 <script type="text/javascript" >
     $(document).ready(function() {
+        // Offer gift
+        $('.offer').on('click', function() {
+            event.preventDefault();
+
+            var gift = {
+                id:             $(this).parent().find('.gift-id').html(),
+                name:           $(this).parent().find('.gift-name').html(),
+                description:    $(this).parent().find('.gift-description').html(),
+                link:           $(this).parent().find('.gift-link').html(),
+                price:          $(this).parent().find('.gift-price').html(),
+                img:            $(this).parent().find('.gift-img').html(),
+                offerLink:      $(this).parent().find('.gift-offer').html()
+            };
+            $('#modalOffer .modal-title').text(gift.name);
+            $('#modalOffer #offerGiftId').text(gift.id);
+            $('#modalOffer #offerGiftName').text(gift.name);
+            $('#modalOffer #offerGiftDescription').html(gift.description);
+            $('#modalOffer #offerGiftLink').attr('href', gift.link);
+            $('#modalOffer #offerGiftPrice').text(gift.price);
+            $('#modalOffer #offerGiftImg').attr('src', gift.img);
+            $('#modalOffer #offerGiftForm').attr('action', gift.offerLink);
+
+
+            if (!gift.img)   { $('#offerShowImg').hide();   } else { $('#offerShowImg').show(); }
+            if (!gift.price) { $('#offerShowPrice').hide(); } else { $('#offerShowPrice').show(); }
+            if (!gift.link)  { $('#offerShowLink').hide(); }  else { $('#offerShowLink').show(); }
+
+
+            $('#modalOffer').modal('show');
+        });
+
+        // Click on row
+        $(".clickable-row").click(function() {
+            window.document.location = $(this).data("href");
+        });
+
+        // Show list / grid
+        $('#showInGrid').addClass("btn-info");
         $('#showInList').on('click', function() {
+            $(this).addClass("btn-info");
+            $(this).removeClass("btn-default");
+            $('#showInGrid').removeClass("btn-info");
+            $('#showInGrid').addClass("btn-default");
             $('.showGrid').hide('slow');
             $('.showList').show('slow');
         });
         $('#showInGrid').on('click', function() {
+            $(this).addClass("btn-info");
+            $(this).removeClass("btn-default");
+            $('#showInList').removeClass("btn-info");
+            $('#showInList').addClass("btn-default");
+
             $('.showList').hide('slow');
             $('.showGrid').show('slow');
         });

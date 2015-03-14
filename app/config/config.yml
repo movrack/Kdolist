@@ -170,6 +170,11 @@ hwi_oauth:
             scope:               "wl.basic wl.signin"
 
 
+services:
+ twig.extension.text:
+     class: Twig_Extensions_Extension_Text
+     tags:
+         - { name: twig.extension }
 
 #jms_di_extra:
 #    locations:
