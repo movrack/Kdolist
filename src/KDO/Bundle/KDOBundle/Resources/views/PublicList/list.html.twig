@@ -88,8 +88,9 @@
                         <div class="row">
                             <div class="col-md-2" >
                                 <div class="thumbnail">
-                                    <img src="{{ child.picture }}"
-                                         class="img-thumbnail"  style="height:70px" />
+                                    <a href="{{ path('public_list', { 'list_id': child.id, 'slug': child.slug }) }}">
+                                        <img src="{{ child.picture }}"  style="height:70px" />
+                                    </a>
                                 </div>
                             </div>
                             <div class="col-md-7">
@@ -97,7 +98,7 @@
                                 {{ child.description|truncate(100) }}
                             </div>
                             <div class="col-md-3">
-                                <a href="{{ path('lists_show', { 'id': child.id }) }}"
+                                <a href="{{ path('public_list', { 'list_id': child.id, 'slug': child.slug }) }}"
                                    class="btn btn-success btn-block">
                                     <i class="fa fa-eye"></i> Plus de détails
                                 </a>
@@ -110,10 +111,22 @@
                     <li class="list-group-item">
                         <div class="row">
                             <div class="col-md-2">
-                                <div class="thumbnail">
-                                    <img src="{{ gift.picture }}"
-                                         class="img-thumbnail"  style="height:70px" />
-                                </div>
+                                {% if gift.picture != "" %}
+                                    <div class="thumbnail">
+                                        <img src="{{ gift.picture }}"
+                                             class="offer"  style="height:70px" />
+
+                                        <div class="hide">
+                                            <div class="gift-id">{{ gift.id }}</div>
+                                            <div class="gift-name">{{ gift.name }}</div>
+                                            <div class="gift-link">{{ gift.link }}</div>
+                                            <div class="gift-description">{{ gift.description }}</div>
+                                            <div class="gift-img">{{ gift.picture }}</div>
+                                            <div class="gift-price">{{ gift.price }}</div>
+                                            <div class="gift-offer">{{ path('public_send_mail', { 'gift_id': gift.id }) }}</div>
+                                        </div>
+                                    </div>
+                                {% endif %}
                             </div>
                             <div class="col-md-7">
                                 <h4>{{ gift.name }}</h4>
@@ -135,11 +148,12 @@
                             </div>
                         </div>
                     </li>
+
                 {% endfor %}
             </ul>
         </div>
 
-        <div class="showGrid" class="row">
+        <div class="showGrid row" style="display: none">
             {% for child in entity.children %}
                 <div class="col-md-3">
                     <div class="thumbnail">
@@ -342,6 +356,18 @@
 {% block page_script %}
 
 <script type="text/javascript" >
+
+    function setCookie(key, value) {
+        var expires = new Date();
+        expires.setTime(expires.getTime() + (1 * 24 * 60 * 60 * 1000));
+        document.cookie = key + '=' + value + ';expires=' + expires.toUTCString();
+    }
+
+    function getCookie(key) {
+        var keyValue = document.cookie.match('(^|;) ?' + key + '=([^;]*)(;|$)');
+        return keyValue ? keyValue[2] : null;
+    }
+
     $(document).ready(function() {
         // Offer gift
         $('.offer').on('click', function() {
@@ -365,11 +391,9 @@
             $('#modalOffer #offerGiftImg').attr('src', gift.img);
             $('#modalOffer #offerGiftForm').attr('action', gift.offerLink);
 
-
             if (!gift.img)   { $('#offerShowImg').hide();   } else { $('#offerShowImg').show(); }
             if (!gift.price) { $('#offerShowPrice').hide(); } else { $('#offerShowPrice').show(); }
             if (!gift.link)  { $('#offerShowLink').hide(); }  else { $('#offerShowLink').show(); }
-
 
             $('#modalOffer').modal('show');
         });
@@ -381,7 +405,9 @@
 
         // Show list / grid
         $('#showInGrid').addClass("btn-info");
+
         $('#showInList').on('click', function() {
+            setCookie('listView', 'showInList');
             $(this).addClass("btn-info");
             $(this).removeClass("btn-default");
             $('#showInGrid').removeClass("btn-info");
@@ -390,6 +416,7 @@
             $('.showList').show('slow');
         });
         $('#showInGrid').on('click', function() {
+            setCookie('listView', 'showInGrid');
             $(this).addClass("btn-info");
             $(this).removeClass("btn-default");
             $('#showInList').removeClass("btn-info");
@@ -398,6 +425,13 @@
             $('.showList').hide('slow');
             $('.showGrid').show('slow');
         });
+
+        var viewToShow = getCookie('listView');
+        if (viewToShow != null) {
+            $('#'+viewToShow).click();
+        } else {
+            $('#showInGrid').show('slow');
+        }
 
     });
     </script>

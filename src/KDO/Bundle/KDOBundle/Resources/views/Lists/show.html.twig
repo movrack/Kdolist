@@ -305,7 +305,7 @@
             </ul>
         </div>
 
-        <div class="showGrid" class="row">
+        <div class="showGrid row" style="display: none">
 
             {% for child in entity.children %}
                 <div class="col-sm-6 col-md-3">
@@ -402,10 +402,23 @@
 
 {% block page_script %}
 <script type="text/javascript" >
+
+function setCookie(key, value) {
+    var expires = new Date();
+    expires.setTime(expires.getTime() + (1 * 24 * 60 * 60 * 1000));
+    document.cookie = key + '=' + value + ';expires=' + expires.toUTCString();
+}
+
+function getCookie(key) {
+    var keyValue = document.cookie.match('(^|;) ?' + key + '=([^;]*)(;|$)');
+    return keyValue ? keyValue[2] : null;
+}
+
 $(document).ready(function() {
     // Show list / grid
     $('#showInGrid').addClass("btn-info");
     $('#showInList').on('click', function() {
+        setCookie('listView', 'showInList');
         $(this).addClass("btn-info");
         $(this).removeClass("btn-default");
         $('#showInGrid').removeClass("btn-info");
@@ -414,6 +427,7 @@ $(document).ready(function() {
         $('.showList').show('slow');
     });
     $('#showInGrid').on('click', function() {
+        setCookie('listView', 'showInGrid');
         $(this).addClass("btn-info");
         $(this).removeClass("btn-default");
         $('#showInList').removeClass("btn-info");
@@ -422,6 +436,12 @@ $(document).ready(function() {
         $('.showList').hide('slow');
         $('.showGrid').show('slow');
     });
+    var viewToShow = getCookie('listView');
+    if (viewToShow != null) {
+        $('#'+viewToShow).click();
+    } else {
+        $('#showInGrid').show('slow');
+    }
 
 
     // Details gift
@@ -446,11 +466,9 @@ $(document).ready(function() {
         $('#modalDetails #detailGiftImg').attr('src', gift.img);
         $('#modalDetails #detailGiftForm').attr('action', gift.offerLink);
 
-
         if (!gift.img)   { $('#offerShowImg').hide();   } else { $('#offerShowImg').show(); }
         if (!gift.price) { $('#offerShowPrice').hide(); } else { $('#offerShowPrice').show(); }
         if (!gift.link)  { $('#offerShowLink').hide(); }  else { $('#offerShowLink').show(); }
-
 
         $('#modalDetails').modal('show');
     });
