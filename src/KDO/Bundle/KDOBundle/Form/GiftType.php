@@ -38,11 +38,12 @@ class GiftType extends AbstractType
                 'class'=>'KDOKDOBundle:Lists',
                 'query_builder' => function(ListsRepository $er)  {
                     return $er->listOfUserQueryBuilder($this->user);
-                }
+                },
+                'property' => 'listPath'
             ))
             ->add('picture')
 
-            ->add('description')
+            ->add('description', 'textarea')
             ->add('link')
             ->add('price')
             ->add('picture', new PictureType())

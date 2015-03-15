@@ -505,4 +505,15 @@ class Lists
         return $this->isPublic;
     }
 
+    /**
+     * @return string
+     */
+    public function getListPath() {
+        if ($this->parent == null) {
+            return $this->title;
+        } else {
+            return $this->getParent()->getListPath() . " > " . $this->title;
+        }
+    }
+
 }
