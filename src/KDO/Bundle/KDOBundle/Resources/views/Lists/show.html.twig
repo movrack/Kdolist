@@ -1,4 +1,5 @@
 {% extends '::base.html.twig' %}
+{% set isPublic = app.request.get('_route') != 'lists' %}
 {% block headline %}
     <div class="right" style="float: right">
         {% if entity.parent is empty %}
@@ -18,7 +19,6 @@
                 <i class="fa fa-pencil"></i> Modifier
             </a>
         {% endif %}
-
         <!-- Button trigger modal -->
         <button type="button" class="btn btn-warning btn-lg" data-toggle="modal" data-target="#modalAddGift">
             <i class="fa fa-gift"></i> Ajouter un cadeau
@@ -29,11 +29,7 @@
         </button>
     </div>
     {{ entity.title }} <small>{{ entity.subTitle }}</small>
-    {% if entity.parent is not empty %}
-        <small><br />
-            (dans la liste "{{ entity.parent }}")
-        </small>
-    {% endif %}
+
 {% endblock headline %}
 {% block content_content %}
     <!-- popup ajout cadeau -->
@@ -141,27 +137,99 @@
             </div>
         </div>
     </div>
+    <!-- popup more info -->
+    <div class="modal fade" id="modalDetails" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"
+                            aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel"></h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-4">
+
+                            <div id="offerShowImg" style="text-align: center">
+                                <img id="detailGiftImg" class="img-circle" width="150"/>
+                                <br />
+                            </div>
+
+                            <div id="offerShowPrice">
+                                <i class="fa fa-money"></i> <span id="detailGiftPrice"></span> €
+                            </div>
+
+                            <div id="offerShowLink">
+                                <a id="detailGiftLink" target="_blanck">
+                                    <i class="fa fa-external-link"></i> Voir le site
+                                </a>
+                            </div>
+
+                        </div>
+                        <div class="col-md-8">
+                            <div>
+                                <i class="fa fa-quote-left"></i>
+                                <i class="fa fa-quote-right"></i>
+                                <div id="detailGiftDescription" style="text-align: justify"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 
     <div class="panel panel-default">
         <div class="panel-body">
 
-            {%  if entity.gifts|length != 0 or entity.children|length != 0 %}
-                <div style="float:right" class="btn-group" alt="toto">
-                    <a class="btn btn-default" id="showInList" href="javascript:void(0)">
-                        <i class="fa fa-list"></i> Liste
-                    </a>
-                    <a class="btn btn-default" id="showInGrid" href="javascript:void(0)">
-                        <i class="fa fa-th"></i> Grille
-                    </a>
-                </div>
-            {% endif %}
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <img src="{{ entity.picture }}" alt="{{ entity.title }}"
-                            width="300px">
+                         class="img-thumbnail"  style="width:250px" />
                 </div>
-                <div class="col-md-6">
-                    {{  entity.description }}
+
+                <div class="col-md-9">
+                    <div class="row">
+                        {%  if entity.gifts|length != 0 or entity.children|length != 0 %}
+                            <div class="col-md-9">
+                        {% else %}
+                            <div class="col-md-12">
+                        {% endif %}
+                            <ol class="breadcrumb">
+                                {%  for parent in parents %}
+                                    <li>
+                                        <a href="{{ url('public_list', { 'list_id': parent.id, 'slug': parent.slug }) }}">
+                                            {{ parent }}
+                                        </a>
+                                    </li>
+                                {% endfor %}
+                                <li class="active">{{ entity.title }}</li>
+                            </ol>
+                        </div>
+                        {%  if entity.gifts|length != 0 or entity.children|length != 0 %}
+                        <div class="col-md-3">
+                            <div style="float:right" class="btn-group" alt="toto">
+                                <a class="btn btn-default" id="showInList" href="javascript:void(0)">
+                                    <i class="fa fa-list"></i> Liste
+                                </a>
+                                <a class="btn btn-default" id="showInGrid" href="javascript:void(0)">
+                                    <i class="fa fa-th"></i> Grille
+                                </a>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            {{  entity.description }}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -184,76 +252,81 @@
             </div>
         </div>
     {% else %}
-        <div class="showList" style="display: none">
-            <table class="table  table-striped table-hover table-condensed">
-                <tr>
-                    <th>Nom</th>
-                    <th>Description</th>
-                    <th>Lien</th>
-                    <th>Prix</th>
-                    <th>Action</th>
-                </tr>
-
+        <div class="showList panel panel-default" style="display: none">
+            <ul class="list-group">
             {% for child in entity.children %}
-                <tr>
-                    <td>{{ child.title }}</td>
-                    <td>{{ child.description }}</td>
-                    <td></td>
-                    <td></td>
-                    <td>
-                        <a href="{{ path('lists_show', { 'id': child.id }) }}" class="btn btn-success">
-                            <i class="fa fa-eye"></i> Plus de détails
-                        </a>
-                    </td>
-                </tr>
+                <li class="list-group-item">
+                    <div class="row">
+                        <div class="col-md-2" >
+                            <div class="thumbnail">
+                                <img src="{{ child.picture }}"
+                                     class="img-thumbnail"  style="height:70px" />
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <h4>{{ child.title }}</h4>
+                            {{ child.description|truncate(100) }}
+                        </div>
+                        <div class="col-md-2">
+                            <a href="{{ path('lists_show', { 'id': child.id }) }}" class="btn btn-success">
+                                <i class="fa fa-eye"></i> Plus de détails
+                            </a>
+                        </div>
+                    </div>
+                </li>
             {% endfor %}
+
             {% for gift in entity.gifts %}
-                <tr>
-                    <td>
-                        {{ gift.name }}
-                    </td>
-                    <td>
-                        {{ gift.description }}
-                    </td>
-                    <td>
-                        {%  if gift.link is not empty %}
-                            <i class="fa fa-external-link"></i> <a href="{{ gift.link }}">Lien</a>
-                        {% endif %}
-                    </td>
-                    <td>
-                        {%  if gift.price is not empty %}
-                            <i class="fa fa-money"></i> {{ gift.price }} €
-                        {% endif %}
-                    </td>
-                    <td class="btn-group">
-                        <a href="{{ path('gift_edit', { 'id': gift.id }) }}" class="btn btn-default" role="button">
-                            <i class="fa fa-pencil"></i> Modifier
-                        </a>
-                        <a href="#" class="btn btn-success">
-                            <i class="fa fa-eye"></i> Plus de détails
-                        </a>
-                    </td>
-                </tr>
-            {%  endfor %}
-            </table>
+                <li class="list-group-item">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="thumbnail">
+                                <img src="{{ gift.picture }}"
+                                     class="img-thumbnail" style="height:70px" />
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <h4>{{ gift.name }}</h4>
+                            {{ gift.description|truncate(100) }}
+                        </div>
+                        <div class="col-md-2">
+                            <div class="btn-group btn-group-vertical">
+                                <a href="{{ path('gift_edit', { 'id': gift.id }) }}" class="btn btn-default" role="button">
+                                    <i class="fa fa-pencil"></i> Modifier
+                                </a>
+                                <a href="#" class="btn btn-success">
+                                    <i class="fa fa-eye"></i> Plus de détails
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            {% endfor %}
+            </ul>
         </div>
 
         <div class="showGrid" class="row">
 
             {% for child in entity.children %}
-                <div class="col-sm-6 col-md-4">
+                <div class="col-sm-6 col-md-3">
                     <div class="thumbnail">
                         {%  if child.picture|trim != "" %}
-                            <img src="{{ child.picture }}" alt="{{ child.title }}">
+                            <a href="{{ path('lists_show', { 'id': child.id }) }}">
+                                <img src="{{ child.picture }}" alt="{{ child.title }}"
+                                 class="img-thumbnail"  style="width:200px" >
+                            </a>
                         {%  endif %}
                         <div class="caption">
                             <h3>{{ child.title }}</h3>
                             <p><i class="fa fa-quote-left"></i> <i class="fa fa-quote-right"></i> {{ child.description }}</p>
 
                             <p>
-                                <a href="{{ path('lists_edit_sublist', { 'id': child.id }) }}" class="btn btn-default" role="button">
-                                    <i class="fa fa-pencil"></i> Modifier</a>
-                                <a href="{{ path('lists_show', { 'id': child.id }) }}" class="btn btn-success">
+                                <a href="{{ path('lists_edit_sublist', { 'id': child.id }) }}"
+                                   class="btn btn-default btn-block">
+                                    <i class="fa fa-pencil"></i> Modifier
+                                </a>
+                                <a href="{{ path('lists_show', { 'id': child.id }) }}"
+                                   class="btn btn-success btn-block">
                                     <i class="fa fa-eye"></i> Plus de détails
                                 </a>
                             </p>
@@ -263,14 +336,30 @@
             {% endfor %}
 
             {% for gift in entity.gifts %}
-                <div class="col-sm-6 col-md-4">
+                <div class="col-sm-6 col-md-3">
                     <div class="thumbnail">
                         {%  if gift.picture|trim != "" %}
-                            <img src="{{ gift.picture }}" alt="{{ gift.name }}">
+                            <a class="details">
+                                <img src="{{ gift.picture }}" alt="{{ gift.name }}"
+                                     class="img-thumbnail"  style="width:200px" >
+                            </a>
+                            <div class="hide">
+                                <div class="gift-id">{{ gift.id }}</div>
+                                <div class="gift-name">{{ gift.name }}</div>
+                                <div class="gift-link">{{ gift.link }}</div>
+                                <div class="gift-description">{{ gift.description }}</div>
+                                <div class="gift-img">{{ gift.picture }}</div>
+                                <div class="gift-price">{{ gift.price }}</div>
+                                <div class="gift-offer">{{ path('public_send_mail', { 'gift_id': gift.id }) }}</div>
+                            </div>
+
                         {%  endif %}
                         <div class="caption">
                             <h3>{{ gift.name }}</h3>
-                            <p><i class="fa fa-quote-left"></i> <i class="fa fa-quote-right"></i> {{ gift.description }}</p>
+                            <p>
+                                <i class="fa fa-quote-left"></i> <i class="fa fa-quote-right"></i>
+                                {{ gift.description|truncate(100) }}
+                            </p>
                             {%  if gift.price is not empty %}
                                 <p><i class="fa fa-money"></i> {{ gift.price }} €</p>
                             {%  endif %}
@@ -280,12 +369,24 @@
                                 </p>
                             {%  endif %}
                             <p>
-                                <a href="" class="btn btn-primary" role="button"><i class="fa fa-gift"></i> Offrir</a>
-                                <a href="{{ path('gift_edit', { 'id': gift.id }) }}" class="btn btn-default" role="button">
-                                    <i class="fa fa-pencil"></i> Modifier</a>
-                                <a href="#" class="btn btn-success">
+                                <a href="{{ path('gift_edit', { 'id': gift.id }) }}"
+                                   class="btn btn-default btn-block" role="button">
+                                    <i class="fa fa-pencil"></i> Modifier
+                                </a>
+
+                                <a class="details btn btn-success btn-block">
                                     <i class="fa fa-eye"></i> Plus de détails
                                 </a>
+
+                                <div class="hide">
+                                    <div class="gift-id">{{ gift.id }}</div>
+                                    <div class="gift-name">{{ gift.name }}</div>
+                                    <div class="gift-link">{{ gift.link }}</div>
+                                    <div class="gift-description">{{ gift.description }}</div>
+                                    <div class="gift-img">{{ gift.picture }}</div>
+                                    <div class="gift-price">{{ gift.price }}</div>
+                                    <div class="gift-offer">{{ path('public_send_mail', { 'gift_id': gift.id }) }}</div>
+                                </div>
                             </p>
                         </div>
                     </div>
@@ -294,6 +395,7 @@
         </div>
 
     {% endif %}
+
     <div id="fb-root"></div>
 {% endblock %}
 
@@ -319,6 +421,38 @@ $(document).ready(function() {
 
         $('.showList').hide('slow');
         $('.showGrid').show('slow');
+    });
+
+
+    // Details gift
+    $('.details').on('click', function() {
+        event.preventDefault();
+        var gift = {
+            id:             $(this).parent().parent().find('.gift-id').html(),
+            name:           $(this).parent().parent().find('.gift-name').html(),
+            description:    $(this).parent().parent().find('.gift-description').html(),
+            link:           $(this).parent().parent().find('.gift-link').html(),
+            price:          $(this).parent().parent().find('.gift-price').html(),
+            img:            $(this).parent().parent().find('.gift-img').html(),
+            offerLink:      $(this).parent().parent().find('.gift-offer').html()
+        };
+
+        $('#modalDetails .modal-title').text(gift.name);
+        $('#modalDetails #detailGiftId').text(gift.id);
+        $('#modalDetails #detailGiftName').text(gift.name);
+        $('#modalDetails #detailGiftDescription').html(gift.description);
+        $('#modalDetails #detailGiftLink').attr('href', gift.link);
+        $('#modalDetails #detailGiftPrice').text(gift.price);
+        $('#modalDetails #detailGiftImg').attr('src', gift.img);
+        $('#modalDetails #detailGiftForm').attr('action', gift.offerLink);
+
+
+        if (!gift.img)   { $('#offerShowImg').hide();   } else { $('#offerShowImg').show(); }
+        if (!gift.price) { $('#offerShowPrice').hide(); } else { $('#offerShowPrice').show(); }
+        if (!gift.link)  { $('#offerShowLink').hide(); }  else { $('#offerShowLink').show(); }
+
+
+        $('#modalDetails').modal('show');
     });
 });
 

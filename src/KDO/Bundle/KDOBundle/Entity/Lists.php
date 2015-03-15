@@ -10,6 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Lists
  *
+ * @Gedmo\Tree(type="nested")
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="KDO\Bundle\KDOBundle\Repository\ListsRepository")
  * @ORM\HasLifecycleCallbacks
@@ -48,7 +49,7 @@ class Lists
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="string", length=255, nullable=true)
+     * @ORM\Column(name="description", type="string", length=255, nullable=false)
      */
     private $description;
 
@@ -85,17 +86,43 @@ class Lists
      **/
     protected $users;
 
-    /**
-     * @ORM\OneToMany(targetEntity="Lists", mappedBy="parent", cascade={"persist"})
-     **/
-    private $children;
 
     /**
-     * @var Lists
-     * @ORM\ManyToOne(targetEntity="Lists", inversedBy="children", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
-     **/
+     * @Gedmo\TreeLeft
+     * @ORM\Column(name="lft", type="integer")
+     */
+    private $lft;
+
+    /**
+     * @Gedmo\TreeLevel
+     * @ORM\Column(name="lvl", type="integer")
+     */
+    private $lvl;
+
+    /**
+     * @Gedmo\TreeRight
+     * @ORM\Column(name="rgt", type="integer")
+     */
+    private $rgt;
+
+    /**
+     * @Gedmo\TreeRoot
+     * @ORM\Column(name="root", type="integer", nullable=true)
+     */
+    private $root;
+
+    /**
+     * @Gedmo\TreeParent
+     * @ORM\ManyToOne(targetEntity="Lists", inversedBy="children")
+     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id", onDelete="CASCADE")
+     */
     private $parent;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Lists", mappedBy="parent")
+     * @ORM\OrderBy({"lft" = "ASC"})
+     */
+    private $children;
 
     /**
      * @var boolean
@@ -112,7 +139,7 @@ class Lists
         $this->gifts = new ArrayCollection();
         $this->users = new ArrayCollection();
         $this->owners = new ArrayCollection();
-        $this->children = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->children = new ArrayCollection();
     }
 
     public function __toString() {
@@ -516,4 +543,24 @@ class Lists
         }
     }
 
+    /**
+     * @return mixed
+     */
+    public function getRoot() {
+        return $this->root;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLft() {
+        return $this->lft;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRgt() {
+        return $this->rgt;
+    }
 }

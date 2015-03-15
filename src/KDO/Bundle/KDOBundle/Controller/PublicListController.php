@@ -48,10 +48,12 @@ class PublicListController extends Controller
     public function listAction(Lists $list)
     {
         $form = $this->formMailOfferGift();
+        $parents = $this->em->getRepository('KDOKDOBundle:Lists')->parents($list);
 
         return array(
             'entity' => $list,
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'parents'   => $parents
         );
     }
 
@@ -74,10 +76,9 @@ class PublicListController extends Controller
         $form = $this->formMailOfferGift();
         $form->handleRequest($request);
         $email = $form->get('email')->getData();
+        $parentList = $this->em->getRepository('KDOKDOBundle:Lists')->parents($gift->getList());
 
         if ($form->isValid()) {
-            // fait quelque chose comme sauvegarder la tâche dans la bdd
-echo "ok";
             $this->get('session')->getFlashBag()->add(
                 'notice', "Un email vous a été envoyé à l'adresse suivante : $email<br />
                             Une fois confirmé, votre cadeau disparaitra de la liste."
@@ -92,15 +93,16 @@ echo "ok";
             echo "mail send";
 
         } else {
-echo "ko";
             $this->get('session')->getFlashBag()->add(
                 'error', "Une erreur est survenue. Vueillez vérifier votre adresse email:
                  $email"
             );
         }
+
         return array(
             'entity' => $gift->getList(),
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'parent' => $parentList
         );
     }
 

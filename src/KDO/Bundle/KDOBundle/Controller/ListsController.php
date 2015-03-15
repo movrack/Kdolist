@@ -211,11 +211,11 @@ class ListsController extends Controller
             throw $this->createNotFoundException('Unable to find Lists entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($entity);
+        $parents = $this->em->getRepository('KDOKDOBundle:Lists')->parents($entity);
 
         return array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),
+            'entity'    => $entity,
+            'parents'   => $parents
         );
     }
 

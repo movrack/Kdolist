@@ -16,8 +16,8 @@ class SubListsType extends AbstractType
     {
         $builder
             ->add('title')
-            ->add('subTitle', 'textarea')
-            ->add('description')
+            ->add('subTitle')
+            ->add('description', 'textarea')
             ->add('picture', new PictureType())
         ;
     }
