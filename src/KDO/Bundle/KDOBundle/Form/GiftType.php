@@ -37,7 +37,7 @@ class GiftType extends AbstractType
             ->add('list', 'entity', array(
                 'class'=>'KDOKDOBundle:Lists',
                 'query_builder' => function(ListsRepository $er)  {
-                    return $er->listOfUserQueryBuilder($this->user);
+                    return $er->listForUserQueryBuilder($this->user, true);
                 },
                 'property' => 'listPath'
             ))

@@ -51,7 +51,7 @@ class ListsController extends Controller
      */
     public function indexAction()
     {
-        $entities = $this->em->getRepository('KDOKDOBundle:Lists')->listOfUser($this->user);
+        $entities = $this->em->getRepository('KDOKDOBundle:Lists')->listForUser($this->user);
         return array(
             'entities' => $entities
         );

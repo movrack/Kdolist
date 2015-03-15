@@ -14,17 +14,20 @@ use KDO\Bundle\KDOBundle\Entity\User;
 class ListsRepository extends EntityRepository
 {
 
-    public function listOfUserQueryBuilder(User $user)
+    public function listForUserQueryBuilder(User $user, $withSubList = NULL)
     {
-        return $this->createQueryBuilder('list')
+        $query = $this->createQueryBuilder('list')
             ->join('list.users', 'u', 'WITH', 'u.id = :userId')
-
             ->setParameter('userId', $user->getId())
-            ;
+        ;
+
+        if (!$withSubList) {
+            $query->where('list.parent is NULL');
+        }
+        return $query;
     }
 
-    public function listOfUser(User $user) {
-
-        return $this->listOfUserQueryBuilder($user)->getQuery()->getResult();
+    public function listForUser(User $user, $withSubList = NULL) {
+        return $this->listForUserQueryBuilder($user, $withSubList)->getQuery()->getResult();
     }
 }
