@@ -155,7 +155,7 @@
 
         <div class="showGrid row" style="display: none">
             {% for child in entity.children %}
-                <div class="col-md-3">
+                <div class="col-lg-2 col-md-3 col-sm-6 col-xs12">
                     <div class="thumbnail">
                         {%  if child.picture|trim != "" %}
                             <a href="{{ path('public_list', { 'list_id': child.id, 'slug': child.slug }) }}">
@@ -180,7 +180,7 @@
             {% endfor %}
 
             {% for gift in entity.gifts %}
-                <div class="col-md-3">
+                <div class="col-lg-2 col-md-3 col-sm-6 col-xs12">
                     <div class="thumbnail">
                         {%  if gift.picture|trim != "" %}
                             <img src="{{ gift.picture }}" alt="{{ gift.name }}"

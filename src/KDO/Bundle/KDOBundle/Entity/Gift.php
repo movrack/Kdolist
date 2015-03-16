@@ -4,6 +4,7 @@ namespace KDO\Bundle\KDOBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Gift
@@ -43,6 +44,7 @@ class Gift
     private $picture;
 
     /**
+     * @Gedmo\SortableGroup
      * @ORM\ManyToOne(targetEntity="Lists", inversedBy="gifts")
      * @ORM\JoinColumn(name="list_id", referencedColumnName="id", nullable=false)
      */
@@ -86,6 +88,11 @@ class Gift
      */
     private $numberOfParts = 1;
 
+    /**
+     * @Gedmo\SortablePosition
+     * @ORM\Column(name="position", type="integer")
+     */
+    private $position;
 
     function __toString() {
         return $this->name;
@@ -308,5 +315,15 @@ class Gift
     public function getPicture()
     {
         return $this->picture;
+    }
+
+    public function setPosition($position)
+    {
+        $this->position = $position;
+    }
+
+    public function getPosition()
+    {
+        return $this->position;
     }
 }
