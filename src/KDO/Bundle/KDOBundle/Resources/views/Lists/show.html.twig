@@ -311,7 +311,11 @@
                 <div class="col-sm-6 col-md-3">
                     <div class="thumbnail">
                         {%  if child.picture|trim != "" %}
-                            <a href="{{ path('lists_show', { 'id': child.id }) }}">
+                                {% if child.externalListLink|trim != "" %}
+                                    <a target="_blank" href="{{ child.externalListLink }}">
+                                {% else %}
+                                    <a href="{{ path('lists_show', { 'id': child.id }) }}">
+                                {% endif %}
                                 <img src="{{ child.picture }}" alt="{{ child.title }}"
                                  class="img-thumbnail"  style="width:200px" >
                             </a>
@@ -325,10 +329,17 @@
                                    class="btn btn-default btn-block">
                                     <i class="fa fa-pencil"></i> Modifier
                                 </a>
+                                {% if child.externalListLink|trim != "" %}
+                                    <a target="_blank" href="{{ child.externalListLink }}"
+                                       class="btn btn-success btn-block">
+                                        <i class="fa fa-external-link-square"></i> Voir la liste
+                                    </a>
+                                {% else %}
                                 <a href="{{ path('lists_show', { 'id': child.id }) }}"
                                    class="btn btn-success btn-block">
                                     <i class="fa fa-eye"></i> Plus de détails
                                 </a>
+                                {% endif %}
                             </p>
                         </div>
                     </div>

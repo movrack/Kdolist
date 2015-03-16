@@ -131,8 +131,16 @@ class ListsController extends Controller
             $this->em->persist($parentList);
             $this->em->persist($entity);
             $this->em->flush();
+
+            $this->get('session')->getFlashBag()->add('success', 'entity.delete.success');
+            if($entity->getExternalListLink() != "") {
+                return $this->redirect($this->generateUrl('lists_show', array('id' => $entity->getParent()->getId())));
+            }
             return $this->redirect($this->generateUrl('lists_show', array('id' => $entity->getId())));
+        } else {
+            $this->get('session')->getFlashBag()->add('error', 'entity.delete.error');
         }
+
 
         return array(
             'action' => "new",
@@ -304,7 +312,13 @@ class ListsController extends Controller
             $this->em->persist($entity);
             $this->em->flush();
 
+            $this->get('session')->getFlashBag()->add('success', 'entity.delete.success');
+            if($entity->getExternalListLink() != "") {
+                return $this->redirect($this->generateUrl('lists_show', array('id' => $entity->getParent()->getId())));
+            }
             return $this->redirect($this->generateUrl('lists_show', array('id' => $entity->getId())));
+        } else {
+            $this->get('session')->getFlashBag()->add('error', 'entity.delete.error');
         }
 
         return array(

@@ -46,6 +46,18 @@
     {{ form_row(form.subTitle) }}
     {{ form_row(form.description) }}
     {{ form_row(form.picture) }}
+
+    <div class="form-group">
+        <label for="kdo_bundle_kdobundle_lists_description" class="control-label col-sm-3 optional">
+            Liste externe
+        </label>
+        <div class="col-sm-9">
+            {{ form_widget(form.externalListLink) }}
+            <p class="help-block">Dans le cas où vous souhaitez utiliser le lien d'une liste
+                d'un autre prestataire comme un magasin.</p>
+        </div>
+    </div>
+
     {{ form_rest(form) }}
 
     <button type="submit" class="btn btn-success">

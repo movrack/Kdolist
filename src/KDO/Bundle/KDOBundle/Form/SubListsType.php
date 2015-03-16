@@ -18,6 +18,7 @@ class SubListsType extends AbstractType
             ->add('title')
             ->add('subTitle')
             ->add('description', 'textarea')
+            ->add('externalListLink')
             ->add('picture', new PictureType())
         ;
     }

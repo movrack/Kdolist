@@ -62,11 +62,15 @@ class Lists
     private $event;
 
     /**
+     * @var Gift
+     *
      * @ORM\OneToMany(targetEntity="Gift", mappedBy="list")
      */
     protected $gifts;
 
     /**
+     * @var ListOwner
+     *
      * @ORM\ManyToMany(targetEntity="ListOwner", cascade={"persist", "remove", "merge"}, orphanRemoval=true)
      * @ORM\JoinTable(name="list_listowner",
      *      joinColumns={@ORM\JoinColumn(name="list_id", referencedColumnName="id", onDelete="CASCADE")},
@@ -76,42 +80,55 @@ class Lists
     private $owners;
 
     /**
+     * @var Picture
+     *
      * @ORM\ManyToOne(targetEntity="Picture", cascade={"persist", "remove"})
      * @ORM\JoinColumn(name="picture_id", referencedColumnName="id")
      */
     private $picture;
 
     /**
+     * @var User
      * @ORM\ManyToMany(targetEntity="User", mappedBy="lists")
      **/
     protected $users;
 
 
     /**
+     * @var integer
+     *
      * @Gedmo\TreeLeft
      * @ORM\Column(name="lft", type="integer")
      */
     private $lft;
 
     /**
+     * @var integer
+     *
      * @Gedmo\TreeLevel
      * @ORM\Column(name="lvl", type="integer")
      */
     private $lvl;
 
     /**
+     * @var integer
+     *
      * @Gedmo\TreeRight
      * @ORM\Column(name="rgt", type="integer")
      */
     private $rgt;
 
     /**
+     * @var integer
+     *
      * @Gedmo\TreeRoot
      * @ORM\Column(name="root", type="integer", nullable=true)
      */
     private $root;
 
     /**
+     * @var lists
+     *
      * @Gedmo\TreeParent
      * @ORM\ManyToOne(targetEntity="Lists", inversedBy="children")
      * @ORM\JoinColumn(name="parent_id", referencedColumnName="id", onDelete="CASCADE")
@@ -119,6 +136,8 @@ class Lists
     private $parent;
 
     /**
+     * @var Lists
+     *
      * @ORM\OneToMany(targetEntity="Lists", mappedBy="parent")
      * @ORM\OrderBy({"lft" = "ASC"})
      */
@@ -130,6 +149,13 @@ class Lists
      * @ORM\Column(name="isPublic", type="boolean", nullable=true)
      */
     private $isPublic;
+
+
+    /**
+     * @var string
+     * @ORM\Column(name="externalListLink", type="string")
+     */
+    private $externalListLink;
 
     /**
      * Constructor
@@ -562,5 +588,105 @@ class Lists
      */
     public function getRgt() {
         return $this->rgt;
+    }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     * @return Lists
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Set lft
+     *
+     * @param integer $lft
+     * @return Lists
+     */
+    public function setLft($lft)
+    {
+        $this->lft = $lft;
+
+        return $this;
+    }
+
+    /**
+     * Set lvl
+     *
+     * @param integer $lvl
+     * @return Lists
+     */
+    public function setLvl($lvl)
+    {
+        $this->lvl = $lvl;
+
+        return $this;
+    }
+
+    /**
+     * Get lvl
+     *
+     * @return integer 
+     */
+    public function getLvl()
+    {
+        return $this->lvl;
+    }
+
+    /**
+     * Set rgt
+     *
+     * @param integer $rgt
+     * @return Lists
+     */
+    public function setRgt($rgt)
+    {
+        $this->rgt = $rgt;
+
+        return $this;
+    }
+
+    /**
+     * Set root
+     *
+     * @param integer $root
+     * @return Lists
+     */
+    public function setRoot($root)
+    {
+        $this->root = $root;
+
+        return $this;
+    }
+
+
+
+    /**
+     * Set externalListLink
+     *
+     * @param string $externalListLink
+     * @return Lists
+     */
+    public function setExternalListLink($externalListLink)
+    {
+        $this->externalListLink = $externalListLink;
+
+        return $this;
+    }
+
+    /**
+     * Get externalListLink
+     *
+     * @return string 
+     */
+    public function getExternalListLink()
+    {
+        return $this->externalListLink;
     }
 }
