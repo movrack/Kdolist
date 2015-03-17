@@ -86,20 +86,20 @@
                 {% for child in entity.children %}
                     <li class="list-group-item">
                         <div class="row">
-                            <div class="col-md-2" >
+                            <div class="col-md-1" >
                                 <div class="thumbnail">
                                     {% if child.externalListLink|trim != "" %}
                                         <a target="_blank" href="{{ child.externalListLink }}">
-                                            <img src="{{ child.picture }}"  style="height:70px" />
+                                            <img src="{{ child.picture }}"  style="width:100%" />
                                         </a>
                                     {% else %}
                                         <a href="{{ path('public_list', { 'list_id': child.id, 'slug': child.slug }) }}">
-                                            <img src="{{ child.picture }}"  style="height:70px" />
+                                            <img src="{{ child.picture }}"  style="width:100%" />
                                         </a>
                                     {% endif %}
                                 </div>
                             </div>
-                            <div class="col-md-7">
+                            <div class="col-md-8">
                                 <h4>{{ child.title }}</h4>
                                 {{ child.description|truncate(100) }}
                             </div>
@@ -123,11 +123,11 @@
                 {% for gift in entity.gifts %}
                     <li class="list-group-item">
                         <div class="row">
-                            <div class="col-md-2">
+                            <div class="col-md-1">
                                 {% if gift.picture != "" %}
-                                    <div class="thumbnail">
+                                    <div class="thumbnail" >
                                         <img src="{{ gift.picture }}"
-                                             class="offer"  style="height:70px" />
+                                             class="offer"  style="width:100%" />
 
                                         <div class="hide">
                                             <div class="gift-id">{{ gift.id }}</div>
@@ -141,7 +141,7 @@
                                     </div>
                                 {% endif %}
                             </div>
-                            <div class="col-md-7">
+                            <div class="col-md-8">
                                 <h4>{{ gift.name }}</h4>
                                 {{ gift.description|truncate(100) }}
                             </div>
@@ -172,14 +172,16 @@
                     <div class="thumbnail">
                         {%  if child.picture|trim != "" %}
                             {% if child.externalListLink|trim != "" %}
-                                <a target="_blank" href="{{ child.externalListLink }}">
+                                <a target="_blank" href="{{ child.externalListLink }}"
+                                   style="display:block; padding:1em; padding-bottom: 0;">
                                     <img src="{{ child.picture }}" alt="{{ child.title }}"
-                                         style="width:200px;" >
+                                         style="width:100%;" >
                                 </a>
                             {% else %}
-                                <a href="{{ path('public_list', { 'list_id': child.id, 'slug': child.slug }) }}">
+                                <a href="{{ path('public_list', { 'list_id': child.id, 'slug': child.slug }) }}"
+                                   style="display:block; padding:1em; padding-bottom: 0;">
                                     <img src="{{ child.picture }}" alt="{{ child.title }}"
-                                         style="width:200px;" >
+                                         style="width:100%;" >
                                 </a>
                             {% endif %}
                         {%  endif %}
@@ -209,17 +211,19 @@
                 <div class="col-md-3 col-sm-6 col-xs12">
                     <div class="thumbnail">
                         {%  if gift.picture|trim != "" %}
-                            <img src="{{ gift.picture }}" alt="{{ gift.name }}"
-                                 class="offer" style="width:200px;" >
+                            <div style="display:block; padding:1em; padding-bottom: 0;">
+                                <img src="{{ gift.picture }}" alt="{{ gift.name }}"
+                                     class="offer" style="width:100%;" >
 
-                            <div class="hide">
-                                <div class="gift-id">{{ gift.id }}</div>
-                                <div class="gift-name">{{ gift.name }}</div>
-                                <div class="gift-link">{{ gift.link }}</div>
-                                <div class="gift-description">{{ gift.description }}</div>
-                                <div class="gift-img">{{ gift.picture }}</div>
-                                <div class="gift-price">{{ gift.price }}</div>
-                                <div class="gift-offer">{{ path('public_send_mail', { 'gift_id': gift.id }) }}</div>
+                                <div class="hide">
+                                    <div class="gift-id">{{ gift.id }}</div>
+                                    <div class="gift-name">{{ gift.name }}</div>
+                                    <div class="gift-link">{{ gift.link }}</div>
+                                    <div class="gift-description">{{ gift.description }}</div>
+                                    <div class="gift-img">{{ gift.picture }}</div>
+                                    <div class="gift-price">{{ gift.price }}</div>
+                                    <div class="gift-offer">{{ path('public_send_mail', { 'gift_id': gift.id }) }}</div>
+                                </div>
                             </div>
                         {%  endif %}
                         <div class="caption ">

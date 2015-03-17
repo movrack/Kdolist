@@ -257,17 +257,17 @@
             {% for child in entity.children %}
                 <li class="list-group-item">
                     <div class="row">
-                        <div class="col-md-2" >
+                        <div class="col-md-1" >
                             <div class="thumbnail">
                                 {% if child.externalListLink|trim != "" %}
                                     <a target="_blank" href="{{ child.externalListLink }}">
                                         <img src="{{ child.picture }}" alt="{{ child.title }}"
-                                             style="width:200px" >
+                                             style="width:100%" >
                                     </a>
                                 {% else %}
                                     <a href="{{ path('lists_show', { 'id': child.id }) }}">
                                         <img src="{{ child.picture }}" alt="{{ child.title }}"
-                                             style="width:200px" >
+                                             style="width:100%" >
                                     </a>
                                 {% endif %}
                             </div>
@@ -276,7 +276,7 @@
                             <h4>{{ child.title }}</h4>
                             {{ child.description|truncate(100) }}
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-3">
                             {% if child.externalListLink|trim != "" %}
                                 <a target="_blank" href="{{ child.externalListLink }}"
                                    class="btn btn-success btn-block">
@@ -296,17 +296,17 @@
             {% for gift in entity.gifts %}
                 <li class="list-group-item">
                     <div class="row">
-                        <div class="col-md-2">
+                        <div class="col-md-1">
                             <div class="thumbnail">
                                 <img src="{{ gift.picture }}"
-                                     style="height:70px" />
+                                     style="width:100%" />
                             </div>
                         </div>
                         <div class="col-md-8">
                             <h4>{{ gift.name }}</h4>
                             {{ gift.description|truncate(100) }}
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-3">
                             <div class="btn-group btn-group-vertical">
                                 <a href="{{ path('gift_edit', { 'id': gift.id }) }}" class="btn btn-default" role="button">
                                     <i class="fa fa-pencil"></i> Modifier
@@ -323,20 +323,21 @@
         </div>
 
         <div class="showGrid row" style="display: none">
-
             {% for child in entity.children %}
                 <div class="col-sm-6 col-md-3">
                     <div class="thumbnail">
                         {%  if child.picture|trim != "" %}
                             {% if child.externalListLink|trim != "" %}
-                                <a target="_blank" href="{{ child.externalListLink }}">
+                                <a target="_blank" href="{{ child.externalListLink }}"
+                                   style="display:block; padding:1em; padding-bottom: 0;">
                                     <img src="{{ child.picture }}" alt="{{ child.title }}"
-                                         style="width:200px" >
+                                         style="width:100%" >
                                 </a>
                             {% else %}
-                                <a href="{{ path('lists_show', { 'id': child.id }) }}">
+                                <a href="{{ path('lists_show', { 'id': child.id }) }}"
+                                   style="display:block; padding:1em; padding-bottom: 0;">
                                     <img src="{{ child.picture }}" alt="{{ child.title }}"
-                                         style="width:200px" >
+                                         style="width:100%" >
                                 </a>
                             {% endif %}
                         {%  endif %}
@@ -370,9 +371,10 @@
                 <div class="col-sm-6 col-md-3">
                     <div class="thumbnail">
                         {%  if gift.picture|trim != "" %}
-                            <a class="details">
+                            <a class="details"
+                               style="display:block; padding:1em; padding-bottom: 0;">
                                 <img src="{{ gift.picture }}" alt="{{ gift.name }}"
-                                     style="width:200px" >
+                                     style="width:100%" >
                             </a>
                             <div class="hide">
                                 <div class="gift-id">{{ gift.id }}</div>
