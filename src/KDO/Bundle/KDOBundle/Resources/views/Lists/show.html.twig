@@ -191,7 +191,7 @@
             <div class="row">
                 <div class="col-md-3">
                     <img src="{{ entity.picture }}" alt="{{ entity.title }}"
-                         class="img-thumbnail"  style="width:250px" />
+                         style="width:250px" />
                 </div>
 
                 <div class="col-md-9">
@@ -259,8 +259,17 @@
                     <div class="row">
                         <div class="col-md-2" >
                             <div class="thumbnail">
-                                <img src="{{ child.picture }}"
-                                     class="img-thumbnail"  style="height:70px" />
+                                {% if child.externalListLink|trim != "" %}
+                                    <a target="_blank" href="{{ child.externalListLink }}">
+                                        <img src="{{ child.picture }}" alt="{{ child.title }}"
+                                             style="width:200px" >
+                                    </a>
+                                {% else %}
+                                    <a href="{{ path('lists_show', { 'id': child.id }) }}">
+                                        <img src="{{ child.picture }}" alt="{{ child.title }}"
+                                             style="width:200px" >
+                                    </a>
+                                {% endif %}
                             </div>
                         </div>
                         <div class="col-md-8">
@@ -268,9 +277,17 @@
                             {{ child.description|truncate(100) }}
                         </div>
                         <div class="col-md-2">
-                            <a href="{{ path('lists_show', { 'id': child.id }) }}" class="btn btn-success">
-                                <i class="fa fa-eye"></i> Plus de détails
-                            </a>
+                            {% if child.externalListLink|trim != "" %}
+                                <a target="_blank" href="{{ child.externalListLink }}"
+                                   class="btn btn-success btn-block">
+                                    <i class="fa fa-external-link-square"></i> Voir la liste
+                                </a>
+                            {% else %}
+                                <a href="{{ path('lists_show', { 'id': child.id }) }}"
+                                   class="btn btn-success btn-block">
+                                    <i class="fa fa-eye"></i> Plus de détails
+                                </a>
+                            {% endif %}
                         </div>
                     </div>
                 </li>
@@ -282,7 +299,7 @@
                         <div class="col-md-2">
                             <div class="thumbnail">
                                 <img src="{{ gift.picture }}"
-                                     class="img-thumbnail" style="height:70px" />
+                                     style="height:70px" />
                             </div>
                         </div>
                         <div class="col-md-8">
@@ -311,14 +328,17 @@
                 <div class="col-sm-6 col-md-3">
                     <div class="thumbnail">
                         {%  if child.picture|trim != "" %}
-                                {% if child.externalListLink|trim != "" %}
-                                    <a target="_blank" href="{{ child.externalListLink }}">
-                                {% else %}
-                                    <a href="{{ path('lists_show', { 'id': child.id }) }}">
-                                {% endif %}
-                                <img src="{{ child.picture }}" alt="{{ child.title }}"
-                                 class="img-thumbnail"  style="width:200px" >
-                            </a>
+                            {% if child.externalListLink|trim != "" %}
+                                <a target="_blank" href="{{ child.externalListLink }}">
+                                    <img src="{{ child.picture }}" alt="{{ child.title }}"
+                                         style="width:200px" >
+                                </a>
+                            {% else %}
+                                <a href="{{ path('lists_show', { 'id': child.id }) }}">
+                                    <img src="{{ child.picture }}" alt="{{ child.title }}"
+                                         style="width:200px" >
+                                </a>
+                            {% endif %}
                         {%  endif %}
                         <div class="caption">
                             <h3>{{ child.title }}</h3>
@@ -335,10 +355,10 @@
                                         <i class="fa fa-external-link-square"></i> Voir la liste
                                     </a>
                                 {% else %}
-                                <a href="{{ path('lists_show', { 'id': child.id }) }}"
-                                   class="btn btn-success btn-block">
-                                    <i class="fa fa-eye"></i> Plus de détails
-                                </a>
+                                    <a href="{{ path('lists_show', { 'id': child.id }) }}"
+                                       class="btn btn-success btn-block">
+                                        <i class="fa fa-eye"></i> Plus de détails
+                                    </a>
                                 {% endif %}
                             </p>
                         </div>
@@ -352,7 +372,7 @@
                         {%  if gift.picture|trim != "" %}
                             <a class="details">
                                 <img src="{{ gift.picture }}" alt="{{ gift.name }}"
-                                     class="img-thumbnail"  style="width:200px" >
+                                     style="width:200px" >
                             </a>
                             <div class="hide">
                                 <div class="gift-id">{{ gift.id }}</div>

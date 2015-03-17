@@ -88,9 +88,15 @@
                         <div class="row">
                             <div class="col-md-2" >
                                 <div class="thumbnail">
-                                    <a href="{{ path('public_list', { 'list_id': child.id, 'slug': child.slug }) }}">
-                                        <img src="{{ child.picture }}"  style="height:70px" />
-                                    </a>
+                                    {% if child.externalListLink|trim != "" %}
+                                        <a target="_blank" href="{{ child.externalListLink }}">
+                                            <img src="{{ child.picture }}"  style="height:70px" />
+                                        </a>
+                                    {% else %}
+                                        <a href="{{ path('public_list', { 'list_id': child.id, 'slug': child.slug }) }}">
+                                            <img src="{{ child.picture }}"  style="height:70px" />
+                                        </a>
+                                    {% endif %}
                                 </div>
                             </div>
                             <div class="col-md-7">
@@ -98,10 +104,17 @@
                                 {{ child.description|truncate(100) }}
                             </div>
                             <div class="col-md-3">
-                                <a href="{{ path('public_list', { 'list_id': child.id, 'slug': child.slug }) }}"
-                                   class="btn btn-success btn-block">
-                                    <i class="fa fa-eye"></i> Plus de détails
-                                </a>
+                                {% if child.externalListLink|trim != "" %}
+                                    <a target="_blank" href="{{ child.externalListLink }}"
+                                       class="btn btn-success btn-block">
+                                        <i class="fa fa-external-link-square"></i> Plus de détails
+                                    </a>
+                                {% else %}
+                                    <a href="{{ path('public_list', { 'list_id': child.id, 'slug': child.slug }) }}"
+                                       class="btn btn-success btn-block">
+                                        <i class="fa fa-eye"></i> Plus de détails
+                                    </a>
+                                {% endif %}
                             </div>
                         </div>
                     </li>
@@ -158,10 +171,17 @@
                 <div class="col-md-3 col-sm-6 col-xs12">
                     <div class="thumbnail">
                         {%  if child.picture|trim != "" %}
-                            <a href="{{ path('public_list', { 'list_id': child.id, 'slug': child.slug }) }}">
-                                <img src="{{ child.picture }}" alt="{{ child.title }}"
-                                     class="img-thumbnail" style="width:200px;" >
-                            </a>
+                            {% if child.externalListLink|trim != "" %}
+                                <a target="_blank" href="{{ child.externalListLink }}">
+                                    <img src="{{ child.picture }}" alt="{{ child.title }}"
+                                         style="width:200px;" >
+                                </a>
+                            {% else %}
+                                <a href="{{ path('public_list', { 'list_id': child.id, 'slug': child.slug }) }}">
+                                    <img src="{{ child.picture }}" alt="{{ child.title }}"
+                                         style="width:200px;" >
+                                </a>
+                            {% endif %}
                         {%  endif %}
                         <div class="caption">
                             <h3>{{ child.title }}</h3>
@@ -169,11 +189,17 @@
                                 <i class="fa fa-quote-left"></i> <i class="fa fa-quote-right"></i>
                                 {{ child.description |truncate(100)}}
                             </p>
-
-                            <a href="{{ path('public_list', { 'list_id': child.id, 'slug': child.slug }) }}"
-                               class="btn btn-success btn-block">
-                                <i class="fa fa-eye"></i> Voir la liste
-                            </a>
+                            {% if child.externalListLink|trim != "" %}
+                                <a target="_blank" href="{{ child.externalListLink }}"
+                                   class="btn btn-success btn-block">
+                                    <i class="fa fa-external-link-square"></i> Voir la liste
+                                </a>
+                            {% else %}
+                                <a href="{{ path('public_list', { 'list_id': child.id, 'slug': child.slug }) }}"
+                                   class="btn btn-success btn-block">
+                                    <i class="fa fa-eye"></i> Voir la liste
+                                </a>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -184,7 +210,7 @@
                     <div class="thumbnail">
                         {%  if gift.picture|trim != "" %}
                             <img src="{{ gift.picture }}" alt="{{ gift.name }}"
-                                 class="offer img-thumbnail" style="width:200px;" >
+                                 class="offer" style="width:200px;" >
 
                             <div class="hide">
                                 <div class="gift-id">{{ gift.id }}</div>
