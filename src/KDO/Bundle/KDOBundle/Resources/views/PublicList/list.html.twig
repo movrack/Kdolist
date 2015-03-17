@@ -194,7 +194,7 @@
                             {% if child.externalListLink|trim != "" %}
                                 <a target="_blank" href="{{ child.externalListLink }}"
                                    class="btn btn-success btn-block">
-                                    <i class="fa fa-external-link-square"></i> Voir la liste
+                                    <i class="fa fa-external-link-square"></i> Voir la liste <small>(Site externe)</small>
                                 </a>
                             {% else %}
                                 <a href="{{ path('public_list', { 'list_id': child.id, 'slug': child.slug }) }}"

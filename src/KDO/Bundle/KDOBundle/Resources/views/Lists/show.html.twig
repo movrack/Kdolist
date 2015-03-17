@@ -280,7 +280,7 @@
                             {% if child.externalListLink|trim != "" %}
                                 <a target="_blank" href="{{ child.externalListLink }}"
                                    class="btn btn-success btn-block">
-                                    <i class="fa fa-external-link-square"></i> Voir la liste
+                                    <i class="fa fa-external-link-square"></i> Voir la liste <small>(Site externe)</small>
                                 </a>
                             {% else %}
                                 <a href="{{ path('lists_show', { 'id': child.id }) }}"
@@ -307,7 +307,7 @@
                             {{ gift.description|truncate(100) }}
                         </div>
                         <div class="col-md-3">
-                            <div class="btn-group btn-group-vertical">
+                            <div class="btn-group btn-group-vertical btn-block">
                                 <a href="{{ path('gift_edit', { 'id': gift.id }) }}" class="btn btn-default" role="button">
                                     <i class="fa fa-pencil"></i> Modifier
                                 </a>
@@ -353,8 +353,9 @@
                                 {% if child.externalListLink|trim != "" %}
                                     <a target="_blank" href="{{ child.externalListLink }}"
                                        class="btn btn-success btn-block">
-                                        <i class="fa fa-external-link-square"></i> Voir la liste
+                                        <i class="fa fa-external-link-square"></i> Voir la liste <small>(Site externe)</small>
                                     </a>
+
                                 {% else %}
                                     <a href="{{ path('lists_show', { 'id': child.id }) }}"
                                        class="btn btn-success btn-block">
@@ -394,33 +395,32 @@
                                 {{ gift.description|truncate(100) }}
                             </p>
                             {%  if gift.price is not empty %}
-                                <p><i class="fa fa-money"></i> {{ gift.price }} €</p>
+                                <i class="fa fa-money"></i> {{ gift.price }} €
                             {%  endif %}
                             {%  if gift.link is not empty %}
-                                <p><a href="{{ gift.link }}" class="" role="button">
-                                        <i class="fa fa-external-link"></i> Voir le site</a>
-                                </p>
+                                <a href="{{ gift.link }}" class="" role="button">
+                                    <i class="fa fa-external-link"></i> Voir le site
+                                </a>
                             {%  endif %}
-                            <p>
-                                <a href="{{ path('gift_edit', { 'id': gift.id }) }}"
-                                   class="btn btn-default btn-block" role="button">
-                                    <i class="fa fa-pencil"></i> Modifier
-                                </a>
 
-                                <a class="details btn btn-success btn-block">
-                                    <i class="fa fa-eye"></i> Plus de détails
-                                </a>
+                            <a href="{{ path('gift_edit', { 'id': gift.id }) }}"
+                               class="btn btn-default btn-block" role="button">
+                                <i class="fa fa-pencil"></i> Modifier
+                            </a>
 
-                                <div class="hide">
-                                    <div class="gift-id">{{ gift.id }}</div>
-                                    <div class="gift-name">{{ gift.name }}</div>
-                                    <div class="gift-link">{{ gift.link }}</div>
-                                    <div class="gift-description">{{ gift.description }}</div>
-                                    <div class="gift-img">{{ gift.picture }}</div>
-                                    <div class="gift-price">{{ gift.price }}</div>
-                                    <div class="gift-offer">{{ path('public_send_mail', { 'gift_id': gift.id }) }}</div>
-                                </div>
-                            </p>
+                            <a class="details btn btn-success btn-block">
+                                <i class="fa fa-eye"></i> Plus de détails
+                            </a>
+
+                            <div class="hide">
+                                <div class="gift-id">{{ gift.id }}</div>
+                                <div class="gift-name">{{ gift.name }}</div>
+                                <div class="gift-link">{{ gift.link }}</div>
+                                <div class="gift-description">{{ gift.description }}</div>
+                                <div class="gift-img">{{ gift.picture }}</div>
+                                <div class="gift-price">{{ gift.price }}</div>
+                                <div class="gift-offer">{{ path('public_send_mail', { 'gift_id': gift.id }) }}</div>
+                            </div>
                         </div>
                     </div>
                 </div>
