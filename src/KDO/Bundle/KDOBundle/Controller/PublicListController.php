@@ -102,7 +102,7 @@ class PublicListController extends Controller
         return array(
             'entity' => $gift->getList(),
             'form' => $form->createView(),
-            'parent' => $parentList
+            'parents' => $parentList
         );
     }
 
