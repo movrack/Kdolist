@@ -1,6 +1,6 @@
 <?php
 
-namespace Manudev\KDOBundle\Repository;
+namespace Manudev\UserBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
 

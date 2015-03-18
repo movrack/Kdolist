@@ -4,7 +4,7 @@ namespace Manudev\KDOBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
 use Gedmo\Tree\Entity\Repository\NestedTreeRepository;
-use Manudev\KDOBundle\Entity\User;
+use Manudev\UserBundle\Entity\User;
 use Manudev\KDOBundle\Entity\Lists;
 
 /**

@@ -5,7 +5,7 @@ namespace Manudev\KDOBundle\OAuth;
 use FOS\UserBundle\Model\UserInterface as FOSUserInterface;
 use HWI\Bundle\OAuthBundle\OAuth\Response\UserResponseInterface;
 use HWI\Bundle\OAuthBundle\Security\Core\User\FOSUBUserProvider;
-use Manudev\KDOBundle\Entity\User;
+use Manudev\UserBundle\Entity\User;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface;
 

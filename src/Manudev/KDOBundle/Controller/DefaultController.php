@@ -5,7 +5,7 @@ namespace Manudev\KDOBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Manudev\KDOBundle\Entity\User;
+use Manudev\UserBundle\Entity\User;
 use JMS\DiExtraBundle\Annotation as DI;
 
 class DefaultController extends Controller

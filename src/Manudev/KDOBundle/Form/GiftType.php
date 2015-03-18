@@ -2,7 +2,7 @@
 
 namespace Manudev\KDOBundle\Form;
 
-use Manudev\KDOBundle\Entity\User;
+use Manudev\UserBundle\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -13,12 +13,12 @@ use Manudev\KDOBundle\Repository\ListsRepository;
 class GiftType extends AbstractType
 {
     /**
-     * @var \Manudev\KDOBundle\Entity\User
+     * @var \Manudev\UserBundle\Entity\User
      */
     protected $user;
 
     /**
-     * @param \Manudev\KDOBundle\Entity\User $user
+     * @param \Manudev\UserBundle\Entity\User $user
      */
     public function __construct(User $user)
     {

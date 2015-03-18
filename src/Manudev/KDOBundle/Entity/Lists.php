@@ -90,7 +90,7 @@ class Lists
 
     /**
      * @var User
-     * @ORM\ManyToMany(targetEntity="User", mappedBy="lists")
+     * @ORM\ManyToMany(targetEntity="Manudev\UserBundle\Entity\User", mappedBy="lists")
      **/
     protected $users;
 
@@ -271,10 +271,10 @@ class Lists
     /**
      * Add users
      *
-     * @param \Manudev\KDOBundle\Entity\User $users
+     * @param \Manudev\UserBundle\Entity\User $users
      * @return Lists
      */
-    public function addUser(\Manudev\KDOBundle\Entity\User $user)
+    public function addUser(\Manudev\UserBundle\Entity\User $user)
     {
         if ($this->users->contains($user)) {
             return $this;
@@ -292,9 +292,9 @@ class Lists
     /**
      * Remove users
      *
-     * @param \Manudev\KDOBundle\Entity\User $users
+     * @param \Manudev\UserBundle\Entity\User $users
      */
-    public function removeUser(\Manudev\KDOBundle\Entity\User $user)
+    public function removeUser(\Manudev\UserBundle\Entity\User $user)
     {
         $this->users->removeElement($user);
         if ($user->getLists()->contains($this)) {

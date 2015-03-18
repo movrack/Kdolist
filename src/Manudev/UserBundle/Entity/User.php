@@ -1,5 +1,5 @@
 <?php
-namespace Manudev\KDOBundle\Entity;
+namespace Manudev\UserBundle\Entity;
 
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
@@ -8,7 +8,7 @@ use Manudev\KDOBundle\Entity\BankAccount;
 use Manudev\KDOBundle\Entity\Lists;
 
 /**
- * @ORM\Entity(repositoryClass="Manudev\KDOBundle\Repository\UserRepository")
+ * @ORM\Entity(repositoryClass="Manudev\UserBundle\Repository\UserRepository")
  * @ORM\Table(name="fos_user")
  */
 class User extends BaseUser
@@ -51,13 +51,15 @@ class User extends BaseUser
     private $lastname;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Lists", inversedBy="users")
+     * var Lists;
+
+     * @ORM\ManyToMany(targetEntity="Manudev\KDOBundle\Entity\Lists", inversedBy="users")
      * @ORM\JoinTable(name="users_lists")
      **/
     protected $lists;
 
     /**
-     * @ORM\ManyToMany(targetEntity="BankAccount")
+     * @ORM\ManyToMany(targetEntity="Manudev\KDOBundle\Entity\BankAccount")
      * @ORM\JoinTable(name="users_bankaccount",
      *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="bankaccount_id", referencedColumnName="id", unique=true)}

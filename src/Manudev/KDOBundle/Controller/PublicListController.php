@@ -8,7 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use JMS\DiExtraBundle\Annotation as DI;
-use Manudev\KDOBundle\Entity\User;
+use Manudev\UserBundle\Entity\User;
 use Manudev\KDOBundle\Entity\Lists;
 use Manudev\KDOBundle\Entity\Gift;
 use Symfony\Component\HttpFoundation\Response;
