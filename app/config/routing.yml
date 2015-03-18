@@ -1,12 +1,13 @@
+
+manudev_user:
+    resource: "@ManudevUserBundle/Controller/"
+    type:     annotation
+    prefix:   /u
 manudev_kdo:
     resource: "@ManudevKDOBundle/Controller/"
     type:     annotation
     prefix:   /
 
-manudev_user:
-    resource: "@ManudevUserBundle/Controller/"
-    type:     annotation
-    prefix:   /
 
 
 welcome:
