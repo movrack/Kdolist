@@ -1,0 +1,30 @@
+<html>
+    <head></head>
+    <body>
+        Bonjour {{ firstName }},<br />
+        Vous souhaitez offrir {{ gift.name }} à
+        {% for user in gift.list.owners %}
+            {% if user != gift.list.owners|first and  user == gift.list.owners|last %}
+                {% if gift.list.owners|length == 2 %}
+                    et
+                {% else %}
+                    ,
+                {% endif %}
+            {% endif %}
+            {{ user.firstname|capitalize }} {{ user.lastname|capitalize }}
+        {% endfor %}. <br />
+
+        <strong>
+        {% if gift.list.owners|length == 2 %}
+            Ils souhaitent
+        {% elseif gift.list.owners|length == 2 %}
+            Il/Elle souhaite
+        {% endif %}
+        recevoir un virement sur le numéro de compte : BExx xxxx xxxx xxxx<br />
+        </strong>
+
+        Afin que personne d'autre ne puisse offrir ce cadeau,
+        veuillez confirmer que vous offrez ce cadeau en cliquant sur ce lien:
+
+    </body>
+</html>

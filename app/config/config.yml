@@ -51,26 +51,26 @@ assetic:
     assets:
         fontawesome_css:
             inputs:
-                - %kernel.root_dir%/../web/bundles/kdokdo/bower/fontawesome/less/font-awesome.less
+                - %kernel.root_dir%/../web/bundles/manudevkdo/bower/fontawesome/less/font-awesome.less
             filters:
                 - less
                 - cssrewrite
             output: css/fontawesome.css
 
         font-awesome-otf:
-            inputs: '%kernel.root_dir%/../web/bundles/kdokdo/bower/fontawesome/fonts/FontAwesome.otf'
+            inputs: '%kernel.root_dir%/../web/bundles/manudevkdo/bower/fontawesome/fonts/FontAwesome.otf'
             output: 'fonts/FontAwesome.otf'
         font-awesome-eot:
-            inputs: '%kernel.root_dir%/../web/bundles/kdokdo/bower/fontawesome/fonts/fontawesome-webfont.eot'
+            inputs: '%kernel.root_dir%/../web/bundles/manudevkdo/bower/fontawesome/fonts/fontawesome-webfont.eot'
             output: 'fonts/fontawesome-webfont.eot'
         font-awesome-svg:
-            inputs: '%kernel.root_dir%/../web/bundles/kdokdo/bower/fontawesome/fonts/fontawesome-webfont.svg'
+            inputs: '%kernel.root_dir%/../web/bundles/manudevkdo/bower/fontawesome/fonts/fontawesome-webfont.svg'
             output: 'fonts/fontawesome-webfont.svg'
         font-awesome-ttf:
-            inputs: '%kernel.root_dir%/../web/bundles/kdokdo/bower/fontawesome/fonts/fontawesome-webfont.ttf'
+            inputs: '%kernel.root_dir%/../web/bundles/manudevkdo/bower/fontawesome/fonts/fontawesome-webfont.ttf'
             output: 'fonts/fontawesome-webfont.ttf'
         font-awesome-woff:
-            inputs: '%kernel.root_dir%/../web/bundles/kdokdo/bower/fontawesome/fonts/fontawesome-webfont.woff'
+            inputs: '%kernel.root_dir%/../web/bundles/manudevkdo/bower/fontawesome/fonts/fontawesome-webfont.woff'
             output: 'fonts/fontawesome-webfont.woff'
 # Doctrine Configuration
 doctrine:
@@ -131,7 +131,7 @@ mopa_bootstrap:
 fos_user:
     db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
     firewall_name: main
-    user_class: KDO\Bundle\KDOBundle\Entity\User
+    user_class: Manudev\KDOBundle\Entity\User
 
 hwi_oauth:
     connect:

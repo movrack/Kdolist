@@ -1,11 +1,17 @@
-kdokdo:
-    resource: "@KDOKDOBundle/Controller/"
+manudev_kdo:
+    resource: "@ManudevKDOBundle/Controller/"
     type:     annotation
     prefix:   /
 
+manudev_user:
+    resource: "@ManudevUserBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+
 welcome:
     pattern:  /
-    defaults: { _controller: KDOKDOBundle:Default:index }
+    defaults: { _controller: ManudevKDOBundle:Default:index }
 
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"

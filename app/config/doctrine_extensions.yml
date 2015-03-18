@@ -3,7 +3,7 @@
 services:
     # KernelRequest listener
     extension.listener:
-        class: KDO\Bundle\KDOBundle\Listener\DoctrineExtensionListener
+        class: Manudev\KDOBundle\Listener\DoctrineExtensionListener
         calls:
             - [ setContainer, [ @service_container ] ]
         tags:
