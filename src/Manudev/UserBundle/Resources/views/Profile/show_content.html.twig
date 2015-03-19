@@ -6,4 +6,38 @@
 </div>
 
 
-salut
+<h3>Compte bancaire</h3>
+<div class="row">
+    <div class="col-md-6">
+
+        <h4>Comptes enregistré</h4>
+        {% for accountNumber in user.bankaccounts %}
+            >{{ accountNumber.number }}<br />
+        {% endfor %}
+        {% if user.bankaccounts|length == 0 %}
+            Vous n'avez pas encore enregistrer de compte bancaire.
+        {% endif %}
+    </div>
+    <div class="col-md-6 ">
+        <h4>Ajouter un compte</h4>
+        <form class="form form-horizontal">
+            <div class="form-group">
+                <label for="inputPassword3" class="col-sm-2 control-label">IBAN</label>
+                <div class="col-sm-10">
+                    {{ form_widget(bankAccountForm.number) }}
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputPassword3" class="col-sm-2 control-label">Description</label>
+                <div class="col-sm-10">
+                    {{ form_widget(bankAccountForm.description) }}
+                </div>
+            </div>
+            {{ form_rest(bankAccountForm) }}
+
+            <button type="submit" class="btn btn-success">
+                <i class="fa fa-save"></i> Enregistrer
+            </button>
+        </form>
+    </div>
+</div>

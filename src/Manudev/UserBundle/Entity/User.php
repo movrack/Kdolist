@@ -59,13 +59,13 @@ class User extends BaseUser
     protected $lists;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Manudev\KDOBundle\Entity\BankAccount")
-     * @ORM\JoinTable(name="users_bankaccount",
+     * @ORM\ManyToMany(targetEntity="Manudev\UserBundle\Entity\BankAccount")
+     * @ORM\JoinTable(name="users_bankaccounts",
      *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="bankaccount_id", referencedColumnName="id", unique=true)}
+     *      inverseJoinColumns={@ORM\JoinColumn(name="bankaccounts_id", referencedColumnName="id", unique=true)}
      *      )
      **/
-    private $bankaccount;
+    private $bankaccounts;
 
     public function __construct()
     {
@@ -273,36 +273,37 @@ class User extends BaseUser
         return $this->lastname;
     }
 
+
     /**
-     * Add bankaccount
+     * Add bankaccounts
      *
-     * @param \Manudev\KDOBundle\Entity\BankAccount $bankaccount
+     * @param \Manudev\UserBundle\Entity\BankAccount $bankaccounts
      * @return User
      */
-    public function addBankaccount(\Manudev\KDOBundle\Entity\BankAccount $bankaccount)
+    public function addBankaccount(\Manudev\UserBundle\Entity\BankAccount $bankaccounts)
     {
-        $this->bankaccount[] = $bankaccount;
+        $this->bankaccounts[] = $bankaccounts;
 
         return $this;
     }
 
     /**
-     * Remove bankaccount
+     * Remove bankaccounts
      *
-     * @param \Manudev\KDOBundle\Entity\BankAccount $bankaccount
+     * @param \Manudev\UserBundle\Entity\BankAccount $bankaccounts
      */
-    public function removeBankaccount(\Manudev\KDOBundle\Entity\BankAccount $bankaccount)
+    public function removeBankaccount(\Manudev\UserBundle\Entity\BankAccount $bankaccounts)
     {
-        $this->bankaccount->removeElement($bankaccount);
+        $this->bankaccounts->removeElement($bankaccounts);
     }
 
     /**
-     * Get bankaccount
+     * Get bankaccounts
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getBankaccount()
+    public function getBankaccounts()
     {
-        return $this->bankaccount;
+        return $this->bankaccounts;
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Manudev\KDOBundle\Entity;
+namespace Manudev\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -11,7 +11,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * Gift
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="Manudev\KDOBundle\Repository\BankAccountRepository")
+ * @ORM\Entity(repositoryClass="Manudev\UserBundle\Repository\BankAccountRepository")
  */
 class BankAccount
 {
@@ -27,10 +27,15 @@ class BankAccount
     /**
      * @var string
      * @Assert\Iban
-     * @ORM\Column(name="link", type="string", length=255, nullable=true)
+     * @ORM\Column(name="number", type="string", length=255, nullable=false)
      */
     private $number;
 
+    /**
+     * @var string
+     * @ORM\Column(name="description", type="string", length=255, nullable=true)
+     */
+    private $description;
 
 
     function __toString() {
@@ -77,5 +82,28 @@ class BankAccount
     public function getNumber()
     {
         return $this->number;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     * @return BankAccount
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string 
+     */
+    public function getDescription()
+    {
+        return $this->description;
     }
 }

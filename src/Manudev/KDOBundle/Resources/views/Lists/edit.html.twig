@@ -33,7 +33,7 @@
 {%  else %}
     {% set actionPost = path('lists_update', {'id': entity.id}) %}
 {% endif %}
-<form action="{{ actionPost }}" method="post" {{ form_enctype(form) }}>
+<form class="form" action="{{ actionPost }}" method="post" {{ form_enctype(form) }}>
 
     {{ form_row(form.title) }}
     {{ form_row(form.subTitle) }}
@@ -84,7 +84,6 @@
         <i class="fa fa-save"></i> Enregistrer
     </button>
 
-    {{ form_end(form) }}
 </form>
 
 
