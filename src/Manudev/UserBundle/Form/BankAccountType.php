@@ -25,7 +25,7 @@ class BankAccountType extends AbstractType
     {
 
         $builder
-            ->add('number', 'number')
+            ->add('number', 'text')
             ->add('description')
         ;
     }

@@ -27,7 +27,7 @@ class BankAccount
     /**
      * @var string
      * @Assert\Iban
-     * @ORM\Column(name="number", type="string", length=255, nullable=false)
+     * @ORM\Column(name="number", type="string", unique=true, length=255, nullable=false)
      */
     private $number;
 

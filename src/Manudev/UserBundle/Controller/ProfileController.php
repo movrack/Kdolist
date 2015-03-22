@@ -46,27 +46,49 @@ class ProfileController extends BaseController
      */
     public function showAction()
     {
-        $form = $this->createBankAccountForm(new BankAccount());
+        $form = $this->createFormBankAccount(new BankAccount());
         return $this->render('FOSUserBundle:Profile:show.html.twig', array(
             'user' => $this->user,
-            'toto' => 'tutu',
             'bankAccountForm' => $form->createView()
         ));
     }
 
+
     /**
      *
-     * @Route("/", name="bankAccountCreate")
-     * @Method("GET")
+     * @Route("/postBankAccount/{user_id}", name="profile_createBankAccount")
+     * @Method("POST")
+     * @ParamConverter("user", class="ManudevUserBundle:User", options={"id" = "user_id"})
+     * @Template("FOSUserBundle:Profile:show.html.twig")
      */
-    public function bankaccountCreateAction()
+    public function createBankAccountAction(Request $request, User $user)
     {
-        $form = $this->createBankAccountForm(new BankAccount());
-        return $this->render('FOSUserBundle:Profile:show.html.twig', array(
+        $entity = new BankAccount();
+        $form = $this->createFormBankAccount($entity);
+        $form->handleRequest($request);
+
+        $isCurrentUser = $user->getId() == $this->user->getId();
+
+        if ($form->isValid() && $isCurrentUser) {
+            $user->addBankaccount($entity);
+            $this->em->persist($entity);
+            $this->em->persist($user);
+            $this->em->flush();
+
+            $this->get('session')->getFlashBag()->add('success', 'entity.create.success');
+            return $this->redirect($this->generateUrl('profile'));
+
+        } elseif (!$isCurrentUser) {
+            $this->get('session')->getFlashBag()
+                ->add('success', 'Vous ne pouvez pas créer un compte en banque pour un autre utilisateur.');
+        } else {
+            $this->get('session')->getFlashBag()->add('error', 'entity.create.error');
+        }
+
+        return array(
             'user' => $this->user,
-            'toto' => 'tutu',
             'bankAccountForm' => $form->createView()
-        ));
+        );
     }
 
     /**
@@ -76,12 +98,21 @@ class ProfileController extends BaseController
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createBankAccountForm(BankAccount $entity)
+    private function createFormBankAccount(BankAccount $entity)
     {
-        $form = $this->createForm(new BankAccountType(), $entity, array(
-            'action' => $this->generateUrl('bankAccountCreate'),
-            'method' => 'POST',
-        ));
+        $form = $this->createForm(
+            new BankAccountType(),
+            $entity,
+            array(
+                'action' =>
+                    $this->generateUrl(
+                        'profile_createBankAccount',
+                        array("user_id" => $this->user->getId()
+                    )
+                ),
+               'method' => 'POST',
+            )
+        );
 
         return $form;
     }
