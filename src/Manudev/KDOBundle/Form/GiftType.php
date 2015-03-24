@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Security\Core\SecurityContext;
+use Manudev\CoreBundle\Form\PictureType;
 
 use Manudev\KDOBundle\Repository\ListsRepository;
 

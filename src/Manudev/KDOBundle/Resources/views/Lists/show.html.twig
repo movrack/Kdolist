@@ -1,5 +1,6 @@
 {% extends '::base.html.twig' %}
 {% set isPublic = app.request.get('_route') != 'lists' %}
+{% set cpt = 0 %}
 {% block headline %}
     <div class="right" style="float: right">
         {% if entity.parent is empty %}
@@ -370,11 +371,10 @@
                 {% set cpt = cpt + 1 %}
                 {% if cpt is divisibleby(4) %}
                     {# case md #}
-                    <div class="clearfix visible-md-*"></div>
-                {% endif %}
-                {% if cpt is divisibleby(2) %}
+                    <div class="clearfix"></div>
+                {% elseif cpt is divisibleby(2) %}
                     {# case sm #}
-                    <div class="clearfix visible-sm-*"></div>
+                    <div class="clearfix visible-sm hidden-md"></div>
                 {% endif %}
             {% endfor %}
 
@@ -437,11 +437,10 @@
                 {% set cpt = cpt + 1 %}
                 {% if cpt is divisibleby(4) %}
                     {# case md #}
-                    <div class="clearfix visible-md-*"></div>
-                {% endif %}
-                {% if cpt is divisibleby(2) %}
+                    <div class="clearfix"></div>
+                {% elseif cpt is divisibleby(2) %}
                     {# case sm #}
-                    <div class="clearfix visible-sm-*"></div>
+                    <div class="clearfix visible-sm hidden-md"></div>
                 {% endif %}
             {% endfor %}
         </div>

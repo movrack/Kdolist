@@ -1,6 +1,6 @@
 <?php
 
-namespace Manudev\KDOBundle\Entity;
+namespace Manudev\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -11,9 +11,9 @@ define('FILES_DESTINATION', "uploads/pictures");
  * Picture
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="Manudev\KDOBundle\Repository\PictureRepository")
+ * @ORM\Entity(repositoryClass="Manudev\CoreBundle\Repository\PictureRepository")
  * @ORM\HasLifecycleCallbacks
- * @Gedmo\Uploadable(path="/uploads/document")
+ * @Gedmo\Uploadable(path="/uploads/pictures")
  */
 class Picture
 {
@@ -206,7 +206,7 @@ class Picture
     public function getUploadRootDir()
     {
         // the absolute directory path where uploaded documents should be saved
-        return __DIR__.'/../../../../../web/'.$this->getUploadDir();
+        return __DIR__.'/../../../../web/'.$this->getUploadDir();
     }
 
     public function getUploadDir()

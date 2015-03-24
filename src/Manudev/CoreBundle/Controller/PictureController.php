@@ -1,14 +1,14 @@
 <?php
 
-namespace Manudev\KDOBundle\Controller;
+namespace Manudev\CoreBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Manudev\KDOBundle\Entity\Picture;
-use Manudev\KDOBundle\Form\PictureType;
+use Manudev\CoreBundle\Entity\Picture;
+use Manudev\CoreBundle\Form\PictureType;
 
 /**
  * Picture controller.
@@ -29,7 +29,7 @@ class PictureController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('ManudevKDOBundle:Picture')->findAll();
+        $entities = $em->getRepository('ManudevCoreBundle:Picture')->findAll();
 
         return array(
             'entities' => $entities,
@@ -69,7 +69,7 @@ class PictureController extends Controller
      *
      * @Route("/", name="picture_create")
      * @Method("POST")
-     * @Template("ManudevKDOBundle:Picture:new.html.twig")
+     * @Template("ManudevCoreBundle:Picture:new.html.twig")
      */
     public function createAction(Request $request)
     {
@@ -139,7 +139,7 @@ class PictureController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('ManudevKDOBundle:Picture')->find($id);
+        $entity = $em->getRepository('ManudevCoreBundle:Picture')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Picture entity.');
@@ -164,7 +164,7 @@ class PictureController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('ManudevKDOBundle:Picture')->find($id);
+        $entity = $em->getRepository('ManudevCoreBundle:Picture')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Picture entity.');
@@ -203,13 +203,13 @@ class PictureController extends Controller
      *
      * @Route("/{id}", name="picture_update")
      * @Method("PUT")
-     * @Template("ManudevKDOBundle:Picture:edit.html.twig")
+     * @Template("ManudevCoreBundle:Picture:edit.html.twig")
      */
     public function updateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('ManudevKDOBundle:Picture')->find($id);
+        $entity = $em->getRepository('ManudevCoreBundle:Picture')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Picture entity.');
@@ -246,7 +246,7 @@ class PictureController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('ManudevKDOBundle:Picture')->find($id);
+            $entity = $em->getRepository('ManudevCoreBundle:Picture')->find($id);
 
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find Picture entity.');

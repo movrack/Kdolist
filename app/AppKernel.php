@@ -24,6 +24,7 @@ class AppKernel extends Kernel
             new JMS\AopBundle\JMSAopBundle(),
             new Manudev\KDOBundle\ManudevKDOBundle(),
             new Manudev\UserBundle\ManudevUserBundle(),
+            new Manudev\CoreBundle\ManudevCoreBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

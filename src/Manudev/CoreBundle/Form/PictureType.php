@@ -1,6 +1,6 @@
 <?php
 
-namespace Manudev\KDOBundle\Form;
+namespace Manudev\CoreBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -25,7 +25,7 @@ class PictureType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Manudev\KDOBundle\Entity\Picture'
+            'data_class' => 'Manudev\CoreBundle\Entity\Picture'
         ));
     }
 
@@ -34,6 +34,6 @@ class PictureType extends AbstractType
      */
     public function getName()
     {
-        return 'kdo_bundle_kdobundle_picture';
+        return 'manudev_corebundle_picture';
     }
 }

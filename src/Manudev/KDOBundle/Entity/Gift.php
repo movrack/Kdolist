@@ -5,6 +5,7 @@ namespace Manudev\KDOBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
+use \Manudev\CoreBundle\Entity\Picture;
 
 /**
  * Gift
@@ -38,7 +39,7 @@ class Gift
     private $description;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Picture", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="Manudev\CoreBundle\Entity\Picture", cascade={"persist", "remove"})
      * @ORM\JoinColumn(name="picture_id", referencedColumnName="id")
      */
     private $picture;
@@ -297,10 +298,10 @@ class Gift
     /**
      * Set picture
      *
-     * @param \Manudev\KDOBundle\Entity\Picture $picture
+     * @param \Manudev\CoreBundle\Entity\Picture $picture
      * @return Gift
      */
-    public function setPicture(\Manudev\KDOBundle\Entity\Picture $picture = null)
+    public function setPicture(\Manudev\CoreBundle\Entity\Picture $picture = null)
     {
         $this->picture = $picture;
 
@@ -310,7 +311,7 @@ class Gift
     /**
      * Get picture
      *
-     * @return \Manudev\KDOBundle\Entity\Picture
+     * @return \Manudev\CoreBundle\Entity\Picture
      */
     public function getPicture()
     {

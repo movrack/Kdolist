@@ -1,0 +1,8 @@
+Êtes-vous sûr de vouloir supprimer le compte {{ bankAccount.number }} ?
+
+{{ form_start(deleteForm) }}
+    {{ form_rest(deleteForm) }}
+    <button type="submit" class="btn btn-danger">
+        <i class="fa fa-trash"></i> {{ 'entity.delete'|trans }}
+    </button>
+{{ form_end(deleteForm) }}

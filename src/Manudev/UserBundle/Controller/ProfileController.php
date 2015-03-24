@@ -6,6 +6,7 @@ use Manudev\UserBundle\Entity\User;
 use Manudev\UserBundle\Entity\BankAccount;
 use Manudev\UserBundle\Form\BankAccountType;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -14,6 +15,7 @@ use FOS\UserBundle\Controller\ProfileController as BaseController;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use JMS\DiExtraBundle\Annotation as DI;
+
 
 /**
  * Class ProfileController
@@ -115,6 +117,72 @@ class ProfileController extends BaseController
         );
 
         return $form;
+    }
+
+    /**
+     * Creates a form to delete a Lists entity by id.
+     *
+     * @param mixed $id The entity id
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createDeleteForm(BankAccount $bankAccount)
+    {
+        return $this->createFormBuilder()
+            ->setAction($this->generateUrl('bankAccount_confirmDelete', array('id' => $bankAccount->getId())))
+            ->add('id', 'hidden')
+            ->getForm();
+    }
+
+    /**
+     * CreateDeleteForm
+     *
+     * @Route("/bankAccount/d/{id}", name="bankAccount_confirmDelete")
+     * @Method("GET")
+     * @Template()
+     */
+    public function confirmDeleteBankAccountAction(Request $request, BankAccount $bankAccount)
+    {
+        $delete_form = $this->createDeleteForm($bankAccount);
+
+        return array(
+            'bankAccount' => $bankAccount,
+            'deleteForm' => $delete_form->createView(),
+        );
+    }
+    /**
+     * Deletes a BankAccount entity.
+     *
+     * @Route("/bankAccount/d/{id}", name="bankAccount_delete")
+     * @ParamConverter("bankAccount", class="ManudevUserBundle:BankAccount")
+     * @Method("POST")
+     */
+    public function deleteAction(Request $request, BankAccount $bankAccount)
+    {
+        $form = $this->createDeleteForm($bankAccount);
+        $form->handleRequest($request);
+        
+        if($form->getErrors()) {
+
+            $this->get('session')->getFlashBag()->add('error', "erreur  : " . $form->getErrorsAsString());
+            $this->get('session')->getFlashBag()->add('error', "isValid : " . $form->isValid());
+        }
+        elseif ($form->isValid()) {
+            if( !$this->user->getBankaccounts()->contains($bankAccount)) {
+                $this->get('session')->getFlashBag()->add('error', 'entity.delete.error');
+                return $this->redirect($this->generateUrl('profile'));
+            }
+            $this->user->removeBankaccount($bankAccount);
+            $this->em->persist($this->user);
+            $this->em->remove($bankAccount);
+            $this->em->flush();
+            $this->get('session')->getFlashBag()->add('success', 'entity.delete.success');
+        } else {
+
+            $this->get('session')->getFlashBag()->add('error', 'entity.delete.error2');
+        }
+
+        return $this->redirect($this->generateUrl('profile'));
     }
 
 }

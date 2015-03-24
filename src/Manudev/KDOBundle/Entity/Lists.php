@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
+use Manudev\CoreBundle\Entity\Picture;
 
 
 /**
@@ -83,7 +84,7 @@ class Lists
     /**
      * @var Picture
      *
-     * @ORM\ManyToOne(targetEntity="Picture", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="Manudev\CoreBundle\Entity\Picture", cascade={"persist", "remove"})
      * @ORM\JoinColumn(name="picture_id", referencedColumnName="id")
      */
     private $picture;
@@ -373,10 +374,10 @@ class Lists
     /**
      * Set picture
      *
-     * @param \Manudev\KDOBundle\Entity\Picture $picture
+     * @param \Manudev\CoreBundle\Entity\Picture $picture
      * @return Lists
      */
-    public function setPicture(\Manudev\KDOBundle\Entity\Picture $picture = null)
+    public function setPicture(\Manudev\CoreBundle\Entity\Picture $picture = null)
     {
         $this->picture = $picture;
 
@@ -386,7 +387,7 @@ class Lists
     /**
      * Get picture
      *
-     * @return \Manudev\KDOBundle\Entity\Picture
+     * @return \Manudev\CoreBundle\Entity\Picture
      */
     public function getPicture()
     {
@@ -471,7 +472,7 @@ class Lists
     /**
      * Remove children
      *
-     * @param \Manudev\KDOBundle\Entity\Lists $children
+     * @param \Manudev\KDOBundle\Entity\Lists $child
      */
     public function removeChild(\Manudev\KDOBundle\Entity\Lists $child)
     {
