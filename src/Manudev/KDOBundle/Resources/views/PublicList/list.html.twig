@@ -167,6 +167,7 @@
         </div>
 
         <div class="showGrid row" style="display: none">
+            {% set cpt = 0 %}
             {% for child in entity.children %}
                 <div class="col-md-3 col-sm-6 col-xs12">
                     <div class="thumbnail">
@@ -205,6 +206,16 @@
                         </div>
                     </div>
                 </div>
+                
+                {% set cpt = cpt + 1 %}
+                {% if cpt is divisibleby(4) %}
+                    {# case md #}
+                    <div class="clearfix visible-md-*"></div>
+                {% endif %}
+                {% if cpt is divisibleby(2) %}
+                    {# case sm #}
+                    <div class="clearfix visible-sm-*"></div>
+                {% endif %}
             {% endfor %}
 
             {% for gift in entity.gifts %}
@@ -260,6 +271,15 @@
                         </div>
                     </div>
                 </div>
+                {% set cpt = cpt + 1 %}
+                {% if cpt is divisibleby(4) %}
+                    {# case md #}
+                    <div class="clearfix visible-md-*"></div>
+                {% endif %}
+                {% if cpt is divisibleby(2) %}
+                    {# case sm #}
+                    <div class="clearfix visible-sm-*"></div>
+                {% endif %}
             {% endfor %}
         </div>
     {% endif %}
