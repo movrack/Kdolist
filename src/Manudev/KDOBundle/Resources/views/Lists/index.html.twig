@@ -17,19 +17,24 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <div style="float: right" >
-                    {%  if not entity.owners is empty %}
+                    {%  if not entity.owners is empty or not entity.users|first.firstname is empty%}
                         Liste de
-                    {% endif %}
-                    {% for user in entity.owners %}
-                        {% if user != entity.owners|first and  user == entity.owners|last %}
-                            {% if entity.owners|length == 2 %}
-                                et
-                            {% else %}
-                                ,
-                            {% endif %}
+                        {% if entity.owners|length == 0 %}
+                            {% set users = entity.users %}
+                        {% else %}
+                            {% set users = entity.owners %}
                         {% endif %}
-                        {{ user.firstname|capitalize }} {{ user.lastname|capitalize }}
-                    {% endfor %}
+                        {% for user in users %}
+                            {% if user != users|first %}
+                                {% if users|length == 2 %}
+                                    et
+                                {% else %}
+                                    ,
+                                {% endif %}
+                            {% endif %}
+                            {{ user.firstname|capitalize }} {{ user.lastname|capitalize }}
+                        {% endfor %}
+                    {% endif %}
                 </div>
                 <h1 class="panel-title">
                     {{ entity.title }}

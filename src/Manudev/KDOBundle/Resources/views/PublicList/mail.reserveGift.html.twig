@@ -3,29 +3,52 @@
     <body>
         <p>
             Bonjour {{ firstName }},<br />
-            Vous souhaitez offrir {{ gift.name }} à
-            {% for user in gift.list.owners %}
-                {% if user != gift.list.owners|first and  user == gift.list.owners|last %}
-                    {% if gift.list.owners|length == 2 %}
-                        et
-                    {% else %}
-                        ,
-                    {% endif %}
+            Vous souhaitez offrir {{ gift.name }}
+            {%  if not entity.owners is empty or not entity.users|first.firstname is empty%}
+                à
+                {% if entity.owners|length == 0 %}
+                    {% set users = entity.users %}
+                {% else %}
+                    {% set users = entity.owners %}
                 {% endif %}
-                {{ user.firstname|capitalize }} {{ user.lastname|capitalize }}
-            {% endfor %}. <br />
-            <img src="{{ picture }}" width="150px"/>
+                {% for user in users %}
+                    {% if user != users|first %}
+                        {% if users|length == 2 %}
+                            et
+                        {% else %}
+                            ,
+                        {% endif %}
+                    {% endif %}
+                    {{ user.firstname|capitalize }} {{ user.lastname|capitalize }}
+                {% endfor %}
+            {% endif %}.
         </p>
+        <p>
+            {{ gift.description }}
+        </p>
+        <br />
+        <img src="{{ picture }}" width="150px"/>
+
 
         {%  if not gift.list.getRootParent().bankaccount is empty %}
             <p>
+                S'il n'est pas possible de donner le cadeau en main propre,<br />
+                vous pouvez faire un virement sur le numéro de compte :<br />
+                {% set iban = gift.list.getRootParent().bankaccount %}
                 <strong>
-                    S'il n'est pas possible de donner le cadeau en main propre,<br />
-                    vous pouvez faire un virement sur le numéro de compte :
-                    <span class="text-decoration:underline">
-                        {{ gift.list.getRootParent().bankaccount }}
-                    </span>
-                </strong>
+                    {{ iban }}
+                </strong><br />
+                Bénéficiaire : <br />
+                {{ iban.beneficiary1 }}<br />
+                {% if not iban.beneficiary2 is empty %}
+                    {{ iban.beneficiary2 }}<br />
+                {% endif %}
+                {% if not iban.beneficiary3 is empty %}
+                    {{ iban.beneficiary3 }}<br />
+                {% endif %}
+                {% if not iban.beneficiary4 is empty %}
+                    {{ iban.beneficiary4 }}<br />
+                {% endif %}
             </p>
         {% endif %}
 
