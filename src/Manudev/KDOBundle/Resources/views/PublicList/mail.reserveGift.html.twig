@@ -1,30 +1,38 @@
 <html>
     <head></head>
     <body>
-        Bonjour {{ firstName }},<br />
-        Vous souhaitez offrir {{ gift.name }} à
-        {% for user in gift.list.owners %}
-            {% if user != gift.list.owners|first and  user == gift.list.owners|last %}
-                {% if gift.list.owners|length == 2 %}
-                    et
-                {% else %}
-                    ,
+        <p>
+            Bonjour {{ firstName }},<br />
+            Vous souhaitez offrir {{ gift.name }} à
+            {% for user in gift.list.owners %}
+                {% if user != gift.list.owners|first and  user == gift.list.owners|last %}
+                    {% if gift.list.owners|length == 2 %}
+                        et
+                    {% else %}
+                        ,
+                    {% endif %}
                 {% endif %}
-            {% endif %}
-            {{ user.firstname|capitalize }} {{ user.lastname|capitalize }}
-        {% endfor %}. <br />
+                {{ user.firstname|capitalize }} {{ user.lastname|capitalize }}
+            {% endfor %}. <br />
+            <img src="{{ picture }}" width="150px"/>
+        </p>
 
-        <strong>
-        {% if gift.list.owners|length == 2 %}
-            Ils souhaitent
-        {% elseif gift.list.owners|length == 2 %}
-            Il/Elle souhaite
+        {%  if not gift.list.getRootParent().bankaccount is empty %}
+            <p>
+                <strong>
+                    S'il n'est pas possible de donner le cadeau en main propre,<br />
+                    vous pouvez faire un virement sur le numéro de compte :
+                    <span class="text-decoration:underline">
+                        {{ gift.list.getRootParent().bankaccount }}
+                    </span>
+                </strong>
+            </p>
         {% endif %}
-        recevoir un virement sur le numéro de compte : BExx xxxx xxxx xxxx<br />
-        </strong>
 
-        Afin que personne d'autre ne puisse offrir ce cadeau,
-        veuillez confirmer que vous offrez ce cadeau en cliquant sur ce lien:
+        <p>
+            Afin que personne d'autre ne puisse offrir ce cadeau,<br />
+            veuillez confirmer que vous offrez ce cadeau en cliquant sur ce lien:
+        </p>
 
     </body>
 </html>

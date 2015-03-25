@@ -90,26 +90,29 @@ class PublicListController extends Controller
 
         if ($form->isValid()) {
 
+            $message = \Swift_Message::newInstance();
+            $uri = $this->getRequest()->getUriForPath($gift->getPicture()->getWebPath());
+            $picture = $message->embed(\Swift_Image::fromPath($uri));
             $template = $this->renderView('ManudevKDOBundle:PublicList:mail.reserveGift.html.twig',
                 array(
                     'firstName' => $firstName,
                     'lastName' => $lastName,
-                    'gift' => $gift
+                    'gift' => $gift,
+                    'picture' => $picture
                 )
             );
-
-            $message = \Swift_Message::newInstance()
-                ->setSubject('Réservation de Cadeau')
+            $message->setSubject('Réservation de Cadeau')
                 ->setFrom('gift@kdolist.manudev.be')
                 ->setTo($email)
-                ->setBody($template,
-                    'text/html');
+                ->setBody($template, 'text/html');
 
             $this->get('mailer')->send($message);
 
+
             $this->get('session')->getFlashBag()->add(
-                'notice', "Un email vous a été envoyé à l'adresse suivante : $email<br />
-                            Une fois confirmé, votre cadeau disparaitra de cette liste."
+                'success', "Un email de confirmation vous a été envoyé sur: $email .
+                 Sans confirmation, le cadeau sera à nouveau dispoblie pour d'autres personnes
+                 dans 2 jours."
             );
             return $this->redirect($this->generateUrl('public_list', array('list_id' => $gift->getList()->getId(), 'slug' => $gift->getList()->getSlug())));
 

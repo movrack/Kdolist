@@ -544,6 +544,13 @@ class Lists
         return $this->parent;
     }
 
+    public function getRootParent()
+    {
+        if ($this->parent == null) {
+            return $this;
+        }
+        return $this->parent->getRootParent();
+    }
 
     /**
      * Set isPublic
