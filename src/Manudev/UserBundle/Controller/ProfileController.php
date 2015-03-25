@@ -128,9 +128,11 @@ class ProfileController extends BaseController
      */
     private function createDeleteForm(BankAccount $bankAccount)
     {
-        return $this->createFormBuilder()
-            ->setAction($this->generateUrl('bankAccount_confirmDelete', array('id' => $bankAccount->getId())))
+        return $this->createFormBuilder(array('id', $bankAccount->getId()))
+            ->setAction($this->generateUrl('bankAccount_confirmDelete',
+                array('id' => $bankAccount->getId())))
             ->add('id', 'hidden')
+            ->setMethod("POST")
             ->getForm();
     }
 
@@ -138,6 +140,7 @@ class ProfileController extends BaseController
      * CreateDeleteForm
      *
      * @Route("/bankAccount/d/{id}", name="bankAccount_confirmDelete")
+     * @ParamConverter("bankAccount", class="ManudevUserBundle:BankAccount")
      * @Method("GET")
      * @Template()
      */
@@ -161,13 +164,8 @@ class ProfileController extends BaseController
     {
         $form = $this->createDeleteForm($bankAccount);
         $form->handleRequest($request);
-        
-        if($form->getErrors()) {
 
-            $this->get('session')->getFlashBag()->add('error', "erreur  : " . $form->getErrorsAsString());
-            $this->get('session')->getFlashBag()->add('error', "isValid : " . $form->isValid());
-        }
-        elseif ($form->isValid()) {
+        if ($form->isValid()) {
             if( !$this->user->getBankaccounts()->contains($bankAccount)) {
                 $this->get('session')->getFlashBag()->add('error', 'entity.delete.error');
                 return $this->redirect($this->generateUrl('profile'));
@@ -178,8 +176,7 @@ class ProfileController extends BaseController
             $this->em->flush();
             $this->get('session')->getFlashBag()->add('success', 'entity.delete.success');
         } else {
-
-            $this->get('session')->getFlashBag()->add('error', 'entity.delete.error2');
+            $this->get('session')->getFlashBag()->add('error', "Erreur  : " . $form->getErrorsAsString());
         }
 
         return $this->redirect($this->generateUrl('profile'));

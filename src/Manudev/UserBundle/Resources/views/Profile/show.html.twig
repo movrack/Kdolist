@@ -18,6 +18,8 @@
             <h4>Comptes enregistré</h4>
             {% for accountNumber in user.bankaccounts %}
                 <div class="row">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
                     <div class="col-md-1">
                         <button class="btn btn-sm btn-danger removeBankAccount"
                                 data-id="{{ accountNumber.id }}"
@@ -26,7 +28,22 @@
                         </button>
                     </div>
                     <div class="col-md-11">
-                        {{ accountNumber.number }}
+
+                        {{ accountNumber.number }} : {{ accountNumber.description }}<br />
+                        <ul>
+                            <li>{{ accountNumber.beneficiary1 }}</li>
+                            {% if not accountNumber.beneficiary2 is empty %}
+                                <li>{{ accountNumber.beneficiary2 }}</li>
+                            {%  endif %}
+                            {% if not accountNumber.beneficiary3 is empty  %}
+                                <li>{{ accountNumber.beneficiary3 }}</li>
+                            {%  endif %}
+                            {% if not accountNumber.beneficiary4 is empty  %}
+                                <li>{{ accountNumber.beneficiary4 }}</li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                        </div>
                     </div>
                 </div>
             {% endfor %}
@@ -39,31 +56,34 @@
             <form action="{{ path('profile_createBankAccount', {'user_id': user.id}) }}"
                   method="POST" class="form form-horizontal">
 
-                {%  if form_errors(bankAccountForm.number)|length == 0 %}
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">IBAN</label>
-                        <div class="col-sm-10">
-                            {{ form_widget(bankAccountForm.number) }}
+                {% macro inputBankAccount(label, formField) %}
+                    {%  if form_errors(formField)|length == 0 %}
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">{{ label }}</label>
+                            <div class="col-sm-8">
+                                {{ form_widget(formField) }}
+                            </div>
                         </div>
-                    </div>
-                {% else %}
-                    <div class="form-group has-error has-feedback">
-                        <label class="col-sm-2 control-label">
-                            IBAN <i class="fa fa-remove"></i>
-                        </label>
-                        <div class="col-sm-10">
-                            {{ form_widget(bankAccountForm.number) }}
-                            {{ form_errors(bankAccountForm.number) }}
+                    {% else %}
+                        <div class="form-group has-error has-feedback">
+                            <label class="col-sm-4 control-label">
+                                {{ label }} <i class="fa fa-remove"></i>
+                            </label>
+                            <div class="col-sm-8">
+                                {{ form_widget(formField) }}
+                                {{ form_errors(formField) }}
+                            </div>
                         </div>
-                    </div>
-                {% endif %}
+                    {% endif %}
+                {% endmacro %}
+                {% import _self as forms %}
+                {{ forms.inputBankAccount("IBAN", bankAccountForm.number) }}
+                {{ forms.inputBankAccount("Description", bankAccountForm.description) }}
+                {{ forms.inputBankAccount("Nom du bénéficiare 1", bankAccountForm.beneficiary1) }}
+                {{ forms.inputBankAccount("Nom du bénéficiare 2", bankAccountForm.beneficiary2) }}
+                {{ forms.inputBankAccount("Nom du bénéficiare 3", bankAccountForm.beneficiary3) }}
+                {{ forms.inputBankAccount("Nom du bénéficiare 4", bankAccountForm.beneficiary4) }}
 
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">Description</label>
-                    <div class="col-sm-10">
-                        {{ form_widget(bankAccountForm.description) }}
-                    </div>
-                </div>
                 {{ form_rest(bankAccountForm) }}
 
                 <button type="submit" class="btn btn-success">

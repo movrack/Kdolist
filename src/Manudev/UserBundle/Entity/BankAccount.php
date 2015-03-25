@@ -37,6 +37,31 @@ class BankAccount
      */
     private $description;
 
+    /**
+     * @var string
+     * @ORM\Column(name="beneficiary1", type="string", length=255, nullable=false)
+     */
+    private $beneficiary1;
+
+    /**
+     * @var string
+     * @ORM\Column(name="beneficiary2", type="string", length=255, nullable=true)
+     */
+    private $beneficiary2;
+
+    /**
+     * @var string
+     * @ORM\Column(name="beneficiary3", type="string", length=255, nullable=true)
+     */
+    private $beneficiary3;
+
+    /**
+     * @var string
+     * @ORM\Column(name="beneficiary4", type="string", length=255, nullable=true)
+     */
+    private $beneficiary4;
+
+
 
     function __toString() {
         $str = "";
@@ -105,5 +130,97 @@ class BankAccount
     public function getDescription()
     {
         return $this->description;
+    }
+
+    /**
+     * Set beneficiary1
+     *
+     * @param string $beneficiary1
+     * @return BankAccount
+     */
+    public function setBeneficiary1($beneficiary1)
+    {
+        $this->beneficiary1 = $beneficiary1;
+
+        return $this;
+    }
+
+    /**
+     * Get beneficiary1
+     *
+     * @return string 
+     */
+    public function getBeneficiary1()
+    {
+        return $this->beneficiary1;
+    }
+
+    /**
+     * Set beneficiary2
+     *
+     * @param string $beneficiary2
+     * @return BankAccount
+     */
+    public function setBeneficiary2($beneficiary2)
+    {
+        $this->beneficiary2 = $beneficiary2;
+
+        return $this;
+    }
+
+    /**
+     * Get beneficiary2
+     *
+     * @return string 
+     */
+    public function getBeneficiary2()
+    {
+        return $this->beneficiary2;
+    }
+
+    /**
+     * Set beneficiary3
+     *
+     * @param string $beneficiary3
+     * @return BankAccount
+     */
+    public function setBeneficiary3($beneficiary3)
+    {
+        $this->beneficiary3 = $beneficiary3;
+
+        return $this;
+    }
+
+    /**
+     * Get beneficiary3
+     *
+     * @return string 
+     */
+    public function getBeneficiary3()
+    {
+        return $this->beneficiary3;
+    }
+
+    /**
+     * Set beneficiary4
+     *
+     * @param string $beneficiary4
+     * @return BankAccount
+     */
+    public function setBeneficiary4($beneficiary4)
+    {
+        $this->beneficiary4 = $beneficiary4;
+
+        return $this;
+    }
+
+    /**
+     * Get beneficiary4
+     *
+     * @return string 
+     */
+    public function getBeneficiary4()
+    {
+        return $this->beneficiary4;
     }
 }
