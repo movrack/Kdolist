@@ -6,8 +6,26 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
+use Manudev\CoreBundle\Form\PictureType;
+use Manudev\UserBundle\Entity\User;
+use Manudev\UserBundle\Repository\UserRepository;
+use Manudev\UserBundle\Repository\BankAccountRepository;
+
 class ListsType extends AbstractType
 {
+    /**
+     * @var \Manudev\UserBundle\Entity\User
+     */
+    protected $user;
+
+    /**
+     * @param \Manudev\UserBundle\Entity\User $user
+     */
+    public function __construct(User $user)
+    {
+        $this->user = $user;
+    }
+
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
@@ -30,6 +48,16 @@ class ListsType extends AbstractType
                     'by_reference' => false
                 )
             )
+            ->add('bankaccount', 'entity', array(
+                'class' => 'ManudevUserBundle:BankAccount',
+                'property' => 'number',
+                'required' => false,
+                'query_builder' => function(BankAccountRepository $er) {
+                    return $er->findForUserQueryBuilder($this->user);
+                },
+
+                )
+            )
         ;
     }
     
@@ -50,4 +78,6 @@ class ListsType extends AbstractType
     {
         return 'kdo_bundle_kdobundle_lists';
     }
+
+
 }

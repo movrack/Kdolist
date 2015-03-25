@@ -3,6 +3,7 @@
 namespace Manudev\UserBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Manudev\UserBundle\Entity\User;
 
 /**
  * GiftRepository
@@ -12,4 +13,19 @@ use Doctrine\ORM\EntityRepository;
  */
 class BankAccountRepository extends EntityRepository
 {
+
+
+     public function findForUserQueryBuilder(User $user)
+     {
+         $query = $this->createQueryBuilder('ba')
+             ->where('ba.user = :user')
+             ->setParameter('user', $user)
+         ;
+
+         return $query;
+     }
+
+     public function findForUser(Lists $entity) {
+         return $this->findForUserQueryBuilder($entity)->getQuery()->getResult();
+     }
 }

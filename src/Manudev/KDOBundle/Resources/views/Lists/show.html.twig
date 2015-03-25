@@ -25,9 +25,6 @@
             <i class="fa fa-gift"></i> Ajouter un cadeau
         </button>
 
-        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modalShare">
-            <i class="fa fa-share-alt"></i> Partager
-        </button>
     </div>
     {{ entity.title }} <small>{{ entity.subTitle }}</small>
 
@@ -103,41 +100,6 @@
         </div>
     </div>
 
-    <!-- popup share -->
-    <div class="modal fade" id="modalShare" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2" aria-hidden="false">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Partager la liste</h4>
-                </div>
-                <div class="modal-body">
-
-                    <a target="_blank"
-                       href="https://plus.google.com/share?url={{ url('public_list', { 'list_id': entity.id, 'slug': entity.slug }) }}">
-                        <i class="fa fa-google-plus-square" style="font-size: 2em; color:#cc3732;"></i>
-                    </a>
-
-
-                    <a target="_blank"
-                       href="https://www.facebook.com/sharer/sharer.php?u={{ url('public_list', { 'list_id': entity.id, 'slug': entity.slug }) }}">
-                        <i class="fa fa-facebook-square" style="font-size: 2em; color:#4c66a4;"></i>
-                    </a><br />
-
-                    <strong><i class="fa fa-share-alt" ></i> Lien publique : </strong>
-                    <a target="_blank"
-                       href="{{ path('public_list', { 'list_id': entity.id, 'slug': entity.slug }) }}"
-                       style="color: black;">
-
-                        {{ url('public_list', { 'list_id': entity.id, 'slug': entity.slug }) }}
-                    </a>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
-                </div>
-            </div>
-        </div>
-    </div>
     <!-- popup more info -->
     <div class="modal fade" id="modalDetails" tabindex="-1" role="dialog"
          aria-labelledby="myModalLabel" aria-hidden="true">
@@ -226,9 +188,39 @@
                         </div>
                         {% endif %}
                     </div>
+
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-6">
+                            <strong>Partager : </strong>
+                            <a target="_blank"
+                               href="https://plus.google.com/share?url={{ url('public_list', { 'list_id': entity.id, 'slug': entity.slug }) }}">
+                                <i class="fa fa-google-plus-square" style="color:#cc3732;"></i>
+                            </a>
+
+                            <a target="_blank"
+                               href="https://www.facebook.com/sharer/sharer.php?u={{ url('public_list', { 'list_id': entity.id, 'slug': entity.slug }) }}">
+                                <i class="fa fa-facebook-square" style="color:#4c66a4;"></i>
+                            </a>
+
+
+                            <a target="_blank"
+                               href="{{ path('public_list', { 'list_id': entity.id, 'slug': entity.slug }) }}"
+                               style="color: black;">
+
+                                <i class="fa fa-share-alt"></i> {{ url('public_list', { 'list_id': entity.id, 'slug': entity.slug }) }}
+                            </a>
+                        </div>
+                        <div class="col-md-6 right">
+                            {% if not entity.bankaccount is empty %}
+                                Compte IBAN associé : {{ entity.bankaccount }}
+                            {%  endif %}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12"><br />
+                            <p>
                             {{  entity.description }}
+                            </p>
                         </div>
                     </div>
                 </div>

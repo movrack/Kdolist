@@ -160,6 +160,14 @@ class Lists
     private $externalListLink;
 
     /**
+     * @var Manudev\UserBundle\Entity\BankAccount;
+     *
+     * @ORM\OneToOne(targetEntity="Manudev\UserBundle\Entity\BankAccount", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $bankaccount;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -690,5 +698,28 @@ class Lists
     public function getExternalListLink()
     {
         return $this->externalListLink;
+    }
+
+    /**
+     * Set bankaccount
+     *
+     * @param \Manudev\UserBundle\Entity\BankAccount $bankaccount
+     * @return Lists
+     */
+    public function setBankaccount(\Manudev\UserBundle\Entity\BankAccount $bankaccount = null)
+    {
+        $this->bankaccount = $bankaccount;
+
+        return $this;
+    }
+
+    /**
+     * Get bankaccount
+     *
+     * @return \Manudev\UserBundle\Entity\BankAccount 
+     */
+    public function getBankaccount()
+    {
+        return $this->bankaccount;
     }
 }

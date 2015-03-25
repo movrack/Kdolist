@@ -12,7 +12,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use JMS\DiExtraBundle\Annotation as DI;
 use Manudev\UserBundle\Entity\User;
 use Manudev\KDOBundle\Entity\Lists;
-use Manudev\KDOBundle\Form\ListsliType;
+use Manudev\KDOBundle\Form\ListsType;
 use Manudev\KDOBundle\Form\SubListsType;
 use Doctrine\Common\Collections\ArrayCollection;
 
@@ -158,7 +158,7 @@ class ListsController extends Controller
      */
     private function createCreateForm(Lists $entity)
     {
-        $form = $this->createForm(new ListsType(), $entity, array(
+        $form = $this->createForm(new ListsType($this->user), $entity, array(
             'action' => $this->generateUrl('lists_create'),
             'method' => 'POST',
         ));
@@ -238,7 +238,7 @@ class ListsController extends Controller
     */
     private function createEditForm(Lists $entity)
     {
-        $form = $this->createForm(new ListsType(), $entity, array(
+        $form = $this->createForm(new ListsType($this->user), $entity, array(
             'action' => $this->generateUrl('lists_update', array('id' => $entity->getId())),
             'method' => 'POST',
         ));

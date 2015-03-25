@@ -4,7 +4,7 @@ namespace Manudev\UserBundle\Entity;
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
-use Manudev\KDOBundle\Entity\BankAccount;
+use Manudev\UserBundle\Entity\BankAccount;
 use Manudev\KDOBundle\Entity\Lists;
 
 /**
@@ -59,11 +59,8 @@ class User extends BaseUser
     protected $lists;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Manudev\UserBundle\Entity\BankAccount")
-     * @ORM\JoinTable(name="users_bankaccounts",
-     *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="bankaccounts_id", referencedColumnName="id", unique=true)}
-     *      )
+     *
+     * @ORM\OneToMany(targetEntity="Manudev\UserBundle\Entity\BankAccount", mappedBy="user")
      **/
     private $bankaccounts;
 

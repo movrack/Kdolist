@@ -25,6 +25,14 @@ class BankAccount
     private $id;
 
     /**
+     * @var Manudev\UserBundle\Entity\User
+     *
+     * @ORM\ManyToOne(targetEntity="Manudev\UserBundle\Entity\User", inversedBy="bankaccounts")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     */
+    private $user;
+
+    /**
      * @var string
      * @Assert\Iban
      * @ORM\Column(name="number", type="string", unique=true, length=255, nullable=false)
@@ -65,9 +73,9 @@ class BankAccount
 
     function __toString() {
         $str = "";
-        $strlen = strlen($this->$number);
+        $strlen = strlen($this->number);
         for( $i = 0; $i <= $strlen; $i++ ) {
-            $char = substr( $this->$number, $i, 1 );
+            $char = substr( $this->number, $i, 1 );
             $str .= $char;
             if ($i % 4 == 3) {
                 $str .= " ";
@@ -222,5 +230,28 @@ class BankAccount
     public function getBeneficiary4()
     {
         return $this->beneficiary4;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \Manudev\UserBundle\Entity\User $user
+     * @return BankAccount
+     */
+    public function setUser(\Manudev\UserBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \Manudev\UserBundle\Entity\User 
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }

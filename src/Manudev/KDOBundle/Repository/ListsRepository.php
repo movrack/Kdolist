@@ -50,4 +50,7 @@ class ListsRepository extends NestedTreeRepository
     public function parents(Lists $entity) {
         return $this->parentsQueryBuilder($entity)->getQuery()->getResult();
     }
+
+
+
 }

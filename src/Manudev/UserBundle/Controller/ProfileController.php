@@ -73,6 +73,7 @@ class ProfileController extends BaseController
 
         if ($form->isValid() && $isCurrentUser) {
             $user->addBankaccount($entity);
+            $entity->setUser($user);
             $this->em->persist($entity);
             $this->em->persist($user);
             $this->em->flush();
