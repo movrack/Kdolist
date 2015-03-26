@@ -195,19 +195,13 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-12"><br />
-                            <p>
-                                {{  entity.description }}
-                            </p>
-                        </div>
-                    </div>
-                    <div class="row">
                         <div class="col-md-12">
+                            Montant total : {{ entity.totalPrice() }} €
                             <div class="progress">
                                 <div class="progress-bar progress-bar-success center" role="progressbar"
                                      aria-valuenow="{{ entity.percentGived() }}" aria-valuemin="0" aria-valuemax="100"
-                                     style="width: {{ entity.percentGived() }}%;">
-                                    {{ entity.totalGived() }} € / {{ entity.totalPrice() }} €  ({{ entity.percentGived() }}%)
+                                     style="width: {{ entity.percentGived() }}%; min-width: 2em;">
+                                    {{ entity.totalGived() }} €
                                 </div>
                             </div>
                         </div>

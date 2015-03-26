@@ -63,8 +63,8 @@
                             <div class="progress">
                                 <div class="progress-bar progress-bar-success center" role="progressbar"
                                      aria-valuenow="{{ entity.percentGived() }}" aria-valuemin="0" aria-valuemax="100"
-                                     style="width: {{ entity.percentGived() }}%;">
-                                    {{ entity.percentGived() }} %
+                                     style="width: {{ entity.percentGived() }}%; min-width: 2em;">
+                                    {{ entity.percentGived()|round('2', 'floor') }} %
                                 </div>
                             </div>
                         </div>
