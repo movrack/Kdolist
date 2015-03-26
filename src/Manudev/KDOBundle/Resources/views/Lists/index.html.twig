@@ -12,6 +12,20 @@
 {% endblock headline %}
 
 {% block content_content %}
+    {% if entities|length == 0 %}
+        <div class="panel panel-default">
+            <div class="panel-body">
+                Vous n'avez pas encore créer de liste. <br />
+                Voulez-vous en ajouter une ?<br />
+                <br />
+                <a class="btn btn-primary btn-lg"
+                   href="{{ path('lists_new') }}"
+                   title="Créer une nouvelle liste">
+                    <i class="fa fa-list"></i> <i class="fa fa-plus"></i> Créer une nouvelle liste
+                </a>
+            </div>
+        </div>
+    {% endif %}
 
     {% for entity in entities %}
         <div class="panel panel-default">
