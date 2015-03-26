@@ -90,6 +90,18 @@ class Gift
     private $numberOfParts = 1;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="givedParts", type="integer")
+     * @Assert\GreaterThanOrEqual(
+     *     value = 0
+     * )
+     */
+    private $givedParts = 0;
+
+    /**
+     * @var integer
+     *
      * @Gedmo\SortablePosition
      * @ORM\Column(name="position", type="integer")
      */
@@ -335,11 +347,47 @@ class Gift
 
     public function isReserved()
     {
-        return rand(0,1);
+        return 0;
     }
 
     public function isGived()
     {
-        return rand(0,1);
+        return 0;
+    }
+
+    public function reserve(){
+
+    }
+
+    /**
+     * Set givedParts
+     *
+     * @param integer $givedParts
+     * @return Gift
+     */
+    public function setGivedParts($givedParts)
+    {
+        $this->givedParts = $givedParts;
+
+        return $this;
+    }
+
+    /**
+     * Get givedParts
+     *
+     * @return integer 
+     */
+    public function getGivedParts()
+    {
+        return $this->givedParts;
+    }
+
+    public function percentDone()
+    {
+        return $this->givedParts / $this->numberOfParts * 100;
+    }
+    public function partValue()
+    {
+        return $this->price / $this->numberOfParts;
     }
 }

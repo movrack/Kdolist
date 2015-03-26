@@ -146,8 +146,7 @@
         </div>
     </div>
 
-
-
+    <!-- Haut de page -->
     <div class="panel panel-default">
         <div class="panel-body">
 
@@ -229,6 +228,7 @@
     </div>
 
     {%  if entity.gifts|length == 0 and entity.children|length == 0 %}
+        <!-- Liste vide -->
         <div class="panel panel-warning">
             <div class="panel-heading">
                 Liste vide
@@ -245,6 +245,7 @@
             </div>
         </div>
     {% else %}
+    <!-- liste pleine -->
         <div class="showList panel panel-default" style="display: none">
             <ul class="list-group">
             {% for child in entity.children %}
@@ -314,7 +315,7 @@
             {% endfor %}
             </ul>
         </div>
-
+    <!-- grille pleine -->
         <div class="showGrid row" style="display: none">
             {% set cpt = 0 %}
             {% for child in entity.children %}
@@ -397,8 +398,18 @@
                                 {{ gift.description|truncate(100) }}
                             </p>
                             {%  if gift.price is not empty %}
-                                <i class="fa fa-money"></i> {{ gift.price }} €
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <i class="fa fa-money"></i> {{ gift.price }} €
+                                    </div>
+                                    {% if gift.numberOfParts > 1 %}
+                                        <div class="col-md-6 right ">
+                                            {{ gift.numberOfParts }} <i class="fa fa-pie-chart"></i>
+                                        </div>
+                                    {% endif %}
+                                </div>
                             {%  endif %}
+
                             {%  if gift.link is not empty %}
                                 <a href="{{ gift.link }}" class="" role="button">
                                     <i class="fa fa-external-link"></i> Voir le site

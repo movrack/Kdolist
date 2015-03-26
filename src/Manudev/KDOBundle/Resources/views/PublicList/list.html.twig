@@ -22,13 +22,13 @@
                 </div>
                 <div class="col-md-9">
                     <div class="row">
-                        {%  if entity.gifts|length != 0 or entity.children|length != 0 %}
+                        {% if entity.gifts|length != 0 or entity.children|length != 0 %}
                             <div class="col-md-9">
                         {% else %}
                             <div class="col-md-12">
                         {% endif %}
                             <ol class="breadcrumb">
-                                {%  for parent in parents %}
+                                {% for parent in parents %}
                                     <li>
                                         <a href="{{ url('public_list', { 'list_id': parent.id, 'slug': parent.slug }) }}">
                                             {{ parent }}
@@ -38,7 +38,7 @@
                                 <li class="active">{{ entity.title }}</li>
                             </ol>
                         </div>
-                        {%  if entity.gifts|length != 0 or entity.children|length != 0 %}
+                        {% if entity.gifts|length != 0 or entity.children|length != 0 %}
                             <div class="col-md-3">
                                 <div style="float:right" class="btn-group" alt="toto">
                                     <a class="btn btn-default" id="showInList" href="javascript:void(0)">
@@ -61,7 +61,8 @@
         </div>
     </div>
 
-    {%  if entity.gifts|length == 0 and entity.children|length == 0 %}
+    {% if entity.gifts|length == 0 and entity.children|length == 0 %}
+        <!-- Liste vide -->
         <div class="panel panel-info">
             <div class="panel-heading">
                 Trop tard... Ou trop tôt...
@@ -82,6 +83,7 @@
             </div>
         </div>
     {% else %}
+        <!-- Liste pleine liste-->
         <div class="showList panel panel-default" style="display: none">
             <ul class="list-group">
                 {% for child in entity.children %}
@@ -145,6 +147,25 @@
                             <div class="col-md-8">
                                 <h4>{{ gift.name }}</h4>
                                 {{ gift.description|truncate(100) }}
+                                {% if gift.price is not empty %}
+                                    <div class="row">
+                                        <div class="col-md-4 col-xs-6 right">
+                                            <i class="fa fa-money"></i> {{ gift.price }} € (par part de {{ gift.partValue() }} €)
+                                        </div>
+                                        <div class="col-md-5">
+                                            {% if gift.numberOfParts >= 2 %}
+                                                <div class="progress">
+                                                    <div class="progress-bar progress-bar-success" role="progressbar"
+                                                         aria-valuenow="{{ gift.percentDone() }}" aria-valuemin="0" aria-valuemax="100"
+                                                         style="width: {{ gift.percentDone() }}%;">
+                                                            {{ gift.givedParts }} / {{ gift.numberOfParts }}
+                                                            <i class="fa fa-pie-chart"></i>
+                                                    </div>
+                                                </div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                {% endif %}
                             </div>
                             <div class="col-md-3">
                                 <button class="offer btn btn-primary btn-block" role="button">
@@ -166,12 +187,13 @@
             </ul>
         </div>
 
+        <!-- Liste pleine grille-->
         <div class="showGrid row" style="display: none">
             {% set cpt = 0 %}
             {% for child in entity.children %}
                 <div class="col-md-3 col-sm-6 col-xs12">
                     <div class="thumbnail">
-                        {%  if child.picture|trim != "" %}
+                        {% if child.picture|trim != "" %}
                             {% if child.externalListLink|trim != "" %}
                                 <a target="_blank" href="{{ child.externalListLink }}"
                                    style="display:block; padding:1em; padding-bottom: 0;">
@@ -185,7 +207,7 @@
                                          style="width:100%;" >
                                 </a>
                             {% endif %}
-                        {%  endif %}
+                        {% endif %}
                         <div class="caption">
                             <h3>{{ child.title }}</h3>
                             <p>
@@ -220,7 +242,7 @@
             {% for gift in entity.availableGifts() %}
                 <div class="col-md-3 col-sm-6 col-xs12">
                     <div class="thumbnail">
-                        {%  if gift.picture|trim != "" %}
+                        {% if gift.picture|trim != "" %}
                             <div style="display:block; padding:1em; padding-bottom: 0;">
                                 <img src="{{ gift.picture }}" alt="{{ gift.name }}"
                                      class="offer" style="width:100%;" >
@@ -235,26 +257,51 @@
                                     <div class="gift-offer">{{ path('public_send_mail', { 'gift_id': gift.id }) }}</div>
                                 </div>
                             </div>
-                        {%  endif %}
+                        {% endif %}
                         <div class="caption ">
                             <h3>{{ gift.name }}</h3>
-                            {%  if gift.description is not empty %}
+                            {% if gift.description is not empty %}
                                 <p style="text-align: justify">
                                     <i class="fa fa-quote-left"></i>
                                     <i class="fa fa-quote-right"></i>
                                     {{ gift.description | truncate(100) }}
                                 </p>
-                            {%  endif %}
-                            {%  if gift.price is not empty %}
-                                <p><i class="fa fa-money"></i> {{ gift.price }} €</p>
-                            {%  endif %}
-                            {%  if gift.link is not empty %}
+                            {% endif %}
+                            {% if gift.price is not empty %}
+                                {% if gift.numberOfParts == 1 %}
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <i class="fa fa-money"></i> {{ gift.price }} €
+                                        </div>
+                                    </div>
+                                {% else %}
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <i class="fa fa-money"></i> {{ gift.price }} € (par part de {{ gift.partValue() }} €)
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            Parts déja offertes:
+                                            <div class="progress">
+                                                <div class="progress-bar progress-bar-success" role="progressbar"
+                                                     aria-valuenow="{{ gift.percentDone() }}" aria-valuemin="0" aria-valuemax="100"
+                                                     style="width: {{ gift.percentDone() }}%;">
+                                                    {{ gift.givedParts }} / {{ gift.numberOfParts }}
+                                                    <i class="fa fa-pie-chart"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            {% endif %}
+                            {% if gift.link is not empty %}
                                 <p>
                                     <a href="{{ gift.link }}" role="button">
                                         <i class="fa fa-external-link"></i> Voir le site
                                     </a>
                                 </p>
-                            {%  endif %}
+                            {% endif %}
                             <button class="offer btn btn-primary btn-block" role="button">
                                 <i class="fa fa-search"></i> <i class="fa fa-gift"></i> Offrir / Plus de détails
                             </button>
@@ -280,6 +327,8 @@
                 {% endif %}
             {% endfor %}
         </div>
+
+        <!-- Liste vide -->
         {% if entity.noneAvailableGifts() | length >= 1 %}
             <div class="row">
                 <div class="col-md-12">
@@ -288,36 +337,63 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Liste vide grille -->
             <div class="showGrid row" style="display: none">
                 {% set cpt = 0 %}
                 {% for gift in entity.noneAvailableGifts() %}
                     <div class="col-md-3 col-sm-6 col-xs12">
                         <div class="thumbnail">
-                            {%  if gift.picture|trim != "" %}
+                            {% if gift.picture|trim != "" %}
                                 <div style="display:block; padding:1em; padding-bottom: 0;">
                                     <img src="{{ gift.picture }}" alt="{{ gift.name }}"
                                          style="width:100%;" >
                                 </div>
-                            {%  endif %}
+                            {% endif %}
                             <div class="caption ">
                                 <h3>{{ gift.name }}</h3>
-                                {%  if gift.description is not empty %}
+                                {% if gift.description is not empty %}
                                     <p style="text-align: justify">
                                         <i class="fa fa-quote-left"></i>
                                         <i class="fa fa-quote-right"></i>
                                         {{ gift.description | truncate(100) }}
                                     </p>
-                                {%  endif %}
-                                {%  if gift.price is not empty %}
-                                    <p><i class="fa fa-money"></i> {{ gift.price }} €</p>
-                                {%  endif %}
-                                {%  if gift.link is not empty %}
+                                {% endif %}
+                                {% if gift.price is not empty %}
+                                    {% if gift.numberOfParts == 1 %}
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <i class="fa fa-money"></i> {{ gift.price }} €
+                                            </div>
+                                        </div>
+                                    {% else %}
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <i class="fa fa-money"></i> {{ gift.price }} € (par part de {{ gift.partValue() }} €)
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                Parts déja offertes:
+                                                <div class="progress">
+                                                    <div class="progress-bar progress-bar-success" role="progressbar"
+                                                         aria-valuenow="{{ gift.percentDone() }}" aria-valuemin="0" aria-valuemax="100"
+                                                         style="width: {{ gift.percentDone() }}%;">
+                                                        {{ gift.givedParts }} / {{ gift.numberOfParts }}
+                                                        <i class="fa fa-pie-chart"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                {% endif %}
+                                {% if gift.link is not empty %}
                                     <p>
                                         <a href="{{ gift.link }}" role="button">
                                             <i class="fa fa-external-link"></i> Voir le site
                                         </a>
                                     </p>
-                                {%  endif %}
+                                {% endif %}
                             </div>
                         </div>
                     </div>
@@ -331,6 +407,7 @@
                     {% endif %}
                 {% endfor %}
             </div>
+            <!-- Liste vide liste -->
             <div class="showList panel panel-default" style="display: none">
                 <ul class="list-group">
                     {% for gift in entity.noneAvailableGifts() %}
@@ -355,7 +432,8 @@
                 </ul>
             </div>
         {% endif %}
-    {% endif %}
+
+    {%  endif %}
 
     <!-- popup offrir cadeau -->
     <div class="modal fade" id="modalOffer" tabindex="-1" role="dialog"
@@ -405,32 +483,6 @@
                                     Dans celui-ci, vous devrez confirmer votre cadeau et celui-ci sera alors enlevé de la liste des souhaits.<br />
                                     Personne d'autre ne pourra alors l'offrir.
                                 </p>
-                                {#
-                                <p style="font-weight: bold">
-                                    {%  if not entity.owners is empty %}
-                                        {% for user in entity.owners %}
-                                            {% if user != entity.owners|first and  user == entity.owners|last %}
-                                                {% if entity.owners|length == 2 %}
-                                                    et
-                                                {% else %}
-                                                    ,
-                                                {% endif %}
-                                            {% endif %}
-                                            {{ user.firstname|capitalize }} {{ user.lastname|capitalize }}
-                                        {% endfor %}
-                                        {% if entity.owners|length == 1 %}
-                                            souhaite
-                                        {% else %}
-                                            souhaitent
-                                        {% endif %}
-                                        recevoir ce cadeau :
-                                        <ul>
-                                            <li style="text-decoration: line-through">emballé et donné en main propre</li>
-                                            <li>sous la forme d'un virement</li>
-                                        </ul>
-                                    {% endif %}
-                                </p>
-                                #}
                             </div>
                             <div class="col-md-5">
                                 <form class="form-horizontal" id="offerGiftForm" method="POST">
