@@ -20,7 +20,7 @@ class ListsRepository extends NestedTreeRepository
     {
         $query = $this->createQueryBuilder('list')
             ->join('list.users', 'u', 'WITH', 'u.id = :userId')
-            ->setParameter('userId', 1)//$user->getId())
+            ->setParameter('userId', $user->getId())
         ;
 
         if (!$withSubList) {
