@@ -392,7 +392,7 @@ class Gift
         return $this->givedParts / $this->numberOfParts * 100;
     }
 
-    public function partValue()
+        public function partValue()
     {
         return $this->price / $this->numberOfParts;
     }

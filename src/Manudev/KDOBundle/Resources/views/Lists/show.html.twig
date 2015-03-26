@@ -188,6 +188,30 @@
                         {% endif %}
                     </div>
 
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            {{  entity.description }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12"><br />
+                            <p>
+                                {{  entity.description }}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-success center" role="progressbar"
+                                     aria-valuenow="{{ entity.percentGived() }}" aria-valuemin="0" aria-valuemax="100"
+                                     style="width: {{ entity.percentGived() }}%;">
+                                    {{ entity.totalGived() }} € / {{ entity.totalPrice() }} €  ({{ entity.percentGived() }}%)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-md-6">
                             <strong>Partager : </strong>
@@ -213,13 +237,6 @@
                             {% if not entity.bankaccount is empty %}
                                 Compte IBAN associé : {{ entity.bankaccount }}
                             {%  endif %}
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12"><br />
-                            <p>
-                            {{  entity.description }}
-                            </p>
                         </div>
                     </div>
                 </div>
