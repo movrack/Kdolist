@@ -729,4 +729,34 @@ class Lists
     {
         return $this->bankaccount;
     }
+
+    /**
+     * Give list of gift who are not gived or reserved yet.
+     * @return ArrayCollection
+     */
+    public function availableGifts()
+    {
+        $available = new ArrayCollection();
+        foreach ($this->gifts as $gift) {
+            if ($gift->isAvailable()) {
+                $available->add($gift);
+            }
+        }
+        return $available;
+    }
+
+    /**
+     * Give list of gift who are reserved or already gived.
+     * @return ArrayCollection
+     */
+    public function noneAvailableGifts()
+    {
+        $noneAvailable = new ArrayCollection();
+        foreach ($this->gifts as $gift) {
+            if (!$gift->isAvailable()) {
+                $noneAvailable->add($gift);
+            }
+        }
+        return $noneAvailable;
+    }
 }

@@ -327,4 +327,19 @@ class Gift
     {
         return $this->position;
     }
+
+    public function isAvailable()
+    {
+        return !$this->isReserved() and !$this->isGived();
+    }
+
+    public function isReserved()
+    {
+        return rand(0,1);
+    }
+
+    public function isGived()
+    {
+        return rand(0,1);
+    }
 }

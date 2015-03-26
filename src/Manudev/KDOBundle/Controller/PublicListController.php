@@ -88,34 +88,40 @@ class PublicListController extends Controller
 
         $parentList = $this->em->getRepository('ManudevKDOBundle:Lists')->parents($gift->getList());
 
-        if ($form->isValid()) {
+        if ($form->isValid())
+        {
+            if(! $gift->isreserved())
+            {
+                $message = \Swift_Message::newInstance();
+                $uri = $this->getRequest()->getUriForPath($gift->getPicture()->getWebPath());
+                $picture = $message->embed(\Swift_Image::fromPath($uri));
+                $template = $this->renderView('ManudevKDOBundle:PublicList:mail.reserveGift.html.twig',
+                    array(
+                        'firstName' => $firstName,
+                        'lastName' => $lastName,
+                        'gift' => $gift,
+                        'picture' => $picture
+                    )
+                );
+                $message->setSubject('Réservation de Cadeau')
+                    ->setFrom('gift@kdolist.manudev.be')
+                    ->setTo($email)
+                    ->setBody($template, 'text/html');
 
-            $message = \Swift_Message::newInstance();
-            $uri = $this->getRequest()->getUriForPath($gift->getPicture()->getWebPath());
-            $picture = $message->embed(\Swift_Image::fromPath($uri));
-            $template = $this->renderView('ManudevKDOBundle:PublicList:mail.reserveGift.html.twig',
-                array(
-                    'firstName' => $firstName,
-                    'lastName' => $lastName,
-                    'gift' => $gift,
-                    'picture' => $picture
-                )
-            );
-            $message->setSubject('Réservation de Cadeau')
-                ->setFrom('gift@kdolist.manudev.be')
-                ->setTo($email)
-                ->setBody($template, 'text/html');
-
-            $this->get('mailer')->send($message);
+                $this->get('mailer')->send($message);
 
 
-            $this->get('session')->getFlashBag()->add(
-                'success', "Un email de confirmation vous a été envoyé sur: $email .
-                 Sans confirmation, le cadeau sera à nouveau dispoblie pour d'autres personnes
-                 dans 2 jours."
-            );
-            return $this->redirect($this->generateUrl('public_list', array('list_id' => $gift->getList()->getId(), 'slug' => $gift->getList()->getSlug())));
-
+                $this->get('session')->getFlashBag()->add(
+                    'success', "Un email de confirmation vous a été envoyé sur: $email .
+                     Sans confirmation, le cadeau sera à nouveau dispoblie pour d'autres personnes
+                     dans 2 jours."
+                );
+                return $this->redirect($this->generateUrl('public_list', array('list_id' => $gift->getList()->getId(), 'slug' => $gift->getList()->getSlug())));
+            } else {
+                $this->get('session')->getFlashBag()->add(
+                    'error', "Ce cadeau est réservé. Vous ne pouvez pas l'offrir."
+                );
+            }
         } else {
             $this->get('session')->getFlashBag()->add(
                 'error', "Une erreur est survenue. Vueillez vérifier votre adresse email:

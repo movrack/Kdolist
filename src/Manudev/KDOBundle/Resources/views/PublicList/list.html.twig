@@ -121,7 +121,7 @@
                     </li>
                 {% endfor %}
 
-                {% for gift in entity.gifts %}
+                {% for gift in entity.availableGifts() %}
                     <li class="list-group-item">
                         <div class="row">
                             <div class="col-md-1">
@@ -162,7 +162,6 @@
                             </div>
                         </div>
                     </li>
-
                 {% endfor %}
             </ul>
         </div>
@@ -218,7 +217,7 @@
                 {% endif %}
             {% endfor %}
 
-            {% for gift in entity.gifts %}
+            {% for gift in entity.availableGifts() %}
                 <div class="col-md-3 col-sm-6 col-xs12">
                     <div class="thumbnail">
                         {%  if gift.picture|trim != "" %}
@@ -281,6 +280,81 @@
                 {% endif %}
             {% endfor %}
         </div>
+        {% if entity.noneAvailableGifts() | length >= 1 %}
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-body">
+                        <h3>Les cadeaux suivants sont réservés ou ont déjà étés offerts.</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="showGrid row" style="display: none">
+                {% set cpt = 0 %}
+                {% for gift in entity.noneAvailableGifts() %}
+                    <div class="col-md-3 col-sm-6 col-xs12">
+                        <div class="thumbnail">
+                            {%  if gift.picture|trim != "" %}
+                                <div style="display:block; padding:1em; padding-bottom: 0;">
+                                    <img src="{{ gift.picture }}" alt="{{ gift.name }}"
+                                         style="width:100%;" >
+                                </div>
+                            {%  endif %}
+                            <div class="caption ">
+                                <h3>{{ gift.name }}</h3>
+                                {%  if gift.description is not empty %}
+                                    <p style="text-align: justify">
+                                        <i class="fa fa-quote-left"></i>
+                                        <i class="fa fa-quote-right"></i>
+                                        {{ gift.description | truncate(100) }}
+                                    </p>
+                                {%  endif %}
+                                {%  if gift.price is not empty %}
+                                    <p><i class="fa fa-money"></i> {{ gift.price }} €</p>
+                                {%  endif %}
+                                {%  if gift.link is not empty %}
+                                    <p>
+                                        <a href="{{ gift.link }}" role="button">
+                                            <i class="fa fa-external-link"></i> Voir le site
+                                        </a>
+                                    </p>
+                                {%  endif %}
+                            </div>
+                        </div>
+                    </div>
+                    {% set cpt = cpt + 1 %}
+                    {% if cpt is divisibleby(4) %}
+                        {# case md #}
+                        <div class="clearfix"></div>
+                    {% elseif cpt is divisibleby(2) %}
+                        {# case sm #}
+                        <div class="clearfix visible-sm hidden-md"></div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <div class="showList panel panel-default" style="display: none">
+                <ul class="list-group">
+                    {% for gift in entity.noneAvailableGifts() %}
+                        <li class="list-group-item">
+                            <div class="row">
+                                <div class="col-md-1">
+                                    {% if gift.picture != "" %}
+                                        <div class="thumbnail" >
+                                            <img src="{{ gift.picture }}"
+                                                  style="width:100%" />
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-11">
+                                    <h4>{{ gift.name }}</h4>
+                                    {{ gift.description|truncate(100) }}
+                                </div>
+                            </div>
+                        </li>
+
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
     {% endif %}
 
     <!-- popup offrir cadeau -->
