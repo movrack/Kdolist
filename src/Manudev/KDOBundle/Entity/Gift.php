@@ -382,10 +382,16 @@ class Gift
         return $this->givedParts;
     }
 
+    public function totalGived()
+    {
+        return $this->partValue() * $this->givedParts;
+    }
+
     public function percentDone()
     {
         return $this->givedParts / $this->numberOfParts * 100;
     }
+
     public function partValue()
     {
         return $this->price / $this->numberOfParts;

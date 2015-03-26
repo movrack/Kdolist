@@ -759,4 +759,44 @@ class Lists
         }
         return $noneAvailable;
     }
+
+    /**
+     * @return int sum of price of gifts
+     */
+    public function totalPrice()
+    {
+        $sum = 0;
+        foreach ($this->gifts as $gift) {
+            $sum += $gift->getPrice();
+        }
+
+        foreach ($this->children as $list) {
+            $sum += $list->totalPrice();
+        }
+        return $sum;
+    }
+
+    /**
+     * @return int sum of price of gifts already given
+     */
+    public function totalGived()
+    {
+        $sum = 0;
+        foreach ($this->gifts as $gift) {
+            $sum += $gift->totalGived();
+        }
+
+        foreach ($this->children as $list) {
+            $sum += $list->totalGived();
+        }
+        return $sum;
+    }
+
+    /**
+     * @return int percentage of offered gifts
+     */
+    public function percentGived()
+    {
+        return $this->totalGived() / $this->totalPrice() * 100;
+    }
 }
