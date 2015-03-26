@@ -352,7 +352,7 @@ class Gift
 
     public function isGived()
     {
-        return 0;
+        return $this->givedParts == $this->numberOfParts;
     }
 
     public function reserve(){
@@ -382,17 +382,26 @@ class Gift
         return $this->givedParts;
     }
 
+    /**
+     * @return float
+     */
     public function totalGived()
     {
         return $this->partValue() * $this->givedParts;
     }
 
+    /**
+     * @return float
+     */
     public function percentDone()
     {
         return $this->givedParts / $this->numberOfParts * 100;
     }
 
-        public function partValue()
+    /**
+     * @return float
+     */
+    public function partValue()
     {
         return $this->price / $this->numberOfParts;
     }
