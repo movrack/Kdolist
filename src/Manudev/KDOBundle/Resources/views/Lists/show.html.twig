@@ -404,7 +404,7 @@
                                     </div>
                                     {% if gift.numberOfParts > 1 %}
                                         <div class="col-md-6 right ">
-                                            {{ gift.numberOfParts }} <i class="fa fa-pie-chart"></i>
+                                            {{ gift.numberOfParts }} <i class="fa fa-pie-chart"></i> ({{ gift.partValue()}} €)
                                         </div>
                                     {% endif %}
                                 </div>
