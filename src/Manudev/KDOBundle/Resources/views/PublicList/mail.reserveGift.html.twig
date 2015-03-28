@@ -29,15 +29,15 @@
         <br />
         <img src="{{ picture }}" width="150px"/>
 
-        {% if numberOfParts > 1 %}
+        {% if gift.getNumberOfParts > 1 and gift.price is not null%}
             <p>
                 Le cadeau est composé de plusieurs part et vous avez choisi d'en offrir {{ numberOfParts }}.<br />
                 Le montant d'une part est de {{ gift.partValue() }}€.<br />
                 Le montant du cadeau est de donc de {{ numberOfParts }} * {{ gift.partValue() }}€ = {{ price }}€
             </p>
-        {% elseif price is not null %}
+        {% elseif gift.price is not null %}
             <p>
-                Montant du cadeau : {{ price }} €
+                Montant du cadeau : {{ gift.price }} €
             </p>
         {% endif %}
 

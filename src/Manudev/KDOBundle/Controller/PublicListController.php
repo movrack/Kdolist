@@ -107,8 +107,10 @@ class PublicListController extends Controller
 
         if($gift->getAccepteMultipleParts() && $gift->getPrice() != null) {
             $numberOfParts = $form->get('numberOfParts')->getData();
+
+            $price = $numberOfParts * $gift->partValue();
         } else if ($gift->getPrice() != null) {
-            $price = $form->get('price')->getData();
+            $price = $gift->getPrice();
         }
 
         $parentList = $this->em->getRepository('ManudevKDOBundle:Lists')->parents($gift->getList());
