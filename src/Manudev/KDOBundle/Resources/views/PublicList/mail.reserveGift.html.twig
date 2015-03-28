@@ -4,7 +4,7 @@
         <p>
             Bonjour {{ firstName }},<br />
             Vous souhaitez offrir {{ gift.name }}
-            {%  if not gift.list.owners is empty or not gift.list.users|first.firstname is empty %}
+            {%  if not gift.list.getRootParent().owners is empty or not gift.list.getRootParent().users|first.firstname is empty %}
                 à
                 {% if gift.list.owners|length == 0 %}
                     {% set users = gift.list.users %}
@@ -35,9 +35,9 @@
                 Le montant d'une part est de {{ gift.partValue() }}€.<br />
                 Le montant du cadeau est de donc de {{ numberOfParts }} * {{ gift.partValue() }}€ = {{ price }}€
             </p>
-        {% elseif gift.price is not null %}
+        {% elseif price is not null %}
             <p>
-                Montant du cadeau : {{ gift.price }} €
+                Montant du cadeau : {{ price }} €
             </p>
         {% endif %}
 
