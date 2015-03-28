@@ -47,18 +47,16 @@ class PublicListController extends Controller
      */
     public function listAction(Lists $list)
     {
-        $form = $this->formMailOfferGift();
         $parents = $this->em->getRepository('ManudevKDOBundle:Lists')->parents($list);
 
         return array(
             'entity' => $list,
-            'form' => $form->createView(),
             'parents'   => $parents
         );
     }
 
-    private function formMailOfferGift() {
-        return $this->createFormBuilder()
+    private function formMailOfferGift(Gift $gift) {
+        $form = $this->createFormBuilder()
             ->add('email', 'email', array(
                 'attr' => array('placeholder' => 'Email')
             ))
@@ -67,8 +65,24 @@ class PublicListController extends Controller
             ))
             ->add('lastName', 'text', array(
                 'attr' => array('placeholder' => 'Nom')
-            ))
-            ->getForm();
+            ));
+        if($gift->getAccepteMultipleParts() && $gift->getPrice() != null) {
+            $form->add('numberOfParts', 'integer', array(
+                'data' => 0,
+                'attr' => array(
+                    'min' => 0,
+                    'max' => $gift->getNumberOfParts() - $gift->getGivedParts(),
+                ),
+            ));
+        }
+        else if ($gift->getPrice() != null) {
+            $form->add('price', 'number', array(
+                'data' => $gift->getPrice(),
+                'disabled' => true,
+                'attr' => array('readonly' => true)
+            ));
+        }
+        return $form->getForm();
     }
 
     /**
@@ -79,7 +93,7 @@ class PublicListController extends Controller
      */
     public function sendMailAction(Request $request, Gift $gift)
     {
-        $form = $this->formMailOfferGift();
+        $form = $this->formMailOfferGift($gift);
         $form->handleRequest($request);
 
         $email = $form->get('email')->getData();
@@ -136,22 +150,19 @@ class PublicListController extends Controller
         );
     }
 
-    popupOffer
-
     /**
-     * @Route("/c{confirmationId}", name="public_confirm_gift")
+     *
+     * @Route("/p{id}", name="popup_offer_gift")
      * @Template()
      */
-    /*public function confirmGiftAction($confirmationId)
-    {
-        $form = $this->formMailOfferGift();
-        $parents = $this->em->getRepository('ManudevKDOBundle:Lists')->parents($list);
+    public function popupOfferAction(Gift $gift) {
 
+        $form = $this->formMailOfferGift($gift);
         return array(
-            'entity' => $list,
-            'form' => $form->createView(),
-            'parents'   => $parents
+            'gift' => $gift,
+            'form' => $form->createView()
         );
-    }*/
+    }
+
 
 }

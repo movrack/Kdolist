@@ -6,59 +6,53 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"
                         aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel"></h4>
+                <h4 class="modal-title" id="myModalLabel">{{ gift.name }}</h4>
             </div>
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-6">
 
-                        <div id="offerShowImg" style="text-align: center">
-                            <img id="offerGiftImg" class="img-rounded img-thumbnail" width="100%"/>
+                        <div style="text-align: center">
+                            <img src="{{ gift.picture }}" class="img-rounded img-thumbnail" width="100%"/>
                             <br />
                         </div>
 
-                        <div id="offerShowLink">
-                            <a id="offerGiftLink" target="_blanck">
-                                <i class="fa fa-external-link"></i> Voir le site
-                            </a>
-                        </div>
 
                     </div>
                     <div class="col-md-6">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div>
-                                    <i class="fa fa-quote-left"></i>
-                                    <i class="fa fa-quote-right"></i>
-                                    <div id="offerGiftDescription" style="text-align: justify"></div>
-                                </div>
+                        <div>
+                            <div>
+                                <i class="fa fa-quote-left"></i>
+                                <i class="fa fa-quote-right"></i>
+                                <div style="text-align: justify">{{ gift.description }}</div>
                             </div>
-                            <div class="col-md-12" id="offerShowPrice">
 
-                                {#% if gift.price is not empty %#}
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <i class="fa fa-money"></i> <span class="offerGiftPrice"></span> €
-                                            <span class="offerShowMultiplePart">
-                                                (par part de <span class="offerGiftPartValue"></span> €)
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="row offerShowMultiplePart">
-                                        <div class="col-md-12">
 
-                                            {#% if gift.numberOfParts >= 2 %#}
-                                                <div class="progress">
-                                                    <div id="offerGiftProgressBar" class="progress-bar progress-bar-success" role="progressbar"
-                                                         aria-valuemin="0" aria-valuemax="100">
-                                                        <span class="offerGiftgivedParts"></span> / <span class="offerGiftNumberOfParts"></span>
-                                                        <i class="fa fa-pie-chart"></i>
-                                                    </div>
+                            <div class="panel panel-primary bottom">
+                                <div class="panel-heading">Détails</div>
+                                <div class="panel-body">
+                                    {% if gift.price is not empty %}
+                                        <i class="fa fa-money"></i> {{ gift.price }} €
+                                        {% if gift.numberOfParts >= 2 %}
+                                            (par part de {{ gift.partValue() }} €)
+                                        {% endif %}
+                                        {% if gift.numberOfParts >= 2 %}
+                                            <div class="progress">
+                                                <div class="progress-bar progress-bar-success" role="progressbar"
+                                                     aria-valuemin="0" aria-valuemax="100" aria-valuenow="{{ gift.percentDone() }}"
+                                                     style="width: {{ gift.percentDone() }}%; min-width: 2em;">
+                                                    {{ gift.givedParts() }} / {{ gift.numberOfParts() }}
+                                                    <i class="fa fa-pie-chart"></i>
                                                 </div>
-                                            {#% endif %#}
-                                        </div>
-                                    </div>
-                                {#% endif %#}
+                                            </div>
+                                        {% endif %}
+                                    {% endif %}
+                                    {% if not gift.link is empty %}
+                                        <a href="{{ gift.link }}" target="_blanck">
+                                            <i class="fa fa-external-link"></i> Voir le site
+                                        </a>
+                                    {% endif %}
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -89,6 +83,44 @@
                                         {{ form_widget(form.email) }}
                                     </div>
                                 </div>
+                                <div class="form-group">
+                                    <div class="col-sm-12">
+                                        {{ form_widget(form.email) }}
+                                    </div>
+                                </div>
+                                {%  if form.numberOfParts is defined %}
+                                    <div class="form-group">
+                                        <label class="col-sm-5 control-label lef">Nombre de parts</label>
+                                        <div class="col-sm-7" id="numberOfParts">
+                                            {{ form_widget(form.numberOfParts) }}
+                                        </div>
+
+                                        <div class="col-sm-12">
+                                            Prix total : {{ gift.price }} €<br />
+                                            Prix d'une part : {{ gift.partValue() }} €<br />
+                                            Nombre de part disponibles : {{ gift.getAvailableParts() }}<br />
+                                            Prix calculé :
+                                            <strong>
+                                                <spanc id="counter" data-counter="{{ gift.partValue() }}">0</spanc>
+                                                * {{ gift.partValue() }}€
+                                                = <span id="counter-value">0</span>€
+                                            </strong>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                                {%  if form.price is defined %}
+                                    <div class="form-group">
+                                        <label class="col-sm-5 control-label left">Prix</label>
+                                        <div class="col-sm-7">
+                                            <div class="input-group">
+                                                {{ form_widget(form.price) }}
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-eur"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endif %}
                                 {{ form_rest(form) }}
                                 <div class="form-group">
                                     <div class="col-sm-12">

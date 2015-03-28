@@ -383,6 +383,16 @@ class Gift
     }
 
     /**
+     * Get givedParts
+     *
+     * @return integer
+     */
+    public function getAvailableParts()
+    {
+        return $this->getNumberOfParts() - $this->givedParts;
+    }
+
+    /**
      * @return float
      */
     public function totalGived()

@@ -142,8 +142,9 @@
                             <div class="col-md-1">
                                 {% if gift.picture != "" %}
                                     <div class="thumbnail" >
-                                        <img src="{{ gift.picture }}"
-                                             class="offer" data-id="{{ gift.id }}" style="width:100%" />
+                                        <img src="{{ gift.picture }}" class="offer"
+                                             data-link="{{ path('popup_offer_gift', {'id': gift.id}) }}"
+                                             style="width:100%" />
                                     </div>
                                 {% endif %}
                             </div>
@@ -171,7 +172,8 @@
                                 {% endif %}
                             </div>
                             <div class="col-md-3">
-                                <button class="offer btn btn-primary btn-block" data-id="{{ gift.id }}" role="button">
+                                <button class="offer btn btn-primary btn-block"
+                                        data-link="{{ path('popup_offer_gift', {'id': gift.id}) }}" role="button">
                                     <i class="fa fa-search"></i> <i class="fa fa-gift"></i> Offrir / Plus de détails
                                 </button>
                             </div>
@@ -239,8 +241,8 @@
                         {% if gift.picture|trim != "" %}
                             <div style="display:block; padding:1em; padding-bottom: 0;">
                                 <img src="{{ gift.picture }}" alt="{{ gift.name }}"
-                                     class="offer" data-id="{{ gift.id }}"  style="width:100%;" >
-                                </div>
+                                     class="offer" data-link="{{ path('popup_offer_gift', {'id': gift.id}) }}"
+                                     style="width:100%;" >
                             </div>
                         {% endif %}
                         <div class="caption ">
@@ -287,7 +289,9 @@
                                     </a>
                                 </p>
                             {% endif %}
-                            <button class="offer btn btn-primary btn-block" data-id="{{ gift.id }}" role="button">
+                            <button class="offer btn btn-primary btn-block"
+                                    data-link="{{ path('popup_offer_gift', {'id': gift.id}) }}"
+                                    role="button">
                                 <i class="fa fa-search"></i> <i class="fa fa-gift"></i> Offrir / Plus de détails
                             </button>
                         </div>
@@ -448,59 +452,25 @@
         // Offer gift
         $('.offer').on('click', function() {
             event.preventDefault();
-            var id = $(this).data('id');
+            var link = $(this).data('link');
             $.ajax({
-                url: '',
+                url: link,
                 dataType: 'html',
                 method: 'GET',
                 success: function (data) {
                     $('#showOfferForm').html(data);
+                    $('#modalOffer').modal('show');
                 }
             });
         });
-            /*
-            event.preventDefault();
 
-            var gift = {
-                id:             $(this).parent().find('.gift-id').html(),
-                name:           $(this).parent().find('.gift-name').html(),
-                description:    $(this).parent().find('.gift-description').html(),
-                link:           $(this).parent().find('.gift-link').html(),
-                img:            $(this).parent().find('.gift-img').html(),
-                offerLink:      $(this).parent().find('.gift-offer').html(),
-                price:          $(this).parent().find('.gift-price').html(),
-                percentDone:    $(this).parent().find('.gift-percentDone').html(),
-                numberOfParts:  $(this).parent().find('.gift-numberOfParts').html(),
-                givedParts:     $(this).parent().find('.gift-givedParts').html(),
-                partValue:      $(this).parent().find('.gift-partValue').html()
-            };
-            $('#modalOffer .modal-title').text(gift.name);
-            $('#modalOffer #offerGiftId').text(gift.id);
-            $('#modalOffer #offerGiftName').text(gift.name);
-            $('#modalOffer #offerGiftDescription').html(gift.description);
-            $('#modalOffer #offerGiftLink').attr('href', gift.link);
-            $('#modalOffer #offerGiftImg').attr('src', gift.img);
-            $('#modalOffer #offerGiftForm').attr('action', gift.offerLink);
-            $('#modalOffer .offerGiftPrice').text(gift.price);
-            $('#modalOffer #offerGiftProgressBar').attr('aria-valuenom', gift.percentDone);
-            $('#modalOffer #offerGiftProgressBar').css('width', gift.percentDone+'%');
-            $('#modalOffer .offerGiftNumberOfParts').text(gift.numberOfParts);
-            $('#modalOffer .offerGiftgivedParts').text(gift.givedParts);
-            $('#modalOffer .offerGiftPartValue').text(gift.partValue);
-
-
-
-
-
-            if (!gift.img)   { $('#offerShowImg').hide();   } else { $('#offerShowImg').show(); }
-            if (!gift.price) { $('#offerShowPrice').hide(); } else { $('#offerShowPrice').show(); }
-            if (!gift.link)  { $('#offerShowLink').hide(); }  else { $('#offerShowLink').show(); }
-
-            if (gift.numberOfParts == 1) { $('.offerShowMultiplePart').hide(); }
-            else { $('.offerShowMultiplePart').show(); }
-
-            $('#modalOffer').modal('show');
-        });*/
+        $('#showOfferForm').on('keyup', '#numberOfParts input', function() {
+            var value = $(this).val();
+            var partValue = $('#counter').data('counter');
+            $('#counter').text(value);
+            var res = value * partValue;
+            $('#counter-value').text(res);
+        });
 
         // Click on row
         $(".clickable-row").click(function() {
