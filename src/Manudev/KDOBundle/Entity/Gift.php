@@ -403,6 +403,6 @@ class Gift
      */
     public function partValue()
     {
-        return $this->price / $this->numberOfParts;
+        return ceil(($this->price / $this->numberOfParts)*100)/100;
     }
 }

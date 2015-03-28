@@ -143,17 +143,7 @@
                                 {% if gift.picture != "" %}
                                     <div class="thumbnail" >
                                         <img src="{{ gift.picture }}"
-                                             class="offer"  style="width:100%" />
-
-                                        <div class="hide">
-                                            <div class="gift-id">{{ gift.id }}</div>
-                                            <div class="gift-name">{{ gift.name }}</div>
-                                            <div class="gift-link">{{ gift.link }}</div>
-                                            <div class="gift-description">{{ gift.description }}</div>
-                                            <div class="gift-img">{{ gift.picture }}</div>
-                                            <div class="gift-price">{{ gift.price }}</div>
-                                            <div class="gift-offer">{{ path('public_send_mail', { 'gift_id': gift.id }) }}</div>
-                                        </div>
+                                             class="offer" data-id="{{ gift.id }}" style="width:100%" />
                                     </div>
                                 {% endif %}
                             </div>
@@ -181,18 +171,9 @@
                                 {% endif %}
                             </div>
                             <div class="col-md-3">
-                                <button class="offer btn btn-primary btn-block" role="button">
+                                <button class="offer btn btn-primary btn-block" data-id="{{ gift.id }}" role="button">
                                     <i class="fa fa-search"></i> <i class="fa fa-gift"></i> Offrir / Plus de détails
                                 </button>
-                                <div class="hide">
-                                    <div class="gift-id">{{ gift.id }}</div>
-                                    <div class="gift-name">{{ gift.name }}</div>
-                                    <div class="gift-link">{{ gift.link }}</div>
-                                    <div class="gift-description">{{ gift.description }}</div>
-                                    <div class="gift-img">{{ gift.picture }}</div>
-                                    <div class="gift-price">{{ gift.price }}</div>
-                                    <div class="gift-offer">{{ path('public_send_mail', { 'gift_id': gift.id }) }}</div>
-                                </div>
                             </div>
                         </div>
                     </li>
@@ -258,16 +239,7 @@
                         {% if gift.picture|trim != "" %}
                             <div style="display:block; padding:1em; padding-bottom: 0;">
                                 <img src="{{ gift.picture }}" alt="{{ gift.name }}"
-                                     class="offer" style="width:100%;" >
-
-                                <div class="hide">
-                                    <div class="gift-id">{{ gift.id }}</div>
-                                    <div class="gift-name">{{ gift.name }}</div>
-                                    <div class="gift-link">{{ gift.link }}</div>
-                                    <div class="gift-description">{{ gift.description }}</div>
-                                    <div class="gift-img">{{ gift.picture }}</div>
-                                    <div class="gift-price">{{ gift.price }}</div>
-                                    <div class="gift-offer">{{ path('public_send_mail', { 'gift_id': gift.id }) }}</div>
+                                     class="offer" data-id="{{ gift.id }}"  style="width:100%;" >
                                 </div>
                             </div>
                         {% endif %}
@@ -315,18 +287,9 @@
                                     </a>
                                 </p>
                             {% endif %}
-                            <button class="offer btn btn-primary btn-block" role="button">
+                            <button class="offer btn btn-primary btn-block" data-id="{{ gift.id }}" role="button">
                                 <i class="fa fa-search"></i> <i class="fa fa-gift"></i> Offrir / Plus de détails
                             </button>
-                            <div class="hide">
-                                <div class="gift-id">{{ gift.id }}</div>
-                                <div class="gift-name">{{ gift.name }}</div>
-                                <div class="gift-link">{{ gift.link }}</div>
-                                <div class="gift-description">{{ gift.description }}</div>
-                                <div class="gift-img">{{ gift.picture }}</div>
-                                <div class="gift-price">{{ gift.price }}</div>
-                                <div class="gift-offer">{{ path('public_send_mail', { 'gift_id': gift.id }) }}</div>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -448,90 +411,8 @@
 
     {%  endif %}
 
-    <!-- popup offrir cadeau -->
-    <div class="modal fade" id="modalOffer" tabindex="-1" role="dialog"
-         aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal"
-                            aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel"></h4>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-4">
-
-                            <div id="offerShowImg" style="text-align: center">
-                                <img id="offerGiftImg" class="img-circle" width="150"/>
-                                <br />
-                            </div>
-
-                            <div id="offerShowPrice">
-                                <i class="fa fa-money"></i> <span id="offerGiftPrice"></span> €
-                            </div>
-
-                            <div id="offerShowLink">
-                                <a id="offerGiftLink" target="_blanck">
-                                    <i class="fa fa-external-link"></i> Voir le site
-                                </a>
-                            </div>
-
-                        </div>
-                        <div class="col-md-8">
-                            <div>
-                                <i class="fa fa-quote-left"></i>
-                                <i class="fa fa-quote-right"></i>
-                                <div id="offerGiftDescription" style="text-align: justify"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <br />
-                    <div class="panel panel-info">
-                        <div class="panel-heading"><strong>Offrir</strong></div>
-                        <div class="row panel-body">
-                            <div class="col-md-7">
-                                <p class="text-align: justify">
-                                    Afin d'offrir un cadeau, un email va vous être envoyé.<br />
-                                    Dans celui-ci, vous devrez confirmer votre cadeau et celui-ci sera alors enlevé de la liste des souhaits.<br />
-                                    Personne d'autre ne pourra alors l'offrir.
-                                </p>
-                            </div>
-                            <div class="col-md-5">
-                                <form class="form-horizontal" id="offerGiftForm" method="POST">
-                                    <div class="form-group">
-                                        <div class="col-sm-6">
-                                            {{ form_widget(form.firstName) }}
-                                        </div>
-                                        <div class="col-sm-6">
-                                            {{ form_widget(form.lastName) }}
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-sm-12">
-                                            {{ form_widget(form.email) }}
-                                        </div>
-                                    </div>
-                                    {{ form_rest(form) }}
-                                    <div class="form-group">
-                                        <div class="col-sm-12">
-                                            <button type="submit" class="btn btn-primary btn-block">
-                                                <i class="fa fa-gift"></i> Offrir
-                                            </button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    <!-- popup offer form -->
+    <div id="showOfferForm"></div>
 
     <div style="text-align: center;">
 {#
@@ -567,31 +448,59 @@
         // Offer gift
         $('.offer').on('click', function() {
             event.preventDefault();
+            var id = $(this).data('id');
+            $.ajax({
+                url: '',
+                dataType: 'html',
+                method: 'GET',
+                success: function (data) {
+                    $('#showOfferForm').html(data);
+                }
+            });
+        });
+            /*
+            event.preventDefault();
 
             var gift = {
                 id:             $(this).parent().find('.gift-id').html(),
                 name:           $(this).parent().find('.gift-name').html(),
                 description:    $(this).parent().find('.gift-description').html(),
                 link:           $(this).parent().find('.gift-link').html(),
-                price:          $(this).parent().find('.gift-price').html(),
                 img:            $(this).parent().find('.gift-img').html(),
-                offerLink:      $(this).parent().find('.gift-offer').html()
+                offerLink:      $(this).parent().find('.gift-offer').html(),
+                price:          $(this).parent().find('.gift-price').html(),
+                percentDone:    $(this).parent().find('.gift-percentDone').html(),
+                numberOfParts:  $(this).parent().find('.gift-numberOfParts').html(),
+                givedParts:     $(this).parent().find('.gift-givedParts').html(),
+                partValue:      $(this).parent().find('.gift-partValue').html()
             };
             $('#modalOffer .modal-title').text(gift.name);
             $('#modalOffer #offerGiftId').text(gift.id);
             $('#modalOffer #offerGiftName').text(gift.name);
             $('#modalOffer #offerGiftDescription').html(gift.description);
             $('#modalOffer #offerGiftLink').attr('href', gift.link);
-            $('#modalOffer #offerGiftPrice').text(gift.price);
             $('#modalOffer #offerGiftImg').attr('src', gift.img);
             $('#modalOffer #offerGiftForm').attr('action', gift.offerLink);
+            $('#modalOffer .offerGiftPrice').text(gift.price);
+            $('#modalOffer #offerGiftProgressBar').attr('aria-valuenom', gift.percentDone);
+            $('#modalOffer #offerGiftProgressBar').css('width', gift.percentDone+'%');
+            $('#modalOffer .offerGiftNumberOfParts').text(gift.numberOfParts);
+            $('#modalOffer .offerGiftgivedParts').text(gift.givedParts);
+            $('#modalOffer .offerGiftPartValue').text(gift.partValue);
+
+
+
+
 
             if (!gift.img)   { $('#offerShowImg').hide();   } else { $('#offerShowImg').show(); }
             if (!gift.price) { $('#offerShowPrice').hide(); } else { $('#offerShowPrice').show(); }
             if (!gift.link)  { $('#offerShowLink').hide(); }  else { $('#offerShowLink').show(); }
 
+            if (gift.numberOfParts == 1) { $('.offerShowMultiplePart').hide(); }
+            else { $('.offerShowMultiplePart').show(); }
+
             $('#modalOffer').modal('show');
-        });
+        });*/
 
         // Click on row
         $(".clickable-row").click(function() {

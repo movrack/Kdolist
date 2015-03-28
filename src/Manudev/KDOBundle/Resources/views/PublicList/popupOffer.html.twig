@@ -1,0 +1,111 @@
+<!-- popup offrir cadeau -->
+<div class="modal fade" id="modalOffer" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel"></h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+
+                        <div id="offerShowImg" style="text-align: center">
+                            <img id="offerGiftImg" class="img-rounded img-thumbnail" width="100%"/>
+                            <br />
+                        </div>
+
+                        <div id="offerShowLink">
+                            <a id="offerGiftLink" target="_blanck">
+                                <i class="fa fa-external-link"></i> Voir le site
+                            </a>
+                        </div>
+
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div>
+                                    <i class="fa fa-quote-left"></i>
+                                    <i class="fa fa-quote-right"></i>
+                                    <div id="offerGiftDescription" style="text-align: justify"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-12" id="offerShowPrice">
+
+                                {#% if gift.price is not empty %#}
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <i class="fa fa-money"></i> <span class="offerGiftPrice"></span> €
+                                            <span class="offerShowMultiplePart">
+                                                (par part de <span class="offerGiftPartValue"></span> €)
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="row offerShowMultiplePart">
+                                        <div class="col-md-12">
+
+                                            {#% if gift.numberOfParts >= 2 %#}
+                                                <div class="progress">
+                                                    <div id="offerGiftProgressBar" class="progress-bar progress-bar-success" role="progressbar"
+                                                         aria-valuemin="0" aria-valuemax="100">
+                                                        <span class="offerGiftgivedParts"></span> / <span class="offerGiftNumberOfParts"></span>
+                                                        <i class="fa fa-pie-chart"></i>
+                                                    </div>
+                                                </div>
+                                            {#% endif %#}
+                                        </div>
+                                    </div>
+                                {#% endif %#}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div class="panel panel-info">
+                    <div class="panel-heading"><strong>Offrir</strong></div>
+                    <div class="row panel-body">
+                        <div class="col-md-7">
+                            <p class="text-align: justify">
+                                Afin d'offrir un cadeau, un email va vous être envoyé.<br />
+                                Dans celui-ci, vous devrez confirmer votre cadeau et celui-ci sera alors enlevé de la liste des souhaits.<br />
+                                Personne d'autre ne pourra alors l'offrir.
+                            </p>
+                        </div>
+                        <div class="col-md-5">
+                            <form class="form-horizontal" id="offerGiftForm" method="POST">
+                                <div class="form-group">
+                                    <div class="col-sm-6">
+                                        {{ form_widget(form.firstName) }}
+                                    </div>
+                                    <div class="col-sm-6">
+                                        {{ form_widget(form.lastName) }}
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-12">
+                                        {{ form_widget(form.email) }}
+                                    </div>
+                                </div>
+                                {{ form_rest(form) }}
+                                <div class="form-group">
+                                    <div class="col-sm-12">
+                                        <button type="submit" class="btn btn-primary btn-block">
+                                            <i class="fa fa-gift"></i> Offrir
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+            </div>
+        </div>
+    </div>
+</div>

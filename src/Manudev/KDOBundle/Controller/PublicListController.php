@@ -136,6 +136,7 @@ class PublicListController extends Controller
         );
     }
 
+    popupOffer
 
     /**
      * @Route("/c{confirmationId}", name="public_confirm_gift")
