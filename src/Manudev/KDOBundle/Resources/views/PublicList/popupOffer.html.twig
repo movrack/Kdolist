@@ -11,48 +11,50 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-6">
-
                         <div style="text-align: center">
                             <img src="{{ gift.picture }}" class="img-rounded img-thumbnail" width="100%"/>
                             <br />
                         </div>
 
-
                     </div>
                     <div class="col-md-6">
-                        <div>
-                            <div>
-                                <i class="fa fa-quote-left"></i>
-                                <i class="fa fa-quote-right"></i>
-                                <div style="text-align: justify">{{ gift.description }}</div>
+
+                        <div class="panel panel-primary bottom">
+                            <div class="panel-heading">
+                                Détails
                             </div>
-
-
-                            <div class="panel panel-primary bottom">
-                                <div class="panel-heading">Détails</div>
-                                <div class="panel-body">
-                                    {% if gift.price is not empty %}
-                                        <i class="fa fa-money"></i> {{ gift.price }} €
-                                        {% if gift.numberOfParts >= 2 %}
-                                            (par part de {{ gift.partValue() }} €)
-                                        {% endif %}
-                                        {% if gift.numberOfParts >= 2 %}
-                                            <div class="progress">
-                                                <div class="progress-bar progress-bar-success" role="progressbar"
-                                                     aria-valuemin="0" aria-valuemax="100" aria-valuenow="{{ gift.percentDone() }}"
-                                                     style="width: {{ gift.percentDone() }}%; min-width: 2em;">
-                                                    {{ gift.givedParts() }} / {{ gift.numberOfParts() }}
-                                                    <i class="fa fa-pie-chart"></i>
-                                                </div>
-                                            </div>
-                                        {% endif %}
-                                    {% endif %}
-                                    {% if not gift.link is empty %}
-                                        <a href="{{ gift.link }}" target="_blanck">
-                                            <i class="fa fa-external-link"></i> Voir le site
-                                        </a>
-                                    {% endif %}
+                            <div class="panel-body">
+                                <div>
+                                    <i class="fa fa-quote-left"></i>
+                                    <i class="fa fa-quote-right"></i>
+                                    <div style="text-align: justify">{{ gift.description }}</div>
+                                    <br />
+                                    <br />
                                 </div>
+                            </div>
+                            <div class="panel-footer">
+
+                                {% if gift.price is not empty %}
+                                    <i class="fa fa-money"></i> {{ gift.price }} €
+                                    {% if gift.numberOfParts >= 2 %}
+                                        (par part de {{ gift.partValue() }} €)
+                                    {% endif %}
+                                    {% if gift.numberOfParts >= 2 %}
+                                        <div class="progress">
+                                            <div class="progress-bar progress-bar-success" role="progressbar"
+                                                 aria-valuemin="0" aria-valuemax="100" aria-valuenow="{{ gift.percentDone() }}"
+                                                 style="width: {{ gift.percentDone() }}%; min-width: 2em;">
+                                                {{ gift.givedParts() }} / {{ gift.numberOfParts() }}
+                                                <i class="fa fa-pie-chart"></i>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                {% endif %}
+                                {% if not gift.link is empty %}
+                                    <a href="{{ gift.link }}" target="_blanck">
+                                        <i class="fa fa-external-link"></i> Voir le site
+                                    </a>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
@@ -69,7 +71,7 @@
                             </p>
                         </div>
                         <div class="col-md-5">
-                            <form class="form-horizontal" id="offerGiftForm" method="POST">
+                            {{ form_start(form) }}
                                 <div class="form-group">
                                     <div class="col-sm-6">
                                         {{ form_widget(form.firstName) }}
@@ -129,10 +131,9 @@
                                         </button>
                                     </div>
                                 </div>
-                            </form>
+                            {{ form_end(form) }}
                         </div>
                     </div>
-
                 </div>
             </div>
             <div class="modal-footer">

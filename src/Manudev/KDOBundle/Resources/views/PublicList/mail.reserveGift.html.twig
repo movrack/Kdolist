@@ -4,12 +4,12 @@
         <p>
             Bonjour {{ firstName }},<br />
             Vous souhaitez offrir {{ gift.name }}
-            {%  if not entity.owners is empty or not entity.users|first.firstname is empty%}
+            {%  if not gift.list.owners is empty or not gift.list.users|first.firstname is empty %}
                 à
-                {% if entity.owners|length == 0 %}
-                    {% set users = entity.users %}
+                {% if gift.list.owners|length == 0 %}
+                    {% set users = gift.list.users %}
                 {% else %}
-                    {% set users = entity.owners %}
+                    {% set users = gift.list.owners %}
                 {% endif %}
                 {% for user in users %}
                     {% if user != users|first %}
@@ -29,8 +29,19 @@
         <br />
         <img src="{{ picture }}" width="150px"/>
 
+        {% if numberOfParts > 1 %}
+            <p>
+                Le cadeau est composé de plusieurs part et vous avez choisi d'en offrir {{ numberOfParts }}.<br />
+                Le montant d'une part est de {{ gift.partValue() }}€.<br />
+                Le montant du cadeau est de donc de {{ numberOfParts }} * {{ gift.partValue() }}€ = {{ price }}€
+            </p>
+        {% elseif price is not null %}
+            <p>
+                Montant du cadeau : {{ price }} €
+            </p>
+        {% endif %}
 
-        {%  if not gift.list.getRootParent().bankaccount is empty %}
+        {% if not gift.list.getRootParent().bankaccount is empty %}
             <p>
                 S'il n'est pas possible de donner le cadeau en main propre,<br />
                 vous pouvez faire un virement sur le numéro de compte :<br />

@@ -56,8 +56,10 @@ class PublicListController extends Controller
     }
 
     private function formMailOfferGift(Gift $gift) {
-        $form = $this->createFormBuilder()
-            ->add('email', 'email', array(
+        $form = $this->createFormBuilder();
+        $form->setAction($this->generateUrl('public_give_gift', array('gift_id' => $gift->getId())));
+        $form->setMethod('POST');
+        $form->add('email', 'email', array(
                 'attr' => array('placeholder' => 'Email')
             ))
             ->add('firstName', 'text', array(
@@ -66,6 +68,7 @@ class PublicListController extends Controller
             ->add('lastName', 'text', array(
                 'attr' => array('placeholder' => 'Nom')
             ));
+
         if($gift->getAccepteMultipleParts() && $gift->getPrice() != null) {
             $form->add('numberOfParts', 'integer', array(
                 'data' => 0,
@@ -86,12 +89,12 @@ class PublicListController extends Controller
     }
 
     /**
-     * @Route("/m{gift_id}", name="public_send_mail")
+     * @Route("/m{gift_id}", name="public_give_gift")
      * @ParamConverter("gift", class="ManudevKDOBundle:Gift", options={"id" = "gift_id"})
      * @Template("ManudevKDOBundle:PublicList:list.html.twig")
      * @Method("POST")
      */
-    public function sendMailAction(Request $request, Gift $gift)
+    public function giveGiftAction(Request $request, Gift $gift)
     {
         $form = $this->formMailOfferGift($gift);
         $form->handleRequest($request);
@@ -99,12 +102,20 @@ class PublicListController extends Controller
         $email = $form->get('email')->getData();
         $firstName = $form->get('firstName')->getData();
         $lastName = $form->get('lastName')->getData();
+        $numberOfParts = 1;
+        $price = $gift->getPrice();
+
+        if($gift->getAccepteMultipleParts() && $gift->getPrice() != null) {
+            $numberOfParts = $form->get('numberOfParts')->getData();
+        } else if ($gift->getPrice() != null) {
+            $price = $form->get('price')->getData();
+        }
 
         $parentList = $this->em->getRepository('ManudevKDOBundle:Lists')->parents($gift->getList());
 
         if ($form->isValid())
         {
-            if(! $gift->isreserved())
+            if(!$gift->isReserved())
             {
                 $message = \Swift_Message::newInstance();
                 $uri = $this->getRequest()->getUriForPath($gift->getPicture()->getWebPath());
@@ -114,7 +125,9 @@ class PublicListController extends Controller
                         'firstName' => $firstName,
                         'lastName' => $lastName,
                         'gift' => $gift,
-                        'picture' => $picture
+                        'picture' => $picture,
+                        'price' => $price,
+                        'numberOfParts' => $numberOfParts
                     )
                 );
                 $message->setSubject('Réservation de Cadeau')
@@ -132,11 +145,13 @@ class PublicListController extends Controller
                 );
                 return $this->redirect($this->generateUrl('public_list', array('list_id' => $gift->getList()->getId(), 'slug' => $gift->getList()->getSlug())));
             } else {
+                // Already reserved
                 $this->get('session')->getFlashBag()->add(
                     'error', "Ce cadeau est réservé. Vous ne pouvez pas l'offrir."
                 );
             }
         } else {
+            // Not valid
             $this->get('session')->getFlashBag()->add(
                 'error', "Une erreur est survenue. Vueillez vérifier votre adresse email:
                  $email"

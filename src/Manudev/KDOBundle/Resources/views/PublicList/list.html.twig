@@ -137,13 +137,13 @@
                 {% endfor %}
 
                 {% for gift in entity.availableGifts() %}
-                    <li class="list-group-item">
+                    <li class="list-group-item offer"
+                        data-link="{{ path('popup_offer_gift', {'id': gift.id}) }}">
                         <div class="row">
                             <div class="col-md-1">
                                 {% if gift.picture != "" %}
                                     <div class="thumbnail" >
-                                        <img src="{{ gift.picture }}" class="offer"
-                                             data-link="{{ path('popup_offer_gift', {'id': gift.id}) }}"
+                                        <img src="{{ gift.picture }}"
                                              style="width:100%" />
                                     </div>
                                 {% endif %}
@@ -172,8 +172,7 @@
                                 {% endif %}
                             </div>
                             <div class="col-md-3">
-                                <button class="offer btn btn-primary btn-block"
-                                        data-link="{{ path('popup_offer_gift', {'id': gift.id}) }}" role="button">
+                                <button class="btn btn-primary btn-block" role="button">
                                     <i class="fa fa-search"></i> <i class="fa fa-gift"></i> Offrir / Plus de détails
                                 </button>
                             </div>
@@ -184,7 +183,7 @@
         </div>
 
         <!-- Liste pleine grille-->
-        <div class="showGrid row" style="display: none">
+        <div class="showGrid row">
             {% set cpt = 0 %}
             {% for child in entity.children %}
                 <div class="col-md-3 col-sm-6 col-xs12">
@@ -236,12 +235,12 @@
             {% endfor %}
 
             {% for gift in entity.availableGifts() %}
-                <div class="col-md-3 col-sm-6 col-xs12">
+                <div class="col-md-3 col-sm-6 col-xs12 offer"
+                     data-link="{{ path('popup_offer_gift', {'id': gift.id}) }}">
                     <div class="thumbnail">
                         {% if gift.picture|trim != "" %}
                             <div style="display:block; padding:1em; padding-bottom: 0;">
                                 <img src="{{ gift.picture }}" alt="{{ gift.name }}"
-                                     class="offer" data-link="{{ path('popup_offer_gift', {'id': gift.id}) }}"
                                      style="width:100%;" >
                             </div>
                         {% endif %}
@@ -289,8 +288,7 @@
                                     </a>
                                 </p>
                             {% endif %}
-                            <button class="offer btn btn-primary btn-block"
-                                    data-link="{{ path('popup_offer_gift', {'id': gift.id}) }}"
+                            <button class="btn btn-primary btn-block"
                                     role="button">
                                 <i class="fa fa-search"></i> <i class="fa fa-gift"></i> Offrir / Plus de détails
                             </button>
@@ -322,7 +320,7 @@
             <div class="showGrid row" style="display: none">
                 {% set cpt = 0 %}
                 {% for gift in entity.noneAvailableGifts() %}
-                    <div class="col-md-3 col-sm-6 col-xs12">
+                    <div class="col-md-3 col-sm-6 col-xs12 offer">
                         <div class="thumbnail">
                             {% if gift.picture|trim != "" %}
                                 <div style="display:block; padding:1em; padding-bottom: 0;">
