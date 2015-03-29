@@ -107,6 +107,13 @@ class Gift
      */
     private $position;
 
+    /**
+     * @var GiftReservation
+     *
+     * @ORM\OneToMany(targetEntity="GiftReservation", mappedBy="gift")
+     **/
+    private $reservations;
+
     function __toString() {
         return $this->name;
     }
@@ -414,5 +421,45 @@ class Gift
     public function partValue()
     {
         return ceil(($this->price / $this->numberOfParts)*100)/100;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->reservations = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add reservations
+     *
+     * @param \Manudev\KDOBundle\Entity\GiftReservation $reservations
+     * @return Gift
+     */
+    public function addReservation(\Manudev\KDOBundle\Entity\GiftReservation $reservations)
+    {
+        $this->reservations[] = $reservations;
+
+        return $this;
+    }
+
+    /**
+     * Remove reservations
+     *
+     * @param \Manudev\KDOBundle\Entity\GiftReservation $reservations
+     */
+    public function removeReservation(\Manudev\KDOBundle\Entity\GiftReservation $reservations)
+    {
+        $this->reservations->removeElement($reservations);
+    }
+
+    /**
+     * Get reservations
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getReservations()
+    {
+        return $this->reservations;
     }
 }

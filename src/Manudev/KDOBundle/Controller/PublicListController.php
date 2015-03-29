@@ -2,6 +2,7 @@
 
 namespace Manudev\KDOBundle\Controller;
 
+use Manudev\KDOBundle\Entity\GiftReservation;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -89,6 +90,16 @@ class PublicListController extends Controller
     }
 
     /**
+     * @Route("/r{code}-{gift_id}-{reservation_id}/{email}")
+     * @ParamConverter("gift", class="ManudevKDOBundle:Gift", options={"id" = "gift_id"})
+     * @ParamConverter("reservation", class="ManudevKDOBundle:GiftReservation", options={"id" = "reservation_id"})
+     * @Template()
+     */
+    public function validateReseravationAction(Request $request, $code, Gift $gift, GiftReservation $reservation, $email) {
+        return array();
+    }
+
+    /**
      * @Route("/m{gift_id}", name="public_give_gift")
      * @ParamConverter("gift", class="ManudevKDOBundle:Gift", options={"id" = "gift_id"})
      * @Template("ManudevKDOBundle:PublicList:list.html.twig")
@@ -119,8 +130,28 @@ class PublicListController extends Controller
         {
             if(!$gift->isReserved())
             {
+                $reservation = new GiftReservation();
+                $reservation->setEmail($email);
+                $reservation->setFirstName($firstName);
+                $reservation->setLastName($lastName);
+                $reservation->setGift($gift);
+
+                $this->em->persist($reservation);
+                $this->em->flush();
+                $code = GiftReservation::hashUniqCode($reservation, $gift, $email);
+                $reservation->setUniqCode($code);
+                $this->em->persist($reservation);
+                $this->em->flush();
+
+                $url = $this->generateUrl('manudev_kdo_publiclist_validatereseravation', array(
+                    'code' => $code,
+                    'gift_id' => $gift->getId(),
+                    'reservation_id' => $reservation->getId(),
+                    'email' => $email
+                ), true);
+
                 $message = \Swift_Message::newInstance();
-                $uri = $this->getRequest()->getUriForPath($gift->getPicture()->getWebPath());
+                $uri = $this->getRequest()->getUriForPath($gift->getPicture()->getWebPath(), true);
                 $picture = $message->embed(\Swift_Image::fromPath($uri));
                 $template = $this->renderView('ManudevKDOBundle:PublicList:mail.reserveGift.html.twig',
                     array(
@@ -129,7 +160,8 @@ class PublicListController extends Controller
                         'gift' => $gift,
                         'picture' => $picture,
                         'price' => $price,
-                        'numberOfParts' => $numberOfParts
+                        'numberOfParts' => $numberOfParts,
+                        'url' => $url
                     )
                 );
                 $message->setSubject('Réservation de Cadeau')
@@ -142,7 +174,7 @@ class PublicListController extends Controller
 
                 $this->get('session')->getFlashBag()->add(
                     'success', "Un email de confirmation vous a été envoyé sur: $email .
-                     Sans confirmation, le cadeau sera à nouveau dispoblie pour d'autres personnes
+                     Sans confirmation, le cadeau sera à nouveau disponible pour d'autres personnes
                      dans 2 jours."
                 );
                 return $this->redirect($this->generateUrl('public_list', array('list_id' => $gift->getList()->getId(), 'slug' => $gift->getList()->getSlug())));

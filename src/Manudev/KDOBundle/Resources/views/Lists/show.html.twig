@@ -399,7 +399,7 @@
                                 <div class="gift-description">{{ gift.description }}</div>
                                 <div class="gift-img">{{ gift.picture }}</div>
                                 <div class="gift-price">{{ gift.price }}</div>
-                                <div class="gift-offer">{{ path('public_send_mail', { 'gift_id': gift.id }) }}</div>
+                                <div class="gift-offer">{{ path('public_give_gift', { 'gift_id': gift.id }) }}</div>
                             </div>
 
                         {%  endif %}
@@ -444,7 +444,7 @@
                                 <div class="gift-description">{{ gift.description }}</div>
                                 <div class="gift-img">{{ gift.picture }}</div>
                                 <div class="gift-price">{{ gift.price }}</div>
-                                <div class="gift-offer">{{ path('public_send_mail', { 'gift_id': gift.id }) }}</div>
+                                <div class="gift-offer">{{ path('public_give_gift', { 'gift_id': gift.id }) }}</div>
                             </div>
                         </div>
                     </div>
