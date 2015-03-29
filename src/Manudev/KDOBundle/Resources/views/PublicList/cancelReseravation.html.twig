@@ -1,0 +1,20 @@
+{% extends '::base.html.twig' %}
+{% set cpt = 0 %}
+{% block headline %}
+    Réservation de cadeau annulée.
+{% endblock headline %}
+
+{% block content_content %}
+    <p>
+        Votre réservation du cadeau {{ gift.name }} a été annulée. <br />
+        Celui-ci est à nouveau disponible dans la liste.
+    </p>
+    <a href="{{ path('public_list', { 'list_id': gift.list.id, 'slug': gift.list.slug }) }}" class="btn btn-primary">
+        <i class="fa fa-arrow-left"></i> Revenir à la liste de cadeau
+    </a>
+{% endblock %}
+
+
+{% block page_script %}
+
+{% endblock %}

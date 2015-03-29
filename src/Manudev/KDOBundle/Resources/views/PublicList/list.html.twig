@@ -143,8 +143,7 @@
                             <div class="col-md-1">
                                 {% if gift.picture != "" %}
                                     <div class="thumbnail" >
-                                        <img src="{{ gift.picture }}"
-                                             style="width:100%" />
+                                        <img src="{{ gift.picture }}" style="width:100%" />
                                     </div>
                                 {% endif %}
                             </div>
@@ -164,6 +163,11 @@
                                                          style="width: {{ gift.percentDone() }}%;">
                                                             {{ gift.givedParts }} / {{ gift.numberOfParts }}
                                                             <i class="fa fa-pie-chart"></i>
+                                                    </div>
+                                                    <div class="progress-bar progress-bar-warning " role="progressbar"
+                                                         aria-valuenow="{{ gift.percentReserved() }}" aria-valuemin="0" aria-valuemax="100"
+                                                         style="width: {{ gift.percentReserved() }}%;">
+                                                        {{ gift.totalReserved() }} <i class="fa fa-pie-chart"></i>
                                                     </div>
                                                 </div>
                                             {% endif %}
@@ -263,7 +267,8 @@
                                 {% else %}
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <i class="fa fa-money"></i> {{ gift.price }} € (par part de {{ gift.partValue() }} €)
+                                            <i class="fa fa-money"></i> {{ gift.price }} €
+                                            ({{ gift.numberOfParts }} <i class="fa fa-pie-chart"></i> parts de {{ gift.partValue() }} €)
                                         </div>
                                     </div>
                                     <div class="row">
@@ -275,6 +280,11 @@
                                                      style="width: {{ gift.percentDone() }}%;">
                                                     {{ gift.givedParts }} / {{ gift.numberOfParts }}
                                                     <i class="fa fa-pie-chart"></i>
+                                                </div>
+                                                <div class="progress-bar progress-bar-warning " role="progressbar"
+                                                     aria-valuenow="{{ gift.percentReserved() }}" aria-valuemin="0" aria-valuemax="100"
+                                                     style="width: {{ gift.percentReserved() }}%;">
+                                                    {{ gift.totalReserved() }} <i class="fa fa-pie-chart"></i>
                                                 </div>
                                             </div>
                                         </div>
@@ -360,6 +370,11 @@
                                                         {{ gift.givedParts }} / {{ gift.numberOfParts }}
                                                         <i class="fa fa-pie-chart"></i>
                                                     </div>
+                                                    <div class="progress-bar progress-bar-warning " role="progressbar"
+                                                         aria-valuenow="{{ gift.percentReserved() }}" aria-valuemin="0" aria-valuemax="100"
+                                                         style="width: {{ gift.percentReserved() }}%;">
+                                                        {{ gift.totalReserved() }} <i class="fa fa-pie-chart"></i>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -399,9 +414,34 @@
                                         </div>
                                     {% endif %}
                                 </div>
-                                <div class="col-md-11">
+                                <div class="col-md-8">
                                     <h4>{{ gift.name }}</h4>
                                     {{ gift.description|truncate(100) }}
+
+                                    {% if gift.price is not empty %}
+                                        <div class="row">
+                                            <div class="col-md-4 col-xs-6 right">
+                                                <i class="fa fa-money"></i> {{ gift.price }} € (par part de {{ gift.partValue() }} €)
+                                            </div>
+                                            <div class="col-md-5">
+                                                {% if gift.numberOfParts >= 2 %}
+                                                    <div class="progress">
+                                                        <div class="progress-bar progress-bar-success" role="progressbar"
+                                                             aria-valuenow="{{ gift.percentDone() }}" aria-valuemin="0" aria-valuemax="100"
+                                                             style="width: {{ gift.percentDone() }}%;">
+                                                            {{ gift.givedParts }} / {{ gift.numberOfParts }}
+                                                            <i class="fa fa-pie-chart"></i>
+                                                        </div>
+                                                        <div class="progress-bar progress-bar-warning " role="progressbar"
+                                                             aria-valuenow="{{ gift.percentReserved() }}" aria-valuemin="0" aria-valuemax="100"
+                                                             style="width: {{ gift.percentReserved() }}%;">
+                                                            {{ gift.totalReserved() }} <i class="fa fa-pie-chart"></i>
+                                                        </div>
+                                                    </div>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    {% endif %}
                                 </div>
                             </div>
                         </li>

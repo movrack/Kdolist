@@ -72,7 +72,7 @@ class PublicListController extends Controller
 
         if($gift->getAccepteMultipleParts() && $gift->getPrice() != null) {
             $form->add('numberOfParts', 'integer', array(
-                'data' => 0,
+                'data' => 1,
                 'attr' => array(
                     'min' => 0,
                     'max' => $gift->getNumberOfParts() - $gift->getGivedParts(),
@@ -96,7 +96,25 @@ class PublicListController extends Controller
      * @Template()
      */
     public function validateReseravationAction(Request $request, $code, Gift $gift, GiftReservation $reservation, $email) {
-        return array();
+        return array(
+            'gift' => $gift,
+            'reservation' => $reservation,
+            'email' => $email
+        );
+    }
+
+    /**
+     * @Route("/c{code}-{gift_id}-{reservation_id}/{email}")
+     * @ParamConverter("gift", class="ManudevKDOBundle:Gift", options={"id" = "gift_id"})
+     * @ParamConverter("reservation", class="ManudevKDOBundle:GiftReservation", options={"id" = "reservation_id"})
+     * @Template()
+     */
+    public function cancelReseravationAction(Request $request, $code, Gift $gift, GiftReservation $reservation, $email) {
+        return array(
+            'gift' => $gift,
+            'reservation' => $reservation,
+            'email' => $email
+        );
     }
 
     /**
@@ -135,6 +153,7 @@ class PublicListController extends Controller
                 $reservation->setFirstName($firstName);
                 $reservation->setLastName($lastName);
                 $reservation->setGift($gift);
+                $reservation->setGivedParts($numberOfParts);
 
                 $this->em->persist($reservation);
                 $this->em->flush();
@@ -150,6 +169,14 @@ class PublicListController extends Controller
                     'email' => $email
                 ), true);
 
+                $urlCancel = $this->generateUrl('manudev_kdo_publiclist_cancelreseravation', array(
+                    'code' => $code,
+                    'gift_id' => $gift->getId(),
+                    'reservation_id' => $reservation->getId(),
+                    'email' => $email
+                ), true);
+
+
                 $message = \Swift_Message::newInstance();
                 $uri = $this->getRequest()->getUriForPath($gift->getPicture()->getWebPath(), true);
                 $picture = $message->embed(\Swift_Image::fromPath($uri));
@@ -161,7 +188,8 @@ class PublicListController extends Controller
                         'picture' => $picture,
                         'price' => $price,
                         'numberOfParts' => $numberOfParts,
-                        'url' => $url
+                        'url' => $url,
+                        'urlCancel' => $urlCancel
                     )
                 );
                 $message->setSubject('Réservation de Cadeau')

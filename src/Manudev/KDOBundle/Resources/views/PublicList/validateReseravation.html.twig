@@ -1,0 +1,22 @@
+{% extends '::base.html.twig' %}
+{% set cpt = 0 %}
+{% block headline %}
+    Cadeau réservé
+{% endblock headline %}
+
+{% block content_content %}
+    <p>
+        Le cadeau que vous avez choisi a été réservé durant 2 jours.<br />
+        Un email de confirmation vient de vous être envoyé à l'adresse email {{ email }}.<br />
+        Afin de terminer, vous devez confirmer votre cadeau dans l'email reçu.
+        Dans le cas contraire, le cadeau sera à nouveau disponible.
+    </p>
+    <a href="{{ path('public_list', { 'list_id': gift.list.id, 'slug': gift.list.slug }) }}" class="btn btn-primary">
+        <i class="fa fa-arrow-left"></i> Revenir à la liste de cadeau
+    </a>
+{% endblock %}
+
+
+{% block page_script %}
+
+{% endblock %}

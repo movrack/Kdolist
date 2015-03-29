@@ -114,6 +114,14 @@ class Gift
      **/
     private $reservations;
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->reservations = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
     function __toString() {
         return $this->name;
     }
@@ -347,89 +355,6 @@ class Gift
         return $this->position;
     }
 
-    public function isAvailable()
-    {
-        return !$this->isReserved() and !$this->isGived();
-    }
-
-    public function isReserved()
-    {
-        return 0;
-    }
-
-    public function isGived()
-    {
-        return $this->givedParts == $this->numberOfParts;
-    }
-
-    public function reserve(){
-
-    }
-
-    /**
-     * Set givedParts
-     *
-     * @param integer $givedParts
-     * @return Gift
-     */
-    public function setGivedParts($givedParts)
-    {
-        $this->givedParts = $givedParts;
-
-        return $this;
-    }
-
-    /**
-     * Get givedParts
-     *
-     * @return integer 
-     */
-    public function getGivedParts()
-    {
-        return $this->givedParts;
-    }
-
-    /**
-     * Get givedParts
-     *
-     * @return integer
-     */
-    public function getAvailableParts()
-    {
-        return $this->getNumberOfParts() - $this->givedParts;
-    }
-
-    /**
-     * @return float
-     */
-    public function totalGived()
-    {
-        return $this->partValue() * $this->givedParts;
-    }
-
-    /**
-     * @return float
-     */
-    public function percentDone()
-    {
-        return $this->givedParts / $this->numberOfParts * 100;
-    }
-
-    /**
-     * @return float
-     */
-    public function partValue()
-    {
-        return ceil(($this->price / $this->numberOfParts)*100)/100;
-    }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->reservations = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
     /**
      * Add reservations
      *
@@ -456,10 +381,110 @@ class Gift
     /**
      * Get reservations
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection\ArrayCollection
      */
     public function getReservations()
     {
         return $this->reservations;
     }
+
+
+    /**
+     * Set givedParts
+     *
+     * @param integer $givedParts
+     * @return Gift
+     */
+    public function setGivedParts($givedParts)
+    {
+        $this->givedParts = $givedParts;
+
+        return $this;
+    }
+
+    /**
+     * Get givedParts
+     *
+     * @return integer
+     */
+    public function getGivedParts()
+    {
+        return $this->givedParts;
+    }
+
+
+
+
+
+    public function isAvailable()
+    {
+        return !$this->isReserved() and !$this->isGived();
+    }
+
+    public function totalReserved() {
+
+        $sum = 0;
+        foreach ($this->reservations as $reservation) {
+            $sum += $reservation->getGivedParts();
+        }
+        return $sum;
+    }
+
+    public function isReserved()
+    {
+        $isReserved = count($this->reservations) != 0;
+        if($isReserved) {
+            $sum = $this->totalReserved();
+            $isReserved = (($sum + $this->givedParts) >= $this->numberOfParts);
+        }
+        return $isReserved;
+    }
+
+    public function isGived()
+    {
+        return ($this->givedParts == $this->numberOfParts);
+    }
+
+
+    /**
+     * Get givedParts
+     *
+     * @return integer
+     */
+    public function getAvailableParts()
+    {
+        return $this->getNumberOfParts() - $this->givedParts;
+    }
+
+    /**
+     * @return float
+     */
+    public function totalGived()
+    {
+        return $this->partValue() * $this->givedParts;
+    }
+
+    /**
+     * @return float
+     */
+    public function percentDone()
+    {
+        return $this->givedParts / $this->numberOfParts * 100;
+    }
+    /**
+     * @return float
+     */
+    public function percentReserved()
+    {
+        return $this->totalReserved() / $this->numberOfParts * 100;
+    }
+
+    /**
+     * @return float
+     */
+    public function partValue()
+    {
+        return ceil(($this->price / $this->numberOfParts)*100)/100;
+    }
+
 }
