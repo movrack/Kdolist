@@ -515,23 +515,26 @@
             });
         }
 
-        var nbParts = ($('#formNumberOfParts > input').val()).trim();
-        var min = $('#formNumberOfParts > input').attr('min');
-        var max = $('#formNumberOfParts > input').attr('max');
+        var nbParts = $('#formNumberOfParts > input').val();
+        if (typeof(nbParts) != "undefined") {
+            nbParts = (nbParts).trim();
+            var min = $('#formNumberOfParts > input').attr('min');
+            var max = $('#formNumberOfParts > input').attr('max');
 
-        if (!isInt(nbParts) || nbParts < min || nbParts > max ) {
-            success = false;
-            $('#formNumberOfParts').addClass('has-error');
-            $('#formNumberOfParts').popover({
-                'title' : '<strong style="color: red;">Erreur</strong>',
-                'content' : 'Le nombre de part doit être un nombre entier entre '+min+' et '+max+' compris.',
-                'html' : true,
-                'placement' : 'bottom'
-            }).popover('show');
-            $('#formNumberOfParts').click(function(){
-                $('#formNumberOfParts').popover('hide');
-                $('#formNumberOfParts').removeClass('has-error');
-            });
+            if (!isInt(nbParts) || nbParts < min || nbParts > max) {
+                success = false;
+                $('#formNumberOfParts').addClass('has-error');
+                $('#formNumberOfParts').popover({
+                    'title': '<strong style="color: red;">Erreur</strong>',
+                    'content': 'Le nombre de part doit être un nombre entier entre ' + min + ' et ' + max + ' compris.',
+                    'html': true,
+                    'placement': 'bottom'
+                }).popover('show');
+                $('#formNumberOfParts').click(function () {
+                    $('#formNumberOfParts').popover('hide');
+                    $('#formNumberOfParts').removeClass('has-error');
+                });
+            }
         }
         return success;
     }
@@ -556,8 +559,8 @@
                         window.setTimeout(function() {
                             button.html("<i class=\"fa fa-gift\"></i> Offrir")
                                 .removeAttr("disabled");
-                        }, 2000);
-                        console.log(formIsValid());
+                        }, 5000);
+
                         if(formIsValid()) {
                             $('#formOffer > form').submit();
                         }

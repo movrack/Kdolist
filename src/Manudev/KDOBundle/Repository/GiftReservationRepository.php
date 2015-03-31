@@ -12,4 +12,24 @@ use Doctrine\ORM\EntityRepository;
  */
 class GiftReservationRepository extends EntityRepository
 {
+
+    public function cleanReservationsQueryBuilder(Lists $list)
+    {
+        $query = $this->createQueryBuilder();
+
+        //$query->delete('GiftReservation', 'gr');
+        if ($list == null) {
+            // TODO clean  all
+        } else {
+            // clean for gift
+            //$query->andWhere($qb->expr()->eq('gr.project', ':project'));
+            //$query->setParameter(':project', $list);
+
+        }
+        return $query;
+    }
+
+    public function cleanReservations(Lists $list) {
+        return $this->cleanReservationsQueryBuilder($list)->getQuery()->execute();
+    }
 }

@@ -425,7 +425,9 @@ class Gift
 
         $sum = 0;
         foreach ($this->reservations as $reservation) {
-            $sum += $reservation->getGivedParts();
+            if ($reservation->getStatus() == GiftReservation::STATUS_RESERVED) {
+                $sum += $reservation->getGivedParts();
+            }
         }
         return $sum;
     }

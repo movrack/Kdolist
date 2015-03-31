@@ -49,7 +49,8 @@ class PublicListController extends Controller
     public function listAction(Lists $list)
     {
         $parents = $this->em->getRepository('ManudevKDOBundle:Lists')->parents($list);
-
+        // Clean reservations
+        //$this->em->getRepository('ManudevKDOBundle:GiftReservation')->cleanReservationsQueryBuilder($list);
         return array(
             'entity' => $list,
             'parents'   => $parents
@@ -96,7 +97,25 @@ class PublicListController extends Controller
      * @Template()
      */
     public function validateReseravationAction(Request $request, $code, Gift $gift, GiftReservation $reservation, $email) {
+
+        $success = $reservation->getEmail() == $email
+            && $reservation->getUniqCode() == $code
+            && $reservation->getGift() == $gift
+            && $code == GiftReservation::hashUniqCode($reservation, $gift, $email);
+
+            $isOldReservation = $reservation->getStatus() != GiftReservation::STATUS_RESERVED;
+            if ($success && !$isOldReservation) {
+                $reservation->setStatus(GiftReservation::STATUS_CONFIRMED);
+                $gift->setGivedParts($gift->getGivedParts() + $reservation->getGivedParts());
+
+                $this->em->persist($gift);
+                $this->em->persist($reservation);
+                $this->em->flush();
+            }
+
         return array(
+            'success' => $success,
+            'isOldReservation' => $isOldReservation,
             'gift' => $gift,
             'reservation' => $reservation,
             'email' => $email
@@ -110,7 +129,24 @@ class PublicListController extends Controller
      * @Template()
      */
     public function cancelReseravationAction(Request $request, $code, Gift $gift, GiftReservation $reservation, $email) {
+        $success = $reservation->getEmail() == $email
+            && $reservation->getUniqCode() == $code
+            && $reservation->getGift() == $gift
+            && $code == GiftReservation::hashUniqCode($reservation, $gift, $email);
+
+        $isReserved = $reservation->getStatus() == GiftReservation::STATUS_RESERVED;
+        $isConfirmed = $reservation->getStatus() == GiftReservation::STATUS_CONFIRMED;
+        $isGived = $reservation->getStatus() == GiftReservation::STATUS_GIVED;
+        if ($success && $isReserved) {
+            $this->em->remove($reservation);
+            $this->em->flush();
+        }
+
         return array(
+            'isReserved' => $isReserved,
+            'isConfirmed' => $isConfirmed,
+            'isGived' => $isGived,
+            'success' => $success,
             'gift' => $gift,
             'reservation' => $reservation,
             'email' => $email
