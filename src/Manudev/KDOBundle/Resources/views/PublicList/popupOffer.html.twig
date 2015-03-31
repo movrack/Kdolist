@@ -1,3 +1,26 @@
+
+
+{% macro progressBar ( givedParts, reservedParts, numberOfParts ) %}
+    {% set percentGived = givedParts / numberOfParts * 100 %}
+    {% set percentReserved = reservedParts / numberOfParts * 100 %}
+    <div class="progress">
+        <div class="progress-bar progress-bar-success" role="progressbar"
+             aria-valuenow="{{ percentGived }}" aria-valuemin="0" aria-valuemax="100"
+             style="width: {{ percentGived }}%;"
+             data-toggle="tooltip" data-placement="top" title="Parts déjà offertes">
+            {{ givedParts }} / {{ numberOfParts }} <i class="fa fa-pie-chart"></i>
+        </div>
+        <div class="progress-bar progress-bar-warning " role="progressbar"
+             aria-valuenow="{{ percentReserved }}" aria-valuemin="0" aria-valuemax="100"
+             style="width: {{ percentReserved }}%;"
+             data-toggle="tooltip" data-placement="top" title="Parts réservées">
+            {{ reservedParts }} <i class="fa fa-pie-chart"></i>
+        </div>
+    </div>
+{% endmacro %}
+{% import _self as macr %}
+
+
 <!-- popup offrir cadeau -->
 <div class="modal fade" id="modalOffer" tabindex="-1" role="dialog"
      aria-labelledby="myModalLabel" aria-hidden="true">
@@ -40,14 +63,7 @@
                                         (par part de {{ gift.partValue() }} €)
                                     {% endif %}
                                     {% if gift.numberOfParts >= 2 %}
-                                        <div class="progress">
-                                            <div class="progress-bar progress-bar-success" role="progressbar"
-                                                 aria-valuemin="0" aria-valuemax="100" aria-valuenow="{{ gift.percentDone() }}"
-                                                 style="width: {{ gift.percentDone() }}%; min-width: 2em;">
-                                                {{ gift.givedParts() }} / {{ gift.numberOfParts() }}
-                                                <i class="fa fa-pie-chart"></i>
-                                            </div>
-                                        </div>
+                                        {{ macr.progressBar( gift.givedParts, gift.totalReserved(), gift.numberOfParts ) }}
                                     {% endif %}
                                 {% endif %}
                                 {% if not gift.link is empty %}
@@ -70,30 +86,25 @@
                                 Personne d'autre ne pourra alors l'offrir.
                             </p>
                         </div>
-                        <div class="col-md-5">
+                        <div id="formOffer" class="col-md-5">
                             {{ form_start(form) }}
                                 <div class="form-group">
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-6" id="formFirstName">
                                         {{ form_widget(form.firstName) }}
                                     </div>
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-6" id="formLastName">
                                         {{ form_widget(form.lastName) }}
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <div class="col-sm-12">
-                                        {{ form_widget(form.email) }}
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-sm-12">
+                                    <div class="col-sm-12" id="formEmail">
                                         {{ form_widget(form.email) }}
                                     </div>
                                 </div>
                                 {%  if form.numberOfParts is defined %}
                                     <div class="form-group">
                                         <label class="col-sm-5 control-label lef">Nombre de parts</label>
-                                        <div class="col-sm-7" id="numberOfParts">
+                                        <div class="col-sm-7" id="formNumberOfParts">
                                             {{ form_widget(form.numberOfParts) }}
                                         </div>
 
@@ -103,9 +114,9 @@
                                             Nombre de part disponibles : {{ gift.getAvailableParts() }}<br />
                                             Prix calculé :
                                             <strong>
-                                                <spanc id="counter" data-counter="{{ gift.partValue() }}">0</spanc>
+                                                <spanc id="counter" data-counter="{{ gift.partValue() }}">1</spanc>
                                                 * {{ gift.partValue() }}€
-                                                = <span id="counter-value">0</span>€
+                                                = <span id="counter-value">{{ gift.partValue() }}</span>€
                                             </strong>
                                         </div>
                                     </div>
@@ -126,7 +137,8 @@
                                 {{ form_rest(form) }}
                                 <div class="form-group">
                                     <div class="col-sm-12">
-                                        <button type="submit" class="btn btn-primary btn-block">
+                                        {# Send with javascript #}
+                                        <button id="submitFormOffer" type="button" class="btn btn-primary btn-block">
                                             <i class="fa fa-gift"></i> Offrir
                                         </button>
                                     </div>
