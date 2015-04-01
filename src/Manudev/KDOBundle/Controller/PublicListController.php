@@ -75,7 +75,7 @@ class PublicListController extends Controller
             $form->add('numberOfParts', 'integer', array(
                 'data' => 1,
                 'attr' => array(
-                    'min' => 0,
+                    'min' => 1,
                     'max' => $gift->getNumberOfParts() - $gift->getGivedParts(),
                 ),
             ));
