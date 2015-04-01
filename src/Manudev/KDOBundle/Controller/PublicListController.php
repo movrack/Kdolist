@@ -50,7 +50,7 @@ class PublicListController extends Controller
     {
         $parents = $this->em->getRepository('ManudevKDOBundle:Lists')->parents($list);
         // Clean reservations
-        //$this->em->getRepository('ManudevKDOBundle:GiftReservation')->cleanReservationsQueryBuilder($list);
+        $this->em->getRepository('ManudevKDOBundle:GiftReservation')->cleanReservations();
         return array(
             'entity' => $list,
             'parents'   => $parents

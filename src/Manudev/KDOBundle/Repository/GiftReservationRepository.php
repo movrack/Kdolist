@@ -3,6 +3,7 @@
 namespace Manudev\KDOBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Manudev\KDOBundle\Entity\GiftReservation;
 
 /**
  * GiftReservationRepository
@@ -13,23 +14,27 @@ use Doctrine\ORM\EntityRepository;
 class GiftReservationRepository extends EntityRepository
 {
 
-    public function cleanReservationsQueryBuilder(Lists $list)
+    /**
+     * Delete all Reservation older than 2 days and where status is reserved.
+     * @return mixed Query
+     */
+    public function cleanReservationsQueryBuilder()
     {
-        $query = $this->createQueryBuilder();
+        $twoDaysAgo = new \DateTime();
+        $twoDaysAgo->modify("-2 days");
 
-        //$query->delete('GiftReservation', 'gr');
-        if ($list == null) {
-            // TODO clean  all
-        } else {
-            // clean for gift
-            //$query->andWhere($qb->expr()->eq('gr.project', ':project'));
-            //$query->setParameter(':project', $list);
+        $query = $this->createQueryBuilder('gr');
 
-        }
+        $query->delete('Manudev\KDOBundle\Entity\GiftReservation', 'gr');
+        $query->andWhere($query->expr()->lte('gr.created', ':created'));
+        $query->andWhere($query->expr()->eq('gr.status', ':status'));
+        $query->setParameter('created', $twoDaysAgo);
+        $query->setParameter('status', GiftReservation::STATUS_RESERVED);
+
         return $query;
     }
 
-    public function cleanReservations(Lists $list) {
-        return $this->cleanReservationsQueryBuilder($list)->getQuery()->execute();
+    public function cleanReservations() {
+        return $this->cleanReservationsQueryBuilder()->getQuery()->execute();
     }
 }

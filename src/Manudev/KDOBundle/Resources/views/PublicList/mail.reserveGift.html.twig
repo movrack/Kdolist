@@ -43,7 +43,7 @@
 
         {% if not gift.list.getRootParent().bankaccount is empty %}
             <p>
-                S'il n'est pas possible de donner le cadeau en main propre,<br />
+                S'il n'est pas possible de donner le cadeau en main propre ou si c'est plus facile pour vous, <br />
                 vous pouvez faire un virement sur le numéro de compte :<br />
                 {% set iban = gift.list.getRootParent().bankaccount %}
                 <strong>
@@ -59,7 +59,8 @@
                 {% endif %}
                 {% if not iban.beneficiary4 is empty %}
                     {{ iban.beneficiary4 }}<br />
-                {% endif %}
+                {% endif %}<br />
+                N'hésitez pas à laisser un petit message de communication.
             </p>
         {% endif %}
 

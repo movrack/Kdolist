@@ -5,6 +5,7 @@ namespace Manudev\KDOBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Manudev\CoreBundle\Form\PictureType;
 
 class SubListsType extends AbstractType
 {

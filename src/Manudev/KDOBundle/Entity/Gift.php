@@ -455,7 +455,7 @@ class Gift
      */
     public function getAvailableParts()
     {
-        return $this->getNumberOfParts() - $this->givedParts;
+        return $this->getNumberOfParts() - $this->givedParts - $this->totalReserved();
     }
 
     /**
