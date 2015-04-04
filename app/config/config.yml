@@ -3,7 +3,7 @@ imports:
     - { resource: security.yml }
     - { resource: doctrine_extensions.yml }
     - { resource: config/hwi.yml }
-    - { resource: config/google.yml }
+#- { resource: config/google.yml }
 
 framework:
     #esi:             ~
