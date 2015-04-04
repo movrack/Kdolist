@@ -138,17 +138,16 @@ mopa_bootstrap:
             keywords:             Liste de cadeaux, fête
             author_name:          Manuel Servais
             #author_url:           #
-            feed_atom:            ~
-            feed_rss:             ~
-            sitemap:              ~
+            #feed_atom:            ~
+            #feed_rss:             ~
+            #sitemap:              ~
             nofollow:             false
             noindex:              false
         dns_prefetch:
-
             # Default:
             - //ajax.googleapis.com
         google:
-            wt:                   ~
+            wt:                   yLin9z2-nuffKCcYIcdpyMEWwu8g1ClN83dMzmg9_DI
             analytics:            %google_analytics_id%
     # menu: ~  # enables twig helpers for menu
 
