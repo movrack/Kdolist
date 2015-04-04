@@ -134,7 +134,7 @@ mopa_bootstrap:
         diagnostic_mode: false
         meta:
             title:                Kdolist
-            description:          Gérez et partager facilement vos listes de cadeau pour e jamais enr ecevoir deux identiques.
+            description:          Gérez et partager facilement vos listes de cadeau pour ne jamais en recevoir deux identiques.
             keywords:             Liste de cadeaux, fête
             author_name:          Manuel Servais
             #author_url:           #
