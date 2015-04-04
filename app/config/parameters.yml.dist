@@ -1,5 +1,6 @@
 # This file is a "template" of what your parameters.yml file should look like
 parameters:
+    domaine: domain.com
     database_driver:   pdo_mysql
     database_host:     127.0.0.1
     database_port:     ~
@@ -26,6 +27,7 @@ parameters:
 
     google_id: id
     google_secret: secret
+    google_analytics_id: UA-xxxxxxxx-x
     facebook_id: id
     facebook_secret: secret
     windows_live_id: id
