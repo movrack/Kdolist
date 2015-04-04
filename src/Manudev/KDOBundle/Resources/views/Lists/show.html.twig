@@ -190,7 +190,9 @@
 
                     <div class="row">
                         <div class="col-md-12">
-                            {{  entity.description }}
+                            {{  entity.description|nl2br }}
+                            <br />
+                            <br />
                         </div>
                     </div>
 
@@ -280,7 +282,7 @@
                         </div>
                         <div class="col-md-8">
                             <h4>{{ child.title }}</h4>
-                            {{ child.description|truncate(100) }}
+                            {{ child.description|truncate(100)|nl2br }}
                         </div>
                         <div class="col-md-3">
                             {% if child.externalListLink|trim != "" %}
@@ -310,7 +312,7 @@
                         </div>
                         <div class="col-md-8">
                             <h4>{{ gift.name }}</h4>
-                            {{ gift.description|truncate(100) }}
+                            {{ gift.description|truncate(100)|nl2br }}
                         </div>
                         <div class="col-md-3">
                             <div class="btn-group btn-group-vertical btn-block">
@@ -350,7 +352,7 @@
                         {%  endif %}
                         <div class="caption">
                             <h3>{{ child.title }}</h3>
-                            <p><i class="fa fa-quote-left"></i> <i class="fa fa-quote-right"></i> {{ child.description }}</p>
+                            <p><i class="fa fa-quote-left"></i> <i class="fa fa-quote-right"></i> {{ child.description|nl2br }}</p>
 
                             <p>
                                 <a href="{{ path('lists_edit_sublist', { 'id': child.id }) }}"
@@ -396,7 +398,7 @@
                                 <div class="gift-id">{{ gift.id }}</div>
                                 <div class="gift-name">{{ gift.name }}</div>
                                 <div class="gift-link">{{ gift.link }}</div>
-                                <div class="gift-description">{{ gift.description }}</div>
+                                <div class="gift-description">{{ gift.description|nl2br }}</div>
                                 <div class="gift-img">{{ gift.picture }}</div>
                                 <div class="gift-price">{{ gift.price }}</div>
                                 <div class="gift-offer">{{ path('public_give_gift', { 'gift_id': gift.id }) }}</div>
@@ -407,7 +409,7 @@
                             <h3>{{ gift.name }}</h3>
                             <p>
                                 <i class="fa fa-quote-left"></i> <i class="fa fa-quote-right"></i>
-                                {{ gift.description|truncate(100) }}
+                                {{ gift.description|truncate(100)|nl2br }}
                             </p>
                             {%  if gift.price is not empty %}
                                 <div class="row">
@@ -441,7 +443,7 @@
                                 <div class="gift-id">{{ gift.id }}</div>
                                 <div class="gift-name">{{ gift.name }}</div>
                                 <div class="gift-link">{{ gift.link }}</div>
-                                <div class="gift-description">{{ gift.description }}</div>
+                                <div class="gift-description">{{ gift.description|nl2br }}</div>
                                 <div class="gift-img">{{ gift.picture }}</div>
                                 <div class="gift-price">{{ gift.price }}</div>
                                 <div class="gift-offer">{{ path('public_give_gift', { 'gift_id': gift.id }) }}</div>

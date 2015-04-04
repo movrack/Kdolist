@@ -74,7 +74,9 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            {{ entity.description }}
+                            {{ entity.description |nl2br}}
+                            <br />
+                            <br />
                         </div>
                     </div>
 
@@ -138,7 +140,7 @@
                             </div>
                             <div class="col-md-8">
                                 <h4>{{ child.title }}</h4>
-                                {{ child.description|truncate(100) }}
+                                {{ child.description|truncate(100)|nl2br }}
                             </div>
                             <div class="col-md-3">
                                 {% if child.externalListLink|trim != "" %}
@@ -170,7 +172,7 @@
                             </div>
                             <div class="col-md-8">
                                 <h4>{{ gift.name }}</h4>
-                                {{ gift.description|truncate(100) }}
+                                {{ gift.description|truncate(100)|nl2br }}
                                 {% if gift.price is not empty %}
                                     <div class="row">
                                         <div class="col-md-4 col-xs-6 right">
@@ -220,7 +222,7 @@
                             <h3>{{ child.title }}</h3>
                             <p>
                                 <i class="fa fa-quote-left"></i> <i class="fa fa-quote-right"></i>
-                                {{ child.description |truncate(100)}}
+                                {{ child.description |truncate(100)|nl2br}}
                             </p>
                             {% if child.externalListLink|trim != "" %}
                                 <a target="_blank" href="{{ child.externalListLink }}"
@@ -263,7 +265,7 @@
                                 <p style="text-align: justify">
                                     <i class="fa fa-quote-left"></i>
                                     <i class="fa fa-quote-right"></i>
-                                    {{ gift.description | truncate(100) }}
+                                    {{ gift.description | truncate(100)|nl2br }}
                                 </p>
                             {% endif %}
                             {% if gift.price is not empty %}
@@ -341,7 +343,7 @@
                                     <p style="text-align: justify">
                                         <i class="fa fa-quote-left"></i>
                                         <i class="fa fa-quote-right"></i>
-                                        {{ gift.description | truncate(100) }}
+                                        {{ gift.description | truncate(100)|nl2br }}
                                     </p>
                                 {% endif %}
                                 {% if gift.price is not empty %}
@@ -401,7 +403,7 @@
                                 </div>
                                 <div class="col-md-8">
                                     <h4>{{ gift.name }}</h4>
-                                    {{ gift.description|truncate(100) }}
+                                    {{ gift.description|truncate(100)|nl2br }}
 
                                     {% if gift.price is not empty %}
                                         <div class="row">
