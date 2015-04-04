@@ -31,9 +31,9 @@
 
         {% if gift.getNumberOfParts > 1 and gift.price is not null%}
             <p>
-                Le cadeau est composé de plusieurs part et vous avez choisi d'en offrir {{ numberOfParts }}.<br />
+                Le cadeau est composé de plusieurs parts et vous avez choisi d'en offrir {{ numberOfParts }}.<br />
                 Le montant d'une part est de {{ gift.partValue() }}€.<br />
-                Le montant du cadeau est de donc de {{ numberOfParts }} * {{ gift.partValue() }}€ = {{ price }}€
+                Le montant du cadeau est donc de {{ numberOfParts }} * {{ gift.partValue() }}€ = {{ price }}€
             </p>
         {% elseif price is not null %}
             <p>
@@ -74,9 +74,9 @@
             Vous pouvez annuler votre réservation en cliquant sur ce lien :<br />
             <a href="{{ urlCancel }}">{{ urlCancel }}</a><br />
             <br />
-            (Remarque : Les virements réalisé sont fait sur le compte du destinataire,
+            (Remarque : Les virements réalisés sont faits sur le compte du destinataire,
             à savoir la personne à qui vous offrez le cadeau.<br />
-            Il nous est impossible d'annuler ces virements.)
+            Il nous (kdolist) est impossible d'annuler ces virements.)
         </p>
 
     </body>
