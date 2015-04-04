@@ -11,18 +11,14 @@
     {% endstylesheets %}
     <link rel="stylesheet" href="{{ asset('css/fontawesome.css') }}">
 
-    {% include '::headScripts.html.twig' %}
-    {% block head_script %}
-    {% endblock head_script %}
+
 {% endblock head_style %} 
     
 {% block head_scripts %}
-    {{ parent() }}    
-    {#{% javascripts
-        'http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js'
-    %}
-        <script type="text/javascript" src="{{ asset_url }}"></script>
-    {% endjavascripts %}#}
+    {{ parent() }}
+    {# % include '::headScripts.html.twig' % #}
+    {% block head_script %}
+    {% endblock head_script %}
 {% endblock head_scripts %}
 
         
