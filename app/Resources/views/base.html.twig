@@ -10,6 +10,10 @@
     <link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="screen" />
     {% endstylesheets %}
     <link rel="stylesheet" href="{{ asset('css/fontawesome.css') }}">
+
+    {% include '::headScripts.html.twig' %}
+    {% block head_script %}
+    {% endblock head_script %}
 {% endblock head_style %} 
     
 {% block head_scripts %}
