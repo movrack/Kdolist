@@ -3,25 +3,7 @@
     <body>
         <p>
             Bonjour {{ firstName }},<br />
-            Vous souhaitez offrir {{ gift.name }}
-            {%  if not gift.list.getRootParent().owners is empty or not gift.list.getRootParent().users|first.firstname is empty %}
-                à
-                {% if gift.list.owners|length == 0 %}
-                    {% set users = gift.list.users %}
-                {% else %}
-                    {% set users = gift.list.owners %}
-                {% endif %}
-                {% for user in users %}
-                    {% if user != users|first %}
-                        {% if users|length == 2 %}
-                            et
-                        {% else %}
-                            ,
-                        {% endif %}
-                    {% endif %}
-                    {{ user.firstname|capitalize }} {{ user.lastname|capitalize }}
-                {% endfor %}
-            {% endif %}.
+            Vous souhaitez offrir le cadeau "{{ gift.name }}".
         </p>
         <p>
             {{ gift.description }}
