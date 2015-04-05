@@ -172,7 +172,8 @@
                             </div>
                             <div class="col-md-8">
                                 <h4>{{ gift.name }}</h4>
-                                {{ gift.description|truncate(100)|nl2br }}
+                                {{ gift.description|truncate(100)|nl2br }}<br />
+                                <a class="small">(<i class="fa fa-search"></i>&nbsp;Voir&nbsp;plus)</a>
                                 {% if gift.price is not empty %}
                                     <div class="row">
                                         <div class="col-md-4 col-xs-6 right">
@@ -188,7 +189,7 @@
                             </div>
                             <div class="col-md-3">
                                 <button class="btn btn-primary btn-block" role="button">
-                                    <i class="fa fa-search"></i> <i class="fa fa-gift"></i> Offrir / Plus de détails
+                                    <i class="fa fa-search"></i> <i class="fa fa-gift"></i> Offrir ce cadeau
                                 </button>
                             </div>
                         </div>
@@ -265,7 +266,8 @@
                                 <p style="text-align: justify">
                                     <i class="fa fa-quote-left"></i>
                                     <i class="fa fa-quote-right"></i>
-                                    {{ gift.description | truncate(100)|nl2br }}
+                                    {{ gift.description | truncate(100)|nl2br }}<br />
+                                    <a class="small">(<i class="fa fa-search"></i>&nbsp;Voir&nbsp;plus)</a>
                                 </p>
                             {% endif %}
                             {% if gift.price is not empty %}
@@ -299,7 +301,7 @@
                             {% endif %}
                             <button class="btn btn-primary btn-block"
                                     role="button">
-                                <i class="fa fa-search"></i> <i class="fa fa-gift"></i> Offrir / Plus de détails
+                                <i class="fa fa-gift"></i> Offrir ce cadeau
                             </button>
                         </div>
                     </div>
@@ -343,7 +345,8 @@
                                     <p style="text-align: justify">
                                         <i class="fa fa-quote-left"></i>
                                         <i class="fa fa-quote-right"></i>
-                                        {{ gift.description | truncate(100)|nl2br }}
+                                        {{ gift.description | truncate(100)|nl2br }}<br />
+                                        <a class="small">(<i class="fa fa-search"></i>&nbsp;Voir&nbsp;plus)</a>
                                     </p>
                                 {% endif %}
                                 {% if gift.price is not empty %}
@@ -403,7 +406,8 @@
                                 </div>
                                 <div class="col-md-8">
                                     <h4>{{ gift.name }}</h4>
-                                    {{ gift.description|truncate(100)|nl2br }}
+                                    {{ gift.description|truncate(100)|nl2br }}<br />
+                                    <a class="small">(<i class="fa fa-search"></i>&nbsp;Voir&nbsp;plus)</a>
 
                                     {% if gift.price is not empty %}
                                         <div class="row">
