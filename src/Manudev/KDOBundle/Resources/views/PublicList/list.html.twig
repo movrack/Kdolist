@@ -521,18 +521,18 @@
             });
         }
 
-        var nbParts = $('#formNumberOfParts > input').val();
+        var nbParts = parseInt($('#formNumberOfParts > input').val());
         if (typeof(nbParts) != "undefined") {
             nbParts = (nbParts).trim();
-            var min = $('#formNumberOfParts > input').attr('min');
-            var max = $('#formNumberOfParts > input').attr('max');
+            var min = parseInt($('#formNumberOfParts > input').attr('min'));
+            var max = parseInt($('#formNumberOfParts > input').attr('max'));
 
             if (!isInt(nbParts) || nbParts < min || nbParts > max) {
                 success = false;
                 $('#formNumberOfParts').addClass('has-error');
                 $('#formNumberOfParts').popover({
                     'title': '<strong style="color: red;">Erreur</strong>',
-                    'content': 'Le nombre de part doit être un nombre entier entre ' + min + ' et ' + max + ' compris.',
+                    'content': 'Le nombre de parts doit être un nombre entier entre ' + min + ' et ' + max + ' compris.',
                     'html': true,
                     'placement': 'bottom'
                 }).popover('show');
