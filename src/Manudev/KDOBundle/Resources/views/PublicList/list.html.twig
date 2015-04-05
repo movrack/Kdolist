@@ -521,9 +521,9 @@
             });
         }
 
-        var nbParts = parseInt($('#formNumberOfParts > input').val());
+        var nbParts = $('#formNumberOfParts > input').val();
         if (typeof(nbParts) != "undefined") {
-            nbParts = (nbParts).trim();
+            nbParts = parseInt((nbParts).trim());
             var min = parseInt($('#formNumberOfParts > input').attr('min'));
             var max = parseInt($('#formNumberOfParts > input').attr('max'));
 
