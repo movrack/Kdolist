@@ -1,4 +1,4 @@
 {
-  "directory": "src/KDO/Bundle/KDOBundle/Resources/public/bower",
+  "directory": "src/Manudev/CoreBundle/Resources/public/bower",
   "json": "bower.json"
 }

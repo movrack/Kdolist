@@ -1,6 +1,6 @@
 <?php
 
-namespace Manudev\KDOBundle\OAuth;
+namespace Manudev\UserBundle\OAuth;
 
 use FOS\UserBundle\Model\UserInterface as FOSUserInterface;
 use HWI\Bundle\OAuthBundle\OAuth\Response\UserResponseInterface;

@@ -4,8 +4,10 @@
 
 {% block head_style %}
     {{ parent() }}
-    {% stylesheets  filter='?yui_css'
-        '@ManudevKDOBundle/Resources/public/css/main.css'
+    {% stylesheets  filter='?yui_css' output='css/min.css'
+        '@ManudevCoreBundle/Resources/public/css/main.css'
+        '@ManudevUserBundle/Resources/public/css/User.css'
+        '@ManudevKDOBundle/Resources/public/css/Kdo.css'
     %}
     <link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="screen" />
     {% endstylesheets %}

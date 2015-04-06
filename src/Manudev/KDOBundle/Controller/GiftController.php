@@ -22,23 +22,6 @@ class GiftController extends Controller
 {
 
     /**
-     * Lists all Gift entities.
-     *
-     * @Route("/", name="gift")
-     * @Method("GET")
-     * @Template()
-     */
-    public function indexAction()
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $entities = $em->getRepository('ManudevKDOBundle:Gift')->findAll();
-
-        return array(
-            'entities' => $entities,
-        );
-    }
-    /**
      * Creates a new Gift entity.
      *
      * @Route("/", name="gift_create")
@@ -115,28 +98,6 @@ class GiftController extends Controller
     }
 
     /**
-     * Finds and displays a Gift entity.
-     *
-     * @Route("/{id}", name="gift_show")
-     * @ParamConverter("Gift", class="ManudevKDOBundle:Gift")
-     * @Method("GET")
-     * @Template()
-     */
-    public function showAction(Gift $entity)
-    {
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Gift entity.');
-        }
-
-        $deleteForm = $this->createDeleteForm($entity->getId());
-
-        return array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),
-        );
-    }
-
-    /**
      * Displays a form to edit an existing Gift entity.
      *
      * @Route("/{id}/edit", name="gift_edit")
@@ -171,7 +132,6 @@ class GiftController extends Controller
     */
     private function createEditForm(Gift $entity)
     {
-
         $user = $this->get('security.context')->getToken()->getUser();
         $form = $this->createForm(new GiftType($user), $entity, array(
             'action' => $this->generateUrl('gift_update', array('id' => $entity->getId())),

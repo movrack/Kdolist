@@ -57,21 +57,19 @@
                     </small>
                 </h1>
             </div>
-            <a href="{{ path('lists_show', { 'id': entity.id }) }}">
-                <div class="panel-body">
-                    <div class="container-fluid">
-                        <div class="row" >
-                            <div class="col-md-3">
-                                <img src="{{ entity.picture }}"
-                                    style="width: 200px" />
-                            </div>
-                            <div class="col-md-7">
-                                {{ entity.description }}
-                            </div>
+            <div class="panel-body">
+                <div class="container-fluid">
+                    <div class="row" >
+                        <div class="col-md-3">
+                            <img src="{{ entity.picture }}"
+                                style="width: 200px" />
+                        </div>
+                        <div class="col-md-7">
+                            {{ entity.description|nl2br }}
                         </div>
                     </div>
                 </div>
-            </a>
+            </div>
             <div class="panel-footer ">
                 <div class="container-fluid">
                     <div class="row" >

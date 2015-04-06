@@ -1,5 +1,5 @@
 <?php
-namespace Manudev\KDOBundle\Listener;
+namespace Manudev\CoreBundle\Listener;
 
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
