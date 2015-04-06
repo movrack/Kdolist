@@ -13,7 +13,18 @@
 
         {% include 'ManudevKDOBundle:Default:connectedIndex.html.twig' %}
     {%  else %}
+
         <div class="row">
+            <div class="col-sm-12">
+                <div class="alert alert-warning" role="alert">
+                    <i class="fa fa-wrench"></i> Ce site est en création. Vous pouvez déjà créer et partager vitre liste
+                    mais il est possible que certaines fonctionnalitées ne soit pas encore disponible.
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            {#
             <div class="col-sm-6">
                 <div class="jumbotron">
                     <h2>Offrez un cadeau</h2>
@@ -23,7 +34,6 @@
                     </p>-->
 
                     <form class="form-inline" role="form">
-
                         <div class="form-group">
                             <div class="input-group">
                                 <input type="text" class="form-control" id="chercheName" placeholder="Tapez un nom ici">
@@ -31,15 +41,14 @@
                             <button type="submit" class="btn btn-primary">Chercher</button>
                         </div>
                     </form>
-
                 </div>
             </div>
-
+            #}
             <div class="col-md-6">
                 <div class="jumbotron">
                     <h2>Partager votre liste</h2>
                     <p>
-                        <a href="#">Pourquoi une liste?</a>
+                        <a data-toggle="modal" data-target="#modalWhyAList">Pourquoi une liste?</a>
                     </p>
                     <p>
                         <a class="btn btn-primary" href="{{ path('fos_user_security_login') }}">
@@ -60,10 +69,35 @@
             </div>
         </div>
 
+        {#
         <div class="row">
             <div class="col-md-12 jumbotron">
                 C'est noël, et vous ne savez pas comment faire pour savoir qui va offrir quels cadeaux ? <br />
                 <a href="#" class="btn btn-info">Voici quelques idées...</a>
+            </div>
+        </div>
+        #}
+
+
+        <div class="modal fade" id="modalWhyAList" tabindex="-1" role="dialog"
+             aria-labelledby="modalWhyAList" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            Simplifiez vos listes de cadeau.<br />
+                            Toujours à jour, plus besoin de demander ce que vous souhaitez.<br />
+                            De plus, vous garderez la surprise jusqu'à ce que vous recevez vos cadeau.<br />
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                    </div>
+                </div>
             </div>
         </div>
 
