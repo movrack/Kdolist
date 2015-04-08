@@ -1,12 +1,16 @@
 {
   "name": "KDOlist",
   "version": "1.0.0",
+  "authors": [
+      "Manuel Servais "
+  ],
   "license": "private",
   "private": true,
   "ignore": [
     "**/.*",
     "node_modules",
     "bower_components",
+    "app/Resources/lib",
     "test",
     "tests"
   ],
@@ -14,4 +18,3 @@
     "fontawesome": "4.2.0"
   }
 }
-

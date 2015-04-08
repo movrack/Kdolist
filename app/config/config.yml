@@ -3,7 +3,6 @@ imports:
     - { resource: security.yml }
     - { resource: config/doctrine_extensions.yml }
     - { resource: config/hwi.yml }
-    - { resource: config/assetic.yml }
 #- { resource: config/google.yml }
 
 framework:

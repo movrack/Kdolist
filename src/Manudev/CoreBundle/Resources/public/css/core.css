@@ -1,0 +1,11 @@
+body {
+  margin-top: 3em;
+}
+.right {
+  text-align: right;
+}
+footer {
+  color: #666666;
+  background: black;
+  padding: 0.5em;
+}

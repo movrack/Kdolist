@@ -1,26 +1,18 @@
-{% extends 'MopaBootstrapBundle::base_initializr.html.twig' %}
+{% extends '::mopaBase_initializr.html.twig' %}
 
 {% block title %}KDOlist{% endblock title %}
 
 {% block head_style %}
     {{ parent() }}
-    {% stylesheets  filter='?yui_css' output='css/min.css'
-        '@ManudevCoreBundle/Resources/public/css/main.css'
-        '@ManudevUserBundle/Resources/public/css/User.css'
-        '@ManudevKDOBundle/Resources/public/css/Kdo.css'
-    %}
-    <link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="screen" />
-    {% endstylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/main.css') }}">
     <link rel="stylesheet" href="{{ asset('css/fontawesome.css') }}">
+{% endblock head_style %}
 
-
-{% endblock head_style %} 
-    
 {% block head_scripts %}
     {{ parent() }}
 {% endblock head_scripts %}
 
-        
+
 {% block body %}
     {% include '::navbar.html.twig'%}
     {% block container %}
@@ -90,11 +82,10 @@
     {% endblock container %}
 
     {% include '::footer.html.twig' %}
-        
+
     {% block body_end_before_js %}
     {% endblock body_end_before_js %}
     {% include '::footScripts.html.twig' %}
     {% block page_script %}
     {% endblock page_script %}
 {% endblock body %}
-        

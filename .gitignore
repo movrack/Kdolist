@@ -7,12 +7,14 @@
 !app/logs/.gitkeep
 /build/
 /vendor/
+/node_modules/
 /bin/
 /composer.phar
 .idea
-web/css
-web/js
+.tmp
+/web/css
+/web/js
 deployToRemote.sh
-/src/KDO/Bundle/KDOBundle/Resources/public/bower
+/src/Manudev/CoreBundle/Resources/public/bower
 /web/fonts/
 /web/uploads/
