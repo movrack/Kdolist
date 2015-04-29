@@ -15,7 +15,7 @@
         "doctrine/orm": "~2.2,>=2.2.3",
         "incenteev/composer-parameter-handler": "~2.0",
         "friendsofsymfony/user-bundle": "~2.0@dev",
-        "gedmo/doctrine-extensions":      "dev-master",
+        "gedmo/doctrine-extensions": "~2.3.1",
         "hwi/oauth-bundle": "0.4.*@dev",
         "jms/debugging-bundle": "dev-master",
         "jms/di-extra-bundle": "dev-master",
