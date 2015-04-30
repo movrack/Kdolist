@@ -8,6 +8,7 @@
 /build/
 /vendor/
 /node_modules/
+/bower_modules/
 /bin/
 /composer.phar
 .idea

@@ -1,4 +1,4 @@
 {
-  "directory": "src/Manudev/CoreBundle/Resources/public/bower",
+  "directory": "bower_modules",
   "json": "bower.json"
 }

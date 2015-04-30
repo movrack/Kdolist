@@ -4,7 +4,14 @@ module.exports = function(grunt) {
 
     // Configuration des plugins
     grunt.initConfig({
-
+        bower: {
+            install: {
+                options: {
+                    verbose: true,
+                    targetDir: "bower_modules"
+                }
+            }
+        },
         less: {
             dist: {
                 options: {
@@ -14,8 +21,8 @@ module.exports = function(grunt) {
                 },
                 files: {
                     ".tmp/css/main.css": [
-                        "src/Manudev/CoreBundle/Resources/public/bower/bootstrap/less/bootstrap.less",
-                        "src/Manudev/CoreBundle/Resources/public/bower/fontawesome/less/font-awesome.less",
+                        "bower_modules/bootstrap/less/bootstrap.less",
+                        "bower_modules/fontawesome/less/font-awesome.less",
                         "src/Manudev/CoreBundle/Resources/public/css/core.css",
                         "src/Manudev/UserBundle/Resources/public/css/user.css",
                         "src/Manudev/KDOBundle/Resources/public/css/kdo.css"
@@ -45,18 +52,18 @@ module.exports = function(grunt) {
             dist: {
                 files: {
                     'web/js/main.js': [
-                        "src/Manudev/CoreBundle/Resources/public/bower/bootstrap/js/affix.js",
-                        "src/Manudev/CoreBundle/Resources/public/bower/bootstrap/js/alert.js",
-                        "src/Manudev/CoreBundle/Resources/public/bower/bootstrap/js/button.js",
-                        "src/Manudev/CoreBundle/Resources/public/bower/bootstrap/js/carousel.js",
-                        "src/Manudev/CoreBundle/Resources/public/bower/bootstrap/js/collapse.js",
-                        "src/Manudev/CoreBundle/Resources/public/bower/bootstrap/js/dropdown.js",
-                        "src/Manudev/CoreBundle/Resources/public/bower/bootstrap/js/modal.js",
-                        "src/Manudev/CoreBundle/Resources/public/bower/bootstrap/js/tooltip.js",
-                        "src/Manudev/CoreBundle/Resources/public/bower/bootstrap/js/popover.js",
-                        "src/Manudev/CoreBundle/Resources/public/bower/bootstrap/js/scrollspy.js",
-                        "src/Manudev/CoreBundle/Resources/public/bower/bootstrap/js/tab.js",
-                        "src/Manudev/CoreBundle/Resources/public/bower/bootstrap/js/transition.js",
+                        "bower_modules/bootstrap/js/affix.js",
+                        "bower_modules/bootstrap/js/alert.js",
+                        "bower_modules/bootstrap/js/button.js",
+                        "bower_modules/bootstrap/js/carousel.js",
+                        "bower_modules/bootstrap/js/collapse.js",
+                        "bower_modules/bootstrap/js/dropdown.js",
+                        "bower_modules/bootstrap/js/modal.js",
+                        "bower_modules/bootstrap/js/tooltip.js",
+                        "bower_modules/bootstrap/js/popover.js",
+                        "bower_modules/bootstrap/js/scrollspy.js",
+                        "bower_modules/bootstrap/js/tab.js",
+                        "bower_modules/bootstrap/js/transition.js",
 
                         "src/Manudev/CoreBundle/Resources/public/js/core.js",
                         "src/Manudev/UserBundle/Resources/public/js/user.js",
@@ -69,7 +76,7 @@ module.exports = function(grunt) {
             dist: {
                 files: [{
                     expand: true,
-                    cwd: 'src/Manudev/CoreBundle/Resources/public/bower/fontawesome/fonts',
+                    cwd: 'bower_modules/fontawesome/fonts',
                     dest: 'web/fonts',
                     src: ['**']
                 }]
@@ -92,6 +99,7 @@ module.exports = function(grunt) {
 
     // Déclaration des différentes tâches
     grunt.registerTask('default', ['css', 'javascript', 'copy']);
+    grunt.registerTask('install', ['bower', 'preen']);
     grunt.registerTask('css', ['less','cssmin']);
     grunt.registerTask('javascript', ['uglify']);
     grunt.registerTask('cp', ['copy']);
