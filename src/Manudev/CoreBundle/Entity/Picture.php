@@ -5,6 +5,7 @@ namespace Manudev\CoreBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Finder\Finder;
 
 define('FILES_DESTINATION', "uploads/pictures");
 /**
@@ -33,18 +34,6 @@ class Picture
      */
     protected $name;
 
-//    /**
-//     * @ORM\Column(name="mime_type", type="string")
-//     * @Gedmo\UploadableFileMimeType
-//     */
-//    private $mimeType;
-//
-//    /**
-//     * @ORM\Column(name="size", type="decimal")
-//     * @Gedmo\UploadableFileSize
-//     */
-//    private $size;
-
     /**
      * Virtual field to get an upload input in forms
      * @Assert\Image(
@@ -64,12 +53,6 @@ class Picture
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     protected $token;
-
-//    /**
-//     * Hack to detect a changed form with only picture_picture. Work with a small piece of JS on partners forms
-//     * @ORM\Column(type="integer", length=14, nullable=true)
-//     */
-//    protected $change;
 
     /**
      * Get id
@@ -105,52 +88,6 @@ class Picture
         return $this->name;
     }
 
-//    /**
-//     * Set mimeType
-//     *
-//     * @param string $mimeType
-//     * @return File
-//     */
-//    public function setMimeType($mimeType)
-//    {
-//        $this->mimeType = $mimeType;
-//
-//        return $this;
-//    }
-//
-//    /**
-//     * Get mimeType
-//     *
-//     * @return string
-//     */
-//    public function getMimeType()
-//    {
-//        return $this->mimeType;
-//    }
-//
-//    /**
-//     * Set size
-//     *
-//     * @param string $size
-//     * @return File
-//     */
-//    public function setSize($size)
-//    {
-//        $this->size = $size;
-//
-//        return $this;
-//    }
-//
-//    /**
-//     * Get size
-//     *
-//     * @return string
-//     */
-//    public function getSize()
-//    {
-//        return $this->size;
-//    }
-
     /**
      * Set token
      *
@@ -174,29 +111,6 @@ class Picture
         return $this->token;
     }
 
-//    /**
-//     * Set change
-//     *
-//     * @param integer $change
-//     * @return Picture
-//     */
-//    public function setChange($change)
-//    {
-//        $this->change = $change;
-//
-//        return $this;
-//    }
-//
-//    /**
-//     * Get change
-//     *
-//     * @return integer
-//     */
-//    public function getChange()
-//    {
-//        return $this->change;
-//    }
-
     /************************************************/
     /*                                              */
     /*           methods                            */
@@ -206,6 +120,7 @@ class Picture
     public function getUploadRootDir()
     {
         // the absolute directory path where uploaded documents should be saved
+        
         return __DIR__.'/../../../../web/'.$this->getUploadDir();
     }
 
@@ -236,7 +151,6 @@ class Picture
         }
         $thumbnail_info = \pathinfo($this->getAbsolutePath());
         if (is_array($thumbnail_info && array_key_exists('name', $thumbnail_info))) {
-            print_r($thumbnail_info);
             return $this->getUploadRootDir().'/'.$thumbnail_info['name'].'_small.'.$thumbnail_info['extension'];
         } else {
             return null;

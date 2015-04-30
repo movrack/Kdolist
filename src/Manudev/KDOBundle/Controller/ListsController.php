@@ -411,8 +411,8 @@ class ListsController extends Controller
             foreach( $list->getOwners() as $owner) {
                 $list->getOwners()->removeElement($owner);
                 $this->em->remove($owner);
-                $this->em->flush();
             }
+            $this->em->flush();
 
             $parent = $list->getParent();
             $list->setParent(null);

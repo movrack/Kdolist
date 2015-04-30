@@ -418,7 +418,7 @@ class Gift
 
     public function isAvailable()
     {
-        return !$this->isReserved() and !$this->isGived();
+        return !$this->isReserved() && !$this->isGived();
     }
 
     public function totalReserved() {
