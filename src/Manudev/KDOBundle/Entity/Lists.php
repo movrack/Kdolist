@@ -797,6 +797,10 @@ class Lists
      */
     public function percentGived()
     {
-        return $this->totalGived() / $this->totalPrice() * 100;
+        $nbAvailable = $this->availableGifts()->count();
+        if ($nbAvailable == 0) {
+            return 0;
+        }
+        return $this->totalGived() / $nbAvailable * 100;
     }
 }
