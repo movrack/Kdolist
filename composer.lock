@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "9aa6a809e3723eebf980675c59b76d29",
+    "hash": "7d2bcdac271c4b55d59b13d36b2267a6",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -1049,12 +1049,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfSymfony/FOSUserBundle.git",
-                "reference": "666afc973daac7bad8478a47d94d10178358b0ae"
+                "reference": "7bdbe66c90a27b2f8298230309ad8d0cfec1cb6e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/666afc973daac7bad8478a47d94d10178358b0ae",
-                "reference": "666afc973daac7bad8478a47d94d10178358b0ae",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/7bdbe66c90a27b2f8298230309ad8d0cfec1cb6e",
+                "reference": "7bdbe66c90a27b2f8298230309ad8d0cfec1cb6e",
                 "shasum": ""
             },
             "require": {
@@ -1108,7 +1108,7 @@
             "keywords": [
                 "User management"
             ],
-            "time": "2015-04-30 13:32:37"
+            "time": "2015-05-01 08:19:36"
         },
         {
             "name": "gedmo/doctrine-extensions",
@@ -1187,6 +1187,63 @@
                 "uploadable"
             ],
             "time": "2015-02-24 21:41:37"
+        },
+        {
+            "name": "hearsay/require-js-bundle",
+            "version": "dev-master",
+            "target-dir": "Hearsay/RequireJSBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/hearsayit/HearsayRequireJSBundle.git",
+                "reference": "e988f07ebefdea91de1df5a3871c6f27f7e65086"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/hearsayit/HearsayRequireJSBundle/zipball/e988f07ebefdea91de1df5a3871c6f27f7e65086",
+                "reference": "e988f07ebefdea91de1df5a3871c6f27f7e65086",
+                "shasum": ""
+            },
+            "require": {
+                "kriswallsmith/assetic": ">= 1.0",
+                "php": ">=5.3.2",
+                "symfony/finder": ">=2.0",
+                "symfony/framework-bundle": ">=2.0.9",
+                "symfony/yaml": ">=2.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "3.7.*",
+                "squizlabs/php_codesniffer": "1.*",
+                "twig/extensions": "v1.0.0"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Hearsay\\RequireJSBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Kevin Montag",
+                    "email": "kmontag@cs.stanford.edu"
+                }
+            ],
+            "description": "This bundle provides integration of the RequireJS library into Symfony2",
+            "keywords": [
+                "amd",
+                "commonjs",
+                "requirejs",
+                "rjs"
+            ],
+            "time": "2014-03-27 10:06:40"
         },
         {
             "name": "hwi/oauth-bundle",
@@ -1653,6 +1710,80 @@
                 "yaml"
             ],
             "time": "2014-07-12 07:13:19"
+        },
+        {
+            "name": "kriswallsmith/assetic",
+            "version": "v1.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kriswallsmith/assetic.git",
+                "reference": "b20efe38845d20458702f97f3ff625d80805897b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kriswallsmith/assetic/zipball/b20efe38845d20458702f97f3ff625d80805897b",
+                "reference": "b20efe38845d20458702f97f3ff625d80805897b",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.1",
+                "symfony/process": "~2.1"
+            },
+            "require-dev": {
+                "cssmin/cssmin": "*",
+                "joliclic/javascript-packer": "*",
+                "kamicane/packager": "*",
+                "leafo/lessphp": "*",
+                "leafo/scssphp": "*",
+                "leafo/scssphp-compass": "*",
+                "mrclay/minify": "*",
+                "patchwork/jsqueeze": "~1.0",
+                "phpunit/phpunit": "~4",
+                "psr/log": "~1.0",
+                "ptachoire/cssembed": "*",
+                "twig/twig": "~1.6"
+            },
+            "suggest": {
+                "leafo/lessphp": "Assetic provides the integration with the lessphp LESS compiler",
+                "leafo/scssphp": "Assetic provides the integration with the scssphp SCSS compiler",
+                "leafo/scssphp-compass": "Assetic provides the integration with the SCSS compass plugin",
+                "patchwork/jsqueeze": "Assetic provides the integration with the JSqueeze JavaScript compressor",
+                "ptachoire/cssembed": "Assetic provides the integration with phpcssembed to embed data uris",
+                "twig/twig": "Assetic provides the integration with the Twig templating engine"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.2-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Assetic": "src/"
+                },
+                "files": [
+                    "src/functions.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Kris Wallsmith",
+                    "email": "kris.wallsmith@gmail.com",
+                    "homepage": "http://kriswallsmith.net/"
+                }
+            ],
+            "description": "Asset Management for PHP",
+            "homepage": "https://github.com/kriswallsmith/assetic",
+            "keywords": [
+                "assets",
+                "compression",
+                "minification"
+            ],
+            "time": "2014-12-12 05:04:05"
         },
         {
             "name": "kriswallsmith/buzz",
@@ -2610,6 +2741,7 @@
         "doctrine/doctrine-migrations-bundle": 20,
         "doctrine/migrations": 20,
         "friendsofsymfony/user-bundle": 20,
+        "hearsay/require-js-bundle": 20,
         "hwi/oauth-bundle": 20,
         "jms/debugging-bundle": 20,
         "jms/di-extra-bundle": 20,

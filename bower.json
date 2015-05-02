@@ -18,7 +18,8 @@
     "fontawesome": "4.2.0",
     "bootstrap": "~3.3.4",
     "underscore": "~1.8.3",
-    "requirejs": "~2.1.17"
+    "requirejs": "~2.1.17",
+    "palas": "git@github.com:movrack/palas.git"
   },
   "preen": {
     "jquery": [ "dist/*.js" ],

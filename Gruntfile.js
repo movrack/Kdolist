@@ -4,14 +4,6 @@ module.exports = function(grunt) {
 
     // Configuration des plugins
     grunt.initConfig({
-        bower: {
-            install: {
-                options: {
-                    verbose: true,
-                    targetDir: "bower_modules"
-                }
-            }
-        },
         less: {
             dist: {
                 options: {
@@ -20,12 +12,14 @@ module.exports = function(grunt) {
                     optimization: 3
                 },
                 files: {
-                    ".tmp/css/main.css": [
+                    "web/assets/tmp/css/vendor.css": [
                         "bower_modules/bootstrap/less/bootstrap.less",
-                        "bower_modules/fontawesome/less/font-awesome.less",
-                        "src/Manudev/CoreBundle/Resources/public/css/core.css",
-                        "src/Manudev/UserBundle/Resources/public/css/user.css",
-                        "src/Manudev/KDOBundle/Resources/public/css/kdo.css"
+                        "bower_modules/fontawesome/less/font-awesome.less"
+                    ],
+                    "web/assets/tmp/css/main.css": [
+                        "web/assets/src/CoreBundle/Resources/public/css/core.css",
+                        "web/assets/src/UserBundle/Resources/public/css/user.css",
+                        "web/assets/src/KDOBundle/Resources/public/css/kdo.css"
                     ]
                 }
             }
@@ -33,51 +27,100 @@ module.exports = function(grunt) {
         cssmin: {
             combine: {
                 options:{
-                    report: 'min',
-                        keepSpecialComments: 0
+                    report: 'gzip',
+                    keepSpecialComments: 0,
+                    sourceMap: true
                 },
-                files: {
-                    'web/css/main.css': [
-                        '.tmp/css/**/*.css'
-                    ]
-                }
+                files: [
+                    {
+                        expand: true,
+                        cwd: 'web/assets/tmp/css',
+                        src: '**/*.css',
+                        dest: 'web/assets/css',
+                        ext: '.css'
+                    }
+                ]
             }
         },
 
         uglify: {
             options: {
-                mangle: false,
+                beautify: false,
+                mangle: {
+                    except: ['jquery', 'underscore']
+                },
                 sourceMap: true
             },
             dist: {
-                files: {
-                    'web/js/main.js': [
-                        "bower_modules/bootstrap/js/affix.js",
-                        "bower_modules/bootstrap/js/alert.js",
-                        "bower_modules/bootstrap/js/button.js",
-                        "bower_modules/bootstrap/js/carousel.js",
-                        "bower_modules/bootstrap/js/collapse.js",
-                        "bower_modules/bootstrap/js/dropdown.js",
-                        "bower_modules/bootstrap/js/modal.js",
-                        "bower_modules/bootstrap/js/tooltip.js",
-                        "bower_modules/bootstrap/js/popover.js",
-                        "bower_modules/bootstrap/js/scrollspy.js",
-                        "bower_modules/bootstrap/js/tab.js",
-                        "bower_modules/bootstrap/js/transition.js",
-
-                        "src/Manudev/CoreBundle/Resources/public/js/core.js",
-                        "src/Manudev/UserBundle/Resources/public/js/user.js",
-                        "src/Manudev/KDOBundle/Resources/public/js/kdo.js"
-                    ]
-                }
+                files: [
+                    {
+                        'web/assets/js/require.js' : [
+                            "bower_modules/requirejs/require.js"
+                        ],
+                        'web/assets/js/jquery.js' : [
+                            "bower_modules/jquery/dist/jquery.min.js"
+                        ],
+                        'web/assets/js/bootstrap.js': [
+                            "bower_modules/bootstrap/dist/js/bootstrap.min.js"
+                        ],
+                        'web/assets/js/boot.js' : [
+                            "src/Manudev/CoreBundle/Resources/public/js/boot.js"
+                        ],
+                        'web/assets/js/main.js' : [
+                            "web/assets/src/CoreBundle/Resources/public/js/main.js",
+                            "web/assets/src/UserBundle/Resources/public/js/main.js",
+                            "web/assets/src/KDOBundle/Resources/public/js/main.js"
+                        ]
+                    },
+                    {
+                        expand: true,
+                        cwd: 'web/assets/src/KDOBundle/Resources/public/js',
+                        src: '*/**/*.js',
+                        dest: 'web/assets/js/kdo'
+                    },
+                    {
+                        expand: true,
+                        cwd: 'web/assets/src/UserBundle/Resources/public/js',
+                        src: '*/**/*.js',
+                        dest: 'web/assets/js/user'
+                    },
+                    {
+                        expand: true,
+                        cwd: 'web/assets/src/CoreBundle/Resources/public/js',
+                        src: '*/**/*.js',
+                        dest: 'web/assets/js/core'
+                    }
+                ]
             }
         },
         copy: {
+            src: {
+                files: [
+                    {
+                        expand: true,
+                        cwd: 'src/Manudev/',
+                        dest: 'web/assets/src',
+                        src: ['**/Resources/public/js/**/*.js']
+                    },
+                    {
+                        expand: true,
+                        cwd: 'src/Manudev/',
+                        dest: 'web/assets/src',
+                        src: ['**/Resources/public/css/**/*.css']
+                    },
+                    {
+                        expand: true,
+                        cwd: 'src/Manudev/',
+                        dest: 'web/assets/src',
+                        src: ['**/Resources/public/less/**/*.less']
+                    }
+                ]
+            },
             dist: {
                 files: [{
                     expand: true,
                     cwd: 'bower_modules/fontawesome/fonts',
-                    dest: 'web/fonts',
+                    dest: 'web/assets/fonts',
                     src: ['**']
                 }]
             }
@@ -98,9 +141,7 @@ module.exports = function(grunt) {
     });
 
     // Déclaration des différentes tâches
-    grunt.registerTask('default', ['css', 'javascript', 'copy']);
-    grunt.registerTask('install', ['bower', 'preen']);
+    grunt.registerTask('default', ['copy:src', 'css', 'javascript', 'copy:dist']);
     grunt.registerTask('css', ['less','cssmin']);
     grunt.registerTask('javascript', ['uglify']);
-    grunt.registerTask('cp', ['copy']);
 };

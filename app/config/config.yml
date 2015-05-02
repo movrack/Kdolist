@@ -6,7 +6,7 @@ imports:
 #- { resource: config/google.yml }
 
 framework:
-    #esi:             ~
+    #esi:            ~
     translator:      { fallback: "%locale%" }
     secret:          "%secret%"
     router:

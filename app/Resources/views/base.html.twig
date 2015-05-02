@@ -4,8 +4,8 @@
 
 {% block head_style %}
     {{ parent() }}
-    <link rel="stylesheet" href="{{ asset('css/main.css') }}">
-    {#<link rel="stylesheet" href="{{ asset('css/fontawesome.css') }}">#}
+    <link rel="stylesheet" href="{{ asset('assets/css/vendor.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
 {% endblock head_style %}
 
 {% block head_scripts %}
@@ -83,9 +83,10 @@
 
     {% include '::footer.html.twig' %}
 
+    {% block requirejs %}{% endblock %}
+
     {% block body_end_before_js %}
     {% endblock body_end_before_js %}
-    {% include '::footScripts.html.twig' %}
     {% block page_script %}
     {% endblock page_script %}
 {% endblock body %}

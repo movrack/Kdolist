@@ -1,0 +1,31 @@
+
+<script data-main="/assets/js/boot" src="{{ asset('assets/js/require.js') }}"></script>
+<script>
+    require(['boot'], function(boot){
+        require(['{{ module }}']);
+    });
+</script>
+
+{% if google['analytics'] is defined %}
+    <script>
+        (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+                function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+            e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+            e.src='//www.google-analytics.com/analytics.js';
+            r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+        ga('create','{{ google['analytics'] }}');ga('send','pageview');
+        {% if google['extendedanalytics'] %}
+        ga('require', 'displayfeatures');
+        {% endif %}
+    </script>
+{% endif %}
+
+{# Load jQuery from Google CDN
+    http://encosia.com/3-reasons-why-you-should-let-google-host-jquery-for-you/
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>#}
+
+{# Asynchronous Google Analytics snippet grabbed from:
+   http://mathiasbynens.be/notes/async-analytics-snippet#dont-push-it #}
+    {# more GA tweaks:
+       http://html5boilerplate.com/docs/ga-augments/ #}
+
