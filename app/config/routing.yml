@@ -1,3 +1,8 @@
+manudev_kdo_web_frontend:
+    resource: "@ManudevKDOWebFrontendBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 manudev_core:
     resource: "@ManudevCoreBundle/Controller/"
     type:     annotation
