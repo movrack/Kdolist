@@ -19,3 +19,5 @@ deployToRemote.sh
 /src/Manudev/CoreBundle/Resources/public/bower
 /web/fonts/
 /web/uploads/
+
+src/Manudev/KDOWebFrontendBundle
