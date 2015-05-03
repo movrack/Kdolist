@@ -6,13 +6,10 @@ use Manudev\UserBundle\Entity\User;
 use Manudev\UserBundle\Entity\BankAccount;
 use Manudev\UserBundle\Form\BankAccountType;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use FOS\UserBundle\Controller\ProfileController as BaseController;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use JMS\DiExtraBundle\Annotation as DI;
 
@@ -182,5 +179,4 @@ class ProfileController extends BaseController
 
         return $this->redirect($this->generateUrl('profile'));
     }
-
 }

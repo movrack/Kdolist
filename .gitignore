@@ -10,7 +10,6 @@
 /bower_modules/
 /bin/
 /composer.phar
-.idea
 .tmp
 /web/assets
 deployToRemote.sh

@@ -11,7 +11,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Manudev\KDOBundle\Entity\Gift;
 use Manudev\KDOBundle\Entity\Lists;
 use Manudev\KDOBundle\Form\GiftType;
-use JMS\DiExtraBundle\Annotation as DI;
 
 /**
  * Gift controller.
@@ -159,7 +158,6 @@ class GiftController extends Controller
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 
-        // Todo Why is not working ?
         if ($editForm->isValid()) {
 
             $em = $this->getDoctrine()->getManager();

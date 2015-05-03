@@ -2,7 +2,6 @@
 
 namespace Manudev\KDOBundle\Controller;
 
-use Symfony\Component\Finder\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -280,7 +279,7 @@ class ListsController extends Controller
         }
 
         $deleteForm = $this->createDeleteForm($entity);
-        if($entity->getParent() != null) {
+        if($entity->getParent() !== null) {
             $editForm = $this->createSubListEditForm($entity);
         } else {
             $editForm = $this->createEditForm($entity);
@@ -302,7 +301,7 @@ class ListsController extends Controller
 
 
             foreach ($originalOwners as $owner) {
-                if ($entity->getOwners()->contains($owner) == false) {
+                if ($entity->getOwners()->contains($owner) === false) {
                     $owner->getList()->removeElement($entity);
                 }
             }
@@ -423,7 +422,7 @@ class ListsController extends Controller
             $this->get('session')->getFlashBag()->add('error', 'entity.delete.error');
         }
 
-        if ($parent != null) {
+        if ($parent !== null) {
             return $this->redirect($this->generateUrl('lists_show', array('id' => $parent->getId())));
         }
         return $this->redirect($this->generateUrl('lists'));

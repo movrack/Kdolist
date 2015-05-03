@@ -12,7 +12,6 @@ use JMS\DiExtraBundle\Annotation as DI;
 use Manudev\UserBundle\Entity\User;
 use Manudev\KDOBundle\Entity\Lists;
 use Manudev\KDOBundle\Entity\Gift;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -71,7 +70,7 @@ class PublicListController extends Controller
                 'attr' => array('placeholder' => 'Nom')
             ));
 
-        if($gift->getAccepteMultipleParts() && $gift->getPrice() != null) {
+        if($gift->getAccepteMultipleParts() && $gift->getPrice() !== null) {
             $form->add('numberOfParts', 'integer', array(
                 'data' => 1,
                 'attr' => array(
@@ -80,7 +79,7 @@ class PublicListController extends Controller
                 ),
             ));
         }
-        else if ($gift->getPrice() != null) {
+        else if ($gift->getPrice() !== null) {
             $form->add('price', 'number', array(
                 'data' => $gift->getPrice(),
                 'disabled' => true,
@@ -170,11 +169,11 @@ class PublicListController extends Controller
         $numberOfParts = 1;
         $price = $gift->getPrice();
 
-        if($gift->getAccepteMultipleParts() && $gift->getPrice() != null) {
+        if($gift->getAccepteMultipleParts() && $gift->getPrice() !== null) {
             $numberOfParts = $form->get('numberOfParts')->getData();
 
             $price = $numberOfParts * $gift->partValue();
-        } else if ($gift->getPrice() != null) {
+        } else if ($gift->getPrice() !== null) {
             $price = $gift->getPrice();
         }
 

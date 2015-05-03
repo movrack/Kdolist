@@ -18,15 +18,15 @@
         "gedmo/doctrine-extensions": "~2.3.1",
         "hwi/oauth-bundle": "0.4.*@dev",
         "jms/debugging-bundle": "dev-master",
-        "jms/di-extra-bundle": "dev-master",
-        "mopa/bootstrap-bundle": "dev-master",
+        "jms/di-extra-bundle": "1.5.*@dev",
+        "mopa/bootstrap-bundle": "v3.0.0-beta4",
         "sensio/distribution-bundle": "~3.0",
         "sensio/framework-extra-bundle": "~3.0",
         "stof/doctrine-extensions-bundle": "1.2.*@dev",
         "symfony/monolog-bundle": "~2.4",
         "symfony/symfony": "2.6.*",
         "symfony/swiftmailer-bundle": "~2.3",
-        "twbs/bootstrap": "dev-master",
+        "twbs/bootstrap": "3.3.*@dev",
         "twig/extensions": "~1.0"
     },
     "require-dev": {

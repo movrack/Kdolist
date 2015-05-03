@@ -8,7 +8,6 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 use Manudev\CoreBundle\Form\PictureType;
 use Manudev\UserBundle\Entity\User;
-use Manudev\UserBundle\Repository\UserRepository;
 use Manudev\UserBundle\Repository\BankAccountRepository;
 
 class ListsType extends AbstractType

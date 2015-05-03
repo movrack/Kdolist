@@ -5,7 +5,6 @@ namespace Manudev\CoreBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Finder\Finder;
 
 define('FILES_DESTINATION', "uploads/pictures");
 /**
@@ -146,7 +145,7 @@ class Picture
 
     public function getThumbnailAbsolutePath()
     {
-        if (($this->getId() === null) || ($this->getName() == null)) {
+        if (($this->getId() === null) || ($this->getName() === null)) {
             return null;
         }
         $thumbnail_info = \pathinfo($this->getAbsolutePath());
@@ -161,7 +160,7 @@ class Picture
     public function getThumbnailWebPath()
     {
 
-        if (($this->getId() === null) || ($this->getName() == null)) {
+        if (($this->getId() === null) || ($this->getName() === null)) {
             return null;
         }
         $thumbnail_info = \pathinfo($this->getAbsolutePath());
@@ -193,7 +192,7 @@ class Picture
         }
 
         // pictureToken is mandatory to upload a picture through flash upload
-        if ($this->getToken() == null) {
+        if ($this->getToken() === null) {
             $this->token = md5(uniqid(null, true));
         }
     }
@@ -210,7 +209,7 @@ class Picture
         }
 
         $this->picture->move($this->getUploadRootDir(), $this->name);
-
+// TODO
 //        unset($this->picture);
     }
 

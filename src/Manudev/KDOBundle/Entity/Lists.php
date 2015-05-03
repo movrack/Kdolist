@@ -5,7 +5,6 @@ namespace Manudev\KDOBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Component\Validator\Constraints as Assert;
 use Manudev\CoreBundle\Entity\Picture;
 
 
@@ -456,7 +455,7 @@ class Lists
      */
     public function addChild(\Manudev\KDOBundle\Entity\Lists $children)
     {
-        if ($children->getParent() != null) {
+        if ($children->getParent() !== null) {
             return $this;
         }
 
@@ -485,7 +484,7 @@ class Lists
     public function removeChild(\Manudev\KDOBundle\Entity\Lists $child)
     {
         $this->children->removeElement($child);
-        if ($child->getParent() != null) {
+        if ($child->getParent() !== null) {
             $child->setParent(null);
         }
     }
@@ -508,10 +507,10 @@ class Lists
      */
     public function setParent(\Manudev\KDOBundle\Entity\Lists $parent = null)
     {
-        if ($parent == null) {
+        if ($parent === null) {
             $thisParent = $this->getParent();
             $this->parent = null;
-            if($thisParent != null) {
+            if($thisParent !== null) {
                 $thisParent->removeChild($this);
             }
             return $this;
@@ -546,7 +545,7 @@ class Lists
 
     public function getRootParent()
     {
-        if ($this->parent == null) {
+        if ($this->parent === null) {
             return $this;
         }
         return $this->parent->getRootParent();
@@ -579,7 +578,7 @@ class Lists
      * @return string
      */
     public function getListPath() {
-        if ($this->parent == null) {
+        if ($this->parent === null) {
             return $this->title;
         } else {
             return $this->getParent()->getListPath() . " > " . $this->title;

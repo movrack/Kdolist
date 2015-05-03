@@ -3,7 +3,6 @@
 namespace Manudev\UserBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
-use Manudev\UserBundle\Entity\User;
 
 /**
  * KdoRepository
