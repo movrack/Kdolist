@@ -12,6 +12,4 @@
 /composer.phar
 .tmp
 /web/assets
-deployToRemote.sh
 /web/uploads/
-/src/Manudev/KDOWebFrontendBundle/demo/
