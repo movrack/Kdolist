@@ -19,10 +19,20 @@
     "bootstrap": "~3.3.4",
     "underscore": "~1.8.3",
     "requirejs": "~2.1.17",
-    "palas": "git@github.com:movrack/palas.git"
+    "palas": "git@github.com:movrack/palas.git",
+    "jquery": "~2.1.4",
+    "modernizr": "~2.8.3"
   },
   "preen": {
-    "jquery": [ "dist/*.js" ],
-    "requirejs": [ "*.js", "*.md" ]
+    "jquery": [
+      "dist/*.js"
+    ],
+    "requirejs": [
+      "*.js",
+      "*.md"
+    ]
+  },
+  "resolutions": {
+    "angular": "1.4.0-rc.1"
   }
 }

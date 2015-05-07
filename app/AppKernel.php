@@ -24,8 +24,8 @@ class AppKernel extends Kernel
             new Manudev\KDOBundle\ManudevKDOBundle(),
             new Manudev\UserBundle\ManudevUserBundle(),
             new Manudev\CoreBundle\ManudevCoreBundle(),
-            new Manudev\KDOWebFrontendBundle\ManudevKDOWebFrontendBundle(),
             new Manudev\KDOApiBundle\ManudevKDOApiBundle(),
+            new Manudev\KDOGuiBundle\ManudevKDOGuiBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

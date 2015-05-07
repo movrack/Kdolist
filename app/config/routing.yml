@@ -1,10 +1,10 @@
+manudev_kdo_gui:
+    resource: "@ManudevKDOGuiBundle/Controller/"
+    type:     annotation
+    prefix:   /gui
+
 manudev_kdo_api:
     resource: "@ManudevKDOApiBundle/Controller/"
-    type:     annotation
-    prefix:   /
-
-manudev_kdo_web_frontend:
-    resource: "@ManudevKDOWebFrontendBundle/Controller/"
     type:     annotation
     prefix:   /
 

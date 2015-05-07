@@ -1,6 +1,6 @@
 <?php
 
-namespace Manudev\KDOWebFrontendBundle\Tests\Controller;
+namespace Manudev\KDOGuiBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 

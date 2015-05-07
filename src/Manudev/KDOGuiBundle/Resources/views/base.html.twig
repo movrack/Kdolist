@@ -1,0 +1,54 @@
+<!doctype html>
+<html class="no-js" lang="{{ app.request.locale }}" ng-app="kdoapp" >
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>{% block title %}KdoList{% endblock %}</title>
+    <meta name="description" content="Kdolist, gérer facilement votre liste de cadeau et partagé la à vos amis et votre famille.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+    <link rel="stylesheet" href="{{ asset('assets/css/normalize.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
+    <script src="{{ asset('assets/js/modernizr.min.js') }}"></script>
+</head>
+<body>
+<!--[if lt IE 8]>
+<p class="browserupgrade">Vous utilisez un un navigateur <strong>dépassé</strong>.
+    Veuillez <a href="http://browsehappy.com/">mettre à jour votre navigateur</a>
+    pour améliorer votre expérience.</p>
+
+<p class="browserupgrade">You are using an <strong>outdated</strong> browser.
+    Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+<![endif]-->
+<div id="#content" ng-controller="MainController as main">
+{% block content %}{% endblock %}
+    <div ng-controller="BrowserController">
+
+        <p ng-show="browser.supportsDatetimeLocalInput">Modernizr says datetime-local is supported!</p>
+        <p ng-show="browser.supportsEmailInput">Modernizr says email is supported!</p>
+    </div>
+</div>
+{#
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="{{ asset('assets/js/jquery.min.js') }}"><\/script>')</script>
+<script type="text/javascript" src="{{ asset('assets/js/plugins.js') }}"></script>
+#}
+<script type="text/javascript" src="{{ asset('assets/js/angular.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/js/app.js') }}"></script>
+
+<!-- Google Analytic -->
+{% if google['analytics'] is defined %}
+<script>
+    (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+            function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+        e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+        e.src='https://www.google-analytics.com/analytics.js';
+        r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+    ga('create','{{ google['analytics']}} }}','auto');ga('send','pageview');
+</script>
+{% endif %}
+
+</body>
+</html>
