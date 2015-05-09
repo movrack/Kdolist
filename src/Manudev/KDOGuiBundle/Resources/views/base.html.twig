@@ -8,10 +8,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
-
+{#
     <link rel="stylesheet" href="{{ asset('assets/css/normalize.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
-    <script src="{{ asset('assets/js/modernizr.min.js') }}"></script>
+#}
+    <!-- CSS files -->
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:100,300,400,600,700,900,400italic|Montserrat:400,700' rel='stylesheet'>
+    <link rel="stylesheet" href="/assets/gui/libs/palas/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/gui/libs/palas/plugins/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/assets/gui/libs/palas/plugins/elegant_font/html_css/style.css">
+    <link rel="stylesheet" href="/assets/gui/libs/palas/plugins/rs-plugin/css/settings.css" media="screen">
+    <link rel="stylesheet" href="/assets/gui/libs/palas/plugins/owl-carousel/owl.carousel.css">
+
+    <link rel="stylesheet" href="/assets/gui/libs/palas/css/style.css">
+    <link rel="stylesheet" href="/assets/gui/libs/palas/css/colors/yellow.css">
+    <!-- Main CSS file -->
+
 </head>
 <body>
 <!--[if lt IE 8]>
@@ -22,21 +33,40 @@
 <p class="browserupgrade">You are using an <strong>outdated</strong> browser.
     Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
 <![endif]-->
-<div id="#content" ng-controller="MainController as main">
-{% block content %}{% endblock %}
-    <div ng-controller="BrowserController">
 
-        <p ng-show="browser.supportsDatetimeLocalInput">Modernizr says datetime-local is supported!</p>
-        <p ng-show="browser.supportsEmailInput">Modernizr says email is supported!</p>
-    </div>
+<div id="preloader">
+    <div id="status">&nbsp;</div>
 </div>
-{#
+
+<!-- Global Wrapper -->
+<div id="wrapper" class="relative">
+    {% include ('ManudevKDOGuiBundle:base:topBar.html.twig') %}
+    {% include ('ManudevKDOGuiBundle:base:header.html.twig') %}
+
+    <section id="#content" ng-controller="MainController as main">
+        {% block content %}{% endblock %}
+    </section>
+
+    {% include ('ManudevKDOGuiBundle:base:footer.html.twig') %}
+
+</div>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="{{ asset('assets/js/jquery.min.js') }}"><\/script>')</script>
-<script type="text/javascript" src="{{ asset('assets/js/plugins.js') }}"></script>
-#}
-<script type="text/javascript" src="{{ asset('assets/js/angular.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/js/app.js') }}"></script>
+
+<script src="{{ asset('assets/gui/libs/palas/plugins/bootstrap/js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('assets/gui/libs/palas/plugins/rs-plugin/js/jquery.themepunch.tools.min.js') }}"></script>
+<script src="{{ asset('assets/gui/libs/palas/plugins/rs-plugin/js/jquery.themepunch.revolution.min.js') }}"></script>
+<script src="{{ asset('assets/gui/libs/palas/plugins/jquery.appear.js') }}"></script>
+<script src="{{ asset('assets/gui/libs/palas/plugins/retina.min.js') }}"></script>
+<script src="{{ asset('assets/gui/libs/palas/plugins/stellar.min.js') }}"></script>
+<script src="{{ asset('assets/gui/libs/palas/plugins/sticky.min.js') }}"></script>
+<script src="{{ asset('assets/gui/libs/palas/plugins/owl-carousel/owl.carousel.min.js') }}"></script>
+<script src="{{ asset('assets/gui/libs/palas/palas.js') }}"></script>
+
+
+<script type="text/javascript" src="{{ asset('assets/gui/libs/js/require.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/gui/js/require.js') }}"></script>
 
 <!-- Google Analytic -->
 {% if google['analytics'] is defined %}

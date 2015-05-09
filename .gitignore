@@ -12,4 +12,5 @@
 /composer.phar
 .tmp
 /web/assets
-/web/uploads/
+/web/uploads
+/web/palas
