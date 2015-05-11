@@ -7,8 +7,11 @@ requirejs.config({
             "https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.15/angular.min",
             "/assets/gui/libs/js/angular"
         ],
+        'ngRoute': [
+            "/assets/gui/libs/js/angular-route"
+        ],
         jquery: [
-            "http://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min",
+            "http://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min",
             "https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min",
             "/assets/gui/libs/js/jquery"
         ],
@@ -24,36 +27,50 @@ requirejs.config({
         sticky : ["/assets/gui/libs/palas/plugins/sticky.min"]
     },
     shim: {
-        'sticky' : {
-            export: 'jQuery.sticky',
-            deps: ['jquery']
-        },
+        // Palas
         'palas' : {
             exports: 'palas',
             deps: ['jquery', 'sticky']
         },
-        'angular': {
-          exports: 'angular'
+
+        modernizr: {
+            exports: 'Modernizr'
         },
-        'underscore': {
-            exports: "_" ,
-            deps: ['jquery']
-        },
+
+        // Jquery
         'jquery': {
             exports: '$'
         },
         'jqueryui': {
             deps: ['jquery']
         },
-        modernizr: {
-            exports: 'Modernizr'
+        'sticky' : {
+            export: 'jQuery.sticky',
+            deps: ['jquery']
         },
+        'underscore': {
+            exports: "_" ,
+            deps: ['jquery']
+        },
+
+        // Angular
+        'ngRoute': {
+            exports: 'angular',
+            deps: ['angular']
+        },
+
+        'angular': {
+            exports: 'angular'
+        },
+
         'app': {
-            deps: ['modernizr', 'jquery', 'underscore', 'angular']
+            deps: ['modernizr', 'jquery', 'underscore', 'ngRoute', 'angular']
         }
+
     }
 });
 
 
 //require(['palas']);
-require(['app']);
+require(['app'], function(app) {
+});

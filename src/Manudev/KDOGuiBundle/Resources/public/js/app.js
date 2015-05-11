@@ -1,17 +1,44 @@
-define(function () {
-    console.log("app loaded");
-    var app = angular.module('kdoapp', [ ]);
+'use strict';
+    //var angular = require('angular');
+   // var services = require('./services/services');
+   // var controllers = require('./controllers/controllers');
+   // var directives = require('./directives/directives');
 
-    app.controller('MainController', function() {
-        this.product = gem;
-    });
+var app = angular.module('app', ['ngRoute']);
 
-    var gem = {
-        name: 'Dodecahedron',
-        price: 2.95,
-        description: '. . .'
+var aProduct;
+app.config(['$routeProvider', function($routeProvider) {
+    $routeProvider
+        .when('/demo1', {
+            templateUrl: 'http://k.loc/app_dev.php/gui/demo1',
+            controller: 'Demo1Controller' } )
+        .when('/demo2', {
+            templateUrl: 'http://k.loc/app_dev.php/gui/demo2',
+            controller: 'Demo2Controller' } )
+        .otherwise({ redirectTo: '/' });
     }
+]);
 
-    console.log('jQuery version:', $.fn.jquery);
-    console.log("Modernizer loaded: " +Modernizr.svg);
+app.controller('FooterController', function() {
+    this.date = new Date();
 });
+
+app.controller('MainController', function() {
+    this.product = gem;
+});
+
+app.controller('Demo1Controller', function() {
+    console.log('demo controller')
+    this.name = "Demo 1"
+});
+
+app.controller('Demo2Controller', function() {
+    console.log('demo2 controller')
+    this.name = "Demo 2"
+});
+
+var gem = {
+    name: 'Dodecahedron',
+    price: 2.95,
+    description: '. . .'
+}
