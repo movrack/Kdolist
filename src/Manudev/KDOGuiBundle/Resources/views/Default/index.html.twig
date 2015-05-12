@@ -2,13 +2,9 @@
 
 {% block content %}
 
-    <a class="btn btn-default" href="#">index</a>
-    <a class="btn btn-default" href="#demo1">demo1</a>
-    <a class="btn btn-default" href="#demo2">demo2</a>
-
 <section id="#content" ng-controller="MainController as main">
     {{ '{{ main.product.name }}' }}
+    <div ng-view></div>
 </section>
 
-<div ng-view></div>
 {% endblock %}

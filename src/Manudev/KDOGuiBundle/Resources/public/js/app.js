@@ -9,13 +9,22 @@ var app = angular.module('app', ['ngRoute']);
 var aProduct;
 app.config(['$routeProvider', function($routeProvider) {
     $routeProvider
-        .when('/demo1', {
-            templateUrl: 'http://k.loc/app_dev.php/gui/demo1',
-            controller: 'Demo1Controller' } )
-        .when('/demo2', {
-            templateUrl: 'http://k.loc/app_dev.php/gui/demo2',
-            controller: 'Demo2Controller' } )
-        .otherwise({ redirectTo: '/' });
+        .when('/about', {
+            templateUrl: 'http://k.loc/app_dev.php/gui/template/about',
+            controller: 'AboutController' } )
+        .when('/features', {
+            templateUrl: 'http://k.loc/app_dev.php/gui/template/features',
+            controller: 'FeaturesController' } )
+        .when('/terms', {
+            templateUrl: 'http://k.loc/app_dev.php/gui/template/terms',
+            controller: 'TermsController' } )
+        .when('/price', {
+            templateUrl: 'http://k.loc/app_dev.php/gui/template/price',
+            controller: 'PriceController' } )
+        .when('/signin', {
+            templateUrl: 'http://k.loc/app_dev.php/gui/template/signin',
+            controller: 'SigninController' } )
+        .otherwise({ redirectTo: '' });
     }
 ]);
 
@@ -27,16 +36,25 @@ app.controller('MainController', function() {
     this.product = gem;
 });
 
-app.controller('Demo1Controller', function() {
-    console.log('demo controller')
-    this.name = "Demo 1"
+app.controller('PriceController', function() {
+    console.log('price controller')
+    this.name = "Prix"
 });
 
-app.controller('Demo2Controller', function() {
-    console.log('demo2 controller')
-    this.name = "Demo 2"
+app.controller('FeaturesController', function() {
+    console.log('features controller')
+    this.name = "Fonctionnalités"
 });
 
+app.controller('TermsController', function() {
+    console.log('terms controller')
+    this.name = "CGU"
+});
+
+app.controller('AboutController', function() {
+    console.log('about controller')
+    this.name = "A propos"
+});
 var gem = {
     name: 'Dodecahedron',
     price: 2.95,
