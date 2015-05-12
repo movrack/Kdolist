@@ -68,7 +68,7 @@ class TemplateController extends Controller
     {
         return array();
     }
-    
+
     /**
      * @Route("/signin")
      * @Template()
