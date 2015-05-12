@@ -76,7 +76,7 @@ module.exports = function(grunt) {
                         expand: true,
                         cwd: 'bower_modules/palas/palas/images',
                         dest: 'web/assets/gui/libs/palas/images',
-                        src: ['*.png', '*.gif', '*.jpg', 'patterns/*.png']
+                        src: ['**/*']
                     },
                     {
                         dest: 'web/assets/gui/libs/palas/palas.js',

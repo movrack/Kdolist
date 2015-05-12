@@ -14,6 +14,16 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 class TemplateController extends Controller
 {
 
+
+    /**
+     * @Route("/home")
+     * @Template()
+     */
+    public function homeAction()
+    {
+        return array();
+    }
+
     /**
      * @Route("/about")
      * @Template()
@@ -55,6 +65,15 @@ class TemplateController extends Controller
      * @Template()
      */
     public function termsAction()
+    {
+        return array();
+    }
+    
+    /**
+     * @Route("/signin")
+     * @Template()
+     */
+    public function signinAction()
     {
         return array();
     }

@@ -24,7 +24,10 @@ app.config(['$routeProvider', function($routeProvider) {
         .when('/signin', {
             templateUrl: 'http://k.loc/app_dev.php/gui/template/signin',
             controller: 'SigninController' } )
-        .otherwise({ redirectTo: '' });
+        .when('/', {
+            templateUrl: 'http://k.loc/app_dev.php/gui/template/home',
+            controller: 'HomeController' } )
+        .otherwise({ redirectTo: '/' });
     }
 ]);
 
@@ -54,6 +57,10 @@ app.controller('TermsController', function() {
 app.controller('AboutController', function() {
     console.log('about controller')
     this.name = "A propos"
+});
+app.controller('HomeController', function() {
+    console.log('home controller')
+    this.name = "home"
 });
 var gem = {
     name: 'Dodecahedron',

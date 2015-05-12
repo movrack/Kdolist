@@ -40,9 +40,12 @@
 </div>
 
 <!-- Global Wrapper -->
-<div id="wrapper" class="relative">
-    {% include ('ManudevKDOGuiBundle:base:topBar.html.twig') %}
-    {% include ('ManudevKDOGuiBundle:base:header.html.twig') %}
+<div id="wrapper">
+    <!-- Global Wrapper -->
+    <div class="h-wrapper">
+        {% include ('ManudevKDOGuiBundle:base:topBar.html.twig') %}
+        {% include ('ManudevKDOGuiBundle:base:header.html.twig') %}
+    </div>
     {% block content %}{% endblock %}
     {% include ('ManudevKDOGuiBundle:base:footer.html.twig') %}
 </div>
