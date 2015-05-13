@@ -10,22 +10,22 @@ var aProduct;
 app.config(['$routeProvider', function($routeProvider) {
     $routeProvider
         .when('/about', {
-            templateUrl: 'http://k.loc/app_dev.php/gui/template/about',
+            templateUrl: '/gui/template/about',
             controller: 'AboutController' } )
         .when('/features', {
-            templateUrl: 'http://k.loc/app_dev.php/gui/template/features',
+            templateUrl: '/gui/template/features',
             controller: 'FeaturesController' } )
         .when('/terms', {
-            templateUrl: 'http://k.loc/app_dev.php/gui/template/terms',
+            templateUrl: '/gui/template/terms',
             controller: 'TermsController' } )
         .when('/price', {
-            templateUrl: 'http://k.loc/app_dev.php/gui/template/price',
+            templateUrl: '/gui/template/price',
             controller: 'PriceController' } )
         .when('/signin', {
-            templateUrl: 'http://k.loc/app_dev.php/gui/template/signin',
+            templateUrl: '/gui/template/signin',
             controller: 'SigninController' } )
         .when('/', {
-            templateUrl: 'http://k.loc/app_dev.php/gui/template/home',
+            templateUrl: '/gui/template/home',
             controller: 'HomeController' } )
         .otherwise({ redirectTo: '/' });
     }
