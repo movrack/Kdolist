@@ -41,11 +41,8 @@
 
 <!-- Global Wrapper -->
 <div id="wrapper">
-    <!-- Global Wrapper -->
-    <div class="h-wrapper">
-        {% include ('ManudevKDOGuiBundle:base:topBar.html.twig') %}
-        {% include ('ManudevKDOGuiBundle:base:header.html.twig') %}
-    </div>
+    {% include ('ManudevKDOGuiBundle:base:topBar.html.twig') %}
+    {% include ('ManudevKDOGuiBundle:base:header.html.twig') %}
     {% block content %}{% endblock %}
     {% include ('ManudevKDOGuiBundle:base:footer.html.twig') %}
 </div>

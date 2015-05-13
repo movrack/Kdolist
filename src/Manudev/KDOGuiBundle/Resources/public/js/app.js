@@ -6,7 +6,7 @@
 
 var app = angular.module('app', ['ngRoute']);
 
-var rootUrl = '';
+var rootUrl = 'http://k.loc/app_dev.php';
 app.config(['$routeProvider', function($routeProvider) {
     $routeProvider
         .when('/about', {
@@ -27,6 +27,9 @@ app.config(['$routeProvider', function($routeProvider) {
         .when('/signup', {
             templateUrl: rootUrl+'/gui/template/signup',
             controller: 'SignupController' } )
+        .when('/list/:id/:slug', {
+            templateUrl: rootUrl+'/gui/template/list',
+            controller: 'ListController' } )
         .when('/', {
             templateUrl: rootUrl+'/gui/template/home',
             controller: 'HomeController' } )
@@ -73,6 +76,14 @@ app.controller('SignupController', function() {
     console.log('signup controller')
     this.name = "signup"
 });
+
+
+app.controller('ListController', ['$scope', '$routeParams', function($route, $routeParams) {
+    this.name = 'list';
+    this.id = $routeParams.id;
+    this.slug = $routeParams.slug;
+}]);
+
 var gem = {
     name: 'Dodecahedron',
     price: 2.95,
