@@ -77,4 +77,13 @@ class TemplateController extends Controller
     {
         return array();
     }
+
+    /**
+     * @Route("/signup")
+     * @Template()
+     */
+    public function signupAction()
+    {
+        return array();
+    }
 }

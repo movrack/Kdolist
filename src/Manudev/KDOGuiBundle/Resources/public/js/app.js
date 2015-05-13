@@ -6,26 +6,29 @@
 
 var app = angular.module('app', ['ngRoute']);
 
-var aProduct;
+var rootUrl = '';
 app.config(['$routeProvider', function($routeProvider) {
     $routeProvider
         .when('/about', {
-            templateUrl: '/gui/template/about',
+            templateUrl: rootUrl+'/gui/template/about',
             controller: 'AboutController' } )
         .when('/features', {
-            templateUrl: '/gui/template/features',
+            templateUrl: rootUrl+'/gui/template/features',
             controller: 'FeaturesController' } )
         .when('/terms', {
-            templateUrl: '/gui/template/terms',
+            templateUrl: rootUrl+'/gui/template/terms',
             controller: 'TermsController' } )
         .when('/price', {
-            templateUrl: '/gui/template/price',
+            templateUrl: rootUrl+'/gui/template/price',
             controller: 'PriceController' } )
         .when('/signin', {
-            templateUrl: '/gui/template/signin',
+            templateUrl: rootUrl+'/gui/template/signin',
             controller: 'SigninController' } )
+        .when('/signup', {
+            templateUrl: rootUrl+'/gui/template/signup',
+            controller: 'SignupController' } )
         .when('/', {
-            templateUrl: '/gui/template/home',
+            templateUrl: rootUrl+'/gui/template/home',
             controller: 'HomeController' } )
         .otherwise({ redirectTo: '/' });
     }
@@ -61,6 +64,14 @@ app.controller('AboutController', function() {
 app.controller('HomeController', function() {
     console.log('home controller')
     this.name = "home"
+});
+app.controller('SigninController', function() {
+    console.log('signin controller')
+    this.name = "signin"
+});
+app.controller('SignupController', function() {
+    console.log('signup controller')
+    this.name = "signup"
 });
 var gem = {
     name: 'Dodecahedron',
