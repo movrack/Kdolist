@@ -1,9 +1,28 @@
-#headerTitle {
-  font-weight: bold;
-  font-size: 1.75em;
-  padding-bottom: 0.3em;
+header a#headerTitle {
+  padding: 25px 20px 25px 20px;
+  font-size: 32px;
+  line-height: 36px;
+  letter-spacing: 1px;
+  text-transform: capitalize;
+  font-weight: 400;
+  display: inline-block;
+  position: relative;
+  z-index: 10;
+  -webkit-transition: all .2s ease-out;
+  transition: all .2s ease-out;
+  font-family: "Montserrat","Source Sans Pro","Helvetica New",sans-serif;
+  color: #707080;
 }
-#headerTitle:first-letter {
-  color: #b92c28;
+header a#headerTitle:first-letter {
+  color: #fb7354;
   font-size: 1.3em;
+
+}
+header a#headerTitle:after {
+  content: "";
+  display: block;
+  width: 42px;
+  height: 2px;
+  background-color: #fcc813;
+  margin: 0px 0 0px;
 }
