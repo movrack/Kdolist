@@ -96,4 +96,22 @@ class TemplateController extends Controller
         return array();
     }
 
+    /**
+     * @Route("/403")
+     * @Template()
+     */
+    public function error403Action()
+    {
+        return array();
+    }
+
+    /**
+     * @Route("/contact")
+     * @Template()
+     */
+    public function contactAction()
+    {
+        return array();
+    }
+
 }

@@ -30,6 +30,12 @@ app.config(['$routeProvider', function($routeProvider) {
         .when('/list/:id/:slug', {
             templateUrl: rootUrl+'/gui/template/list',
             controller: 'ListController' } )
+        .when('/contact', {
+            templateUrl: rootUrl+'/gui/template/contact',
+            controller: 'ContactController' } )
+        .when('/403', {
+            templateUrl: rootUrl+'/gui/template/403',
+            controller: 'Error403Controller' } )
         .when('/', {
             templateUrl: rootUrl+'/gui/template/home',
             controller: 'HomeController' } )
@@ -37,6 +43,12 @@ app.config(['$routeProvider', function($routeProvider) {
     }
 ]);
 
+app.controller('ContactController', function() {
+    this.name = 'contact';
+});
+app.controller('Error403Controller', function() {
+    this.name = '403';
+});
 app.controller('FooterController', function() {
     this.date = new Date();
 });

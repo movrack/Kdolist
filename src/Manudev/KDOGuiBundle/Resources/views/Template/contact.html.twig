@@ -1,0 +1,59 @@
+<section id="#content" ng-controller="ContactController as contact">
+
+    <section class="section page-contact mb50">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-5 sm-box2">
+                    <h3 class="title-small br-bottom">Contact us</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                        Commodi laboriosam quisquam, velit inventore reiciendis amet,
+                        nulla ab eaque. Animi officiis repudiandae quasi reprehenderit
+                        enim natus consectetur. Lorem ipsum dolor sit amet, consectetur
+                        adipisicing elit. Qui ut veritatis est consequuntur corporis magnam,
+                        aspernatur alias doloremque!</p>
+                </div>
+                <div class="col-md-7">
+                    <div class=" form">
+                        <div class="contact-map">
+                            <form class="form ajax-contact-form" method="post" action="php/contact.php">
+                                <div class="alert alert-success hidden" id="contact-success">
+                                    <span class="glyphicon glyphicon-ok "></span> &nbsp;
+                                    <strong>Success!</strong> Thank you for your message.
+                                </div>
+                                <div class="alert alert-danger hidden" id="contact-error">
+                                    <span class="glyphicon glyphicon-remove "></span> &nbsp;
+                                    <strong>Error!</strong> Oops, something went wrong.
+                                </div>
+                                <div class="row col-p10">
+                                    <div class="col-sm-6">
+                                        <label class="mb10"><input type="text" name="val_fname" id="val_fname" class="form-control" placeholder=" First Name"></label>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label class="mb10"><input type="text" name="val_lname" id="val_lname" class="form-control" placeholder=" Last Name"></label>
+                                    </div>
+                                </div>
+                                <div class="row col-p10">
+                                    <div class="col-sm-6">
+                                        <label class="mb10"><input type="text" name="val_subject" id="val_subject" required class="form-control" placeholder=" Subject *"></label>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label class="mb10"><input type="email" name="val_email" id="val_email" required class="form-control" placeholder=" Email Address *"></label>
+                                    </div>
+                                </div>
+                                <label>
+                                    <textarea name="val_message" id="val_message"  cols="30" rows="10" required class="form-control" placeholder=" Message *"></textarea>
+                                </label>
+                                <div class="mt20 clearfix">
+                                    <!-- Enter your google site key here for captcha -->
+                                    <div class="g-recaptcha" data-sitekey="6Ld41gITAAAAAGq8ASlmwgQCtTkySoxi-itmE0J3"></div>
+                                    <div class="mb30"></div>
+                                    <button type="submit" class="btn btn-d">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</section>
