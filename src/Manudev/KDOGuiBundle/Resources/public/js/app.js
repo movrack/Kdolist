@@ -99,6 +99,16 @@ app.controller('AboutController', function($scope) {
 app.controller('HomeController', function() {
     console.log('home controller')
     this.name = "home"
+
+    if (($().owlCarousel) && ($(".owl-carousel").length)) {
+        $(".owl-columns3").owlCarousel({
+            itemsCustom: [[0,1],[767,2],[991,3]],
+            navigation:false,
+            pagination:false,
+            autoplay:false
+        });
+    }
+
 });
 app.controller('SigninController', function() {
     console.log('signin controller')
