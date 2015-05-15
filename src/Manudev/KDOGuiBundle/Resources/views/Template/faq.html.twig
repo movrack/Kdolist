@@ -1,44 +1,85 @@
 <section id="#content" ng-controller="FaqController as faq">
 
+    <div class="page-nav-tabs-wrapper mt40">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="pull-left">
+                        <div class="page-nav-tabs">
+                            <ul class="nav nav-tabs">
+                                <li><a ng-click="faq.tabs.active = 1">Select second tab</a></li>
+                                <li><a ng-click="faq.tabs.active = 2">Select third tab</a></li>
 
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <section class="section-page page-faq">
         <div class="container">
             <div class="row">
                 <div class="col-sm-12 col-md-6">
-                    <accordion close-others="oneAtATime">
-                        <accordion-group is-open="status.acc1">
-                            <accordion-heading>
-                               <i class="fa" ng-class="{'fa-chevron-down': status.acc1, 'fa-chevron-right': !status.acc1}"></i>
-                               How to create an account
-                            </accordion-heading>
-                            <p> Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia, quae, fuga, nesciunt, pariatur commodi reiciendis saepe tempora sit perspiciatis deleniti totam corporis voluptate a doloremque nostrum!</p>
+                    <div ng-show="faq.tabs.active == 1">
+                        <accordion close-others="oneAtATime">
+                            <accordion-group is-open="status.acc1">
+                                <accordion-heading>
+                                    <i class="fa" ng-class="{'fa-chevron-down': status.acc1, 'fa-chevron-right': !status.acc1}"></i>
+                                    How to create an account
+                                </accordion-heading>
+                                <p> Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia, quae, fuga, nesciunt, pariatur commodi reiciendis saepe tempora sit perspiciatis deleniti totam corporis voluptate a doloremque nostrum!</p>
 
-                        </accordion-group>
-                        <accordion-group is-open="status.acc2">
-                            <accordion-heading>
-                                <i class="fa" ng-class="{'fa-chevron-down': status.acc2, 'fa-chevron-right': !status.acc2}"></i>
-                                Account details
-                            </accordion-heading>
-                            <p> Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia, quae, fuga, nesciunt, pariatur commodi reiciendis saepe tempora sit perspiciatis deleniti totam corporis voluptate a doloremque nostrum!</p>
+                            </accordion-group>
+                            <accordion-group is-open="status.acc2">
+                                <accordion-heading>
+                                    <i class="fa" ng-class="{'fa-chevron-down': status.acc2, 'fa-chevron-right': !status.acc2}"></i>
+                                    Account details
+                                </accordion-heading>
+                                <p> Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia, quae, fuga, nesciunt, pariatur commodi reiciendis saepe tempora sit perspiciatis deleniti totam corporis voluptate a doloremque nostrum!</p>
 
-                        </accordion-group>
-                        <accordion-group is-open="status.acc3">
-                            <accordion-heading>
-                                <i class="fa" ng-class="{'fa-chevron-down': status.acc3, 'fa-chevron-right': !status.acc3}"></i>
-                                Account details
-                            </accordion-heading>
-                            <p> Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia, quae, fuga, nesciunt, pariatur commodi reiciendis saepe tempora sit perspiciatis deleniti totam corporis voluptate a doloremque nostrum!</p>
+                            </accordion-group>
+                            <accordion-group is-open="status.acc3">
+                                <accordion-heading>
+                                    <i class="fa" ng-class="{'fa-chevron-down': status.acc3, 'fa-chevron-right': !status.acc3}"></i>
+                                    Account details
+                                </accordion-heading>
+                                <p> Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia, quae, fuga, nesciunt, pariatur commodi reiciendis saepe tempora sit perspiciatis deleniti totam corporis voluptate a doloremque nostrum!</p>
 
-                        </accordion-group>
-                        <accordion-group is-open="status.acc4">
-                            <accordion-heading>
-                                <i class="fa" ng-class="{'fa-chevron-down': status.acc4, 'fa-chevron-right': !status.acc4}"></i>
-                                Account details
-                            </accordion-heading>
-                            <p> Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia, quae, fuga, nesciunt, pariatur commodi reiciendis saepe tempora sit perspiciatis deleniti totam corporis voluptate a doloremque nostrum!</p>
+                            </accordion-group>
+                        </accordion>
 
-                        </accordion-group>
-                    </accordion>
+                    </div>
+                    <div ng-show="faq.tabs.active == 2">
+                        <accordion close-others="oneAtATime">
+                            <accordion-group is-open="status.acc1">
+                                <accordion-heading>
+                                    <i class="fa" ng-class="{'fa-chevron-down': status.acc1, 'fa-chevron-right': !status.acc1}"></i>
+                                    Other question
+                                </accordion-heading>
+                                <p> Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia, quae, fuga, nesciunt, pariatur commodi reiciendis saepe tempora sit perspiciatis deleniti totam corporis voluptate a doloremque nostrum!</p>
+
+                            </accordion-group>
+                            <accordion-group is-open="status.acc2">
+                                <accordion-heading>
+                                    <i class="fa" ng-class="{'fa-chevron-down': status.acc2, 'fa-chevron-right': !status.acc2}"></i>
+                                    Account details
+                                </accordion-heading>
+                                <p> Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia, quae, fuga, nesciunt, pariatur commodi reiciendis saepe tempora sit perspiciatis deleniti totam corporis voluptate a doloremque nostrum!</p>
+
+                            </accordion-group>
+                            <accordion-group is-open="status.acc3">
+                                <accordion-heading>
+                                    <i class="fa" ng-class="{'fa-chevron-down': status.acc3, 'fa-chevron-right': !status.acc3}"></i>
+                                    Account details
+                                </accordion-heading>
+                                <p> Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia, quae, fuga, nesciunt, pariatur commodi reiciendis saepe tempora sit perspiciatis deleniti totam corporis voluptate a doloremque nostrum!</p>
+
+                            </accordion-group>
+                        </accordion>
+
+                    </div>
+
                 </div>
                 <div class="col-sm-12 col-md-6">
                     <div class="row">
@@ -53,5 +94,17 @@
             </div>
         </div>
     </section>
-
+<br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
 </section>

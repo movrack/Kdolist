@@ -72,21 +72,11 @@ app.controller('PriceController', function() {
 
 app.controller('FaqController', function($scope) {
     console.log('faq controller')
+
+    this.tabs = { 'active' : 1 }
     this.name = "faq"
     $scope.oneAtATime = true;
 
-
-    $scope.items = ['Item 1', 'Item 2', 'Item 3'];
-
-    $scope.addItem = function() {
-        var newItemNo = $scope.items.length + 1;
-        $scope.items.push('Item ' + newItemNo);
-    };
-
-    $scope.status = {
-        isFirstOpen: true,
-        isFirstDisabled: false
-    };
 });
 
 app.controller('FeaturesController', function() {
