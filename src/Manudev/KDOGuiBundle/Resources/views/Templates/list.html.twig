@@ -1,0 +1,275 @@
+<section id="#content" ng-controller="ListController as list">
+
+    <section class="section-intro bg-img bg19 stellar" data-stellar-background-ratio="0.4">
+        <div class="bg-overlay op6"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-5 col-sm-8">
+                    <h1 class="intro-title mb20">List</h1>
+                    <p class="intro-p mb30">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit tenetur reiciendis molestias nostrum excepturi porro dolorum amet!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {#
+    <div class="search-form">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="pull-right">
+                        <form action="#" role="form" class="pull-right">
+                            <input type="text" class="input-search" placeholder="Search and hit enter">
+                            <button type="submit" class="hidden"></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    #}
+    <section class="section-page">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div id="portfolio-isotope">
+                        <div class="row">
+                            <div class="portfolio" ng-repeat="gift in list.lists">
+                                <gift-panel gift="gift"></gift-panel>
+
+                                {#
+                                <div class="col-sm-6 col-md-3 el">
+                                    <div class="blog-item">
+                                        <div class="blog-image">
+                                            <img src="http://lorempixel.com/750/500/" alt="blog post">
+                                        </div>
+                                        <div class="blog-caption">
+                                            <h3 class="post-title">Above and beyond</h3>
+                                            <div class="sub-post-title">
+                                                <span>by <a href="#">John Doe</a></span> <span class="separator"> / </span> <span>15 March, 2015</span>
+                                            </div>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veritatis, ipsum, optio, impedit, adipisci quis sare recusandae nostrum laboriosam mollitia dolorem!</p>
+                                            <div class="clearfix">
+                                                <div class="pull-left"><a href="blog_post_sidebar.html" class="read-more">read more</a></div>
+                                                <div class="pull-right"><i class="fa fa-camera post-format"></i></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> <!-- END Blog Item -->
+                                <div class="col-sm-6 col-md-3 el">
+                                    <div class="blog-item">
+                                        <div class="blog-image">
+                                        </div>
+                                        <div class="blog-caption">
+                                            <h3 class="post-title">Upside Down</h3>
+                                            <div class="sub-post-title">
+                                                <span>by <a href="#">John Doe</a></span> <span class="separator"> / </span> <span>15 March, 2015</span>
+                                            </div>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veritatis, ipsum, optio, impedit, adipisci quis sare recusandae nostrum laboriosam mollitia dolorem!</p>
+                                            <div class="clearfix">
+                                                <div class="pull-left"><a href="blog_post_sidebar.html" class="read-more">read more</a></div>
+                                                <div class="pull-right"><i class="fa fa-forward post-format"></i></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> <!-- END Blog Item -->
+                                <div class="col-sm-6 col-md-3 el">
+                                    <div class="blog-item">
+                                        <div class="blog-image">
+                                            <img src="http://lorempixel.com/750/500/" alt="blog post">
+                                        </div>
+                                        <div class="blog-caption">
+                                            <h3 class="post-title">Nowhere</h3>
+                                            <div class="sub-post-title">
+                                                <span>by <a href="#">John Doe</a></span> <span class="separator"> / </span> <span>15 March, 2015</span>
+                                            </div>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veritatis, ipsum, optio, impedit, adipisci quis sare recusandae nostrum laboriosam mollitia dolorem!</p>
+                                            <div class="clearfix">
+                                                <div class="pull-left"><a href="blog_post_sidebar.html" class="read-more">read more</a></div>
+                                                <div class="pull-right"><i class="fa fa-camera post-format"></i></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> <!-- END Blog Item -->
+                                <div class="col-sm-6 col-md-3 el">
+                                    <div class="blog-item">
+                                        <div class="blog-image">
+                                        </div>
+                                        <div class="blog-caption">
+                                            <h3 class="post-title">Imagine Dragons</h3>
+                                            <div class="sub-post-title">
+                                                <span>by <a href="#">John Doe</a></span> <span class="separator"> / </span> <span>15 March, 2015</span>
+                                            </div>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veritatis, ipsum, optio, impedit, adipisci quis sare recusandae nostrum laboriosam mollitia dolorem!</p>
+                                            <div class="clearfix">
+                                                <div class="pull-left"><a href="blog_post_sidebar.html" class="read-more">read more</a></div>
+                                                <div class="pull-right"><i class="fa fa-soundlcoud post-format"></i></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> <!-- END Blog Item -->
+                                <div class="col-sm-6 col-md-3 el">
+                                    <div class="blog-item">
+                                        <div class="blog-image">
+                                            <img src="http://lorempixel.com/750/500/" alt="blog post">
+                                        </div>
+                                        <div class="blog-caption">
+                                            <h3 class="post-title">Up and Down</h3>
+                                            <div class="sub-post-title">
+                                                <span>by <a href="#">John Doe</a></span> <span class="separator"> / </span> <span>15 March, 2015</span>
+                                            </div>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veritatis, ipsum, optio, impedit, adipisci quis sare recusandae nostrum laboriosam mollitia dolorem!</p>
+                                            <div class="clearfix">
+                                                <div class="pull-left"><a href="blog_post_sidebar.html" class="read-more">read more</a></div>
+                                                <div class="pull-right"><i class="fa fa-camera post-format"></i></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> <!-- END Blog Item -->
+                                <div class="col-sm-6 col-md-3 el">
+                                    <div class="blog-item">
+                                        <div class="blog-caption">
+                                            <h3 class="post-title">If you say so</h3>
+                                            <div class="sub-post-title">
+                                                <span>by <a href="#">John Doe</a></span> <span class="separator"> / </span> <span>15 March, 2015</span>
+                                            </div>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veritatis, ipsum, optio, impedit, adipisci quis sare recusandae nostrum laboriosam mollitia dolorem!</p>
+                                            <div class="clearfix">
+                                                <div class="pull-left"><a href="blog_post_sidebar.html" class="read-more">read more</a></div>
+                                                <div class="pull-right"><i class="fa fa-file post-format"></i></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> <!-- END Blog Item -->
+                                <div class="col-sm-6 col-md-3 el">
+                                    <div class="blog-item">
+                                        <div class="blog-image">
+                                            <div class="owl-carousel owl-portfolio">
+                                                <div class="owl-el"><img src="../../assets/gui/libs/palas/images/demo/p12.jpg" alt="blog image"></div>
+                                                <div class="owl-el"><img src="../../assets/gui/libs/palas/images/demo/p11.jpg" alt="blog image"></div>
+                                                <div class="owl-el"><img src="../../assets/gui/libs/palas/images/demo/p10.jpg" alt="blog image"></div>
+                                            </div>
+                                        </div>
+                                        <div class="blog-caption">
+                                            <h3 class="post-title">Surrender</h3>
+                                            <div class="sub-post-title">
+                                                <span>by <a href="#">John Doe</a></span> <span class="separator"> / </span> <span>15 March, 2015</span>
+                                            </div>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veritatis, ipsum, optio, impedit, adipisci quis sare recusandae nostrum laboriosam mollitia dolorem!</p>
+                                            <div class="clearfix">
+                                                <div class="pull-left"><a href="blog_post_sidebar.html" class="read-more">read more</a></div>
+                                                <div class="pull-right"><i class="fa fa-camera post-format"></i></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> <!-- END Blog Item -->
+                                <div class="col-sm-6 col-md-3 el">
+                                    <div class="blog-item">
+                                        <div class="blog-image">
+                                            <img src="http://lorempixel.com/750/500/" alt="blog post">
+                                        </div>
+                                        <div class="blog-caption">
+                                            <h3 class="post-title">Nearby star</h3>
+                                            <div class="sub-post-title">
+                                                <span>by <a href="#">John Doe</a></span> <span class="separator"> / </span> <span>15 March, 2015</span>
+                                            </div>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veritatis, ipsum, optio, impedit, adipisci quis sare recusandae nostrum laboriosam mollitia dolorem!</p>
+                                            <div class="clearfix">
+                                                <div class="pull-left"><a href="blog_post_sidebar.html" class="read-more">read more</a></div>
+                                                <div class="pull-right"><i class="fa fa-camera post-format"></i></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> <!-- END Blog Item -->
+                                <div class="col-sm-6 col-md-3 el">
+                                    <div class="blog-item">
+                                        <div class="blog-caption">
+                                            <h3 class="post-title">Up in the air</h3>
+                                            <div class="sub-post-title">
+                                                <span>by <a href="#">John Doe</a></span> <span class="separator"> / </span> <span>15 March, 2015</span>
+                                            </div>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veritatis, ipsum, optio, impedit, adipisci quis sare recusandae nostrum laboriosam mollitia dolorem!</p>
+                                            <div class="clearfix">
+                                                <div class="pull-left"><a href="blog_post_sidebar.html" class="read-more">read more</a></div>
+                                                <div class="pull-right"><i class="fa fa-copy post-format"></i></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> <!-- END Blog Item -->
+                                <div class="col-sm-6 col-md-3 el">
+                                    <div class="blog-item">
+                                        <div class="blog-image">
+                                            <img src="http://lorempixel.com/750/500/" alt="blog post">
+                                        </div>
+                                        <div class="blog-caption">
+                                            <h3 class="post-title">As above so below</h3>
+                                            <div class="sub-post-title">
+                                                <span>by <a href="#">John Doe</a></span> <span class="separator"> / </span> <span>15 March, 2015</span>
+                                            </div>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veritatis, ipsum, optio, impedit, adipisci quis sare recusandae nostrum laboriosam mollitia dolorem!</p>
+                                            <div class="clearfix">
+                                                <div class="pull-left"><a href="blog_post_sidebar.html" class="read-more">read more</a></div>
+                                                <div class="pull-right"><i class="fa fa-camera post-format"></i></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> <!-- END Blog Item -->
+                                <div class="col-sm-6 col-md-3 el">
+                                    <div class="blog-item">
+                                        <div class="blog-image">
+                                            <img src="http://lorempixel.com/750/500/" alt="blog post">
+                                        </div>
+                                        <div class="blog-caption">
+                                            <h3 class="post-title">Just above</h3>
+                                            <div class="sub-post-title">
+                                                <span>by <a href="#">John Doe</a></span> <span class="separator"> / </span> <span>15 March, 2015</span>
+                                            </div>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veritatis, ipsum, optio, impedit, adipisci quis sare recusandae nostrum laboriosam mollitia dolorem!</p>
+                                            <div class="clearfix">
+                                                <div class="pull-left"><a href="blog_post_sidebar.html" class="read-more">read more</a></div>
+                                                <div class="pull-right"><i class="fa fa-camera post-format"></i></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> <!-- END Blog Item -->
+                                <div class="col-sm-6 col-md-3 el">
+                                    <div class="blog-item">
+                                        <div class="blog-image">
+                                            <img src="http://lorempixel.com/750/500/" alt="blog post">
+                                        </div>
+                                        <div class="blog-caption">
+                                            <h3 class="post-title">Far away</h3>
+                                            <div class="sub-post-title">
+                                                <span>by <a href="#">John Doe</a></span> <span class="separator"> / </span> <span>15 March, 2015</span>
+                                            </div>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veritatis, ipsum, optio, impedit, adipisci quis sare recusandae nostrum laboriosam mollitia dolorem!</p>
+                                            <div class="clearfix">
+                                                <div class="pull-left"><a href="blog_post_sidebar.html" class="read-more">read more</a></div>
+                                                <div class="pull-right"><i class="fa fa-camera post-format"></i></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> <!-- END Blog Item -->
+
+                                #}
+                            </div>
+                        </div> <!-- END portfolio Container -->
+                    </div> <!-- END Portfolio Isotope -->
+
+
+                    <div class="mb20"></div>
+                    {#
+                    <ul class="pagination pagination-2 dark">
+                        <li class="disabled"><a href="#"><i class="fa fa-chevron-left"></i></a></li>
+                        <li class="active"><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#">5</a></li>
+                        <li><a href="#"><i class="fa fa-chevron-right"></i></a></li>
+                    </ul>#}
+                </div>
+            </div>
+        </div>
+    </section> <!-- END Blog Page-->
+</section>

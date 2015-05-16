@@ -6,8 +6,29 @@
 // Media Query fix (outerWidth -- scrollbar)
 // Media queries width include the scrollbar
 var $win = $(window)
+var $body = $('body')
 var mqWidth = $win.outerWidth(true,true)
 var isMobileDevice = (( navigator.userAgent.match(/Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone|IEMobile|Opera Mini|Mobi/i) || (mqWidth < 767) ) ? true : false );
+
+// detect IE browsers
+var ie = (function(){
+    var rv = 0,
+        ua = window.navigator.userAgent,
+        msie = ua.indexOf('MSIE '),
+        trident = ua.indexOf('Trident/');
+
+    if (msie > 0) {
+        // IE 10 or older => return version number
+        rv = parseInt(ua.substring(msie + 5, ua.indexOf('.', msie)), 10);
+    } else if (trident > 0) {
+        // IE 11 (or newer) => return version number
+        var rvNum = ua.indexOf('rv:');
+        rv = parseInt(ua.substring(rvNum + 3, ua.indexOf('.', rvNum)), 10);
+    }
+
+    return ((rv > 0) ? rv : 0);
+}());
+
 
 var app = angular.module('app', ['ngRoute', 'ui.bootstrap']);
 
@@ -124,7 +145,37 @@ app.controller('ListController', ['$scope', '$routeParams', function($route, $ro
     this.name = 'list';
     this.id = $routeParams.id;
     this.slug = $routeParams.slug;
+
+    loadStellar();
+    giftGridMasonry();
+    this.lists = [{
+            'name' : 'Cheminée',
+            'description' : 'Il nous faudra une cheminée, sans quoi, Père Noël ne pourra pas venir chez nous !',
+            'price' : 500,
+            'nbOfParts' : 10,
+            'offeredParts' : 2,
+            'reservedParts' : 1,
+            'picture' : 'http://baconmockup.com/300/200'
+        },
+        {
+            'name' : 'Plancher',
+            'description' : 'Ce serait dommage de marcher dans de la boue ou sur un béton pas joli et tout poussiéreux...',
+            'price' : 2000,
+            'nbOfParts' : 50,
+            'offeredParts' : 10,
+            'reservedParts' : 5,
+            'picture' : 'http://baconmockup.com/400/350'
+        }];
 }]);
+
+app.directive('giftPanel', function(){
+    return {
+        restrict: 'E',
+        templateUrl: rootUrl+'/gui/directive/gift',
+
+        scope: { gift: '=' }
+    };
+});
 
 var gem = {
     name: 'Dodecahedron',
@@ -132,7 +183,100 @@ var gem = {
     description: '. . .'
 }
 
+var loadStellar = function() {
 
+    if ( ($(".stellar").length) && $(window).width() > 767 ) {
+
+        $body.stellar({
+            horizontalScrolling: false,
+            verticalOffset: 0,
+            horizontalOffset: 0,
+            responsive: true,
+            scrollProperty: 'scroll',
+            parallaxElements: false
+        });
+    }
+}
+
+var giftGridMasonry = function() {
+
+
+    if ( $().isotope && $('#portfolio-isotope').length) {
+
+        var $portfolio = $('.portfolio');
+        if (ie) {
+
+            var portfolioRow = $("#portfolio-isotope").find(".row");
+            var $gutter = 30;
+
+            if (portfolioRow.hasClass("col-p5")) {
+                $gutter = 10;
+            } else if (portfolioRow.hasClass("col-p10")) {
+                $gutter = 20;
+            } else if (portfolioRow.hasClass("col-p20")) {
+                $gutter = 40;
+            } else if (portfolioRow.hasClass("col-p30")) {
+                $gutter = 60;
+            } else if (portfolioRow.hasClass("col-p0")) {
+                $gutter = 0;
+            }
+
+
+
+            var $item = $portfolio.find('.el'),
+                itemWidth = $item.outerWidth(true) - $gutter;
+
+            portfolioRow.css({"margin-left":0});
+
+            (function() {
+
+                function fixGrid() {
+                    $item.each(function() {
+                        $item.css({
+                            'width': itemWidth + 'px',
+                            'padding-left':0,
+                            'padding-right':0
+                        });
+                    });
+                }
+                fixGrid();
+
+                $win.resize(function() {
+                    fixGrid();
+                });
+
+            })();
+
+            $portfolio.isotope({
+                itemSelector:'.el',
+                filter: '*',
+                layoutMode: "masonry",
+                transitionDuration:'0.6s',
+                masonry: {
+                    columnWidth:'.el',
+                    gutter:$gutter
+                }
+            });
+
+        } else {
+
+            $portfolio.imagesLoaded(function() {
+                $portfolio.isotope({
+                    itemSelector:'.el',
+                    filter: '*',
+                    layoutMode: 'masonry',
+                    transitionDuration:'0.6s',
+                    masonry: {
+                        columnWidth:'.el'
+                    }
+                });
+            });
+        }
+
+
+
+    } // END if
+}
 
 var loadProgressBar = function($scope) {
     $scope.$on('$viewContentLoaded', function(){

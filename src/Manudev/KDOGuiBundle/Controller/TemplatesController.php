@@ -7,11 +7,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 /**
- * Class TemplateController
+ * Class TemplatesController
  * @package Manudev\KDOGuiBundle\Controller
  * @Route("template")
  */
-class TemplateController extends Controller
+class TemplatesController extends Controller
 {
 
 
