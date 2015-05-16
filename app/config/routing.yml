@@ -1,12 +1,17 @@
+
+NelmioApiDocBundle:
+    resource: "@NelmioApiDocBundle/Resources/config/routing.yml"
+    prefix:   /api-doc
+
+manudev_api_rest:
+    resource: "@ManudevKDOApiBundle/Resources/config/routing.yml"
+    defaults: { _format: 'json' }
+
 manudev_kdo_gui:
     resource: "@ManudevKDOGuiBundle/Controller/"
     type:     annotation
     prefix:   /gui
 
-manudev_kdo_api:
-    resource: "@ManudevKDOApiBundle/Controller/"
-    type:     annotation
-    prefix:   /
 
 manudev_core:
     resource: "@ManudevCoreBundle/Controller/"
@@ -22,7 +27,6 @@ manudev_kdo:
     resource: "@ManudevKDOBundle/Controller/"
     type:     annotation
     prefix:   /
-
 
 
 welcome:

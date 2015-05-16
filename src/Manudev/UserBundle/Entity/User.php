@@ -7,9 +7,13 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Manudev\UserBundle\Entity\BankAccount;
 use Manudev\KDOBundle\Entity\Lists;
 
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
+
 /**
  * @ORM\Entity(repositoryClass="Manudev\UserBundle\Repository\UserRepository")
  * @ORM\Table(name="fos_user")
+ * @ExclusionPolicy("all")
  */
 class User extends BaseUser
 {
@@ -17,6 +21,7 @@ class User extends BaseUser
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Expose
      */
     protected $id;
 
@@ -42,11 +47,13 @@ class User extends BaseUser
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Expose
      */
     private $firstname;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Expose
      */
     private $lastname;
 
@@ -55,12 +62,14 @@ class User extends BaseUser
 
      * @ORM\ManyToMany(targetEntity="Manudev\KDOBundle\Entity\Lists", inversedBy="users")
      * @ORM\JoinTable(name="users_lists")
+     * @Expose
      **/
     protected $lists;
 
     /**
      *
      * @ORM\OneToMany(targetEntity="Manudev\UserBundle\Entity\BankAccount", mappedBy="user")
+     * @Expose
      **/
     private $bankaccounts;
 

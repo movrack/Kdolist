@@ -53,6 +53,9 @@ app.config(['$routeProvider', function($routeProvider) {
         .when('/signup', {
             templateUrl: rootUrl+'/gui/template/signup',
             controller: 'SignupController' } )
+        .when('/list/:id', {
+            templateUrl: rootUrl+'/gui/template/list',
+            controller: 'ListController' } )
         .when('/list/:id/:slug', {
             templateUrl: rootUrl+'/gui/template/list',
             controller: 'ListController' } )
@@ -141,13 +144,18 @@ app.controller('SignupController', function() {
 });
 
 
-app.controller('ListController', ['$scope', '$routeParams', function($route, $routeParams) {
-    this.name = 'list';
-    this.id = $routeParams.id;
-    this.slug = $routeParams.slug;
+app.controller('ListController', ['$routeParams', '$http', function($routeParams, $http) {
+    var self = this;
+    self.id = $routeParams.id;
+    self.slug = $routeParams.slug;
 
+    self.lists = [];
+    $http.get(rootUrl + '/api/lists/lists/' + self.id + '.json').success(function(data){
+        self.lists = data[0];
+    });
     loadStellar();
-    giftGridMasonry();
+    //giftGridMasonry();
+    /*
     this.lists = [{
             'name' : 'Cheminée',
             'description' : 'Il nous faudra une cheminée, sans quoi, Père Noël ne pourra pas venir chez nous !',
@@ -165,7 +173,98 @@ app.controller('ListController', ['$scope', '$routeParams', function($route, $ro
             'offeredParts' : 10,
             'reservedParts' : 5,
             'picture' : 'http://baconmockup.com/400/350'
+        },
+        {
+            'name' : 'Cheminée',
+            'description' : 'Il nous faudra une cheminée, sans quoi, Père Noël ne pourra pas venir chez nous !',
+            'price' : 500,
+            'nbOfParts' : 10,
+            'offeredParts' : 2,
+            'reservedParts' : 1,
+            'picture' : 'http://baconmockup.com/300/200'
+        },
+        {
+            'name' : 'Plancher',
+            'description' : 'Ce serait dommage de marcher dans de la boue ou sur un béton pas joli et tout poussiéreux...',
+            'price' : 2000,
+            'nbOfParts' : 50,
+            'offeredParts' : 10,
+            'reservedParts' : 5,
+            'picture' : 'http://baconmockup.com/400/350'
+        },
+        {
+            'name' : 'Cheminée',
+            'description' : 'Il nous faudra une cheminée, sans quoi, Père Noël ne pourra pas venir chez nous !',
+            'price' : 500,
+            'nbOfParts' : 10,
+            'offeredParts' : 2,
+            'reservedParts' : 1,
+            'picture' : 'http://baconmockup.com/300/200'
+        },
+        {
+            'name' : 'Plancher',
+            'description' : 'Ce serait dommage de marcher dans de la boue ou sur un béton pas joli et tout poussiéreux...',
+            'price' : 2000,
+            'nbOfParts' : 50,
+            'offeredParts' : 10,
+            'reservedParts' : 5,
+            'picture' : 'http://baconmockup.com/400/350'
+        },
+        {
+            'name' : 'Cheminée',
+            'description' : 'Il nous faudra une cheminée, sans quoi, Père Noël ne pourra pas venir chez nous !',
+            'price' : 500,
+            'nbOfParts' : 10,
+            'offeredParts' : 2,
+            'reservedParts' : 1,
+            'picture' : 'http://baconmockup.com/300/200'
+        },
+        {
+            'name' : 'Plancher',
+            'description' : 'Ce serait dommage de marcher dans de la boue ou sur un béton pas joli et tout poussiéreux...',
+            'price' : 2000,
+            'nbOfParts' : 50,
+            'offeredParts' : 10,
+            'reservedParts' : 5,
+            'picture' : 'http://baconmockup.com/400/350'
+        },
+        {
+            'name' : 'Cheminée',
+            'description' : 'Il nous faudra une cheminée, sans quoi, Père Noël ne pourra pas venir chez nous !',
+            'price' : 500,
+            'nbOfParts' : 10,
+            'offeredParts' : 2,
+            'reservedParts' : 1,
+            'picture' : 'http://baconmockup.com/300/200'
+        },
+        {
+            'name' : 'Plancher',
+            'description' : 'Ce serait dommage de marcher dans de la boue ou sur un béton pas joli et tout poussiéreux...',
+            'price' : 2000,
+            'nbOfParts' : 50,
+            'offeredParts' : 10,
+            'reservedParts' : 5,
+            'picture' : 'http://baconmockup.com/400/350'
+        },
+        {
+            'name' : 'Cheminée',
+            'description' : 'Il nous faudra une cheminée, sans quoi, Père Noël ne pourra pas venir chez nous !',
+            'price' : 500,
+            'nbOfParts' : 10,
+            'offeredParts' : 2,
+            'reservedParts' : 1,
+            'picture' : 'http://baconmockup.com/300/200'
+        },
+        {
+            'name' : 'Plancher',
+            'description' : 'Ce serait dommage de marcher dans de la boue ou sur un béton pas joli et tout poussiéreux...',
+            'price' : 2000,
+            'nbOfParts' : 50,
+            'offeredParts' : 10,
+            'reservedParts' : 5,
+            'picture' : 'http://baconmockup.com/400/350'
         }];
+    */
 }]);
 
 app.directive('giftPanel', function(){
@@ -173,7 +272,12 @@ app.directive('giftPanel', function(){
         restrict: 'E',
         templateUrl: rootUrl+'/gui/directive/gift',
 
-        scope: { gift: '=' }
+        scope: { gift: '=' },
+        controller: function($scope){
+            loadProgressBar($scope);
+           //giftGridMasonry();
+        },
+        controllerAs: 'giftDirective'
     };
 });
 

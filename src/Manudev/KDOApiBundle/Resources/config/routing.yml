@@ -1,0 +1,9 @@
+manudev_api_rest_users:
+    resource: Manudev\KDOApiBundle\Controller\UsersController
+    type:     rest
+    prefix:   /api/users
+
+manudev_api_rest_lists:
+    resource: Manudev\KDOApiBundle\Controller\ListsController
+    type:     rest
+    prefix:   /api/lists

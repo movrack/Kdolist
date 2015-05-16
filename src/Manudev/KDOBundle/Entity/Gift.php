@@ -7,6 +7,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
 use \Manudev\CoreBundle\Entity\Picture;
 
+use JMS\Serializer\Annotation\VirtualProperty;
 /**
  * Gift
  *
@@ -452,6 +453,7 @@ class Gift
      * Get givedParts
      *
      * @return integer
+     * @VirtualProperty
      */
     public function getAvailableParts()
     {
@@ -460,6 +462,7 @@ class Gift
 
     /**
      * @return float
+     * @VirtualProperty
      */
     public function totalGived()
     {
@@ -468,6 +471,7 @@ class Gift
 
     /**
      * @return float
+     * @VirtualProperty
      */
     public function percentDone()
     {
@@ -475,6 +479,7 @@ class Gift
     }
     /**
      * @return float
+     * @VirtualProperty
      */
     public function percentReserved()
     {
@@ -483,6 +488,7 @@ class Gift
 
     /**
      * @return float
+     * @VirtualProperty
      */
     public function partValue()
     {

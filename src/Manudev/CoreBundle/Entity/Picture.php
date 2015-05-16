@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 
+use JMS\Serializer\Annotation\VirtualProperty;
 define('FILES_DESTINATION', "uploads/pictures");
 /**
  * Picture
@@ -138,6 +139,9 @@ class Picture
         return null === $this->name ? null : $this->getUploadRootDir().'/'.$this->name;
     }
 
+    /**
+     * @VirtualProperty
+     */
     public function getWebPath()
     {
         return null === $this->name ? null : '/'.$this->getUploadDir().'/'.$this->name;
