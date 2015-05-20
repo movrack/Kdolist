@@ -274,7 +274,19 @@ app.directive('giftPanel', function(){
 
         scope: { gift: '=' },
         controller: function($scope){
-            loadProgressBar($scope);
+            $(".progress").each(function() {
+
+                var $this = $(this);
+                if (($().appear) && isMobileDevice === false && ($this.hasClass("no-anim") === false) ) {
+                    $this.appear(function () {
+                        var $bar = $this.find(".progress-bar");
+                        $bar.addClass("progress-bar-animate").css("width", $bar.attr("data-percentage") + "%");
+                    }, {accY: -150} );
+                } else {
+                    var $bar = $this.find(".progress-bar");
+                    $bar.css("width", $bar.attr("data-percentage") + "%");
+                }
+            });
            //giftGridMasonry();
         },
         controllerAs: 'giftDirective'

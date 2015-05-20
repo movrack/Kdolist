@@ -422,6 +422,10 @@ class Gift
         return !$this->isReserved() && !$this->isGived();
     }
 
+    /**
+     * @return int
+     * @VirtualProperty()
+     */
     public function totalReserved() {
 
         $sum = 0;

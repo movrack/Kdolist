@@ -3,20 +3,31 @@
         <div class="blog-image" >
             <img ng-src="http://k.loc/{{ '{{ gift.picture.web_path}}' }}" alt="blog post">
         </div>
+
         <div class="blog-caption">
             <h3 class="post-title">{{ '{{ gift.name}}' }}</h3>
             <p>{{ '{{ gift.description}}' }}</p>
-            {{ '{{ gift.price }}' }} € ({{ '{{ gift.number_of_parts }}' }}  parts de 200 €)<br />
-            Parts déjà offertes: {{ '{{ gift.gived_parts}}' }}<br />
+            {{ '{{ gift.price }}' }} €
+            ({{ '{{ gift.number_of_parts }}' }} <i class="fa fa-pie-chart"></i> parts de 200 €)<br />
             <div class="progress">
-                <div class="progress-bar" data-percentage="{{ '{{ gift.percent_done}}' }}">
-                    <span>Offert {{ '{{ gift.percent_done}}' }}%</span>
+                <div class="progress-bar"
+                     data-toggle="tooltip"
+                     title="Parts offertes : {{ '{{ gift.gived_parts}}' }} / {{ '{{ gift.number_of_parts }}' }}"
+                     data-percentage="{{ '{{ gift.percent_done}}' }}">
+                    <span ng-class="{true:'op7', false:''}[gift.percent_done > 0 && gift.percent_done < 20]">
+                        {{ '{{ gift.gived_parts}}' }}
+                </div>
+                <div class="progress-bar progress-bar-danger progress-bar-striped
+                            progress-bar-animate active op7"
+                     data-toggle="tooltip" title="Parts réservées :
+                     {{ '{{ gift.total_reserved}}' }} / {{ '{{ gift.number_of_parts }}' }}"
+                     data-percentage="{{ '{{ gift.percent_reserved}}' }}">
                 </div>
             </div>
 
             <div class="clearfix">
                 <div class="pull-left">
-                    <a data-toggle="modal" data-target="#modal" class="read-more">read more</a>
+                    <a data-toggle="modal" data-target="#modal" class="read-more">Voir plus</a>
                 </div>
             </div>
         </div>
