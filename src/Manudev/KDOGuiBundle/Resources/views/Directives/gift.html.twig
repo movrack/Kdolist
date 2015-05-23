@@ -1,5 +1,4 @@
-<div class="col-sm-6 col-md-3 el">
-    <div class="blog-item" data-toggle="modal" data-target="#modal">
+    <div class="blog-item" data-toggle="modal" data-target="#modal" ng-click="$scope.currentGift = gift">
         <div class="blog-image" >
             <img ng-src="http://k.loc/{{ '{{ gift.picture.web_path}}' }}" alt="blog post">
         </div>
@@ -16,6 +15,7 @@
                      data-percentage="{{ '{{ gift.percent_done}}' }}">
                     <span ng-class="{true:'op7', false:''}[gift.percent_done > 0 && gift.percent_done < 20]">
                         {{ '{{ gift.gived_parts}}' }}
+                    </span>
                 </div>
                 <div class="progress-bar progress-bar-danger progress-bar-striped
                             progress-bar-animate active op7"
@@ -25,11 +25,8 @@
                 </div>
             </div>
 
-            <div class="clearfix">
-                <div class="pull-left">
-                    <a data-toggle="modal" data-target="#modal" class="read-more">Voir plus</a>
-                </div>
+            <div class="pull-left">
+                <a class="read-more">Voir plus</a>
             </div>
         </div>
     </div>
-</div>

@@ -154,7 +154,7 @@ app.controller('ListController', ['$routeParams', '$http', function($routeParams
         self.lists = data[0];
     });
     loadStellar();
-    //giftGridMasonry();
+    giftGridMasonry();
     /*
     this.lists = [{
             'name' : 'Cheminée',
@@ -319,10 +319,10 @@ var giftGridMasonry = function() {
 
     if ( $().isotope && $('#portfolio-isotope').length) {
 
-        var $portfolio = $('.portfolio');
+        var $portfolio = $('.masonery');
         if (ie) {
 
-            var portfolioRow = $("#portfolio-isotope").find(".row");
+            var portfolioRow = $("#masonery-isotope").find(".row");
             var $gutter = 30;
 
             if (portfolioRow.hasClass("col-p5")) {
