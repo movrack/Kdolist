@@ -1,21 +1,18 @@
-<section id="#content" ng-controller="ListController as list">
+<section id="content" ng-controller="ListController as list">
 
+    <section id="giftListBaner" class="tp-banner section-intro">
+        <div class="stellar bg-overlay" data-stellar-background-ratio="0.4"
+             style="background: url('http://k.loc/{{'{{ list.lists.picture.web_path}}'}}');
+                     background-size: cover;
+                     background-repeat: no-repeat;">
+            <div class=" tp-dottedoverlay twoxtwo" ></div>
+        </div>
 
-        <section class="tp-banner section-intro">
-            <div class=" stellar bg-overlay" data-stellar-background-ratio="0.4"
-                 style=" background: url('http://k.loc/{{'{{ list.lists.picture.web_path}}'}}');
-                         background-size: cover;
-                         background-repeat: no-repeat;
-                         min-height:400px">
-
-                <div class=" tp-dottedoverlay twoxtwo" ></div>
-            </div>
-
-            <div id="header-list-title" class="bg-overlay bg8 col-md-5 col-sm-8 mt20 ml20 " style="z-index: 3">
-                <h1 class="intro-title">{{ '{{ list.lists.title }}' }}</h1>
-                <h3 style="color: white">{{ '{{ list.lists.sub_title }}' }}</h3>
-                <p class="intro-p">{{ '{{ list.lists.description }}' }}</p>
-            </div>
+        <div id="header-list-title" class="bg-overlay bg8 col-md-5 col-sm-8 mt20 mb20" style="z-index: 3">
+            <h1 class="intro-title">{{ '{{ list.lists.title }}' }}</h1>
+            <h3 style="color: white">{{ '{{ list.lists.sub_title }}' }}</h3>
+            <p class="intro-p">{{ '{{ list.lists.description }}' }}</p>
+        </div>
     </section>
 
     <section class="section-page">

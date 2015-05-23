@@ -1,32 +1,36 @@
-    <div class="blog-item" data-toggle="modal" data-target="#modal" ng-click="$scope.currentGift = gift">
-        <div class="blog-image" >
+    <div class="gift-item" data-toggle="modal" data-target="#modal" ng-click="$scope.currentGift = gift">
+        <div class="gift-image" >
             <img ng-src="http://k.loc/{{ '{{ gift.picture.web_path}}' }}" alt="blog post">
         </div>
 
-        <div class="blog-caption">
+        <div class="gift-caption">
             <h3 class="post-title">{{ '{{ gift.name}}' }}</h3>
-            <p>{{ '{{ gift.description}}' }}</p>
-            {{ '{{ gift.price }}' }} €
-            ({{ '{{ gift.number_of_parts }}' }} <i class="fa fa-pie-chart"></i> parts de 200 €)<br />
-            <div class="progress">
-                <div class="progress-bar"
-                     data-toggle="tooltip"
-                     title="Parts offertes : {{ '{{ gift.gived_parts}}' }} / {{ '{{ gift.number_of_parts }}' }}"
-                     data-percentage="{{ '{{ gift.percent_done}}' }}">
-                    <span ng-class="{true:'op7', false:''}[gift.percent_done > 0 && gift.percent_done < 20]">
-                        {{ '{{ gift.gived_parts}}' }}
-                    </span>
-                </div>
-                <div class="progress-bar progress-bar-danger progress-bar-striped
-                            progress-bar-animate active op7"
-                     data-toggle="tooltip" title="Parts réservées :
-                     {{ '{{ gift.total_reserved}}' }} / {{ '{{ gift.number_of_parts }}' }}"
-                     data-percentage="{{ '{{ gift.percent_reserved}}' }}">
-                </div>
-            </div>
+            <p>{{ '{{ gift.description | limitTo:100}}' }}
+                <span ng-show="gift.description.length > 100">...</span>
+                (<a class="read-more">Voir plus</a>)
+            </p>
 
-            <div class="pull-left">
-                <a class="read-more">Voir plus</a>
+            <div>
+                {{ '{{ gift.price }}' }} €
+                ({{ '{{ gift.number_of_parts }}' }} <i class="fa fa-pie-chart"></i> parts de 200 €)<br />
+                <div class="progress">
+                    <div class="progress-bar"
+                         data-toggle="tooltip"
+                         title="Parts offertes : {{ '{{ gift.gived_parts}}' }} / {{ '{{ gift.number_of_parts }}' }}"
+                         data-percentage="{{ '{{ gift.percent_done}}' }}">
+                        <span ng-class="{true:'op7', false:''}[gift.percent_done > 0 && gift.percent_done < 20]">
+                            {{ '{{ gift.gived_parts}}' }}
+                        </span>
+                    </div>
+                    <div class="progress-bar progress-bar-danger progress-bar-striped
+                                progress-bar-animate active op7"
+                         data-toggle="tooltip" title="Parts réservées&nbsp;:&nbsp;{{ '{{ gift.total_reserved}}' }}&nbsp;/&nbsp;{{ '{{ gift.number_of_parts }}' }}"
+                         data-percentage="{{ '{{ gift.percent_reserved}}' }}">
+                    </div>
+                </div>
             </div>
         </div>
+        <button class="btn btn-primary btn-block">
+            <i class="fa fa-gift"></i> Offrir ce cadeau
+        </button>
     </div>
