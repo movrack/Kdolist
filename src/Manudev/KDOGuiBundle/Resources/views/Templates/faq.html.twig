@@ -10,7 +10,7 @@
     </div>
 </section>
 
-<section id="#content" ng-controller="FaqController as faq">
+<section id="#content">
 
     <div class="page-nav-tabs-wrapper">
         <div class="container">
@@ -19,11 +19,11 @@
                     <div class="pull-left">
                         <div class="page-nav-tabs">
                             <ul class="nav nav-tabs">
-                                <li ng-class="{'active' : faq.tabs.active == 1}">
-                                    <a ng-click="faq.tabs.active = 1">Select first tab</a>
+                                <li ng-class="{'active' : faqCtrl.tabs.active == 1}">
+                                    <a ng-click="faqCtrl.tabs.active = 1">Select first tab</a>
                                 </li>
-                                <li ng-class="{'active' : faq.tabs.active == 2}">
-                                <a ng-click="faq.tabs.active = 2">Select second tab</a>
+                                <li ng-class="{'active' : faqCtrl.tabs.active == 2}">
+                                <a ng-click="faqCtrl.tabs.active = 2">Select second tab</a>
                                 </li>
 
                             </ul>
@@ -37,7 +37,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-12 col-md-6">
-                    <div ng-show="faq.tabs.active == 1">
+                    <div ng-show="faqCtrl.tabs.active == 1">
                         <accordion close-others="oneAtATime">
                             <accordion-group is-open="status.acc1">
                                 <accordion-heading>
@@ -66,7 +66,7 @@
                         </accordion>
 
                     </div>
-                    <div ng-show="faq.tabs.active == 2">
+                    <div ng-show="faqCtrl.tabs.active == 2">
                         <accordion close-others="oneAtATime">
                             <accordion-group is-open="status.acc1">
                                 <accordion-heading>

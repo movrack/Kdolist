@@ -1,10 +1,10 @@
 <!doctype html>
-<html class="no-js" lang="{{ app.request.locale }}" ng-app="app" >
+<html class="no-js" lang="{{ app.request.locale }}" ng-app="app"  ng-controller="HtmlController as htmlCtrl">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>{% block title %}KdoList{% endblock %}</title>
-    <meta name="description" content="Kdolist, gérer facilement votre liste de cadeau et partagé la à vos amis et votre famille.">
+    <title>{% block title %}{{ '{{htmlCtrl.head.siteTitle}}' }}{% endblock %}</title>
+    <meta name="description" content="{{ '{{htmlCtrl.head.siteDescription}}' }}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="apple-touch-icon" href="apple-touch-icon.png">

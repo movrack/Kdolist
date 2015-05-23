@@ -1,17 +1,17 @@
-<section id="content" ng-controller="ListController as list">
+<section id="content">
 
     <section id="giftListBaner" class="tp-banner section-intro">
         <div class="stellar bg-overlay" data-stellar-background-ratio="0.4"
-             style="background: url('http://k.loc/{{'{{ list.lists.picture.web_path}}'}}');
+             style="background: url('http://k.loc/{{'{{ listCtrl.lists.picture.web_path}}'}}');
                      background-size: cover;
                      background-repeat: no-repeat;">
             <div class=" tp-dottedoverlay twoxtwo" ></div>
         </div>
 
         <div id="header-list-title" class="bg-overlay bg8 col-md-5 col-sm-8 mt20 mb20" style="z-index: 3">
-            <h1 class="intro-title">{{ '{{ list.lists.title }}' }}</h1>
-            <h3 style="color: white">{{ '{{ list.lists.sub_title }}' }}</h3>
-            <p class="intro-p">{{ '{{ list.lists.description }}' }}</p>
+            <h1 class="intro-title">{{ '{{ listCtrl.lists.title }}' }}</h1>
+            <h3 style="color: white">{{ '{{ listCtrl.lists.sub_title }}' }}</h3>
+            <p class="intro-p">{{ '{{ listCtrl.lists.description }}' }}</p>
             <div class="addthis_sharing_toolbox"></div>
         </div>
     </section>
@@ -19,7 +19,7 @@
     <section class="section-page">
         <div class="container">
             <div class="masonry">
-                <gift-panel class="item" gift="gift" ng-repeat="gift in list.lists.gifts"></gift-panel>
+                <gift-panel class="item" gift="gift" ng-repeat="gift in listCtrl.lists.gifts"></gift-panel>
             </div>
         </div>
     </section>

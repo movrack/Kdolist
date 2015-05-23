@@ -10,6 +10,17 @@ var $body = $('body')
 var mqWidth = $win.outerWidth(true,true)
 var isMobileDevice = (( navigator.userAgent.match(/Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone|IEMobile|Opera Mini|Mobi/i) || (mqWidth < 767) ) ? true : false );
 
+
+
+
+var gem = {
+    name: 'Dodecahedron',
+    price: 2.95,
+    description: '. . .'
+}
+
+
+
 // detect IE browsers
 var ie = (function(){
     var rv = 0,
@@ -37,40 +48,52 @@ app.config(['$routeProvider', function($routeProvider) {
     $routeProvider
         .when('/about', {
             templateUrl: rootUrl+'/gui/template/about',
-            controller: 'AboutController' } )
+            controller: 'AboutController',
+            controllerAs: 'aboutCtrl' } )
         .when('/features', {
             templateUrl: rootUrl+'/gui/template/features',
-            controller: 'FeaturesController' } )
+            controller: 'FeaturesController',
+            controllerAs: 'featuresCtrl' } )
         .when('/terms', {
             templateUrl: rootUrl+'/gui/template/terms',
-            controller: 'TermsController' } )
+            controller: 'TermsController',
+            controllerAs: 'termsCtrl' } )
         .when('/price', {
             templateUrl: rootUrl+'/gui/template/price',
-            controller: 'PriceController' } )
+            controller: 'PriceController',
+            controllerAs: 'priceCtrl' } )
         .when('/signin', {
             templateUrl: rootUrl+'/gui/template/signin',
-            controller: 'SigninController' } )
+            controller: 'SigninController',
+            controllerAs: 'signinCtrl' } )
         .when('/signup', {
             templateUrl: rootUrl+'/gui/template/signup',
-            controller: 'SignupController' } )
+            controller: 'SignupController',
+            controllerAs: 'signupCtrl' } )
         .when('/list/:id', {
             templateUrl: rootUrl+'/gui/template/list',
-            controller: 'ListController' } )
+            controller: 'ListController',
+            controllerAs: 'listCtrl' } )
         .when('/list/:id/:slug', {
             templateUrl: rootUrl+'/gui/template/list',
-            controller: 'ListController' } )
+            controller: 'ListController',
+            controllerAs: 'listCtrl' } )
         .when('/faq', {
             templateUrl: rootUrl+'/gui/template/faq',
-            controller: 'FaqController' } )
+            controller: 'FaqController',
+            controllerAs: 'faqCtrl' } )
         .when('/contact', {
             templateUrl: rootUrl+'/gui/template/contact',
-            controller: 'ContactController' } )
+            controller: 'ContactController',
+            controllerAs: 'contactCtrl' } )
         .when('/403', {
             templateUrl: rootUrl+'/gui/template/403',
-            controller: 'Error403Controller' } )
+            controller: 'Error403Controller',
+            controllerAs: 'e403Ctrl' } )
         .when('/', {
             templateUrl: rootUrl+'/gui/template/home',
-            controller: 'HomeController' } )
+            controller: 'HomeController',
+            controllerAs: 'homeCtrl' } )
         .otherwise({ redirectTo: '/' });
     }
 ]);
@@ -85,7 +108,7 @@ app.controller('FooterController', function() {
     this.date = new Date();
 });
 
-app.controller('MainController', function() {
+app.controller('MainController', function($scope) {
     this.product = gem;
 });
 
@@ -120,152 +143,74 @@ app.controller('AboutController', function($scope) {
 
     this.name = "A propos"
 });
-app.controller('HomeController', function() {
-    console.log('home controller')
-    this.name = "home"
 
-    if (($().owlCarousel) && ($(".owl-carousel").length)) {
+app.controller('HomeController', function() {
+    console.log('home controller');
+
+    //if (($().owlCarousel) && ($(".owl-carousel").length)) {
         $(".owl-columns3").owlCarousel({
-            itemsCustom: [[0,1],[767,2],[991,3]],
+            /*itemsCustom: [[0,1],[767,2],[991,3]],
             navigation:false,
             pagination:false,
-            autoplay:false
+            autoplay:false*/
         });
-    }
+    //}
 
 });
 app.controller('SigninController', function() {
     console.log('signin controller')
-    this.name = "signin"
+    this.name = "signin";
 });
 app.controller('SignupController', function() {
     console.log('signup controller')
-    this.name = "signup"
+    this.name = "signup";
 });
 
 
-app.controller('ListController', ['$routeParams', '$http', function($routeParams, $http) {
-    var self = this;
-    self.id = $routeParams.id;
-    self.slug = $routeParams.slug;
+var defaultHeadParameters = {
+    siteDescription :   "Kdolist, gérer facilement votre liste de cadeau et partagé " +
+                        "la à vos amis et votre famille.",
+    siteTitle : "Kdolist"
+};
 
-    self.lists = [];
-    $http.get(rootUrl + '/api/lists/lists/' + self.id + '.json').success(function(data){
-        self.lists = data[0];
+app.controller('HtmlController', function($scope) {
+    var self = this;
+    self.head = defaultHeadParameters;
+    $scope.$on('$routeChangeStart',  function() {
+        self.head.siteDescription = defaultHeadParameters.siteDescription;
+        self.head.siteTitle = defaultHeadParameters.siteTitle;
     });
-    loadStellar();
-    giftGridMasonry();
-    /*
-    this.lists = [{
-            'name' : 'Cheminée',
-            'description' : 'Il nous faudra une cheminée, sans quoi, Père Noël ne pourra pas venir chez nous !',
-            'price' : 500,
-            'nbOfParts' : 10,
-            'offeredParts' : 2,
-            'reservedParts' : 1,
-            'picture' : 'http://baconmockup.com/300/200'
-        },
-        {
-            'name' : 'Plancher',
-            'description' : 'Ce serait dommage de marcher dans de la boue ou sur un béton pas joli et tout poussiéreux...',
-            'price' : 2000,
-            'nbOfParts' : 50,
-            'offeredParts' : 10,
-            'reservedParts' : 5,
-            'picture' : 'http://baconmockup.com/400/350'
-        },
-        {
-            'name' : 'Cheminée',
-            'description' : 'Il nous faudra une cheminée, sans quoi, Père Noël ne pourra pas venir chez nous !',
-            'price' : 500,
-            'nbOfParts' : 10,
-            'offeredParts' : 2,
-            'reservedParts' : 1,
-            'picture' : 'http://baconmockup.com/300/200'
-        },
-        {
-            'name' : 'Plancher',
-            'description' : 'Ce serait dommage de marcher dans de la boue ou sur un béton pas joli et tout poussiéreux...',
-            'price' : 2000,
-            'nbOfParts' : 50,
-            'offeredParts' : 10,
-            'reservedParts' : 5,
-            'picture' : 'http://baconmockup.com/400/350'
-        },
-        {
-            'name' : 'Cheminée',
-            'description' : 'Il nous faudra une cheminée, sans quoi, Père Noël ne pourra pas venir chez nous !',
-            'price' : 500,
-            'nbOfParts' : 10,
-            'offeredParts' : 2,
-            'reservedParts' : 1,
-            'picture' : 'http://baconmockup.com/300/200'
-        },
-        {
-            'name' : 'Plancher',
-            'description' : 'Ce serait dommage de marcher dans de la boue ou sur un béton pas joli et tout poussiéreux...',
-            'price' : 2000,
-            'nbOfParts' : 50,
-            'offeredParts' : 10,
-            'reservedParts' : 5,
-            'picture' : 'http://baconmockup.com/400/350'
-        },
-        {
-            'name' : 'Cheminée',
-            'description' : 'Il nous faudra une cheminée, sans quoi, Père Noël ne pourra pas venir chez nous !',
-            'price' : 500,
-            'nbOfParts' : 10,
-            'offeredParts' : 2,
-            'reservedParts' : 1,
-            'picture' : 'http://baconmockup.com/300/200'
-        },
-        {
-            'name' : 'Plancher',
-            'description' : 'Ce serait dommage de marcher dans de la boue ou sur un béton pas joli et tout poussiéreux...',
-            'price' : 2000,
-            'nbOfParts' : 50,
-            'offeredParts' : 10,
-            'reservedParts' : 5,
-            'picture' : 'http://baconmockup.com/400/350'
-        },
-        {
-            'name' : 'Cheminée',
-            'description' : 'Il nous faudra une cheminée, sans quoi, Père Noël ne pourra pas venir chez nous !',
-            'price' : 500,
-            'nbOfParts' : 10,
-            'offeredParts' : 2,
-            'reservedParts' : 1,
-            'picture' : 'http://baconmockup.com/300/200'
-        },
-        {
-            'name' : 'Plancher',
-            'description' : 'Ce serait dommage de marcher dans de la boue ou sur un béton pas joli et tout poussiéreux...',
-            'price' : 2000,
-            'nbOfParts' : 50,
-            'offeredParts' : 10,
-            'reservedParts' : 5,
-            'picture' : 'http://baconmockup.com/400/350'
-        },
-        {
-            'name' : 'Cheminée',
-            'description' : 'Il nous faudra une cheminée, sans quoi, Père Noël ne pourra pas venir chez nous !',
-            'price' : 500,
-            'nbOfParts' : 10,
-            'offeredParts' : 2,
-            'reservedParts' : 1,
-            'picture' : 'http://baconmockup.com/300/200'
-        },
-        {
-            'name' : 'Plancher',
-            'description' : 'Ce serait dommage de marcher dans de la boue ou sur un béton pas joli et tout poussiéreux...',
-            'price' : 2000,
-            'nbOfParts' : 50,
-            'offeredParts' : 10,
-            'reservedParts' : 5,
-            'picture' : 'http://baconmockup.com/400/350'
-        }];
-    */
-}]);
+
+    $scope.$on('siteDescriptionUpdate', function (event, args) {
+        self.head.siteDescription = args + "\n-------\n" + defaultHeadParameters.siteDescription;
+    });
+    $scope.$on('siteTitleUpdate', function (event, args) {
+        self.head.siteTitle = defaultHeadParameters.siteTitle + " - " + args;
+    });
+
+});
+
+app.controller('ListController', ['$rootScope', '$scope', '$routeParams', '$http',
+    function($rootScope, $scope, $routeParams, $http ) {
+
+        var self = this;
+        self.id = $routeParams.id;
+        self.slug = $routeParams.slug;
+        self.lists = [];
+
+        self.setData = function(newData) {
+            self.lists = newData;
+            $rootScope.$broadcast('siteDescriptionUpdate', newData.description);
+            $rootScope.$broadcast('siteTitleUpdate', newData.title);
+        };
+
+        $http.get(rootUrl + '/api/lists/lists/' + self.id + '.json').success(function(data){
+            self.setData(data[0]);
+        });
+
+        loadStellar();
+    }
+]);
 
 app.directive('giftPanel', function(){
     return {
@@ -287,17 +232,11 @@ app.directive('giftPanel', function(){
                     $bar.css("width", $bar.attr("data-percentage") + "%");
                 }
             });
-           //giftGridMasonry();
         },
         controllerAs: 'giftDirective'
     };
 });
 
-var gem = {
-    name: 'Dodecahedron',
-    price: 2.95,
-    description: '. . .'
-}
 
 var loadStellar = function() {
 
@@ -312,86 +251,6 @@ var loadStellar = function() {
             parallaxElements: false
         });
     }
-}
-
-var giftGridMasonry = function() {
-
-
-    if ( $().isotope && $('#portfolio-isotope').length) {
-
-        var $portfolio = $('.masonery');
-        if (ie) {
-
-            var portfolioRow = $("#masonery-isotope").find(".row");
-            var $gutter = 30;
-
-            if (portfolioRow.hasClass("col-p5")) {
-                $gutter = 10;
-            } else if (portfolioRow.hasClass("col-p10")) {
-                $gutter = 20;
-            } else if (portfolioRow.hasClass("col-p20")) {
-                $gutter = 40;
-            } else if (portfolioRow.hasClass("col-p30")) {
-                $gutter = 60;
-            } else if (portfolioRow.hasClass("col-p0")) {
-                $gutter = 0;
-            }
-
-
-
-            var $item = $portfolio.find('.el'),
-                itemWidth = $item.outerWidth(true) - $gutter;
-
-            portfolioRow.css({"margin-left":0});
-
-            (function() {
-
-                function fixGrid() {
-                    $item.each(function() {
-                        $item.css({
-                            'width': itemWidth + 'px',
-                            'padding-left':0,
-                            'padding-right':0
-                        });
-                    });
-                }
-                fixGrid();
-
-                $win.resize(function() {
-                    fixGrid();
-                });
-
-            })();
-
-            $portfolio.isotope({
-                itemSelector:'.el',
-                filter: '*',
-                layoutMode: "masonry",
-                transitionDuration:'0.6s',
-                masonry: {
-                    columnWidth:'.el',
-                    gutter:$gutter
-                }
-            });
-
-        } else {
-
-            $portfolio.imagesLoaded(function() {
-                $portfolio.isotope({
-                    itemSelector:'.el',
-                    filter: '*',
-                    layoutMode: 'masonry',
-                    transitionDuration:'0.6s',
-                    masonry: {
-                        columnWidth:'.el'
-                    }
-                });
-            });
-        }
-
-
-
-    } // END if
 }
 
 var loadProgressBar = function($scope) {
