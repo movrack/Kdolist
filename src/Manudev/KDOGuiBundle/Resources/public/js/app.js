@@ -177,16 +177,15 @@ app.controller('HtmlController', function($scope) {
     var self = this;
     self.head = defaultHeadParameters;
     $scope.$on('$routeChangeStart',  function() {
-        // Use of jquery because sharing see tag and not values
-        $('head meta[name="description"]').attr('content', 'toto');
-        $('head title').html(defaultHeadParameters.siteTitle);
+        self.head.siteDescription = defaultHeadParameters.siteDescription;
+        self.head.siteTitle = defaultHeadParameters.siteTitle;
     });
 
     $scope.$on('siteDescriptionUpdate', function (event, args) {
-        $('head meta[name="description"]').attr('content', args + "\n-------\n" + defaultHeadParameters.siteDescription);
+        self.head.siteDescription = args + "\n-------\n" + defaultHeadParameters.siteDescription;
     });
     $scope.$on('siteTitleUpdate', function (event, args) {
-        $('head title').html( defaultHeadParameters.siteTitle + " - " + args);
+        self.head.siteTitle = defaultHeadParameters.siteTitle + " - " + args;
     });
 
 });
