@@ -208,6 +208,10 @@ app.controller('ListController', ['$rootScope', '$scope', '$routeParams', '$http
             self.setData(data[0]);
         });
 
+        $scope.$on('modalGift', function(event, args) {
+            self.currentGift = args;
+        });
+
         loadStellar();
     }
 ]);
@@ -218,7 +222,14 @@ app.directive('giftPanel', function(){
         templateUrl: rootUrl+'/gui/directive/gift',
 
         scope: { gift: '=' },
-        controller: function($scope){
+        link: function($scope, $elem, attr) {
+            $scope.setModal = function() {
+
+                $scope.$emit('modalGift', $scope.gift);
+            };
+        },
+        controller: function($scope, $elem, attrs){
+            //console.log($scope.gift);
             $(".progress").each(function() {
 
                 var $this = $(this);
@@ -231,6 +242,7 @@ app.directive('giftPanel', function(){
                     var $bar = $this.find(".progress-bar");
                     $bar.css("width", $bar.attr("data-percentage") + "%");
                 }
+
             });
         },
         controllerAs: 'giftDirective'
