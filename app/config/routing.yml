@@ -10,7 +10,7 @@ manudev_api_rest:
 manudev_kdo_gui:
     resource: "@ManudevKDOGuiBundle/Controller/"
     type:     annotation
-    prefix:   /gui
+    prefix:   /
 
 
 manudev_core:

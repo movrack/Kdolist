@@ -43,55 +43,55 @@ var ie = (function(){
 
 var app = angular.module('app', ['ngRoute', 'ui.bootstrap']);
 
-var rootUrl = 'http://k.loc/app_dev.php';
+var rootUrl = '/app_dev.php';
 app.config(['$routeProvider', function($routeProvider) {
     $routeProvider
         .when('/about', {
-            templateUrl: rootUrl+'/gui/template/about',
+            templateUrl: rootUrl+'/template/about',
             controller: 'AboutController',
             controllerAs: 'aboutCtrl' } )
         .when('/features', {
-            templateUrl: rootUrl+'/gui/template/features',
+            templateUrl: rootUrl+'/template/features',
             controller: 'FeaturesController',
             controllerAs: 'featuresCtrl' } )
         .when('/terms', {
-            templateUrl: rootUrl+'/gui/template/terms',
+            templateUrl: rootUrl+'/template/terms',
             controller: 'TermsController',
             controllerAs: 'termsCtrl' } )
         .when('/price', {
-            templateUrl: rootUrl+'/gui/template/price',
+            templateUrl: rootUrl+'/template/price',
             controller: 'PriceController',
             controllerAs: 'priceCtrl' } )
         .when('/signin', {
-            templateUrl: rootUrl+'/gui/template/signin',
+            templateUrl: rootUrl+'/template/signin',
             controller: 'SigninController',
             controllerAs: 'signinCtrl' } )
         .when('/signup', {
-            templateUrl: rootUrl+'/gui/template/signup',
+            templateUrl: rootUrl+'/template/signup',
             controller: 'SignupController',
             controllerAs: 'signupCtrl' } )
         .when('/list/:id', {
-            templateUrl: rootUrl+'/gui/template/list',
+            templateUrl: rootUrl+'/template/list',
             controller: 'ListController',
             controllerAs: 'listCtrl' } )
         .when('/list/:id/:slug', {
-            templateUrl: rootUrl+'/gui/template/list',
+            templateUrl: rootUrl+'/template/list',
             controller: 'ListController',
             controllerAs: 'listCtrl' } )
         .when('/faq', {
-            templateUrl: rootUrl+'/gui/template/faq',
+            templateUrl: rootUrl+'/template/faq',
             controller: 'FaqController',
             controllerAs: 'faqCtrl' } )
         .when('/contact', {
-            templateUrl: rootUrl+'/gui/template/contact',
+            templateUrl: rootUrl+'/template/contact',
             controller: 'ContactController',
             controllerAs: 'contactCtrl' } )
         .when('/403', {
-            templateUrl: rootUrl+'/gui/template/403',
+            templateUrl: rootUrl+'/template/403',
             controller: 'Error403Controller',
             controllerAs: 'e403Ctrl' } )
         .when('/', {
-            templateUrl: rootUrl+'/gui/template/home',
+            templateUrl: rootUrl+'/template/home',
             controller: 'HomeController',
             controllerAs: 'homeCtrl' } )
         .otherwise({ redirectTo: '/' });
@@ -176,6 +176,7 @@ var defaultHeadParameters = {
 app.controller('HtmlController', function($scope) {
     var self = this;
     self.head = defaultHeadParameters;
+
     $scope.$on('$routeChangeStart',  function() {
         self.head.siteDescription = defaultHeadParameters.siteDescription;
         self.head.siteTitle = defaultHeadParameters.siteTitle;
@@ -184,11 +185,13 @@ app.controller('HtmlController', function($scope) {
     $scope.$on('siteDescriptionUpdate', function (event, args) {
         self.head.siteDescription = args + "\n-------\n" + defaultHeadParameters.siteDescription;
     });
+
     $scope.$on('siteTitleUpdate', function (event, args) {
         self.head.siteTitle = defaultHeadParameters.siteTitle + " - " + args;
     });
 
 });
+
 
 app.controller('ListController', ['$rootScope', '$scope', '$routeParams', '$http',
     function($rootScope, $scope, $routeParams, $http ) {
@@ -202,6 +205,8 @@ app.controller('ListController', ['$rootScope', '$scope', '$routeParams', '$http
             self.lists = newData;
             $rootScope.$broadcast('siteDescriptionUpdate', newData.description);
             $rootScope.$broadcast('siteTitleUpdate', newData.title);
+
+            $rootScope.$broadcast('setBg', newData.picture.web_path);
         };
 
         $http.get(rootUrl + '/api/lists/lists/' + self.id + '.json').success(function(data){
@@ -216,10 +221,23 @@ app.controller('ListController', ['$rootScope', '$scope', '$routeParams', '$http
     }
 ]);
 
-app.directive('giftPanel', function(){
+app.directive('backroundImg', function() {
+    return function(scope, element, attrs) {
+        var url = attrs.backImg
+        scope.$on('setBg', function(event, args){
+            element.css({
+                'background-image': 'url(' + args + ')',
+                'background-size': 'cover',
+                'background-repeat': 'no-repeat'
+            });
+        });
+    };
+});
+
+app.directive('giftPanel', function() {
     return {
         restrict: 'E',
-        templateUrl: rootUrl+'/gui/directive/gift',
+        templateUrl: rootUrl+'/directive/gift',
 
         scope: { gift: '=' },
         link: function($scope, $elem, attr) {

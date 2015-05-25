@@ -2,9 +2,7 @@
 
     <section id="giftListBaner" class="tp-banner section-intro">
         <div class="stellar bg-overlay" data-stellar-background-ratio="0.4"
-             style="background: url('http://k.loc/{{'{{ listCtrl.lists.picture.web_path}}'}}');
-                     background-size: cover;
-                     background-repeat: no-repeat;">
+             backround-img="" data-img="{{ '{{ listCtrl.lists.picture.web_path }}' }}">
             <div class=" tp-dottedoverlay twoxtwo" ></div>
         </div>
 
@@ -73,6 +71,23 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <p>{{ '{{ listCtrl.currentGift.description }}' }}</p>
+                            <div class="row">
+
+                                <div class="col-md-6 col-sm12">
+
+                                        <img src="{{ '{{ listCtrl.currentGift.picture.web_path }}' }}"
+                                             width="100%">
+
+                                </div>
+
+                                <div class="col-md-6 col-sm12">
+
+                                </div>
+                            </div>
+                            <div class="row">
+
+                                <div class="col-md-12"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -84,3 +99,113 @@
         </div>
     </div>
 </section>
+{#
+<div class="modal-dialog modal-lg">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+            <h4 class="modal-title" id="myModalLabel">2 Toilettes</h4>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <div style="text-align: center">
+                        <img src="/uploads/pictures/6c469ecdf34eca21dda4f1050aafbfebf4741dd1ac764cccf2922859631687bb.jpeg" class="img-rounded img-thumbnail" width="100%">
+                        <br>
+                    </div>
+
+                </div>
+                <div class="col-md-6">
+
+                    <div class="panel panel-primary bottom">
+                        <div class="panel-heading">
+                            Détails
+                        </div>
+                        <div class="panel-body">
+                            <div>
+                                <i class="fa fa-quote-left"></i>
+                                <i class="fa fa-quote-right"></i>
+                                <div style="text-align: justify">Dans notre maison, nous aurons besoin de deux toilettes, une normale, et une spéciale pour que manu puisse y lire ses BD lapin-crétin.</div>
+                                <br>
+                                <br>
+                            </div>
+                        </div>
+                        <div class="panel-footer">
+
+                            <i class="fa fa-money"></i> 200 €
+                            (par part de 25 €)
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;" data-toggle="tooltip" data-placement="top" title="Parts déjà offertes">
+                                    0 / 8 <i class="fa fa-pie-chart"></i>
+                                </div>
+                                <div class="progress-bar progress-bar-warning " role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;" data-toggle="tooltip" data-placement="top" title="Parts réservées">
+                                    0 <i class="fa fa-pie-chart"></i>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="panel panel-info">
+                <div class="panel-heading"><strong>Offrir</strong></div>
+                <div class="row panel-body">
+                    <div class="col-md-7">
+                        <p class="text-align: justify">
+                            Afin d'offrir un cadeau, un email va vous être envoyé.<br>
+                            Dans celui-ci, vous devrez confirmer votre cadeau et celui-ci sera alors enlevé de la liste des souhaits.<br>
+                            Personne d'autre ne pourra alors l'offrir.
+                        </p>
+                    </div>
+                    <div id="formOffer" class="col-md-5">
+                        <form name="form" method="post" action="/p/m2" class="form-horizontal">
+                            <div class="form-group">
+                                <div class="col-sm-6" id="formFirstName">
+                                    <input type="text" id="form_firstName" name="form[firstName]" required="required" placeholder="Prénom" class="form-control">
+                                </div>
+                                <div class="col-sm-6" id="formLastName">
+                                    <input type="text" id="form_lastName" name="form[lastName]" required="required" placeholder="Nom" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-12" id="formEmail">
+                                    <input type="email" id="form_email" name="form[email]" required="required" placeholder="Email" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-5 control-label lef">Nombre de parts</label>
+                                <div class="col-sm-7" id="formNumberOfParts">
+                                    <input type="number" id="form_numberOfParts" name="form[numberOfParts]" required="required" min="1" max="8" class="form-control" value="1">
+                                </div>
+
+                                <div class="col-sm-12">
+                                    Prix total : 200 €<br>
+                                    Prix d'une part : 25 €<br>
+                                    Nombre de part disponibles : 8<br>
+                                    Prix calculé :
+                                    <strong>
+                                        <spanc id="counter" data-counter="25">1</spanc>
+                                        * 25€
+                                        = <span id="counter-value">25</span>€
+                                    </strong>
+                                </div>
+                            </div>
+                            <input type="hidden" id="form__token" name="form[_token]" class="form-control" value="nkRJIC-7k-5Dv_NIa0FfJBeL9gXQAka5GB4HaAQv_uA">
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    <button id="submitFormOffer" type="button" class="btn btn-primary btn-block">
+                                        <i class="fa fa-gift"></i> Offrir
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+        </div>
+    </div>#}
+</div>
