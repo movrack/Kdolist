@@ -217,7 +217,12 @@ app.controller('ListController', ['$rootScope', '$scope', '$routeParams', '$http
             self.currentGift = args;
         });
 
+        loadProgressBar($scope);
         loadStellar();
+        loadTooltip();
+        loadPopover();
+
+        // todo on modal close, reset progress.
     }
 ]);
 
@@ -282,6 +287,18 @@ var loadStellar = function() {
         });
     }
 }
+
+var loadPopover = function() {
+    if ( $().popover ) {
+        $("[data-toggle='popover']").popover();
+    }
+};
+
+var loadTooltip = function() {
+    if ( $().tooltip ) {
+        $("[data-toggle='tooltip']").tooltip();
+    }
+};
 
 var loadProgressBar = function($scope) {
     $scope.$on('$viewContentLoaded', function(){

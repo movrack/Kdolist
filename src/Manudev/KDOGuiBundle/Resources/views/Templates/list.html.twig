@@ -7,10 +7,66 @@
         </div>
 
         <div id="header-list-title" class="bg-overlay bg8 col-md-5 col-sm-8 mt20 mb20" style="z-index: 3">
-            <h1 class="intro-title">{{ '{{ listCtrl.lists.title }}' }}</h1>
-            <h3 style="color: white">{{ '{{ listCtrl.lists.sub_title }}' }}</h3>
-            <p class="intro-p">{{ '{{ listCtrl.lists.description }}' }}</p>
-
+            <h1 class="list-intro-title">{{ '{{ listCtrl.lists.title }}' }}
+                <small><br />{{ '{{ listCtrl.lists.sub_title }}' }}</small></h1>
+            <div class="list-intro-text">{{ '{{ listCtrl.lists.description }}' }}</div>
+            <div class="list-intro-share mt10">
+                <ul class="social-icon social-bg circle">
+                    <li data-toggle="tooltip" data-placement="bottom" data-original-title="Partager sur Facebook" data-title="Partager sur Facebook">
+                        <a data-title="Partager sur Facebook"
+                        data-container="body" data-toggle="popover" data-placement="right"
+                        data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."
+                        data-original-title="Partager sur Facebook">
+                            <i class="fa fa-facebook"></i>
+                        </a>
+                    </li>
+                    <li data-toggle="tooltip" data-placement="bottom" data-original-title="Partager sur Twitter"
+                        data-title="Partager sur Twitter">
+                        <a data-title="Partager sur Twitter"
+                           data-container="body" data-toggle="popover" data-placement="right"
+                           data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."
+                           data-original-title="Partager sur Twitter">
+                            <i class="fa fa-twitter"></i>
+                        </a>
+                    </li>
+                    <li data-toggle="tooltip" data-placement="bottom" data-original-title="Partager sur Google+"
+                        data-title="Partager sur Google+">
+                        <a data-title="Partager sur Google+"
+                           data-container="body" data-toggle="popover" data-placement="right"
+                           data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."
+                           data-original-title="Partager sur Google+">
+                            <i class="fa fa-google-plus"></i>
+                        </a>
+                    </li>
+                    <li data-toggle="tooltip" data-placement="bottom" data-original-title="Obtenir le flux RSS"
+                        data-title="Obtenir le flux RSS">
+                        <a data-title="Obtenir le flux RSS"
+                           data-container="body" data-toggle="popover" data-placement="right"
+                           data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."
+                           data-original-title="Obtenir le flux RSS">
+                            <i class="fa fa-rss"></i>
+                        </a>
+                    </li>
+                    <li data-toggle="tooltip" data-placement="bottom" data-original-title="Envoyer par email"
+                        data-title="Envoyer par email">
+                        <a data-title="Envoyer par email"
+                           data-container="body" data-toggle="popover" data-placement="right"
+                           data-content="Form"
+                           data-original-title="Envoyer par email">
+                            <i class="fa fa-envelope"></i>
+                        </a>
+                    </li>
+                    <li data-toggle="tooltip" data-placement="bottom" data-original-title="Obtenir le lien"
+                        data-title="Obtenir le lien">
+                        <a data-title="Obtenir le lien"
+                           data-container="body" data-toggle="popover" data-placement="right"
+                           data-content="http://wwww"
+                           data-original-title="Obtenir le lien">
+                            <i class="fa fa-share-alt"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
 {#
             <a target="_blank"
                href="https://plus.google.com/share?url=http://k.loc/app_dev.php/gui/#/list/2"
@@ -60,8 +116,9 @@
     </section>
 
     {{ '{{ $scope.currentGift.name }}' }}
-    <div class="modal fade" id="modal" tabindex="-1" role="modal" aria-labelledby="modal-label" aria-hidden="true">
-        <div class="modal-dialog">
+    <div class="modal fade in" id="modal" tabindex="-1" role="modal"
+         aria-labelledby="modal-label" aria-hidden="true">
+        <div class="modal-dialog  modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -70,7 +127,6 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-sm-12">
-                            <p>{{ '{{ listCtrl.currentGift.description }}' }}</p>
                             <div class="row">
 
                                 <div class="col-md-6 col-sm12">
@@ -82,7 +138,41 @@
 
                                 <div class="col-md-6 col-sm12">
 
+                                    <p></p>
+                                    <div class="panel-heading">
+                                        Détails
+                                    </div>
+                                    <div class="panel-body">
+                                        <div>
+                                            <i class="fa fa-quote-left"></i>
+                                            <i class="fa fa-quote-right"></i>
+                                            <div style="text-align: justify">
+                                                {{ '{{ listCtrl.currentGift.description }}' }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel-footer">
+
+                                        {{ '{{ listCtrl.currentGift.price }}' }} €
+                                        ({{ '{{ listCtrl.currentGift.number_of_parts }}' }} <i class="fa fa-pie-chart"></i> parts de 200 €)<br />
+                                        <div class="progress">
+                                            <div class="progress-bar"
+                                                 data-toggle="tooltip"
+                                                 data-original-title="Parts offertes : {{ '{{ listCtrl.currentGift.gived_parts}}' }} / {{ '{{ listCtrl.currentGift.number_of_parts }}' }}"
+                                                 data-percentage="{{ '{{ listCtrl.currentGift.percent_done}}' }}">
+                                                <span ng-class="{true:'op7', false:''}[listCtrl.currentGift.percent_done > 0 && listCtrl.currentGift.percent_done < 20]">
+                                                    {{ '{{ listCtrl.currentGift.gived_parts}}' }}
+                                                </span>
+                                            </div>
+                                            <div class="progress-bar progress-bar-danger progress-bar-striped progress-bar-animate active op7"
+                                                 data-toggle="tooltip" data-original-title="Parts réservées&nbsp;:&nbsp;{{ '{{ listCtrl.currentGift.total_reserved}}' }}&nbsp;/&nbsp;{{ '{{ listCtrl.currentGift.number_of_parts }}' }}"
+                                                 data-percentage="{{ '{{ listCtrl.currentGift.percent_reserved}}' }}">
+                                            </div>
+                                        </div>
+
+                                    </div>
                                 </div>
+
                             </div>
                             <div class="row">
 
@@ -92,8 +182,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-b" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-b">Save Changes</button>
+                    <button type="button" class="btn btn-b" data-dismiss="modal">Fermer</button>
                 </div>
             </div>
         </div>
