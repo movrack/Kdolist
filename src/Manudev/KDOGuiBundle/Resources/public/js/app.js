@@ -217,7 +217,6 @@ app.controller('ListController', ['$rootScope', '$scope', '$routeParams', '$http
             self.currentGift = args;
         });
 
-        loadProgressBar($scope);
         loadStellar();
         loadTooltip();
         loadPopover();
@@ -241,37 +240,45 @@ app.directive('backroundImg', function() {
 
 app.directive('giftPanel', function() {
     return {
-        restrict: 'E',
         templateUrl: rootUrl+'/directive/gift',
-
-        scope: { gift: '=' },
-        link: function($scope, $elem, attr) {
+        scope: {
+            gift: '='
+        },
+        controller: function($scope, $elem, attrs) {
             $scope.setModal = function() {
-
                 $scope.$emit('modalGift', $scope.gift);
             };
-        },
-        controller: function($scope, $elem, attrs){
-            //console.log($scope.gift);
-            $(".progress").each(function() {
-
-                var $this = $(this);
-                if (($().appear) && isMobileDevice === false && ($this.hasClass("no-anim") === false) ) {
-                    $this.appear(function () {
-                        var $bar = $this.find(".progress-bar");
-                        $bar.addClass("progress-bar-animate").css("width", $bar.attr("data-percentage") + "%");
-                    }, {accY: -150} );
-                } else {
-                    var $bar = $this.find(".progress-bar");
-                    $bar.css("width", $bar.attr("data-percentage") + "%");
-                }
-
-            });
         },
         controllerAs: 'giftDirective'
     };
 });
 
+app.directive('dProgressBar', function() {
+    return {
+        restrict: 'E',
+        templateUrl: rootUrl + '/directive/progressBar',
+        scope: {
+            gift: '=gift'
+        },
+        link: function ($scope, $elem, attrs) {
+            var bars = $elem.find(".progress-bar");
+            bars.each(function() {
+                var bar = $(this);
+                var percent = (bar.context.dataset.bartype === "gived")
+                    ? $scope.gift.percent_done
+                    : $scope.gift.percent_reserved;
+                var computedPercent = percent / 100 * 80; // 20 removed for label.
+                if (($().appear) && isMobileDevice === false && (bars.hasClass("no-anim") === false) ) {
+                    bar.appear(function () {
+                        bar.addClass("progress-bar-animate").css("width", computedPercent + "%");
+                    }, {accY: -150} );
+                } else {
+                   bar.css("width", computedPercent + "%");
+                }
+            });
+        }
+    };
+});
 
 var loadStellar = function() {
 
@@ -300,6 +307,7 @@ var loadTooltip = function() {
     }
 };
 
+
 var loadProgressBar = function($scope) {
     $scope.$on('$viewContentLoaded', function(){
         $(".progress").each(function() {
@@ -317,7 +325,8 @@ var loadProgressBar = function($scope) {
             }
         });
     });
-}
+};
+
 var loadStatsTime = function() {
     // Include CountTo
     if ($('.stats-timer').length) {

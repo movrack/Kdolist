@@ -138,44 +138,26 @@
 
                                 <div class="col-md-6 col-sm12">
 
-                                    <p></p>
-                                    <div class="panel-heading">
-                                        Détails
-                                    </div>
                                     <div class="panel-body">
                                         <div>
-                                            <i class="fa fa-quote-left"></i>
-                                            <i class="fa fa-quote-right"></i>
                                             <div style="text-align: justify">
+                                                <i class="fa fa-quote-left"></i>
+                                                <i class="fa fa-quote-right"></i>
                                                 {{ '{{ listCtrl.currentGift.description }}' }}
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="panel-footer">
+                                        <div class="divider d4"><span><i class="fa fa-gift"></i></span></div>
 
                                         {{ '{{ listCtrl.currentGift.price }}' }} €
                                         ({{ '{{ listCtrl.currentGift.number_of_parts }}' }} <i class="fa fa-pie-chart"></i> parts de 200 €)<br />
-                                        <div class="progress">
-                                            <div class="progress-bar"
-                                                 data-toggle="tooltip"
-                                                 data-original-title="Parts offertes : {{ '{{ listCtrl.currentGift.gived_parts}}' }} / {{ '{{ listCtrl.currentGift.number_of_parts }}' }}"
-                                                 data-percentage="{{ '{{ listCtrl.currentGift.percent_done}}' }}">
-                                                <span ng-class="{true:'op7', false:''}[listCtrl.currentGift.percent_done > 0 && listCtrl.currentGift.percent_done < 20]">
-                                                    {{ '{{ listCtrl.currentGift.gived_parts}}' }}
-                                                </span>
-                                            </div>
-                                            <div class="progress-bar progress-bar-danger progress-bar-striped progress-bar-animate active op7"
-                                                 data-toggle="tooltip" data-original-title="Parts réservées&nbsp;:&nbsp;{{ '{{ listCtrl.currentGift.total_reserved}}' }}&nbsp;/&nbsp;{{ '{{ listCtrl.currentGift.number_of_parts }}' }}"
-                                                 data-percentage="{{ '{{ listCtrl.currentGift.percent_reserved}}' }}">
-                                            </div>
-                                        </div>
+
+                                        <d-progress-bar gift="listCtrl.currentGift"></d-progress-bar>
 
                                     </div>
                                 </div>
 
                             </div>
                             <div class="row">
-
                                 <div class="col-md-12"></div>
                             </div>
                         </div>

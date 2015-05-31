@@ -5,7 +5,10 @@
 
         <div class="gift-caption">
             <h3 class="post-title">{{ '{{ gift.name}}' }}</h3>
-            <p>{{ '{{ gift.description | limitTo:100}}' }}
+            <p>
+                <i class="fa fa-quote-left"></i>
+                <i class="fa fa-quote-right"></i>
+                {{ '{{ gift.description | limitTo:100}}' }}
                 <span ng-show="gift.description.length > 100">...</span>
                 <a class="inlineblock">(<i class="fa fa-search"></i>&nbsp;Voir&nbsp;plus)</a>
             </p>
@@ -13,21 +16,7 @@
             <div>
                 {{ '{{ gift.price }}' }} €
                 ({{ '{{ gift.number_of_parts }}' }} <i class="fa fa-pie-chart"></i> parts de 200 €)<br />
-                <div class="progress">
-                    <div class="progress-bar"
-                         data-toggle="tooltip"
-                         title="Parts offertes : {{ '{{ gift.gived_parts}}' }} / {{ '{{ gift.number_of_parts }}' }}"
-                         data-percentage="{{ '{{ gift.percent_done}}' }}">
-                        <span ng-class="{true:'op7', false:''}[gift.percent_done > 0 && gift.percent_done < 20]">
-                            {{ '{{ gift.gived_parts}}' }}
-                        </span>
-                    </div>
-                    <div class="progress-bar progress-bar-danger progress-bar-striped
-                                progress-bar-animate active op7"
-                         data-toggle="tooltip" title="Parts réservées&nbsp;:&nbsp;{{ '{{ gift.total_reserved}}' }}&nbsp;/&nbsp;{{ '{{ gift.number_of_parts }}' }}"
-                         data-percentage="{{ '{{ gift.percent_reserved}}' }}">
-                    </div>
-                </div>
+                <d-progress-bar gift="gift"></d-progress-bar>
             </div>
         </div>
         <button class="btn btn-primary btn-block">

@@ -24,4 +24,13 @@ class DirectivesController extends Controller
         return array();
     }
 
+    /**
+     * @Route("/progressBar")
+     * @Template()
+     */
+    public function progressBarAction()
+    {
+        return array();
+    }
+
 }
