@@ -19,7 +19,13 @@
                 <d-progress-bar gift="gift"></d-progress-bar>
             </div>
         </div>
-        <button class="btn btn-primary btn-block">
+        <button class="btn btn-primary btn-block"
+                ng-show="gift.percent_done + gift.percent_reserved < 100">
             <i class="fa fa-gift"></i> Offrir ce cadeau
+        </button>
+
+        <button class="btn btn-success btn-block"
+                ng-show="gift.percent_done + gift.percent_reserved >= 100">
+            <i class="fa fa-gift"></i> Voir ce cadeau
         </button>
     </div>

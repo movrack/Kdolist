@@ -110,12 +110,22 @@
     <section class="section-page">
         <div class="container">
             <div class="masonry">
-                <gift-panel class="item" gift="gift" ng-repeat="gift in listCtrl.lists.gifts"></gift-panel>
+                <gift-panel class="item" ng-repeat="gift in listCtrl.lists.gifts"
+                            gift="gift"  ng-show="gift.percent_done + gift.percent_reserved < 100"></gift-panel>
             </div>
         </div>
     </section>
 
-    {{ '{{ $scope.currentGift.name }}' }}
+    <section class="section-page">
+        <div class="container">
+            <h1>Les cadeaux suivants sont réservés ou ont déjà été offerts</h1>
+            <div class="masonry">
+                <gift-panel class="item" ng-repeat="gift in listCtrl.lists.gifts"
+                            gift="gift"  ng-show="gift.percent_done + gift.percent_reserved >= 100"></gift-panel>
+            </div>
+        </div>
+    </section>
+
     <div class="modal fade in" id="modal" tabindex="-1" role="modal" id="listModal"
          aria-labelledby="modal-label" aria-hidden="true">
         <div class="modal-dialog  modal-lg">
@@ -130,14 +140,11 @@
                             <div class="row">
 
                                 <div class="col-md-6 col-sm12">
-
-                                        <img src="{{ '{{ listCtrl.currentGift.picture.web_path }}' }}"
+                                     <img ng-src="{{ '{{ listCtrl.currentGift.picture.web_path }}' }}"
                                              width="100%">
-
                                 </div>
 
                                 <div class="col-md-6 col-sm12">
-
                                     <div class="panel-body">
                                         <div>
                                             <div style="text-align: justify">
@@ -157,8 +164,86 @@
                                 </div>
 
                             </div>
-                            <div class="row">
-                                <div class="col-md-12"></div>
+                            <div class="row mt20"
+                                 ng-show="listCtrl.currentGift.percent_done + listCtrl.currentGift.percent_reserved >= 100"
+                                ng-hide="listCtrl.currentGift.percent_done + listCtrl.currentGift.percent_reserved < 100">
+                                <div class="col-md-12">
+
+                                    <div class="panel panel-info">
+                                        <h5 class="modal-title" id="modal-label">
+                                            Offrir
+                                        </h5>
+                                        <div class="row panel-body">
+                                            Ce cadeau a déjà été offert ou est réservé.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt20"
+                                ng-show="listCtrl.currentGift.percent_done + listCtrl.currentGift.percent_reserved < 100"
+                                ng-hide="listCtrl.currentGift.percent_done + listCtrl.currentGift.percent_reserved >= 100">
+                                <div class="col-md-12">
+
+                                    <div class="panel panel-info">
+                                        <h5 class="modal-title" id="modal-label">
+                                            Offrir
+                                        </h5>
+                                        <div class="row panel-body">
+                                            <div class="col-md-7">
+                                                <p class="text-align: justify">
+                                                    Afin d'offrir un cadeau, un email va vous être envoyé.<br>
+                                                    Dans celui-ci, vous devrez confirmer votre cadeau et celui-ci sera alors enlevé de la liste des souhaits.<br>
+                                                    Personne d'autre ne pourra alors l'offrir.
+                                                </p>
+                                            </div>
+                                            <div id="formOffer" class="col-md-5">
+                                                <form name="form" method="post" action="" class="form-horizontal">
+                                                    <div class="form-group">
+                                                        <div class="col-sm-6" id="formFirstName">
+                                                            <input type="text" id="form_firstName" name="form[firstName]" required="required" placeholder="Prénom" class="form-control">
+                                                        </div>
+                                                        <div class="col-sm-6" id="formLastName">
+                                                            <input type="text" id="form_lastName" name="form[lastName]" required="required" placeholder="Nom" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div class="col-sm-12" id="formEmail">
+                                                            <input type="email" id="form_email" name="form[email]" required="required" placeholder="Email" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-sm-5 control-label lef">Nombre de parts</label>
+                                                        <div class="col-sm-7" id="formNumberOfParts">
+                                                            <input type="number" id="form_numberOfParts" name="form[numberOfParts]" required="required" min="1" max="8" class="form-control" value="1">
+                                                        </div>
+
+                                                        <div class="col-sm-12">
+                                                            Prix total : 200 €<br>
+                                                            Prix d'une part : 25 €<br>
+                                                            Nombre de part disponibles : 8<br>
+                                                            Prix calculé :
+                                                            <strong>
+                                                                <spanc id="counter" data-counter="25">1</spanc>
+                                                                * 25€
+                                                                = <span id="counter-value">25</span>€
+                                                            </strong>
+                                                        </div>
+                                                    </div>
+                                                    <input type="hidden" id="form__token" name="form[_token]" class="form-control" value="nkRJIC-7k-5Dv_NIa0FfJBeL9gXQAka5GB4HaAQv_uA">
+                                                    <div class="form-group">
+                                                        <div class="col-sm-12">
+                                                            <button id="submitFormOffer" type="button" class="btn btn-primary btn-block">
+                                                                <i class="fa fa-gift"></i> Offrir
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -219,61 +304,7 @@
                 </div>
             </div>
             <br>
-            <div class="panel panel-info">
-                <div class="panel-heading"><strong>Offrir</strong></div>
-                <div class="row panel-body">
-                    <div class="col-md-7">
-                        <p class="text-align: justify">
-                            Afin d'offrir un cadeau, un email va vous être envoyé.<br>
-                            Dans celui-ci, vous devrez confirmer votre cadeau et celui-ci sera alors enlevé de la liste des souhaits.<br>
-                            Personne d'autre ne pourra alors l'offrir.
-                        </p>
-                    </div>
-                    <div id="formOffer" class="col-md-5">
-                        <form name="form" method="post" action="/p/m2" class="form-horizontal">
-                            <div class="form-group">
-                                <div class="col-sm-6" id="formFirstName">
-                                    <input type="text" id="form_firstName" name="form[firstName]" required="required" placeholder="Prénom" class="form-control">
-                                </div>
-                                <div class="col-sm-6" id="formLastName">
-                                    <input type="text" id="form_lastName" name="form[lastName]" required="required" placeholder="Nom" class="form-control">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-sm-12" id="formEmail">
-                                    <input type="email" id="form_email" name="form[email]" required="required" placeholder="Email" class="form-control">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-5 control-label lef">Nombre de parts</label>
-                                <div class="col-sm-7" id="formNumberOfParts">
-                                    <input type="number" id="form_numberOfParts" name="form[numberOfParts]" required="required" min="1" max="8" class="form-control" value="1">
-                                </div>
 
-                                <div class="col-sm-12">
-                                    Prix total : 200 €<br>
-                                    Prix d'une part : 25 €<br>
-                                    Nombre de part disponibles : 8<br>
-                                    Prix calculé :
-                                    <strong>
-                                        <spanc id="counter" data-counter="25">1</spanc>
-                                        * 25€
-                                        = <span id="counter-value">25</span>€
-                                    </strong>
-                                </div>
-                            </div>
-                            <input type="hidden" id="form__token" name="form[_token]" class="form-control" value="nkRJIC-7k-5Dv_NIa0FfJBeL9gXQAka5GB4HaAQv_uA">
-                            <div class="form-group">
-                                <div class="col-sm-12">
-                                    <button id="submitFormOffer" type="button" class="btn btn-primary btn-block">
-                                        <i class="fa fa-gift"></i> Offrir
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
