@@ -41,10 +41,13 @@ var ie = (function(){
 }());
 
 
-var app = angular.module('app', ['ngRoute', 'ui.bootstrap']);
+var app = angular.module('app', ['ngRoute', 'ui.bootstrap', 'angular-loading-bar', 'ngAnimate']);
 
 var rootUrl = '/app_dev.php';
-app.config(['$routeProvider', function($routeProvider) {
+app.config(['$routeProvider', 'cfpLoadingBarProvider', function($routeProvider, cfpLoadingBarProvider) {
+
+    //cfpLoadingBarProvider.includeSpinner = false;
+
     $routeProvider
         .when('/about', {
             templateUrl: rootUrl+'/template/about',
@@ -138,7 +141,7 @@ app.controller('TermsController', function() {
 
 app.controller('AboutController', function($scope) {
     console.log('about controller')
-    loadProgressBar($scope);
+    globalProgressBar($scope);
     loadStatsTime();
 
     this.name = "A propos"
@@ -200,12 +203,18 @@ app.controller('ListController', ['$rootScope', '$scope', '$routeParams', '$http
         self.id = $routeParams.id;
         self.slug = $routeParams.slug;
         self.lists = [];
+        self.currentGift = {
+            total_gived: 500,
+            total_reserved: 0,
+            available_parts: 30,
+            percent_done: 25,
+            percent_reserved: 0
+        }
 
         self.setData = function(newData) {
             self.lists = newData;
             $rootScope.$broadcast('siteDescriptionUpdate', newData.description);
             $rootScope.$broadcast('siteTitleUpdate', newData.title);
-
             $rootScope.$broadcast('setBg', newData.picture.web_path);
         };
 
@@ -220,8 +229,6 @@ app.controller('ListController', ['$rootScope', '$scope', '$routeParams', '$http
         loadStellar();
         loadTooltip();
         loadPopover();
-
-        // todo on modal close, reset progress.
     }
 ]);
 
@@ -261,24 +268,35 @@ app.directive('dProgressBar', function() {
             gift: '=gift'
         },
         link: function ($scope, $elem, attrs) {
-            var bars = $elem.find(".progress-bar");
-            bars.each(function() {
-                var bar = $(this);
-                var percent = (bar.context.dataset.bartype === "gived")
-                    ? $scope.gift.percent_done
-                    : $scope.gift.percent_reserved;
-                var computedPercent = percent / 100 * 80; // 20 removed for label.
-                if (($().appear) && isMobileDevice === false && (bars.hasClass("no-anim") === false) ) {
-                    bar.appear(function () {
-                        bar.addClass("progress-bar-animate").css("width", computedPercent + "%");
-                    }, {accY: -150} );
-                } else {
-                   bar.css("width", computedPercent + "%");
+
+            $scope.$watch('gift', function(newValue, oldValue) {
+                if (newValue !== oldValue) {
+
                 }
-            });
+                loadProgressBar($elem, $scope);
+            }, true);
         }
     };
 });
+
+var loadProgressBar = function($elem, $scope) {
+    var bars = $elem.find(".progress-bar");
+    bars.each(function() {
+        var bar = $(this);
+        var percent = (bar.context.dataset.bartype === "gived")
+            ? $scope.gift.percent_done
+            : $scope.gift.percent_reserved;
+        var computedPercent = percent / 100 * 80; // 20 removed for label.
+        if (($().appear) && isMobileDevice === false && (bars.hasClass("no-anim") === false) ) {
+            bar.appear(function () {
+                bar.addClass("progress-bar-animate").css("width", computedPercent + "%");
+            }, {accY: -150} );
+        } else {
+            bar.css("width", computedPercent + "%");
+        }
+    });
+};
+
 
 var loadStellar = function() {
 
@@ -308,7 +326,7 @@ var loadTooltip = function() {
 };
 
 
-var loadProgressBar = function($scope) {
+var globalProgressBar = function($scope) {
     $scope.$on('$viewContentLoaded', function(){
         $(".progress").each(function() {
 
