@@ -1,18 +1,13 @@
 <div class="progress">
 
-    <div style="background: #444448; color: white; width: 20%; text-align: center; display: inline-block; float: left;"
-          {#ng-class="{true:'op6', false:''}[gift.percent_done > 0 && gift.percent_done < 20]"#}>
-        {{ '{{ gift.gived_parts}}' }}
+    <div class="progress-label">
+         {{ '{{ gift.gived_parts}}' }}
     </div>
     <div class="progress-bar"
          data-toggle="tooltip"
          title="Parts offertes : {{ '{{ gift.gived_parts}}' }} / {{ '{{ gift.number_of_parts }}' }}"
          data-bartype="gived"
          >
-{#
-        <span ng-class="{true:'op4', false:''}[gift.percent_done > 0 && gift.percent_done < 20]">
-            {{ '{{ gift.gived_parts}}' }}
-        </span>#}
     </div>
     <div class="progress-bar progress-bar-danger progress-bar-striped progress-bar-animate active op7"
          data-toggle="tooltip"
