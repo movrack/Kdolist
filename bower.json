@@ -27,7 +27,8 @@
     "angular-route": "~1.3.15",
     "angular-loading-bar": "~0.7.1",
     "angular-animate": "~1.4.0",
-    "angular-bootstrap": "~0.13.0"
+    "angular-bootstrap": "~0.13.0",
+    "jquery.appear": "aliirz/jquery.appear"
   },
   "preen": {
     "jquery": [

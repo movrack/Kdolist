@@ -209,7 +209,7 @@ app.controller('ListController', ['$rootScope', '$scope', '$routeParams', '$http
             available_parts: 30,
             percent_done: 25,
             percent_reserved: 0
-        }
+        };
 
         self.setData = function(newData) {
             self.lists = newData;
@@ -225,7 +225,6 @@ app.controller('ListController', ['$rootScope', '$scope', '$routeParams', '$http
         $scope.$on('modalGift', function(event, args) {
             self.currentGift = args;
         });
-
         loadStellar();
         loadTooltip();
         loadPopover();
@@ -265,19 +264,32 @@ app.directive('dProgressBar', function() {
         restrict: 'E',
         templateUrl: rootUrl + '/directive/progressBar',
         scope: {
-            gift: '=gift'
+            gift: '='
         },
         link: function ($scope, $elem, attrs) {
-
+            loadProgressBar($elem, $scope);
             $scope.$watch('gift', function(newValue, oldValue) {
                 if (newValue !== oldValue) {
-
+                    loadFixedProgressBar($elem, $scope);
                 }
-                loadProgressBar($elem, $scope);
             }, true);
         }
     };
 });
+
+var loadFixedProgressBar = function($elem, $scope) {
+    var bars = $elem.find(".progress-bar");
+
+    bars.each(function() {
+        var bar = $(this);
+        var percent = (bar.context.dataset.bartype === "gived")
+            ? $scope.gift.percent_done
+            : $scope.gift.percent_reserved;
+        var computedPercent = percent / 100 * 80; // 20 removed for label.
+
+        bar.css("width", computedPercent + "%");
+    });
+};
 
 var loadProgressBar = function($elem, $scope) {
     var bars = $elem.find(".progress-bar");
@@ -287,6 +299,7 @@ var loadProgressBar = function($elem, $scope) {
             ? $scope.gift.percent_done
             : $scope.gift.percent_reserved;
         var computedPercent = percent / 100 * 80; // 20 removed for label.
+
         if (($().appear) && isMobileDevice === false && (bars.hasClass("no-anim") === false) ) {
             bar.appear(function () {
                 bar.addClass("progress-bar-animate").css("width", computedPercent + "%");

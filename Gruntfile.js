@@ -124,6 +124,12 @@ module.exports = function(grunt) {
                         dest: 'web/assets/src/libs/angular/js',
                         src: ['ui-bootstrap.js']
                     },
+                    {
+                        expand: true,
+                        cwd: 'bower_modules/jquery.appear',
+                        dest: 'web/assets/src/libs/jquery/js',
+                        src: ['jquery.appear.js']
+                    },
                 ]
             }
         },
@@ -207,6 +213,12 @@ module.exports = function(grunt) {
                         cwd: 'web/assets/src/libs/angular/js',
                         src: '**/*.js',
                         dest: 'web/assets/libs/js/angular'
+                    },
+                    {
+                        expand: true,
+                        cwd: 'web/assets/src/libs/jquery/js',
+                        src: '**/*.js',
+                        dest: 'web/assets/libs/js/jquery'
                     },
                     /*
                     {
