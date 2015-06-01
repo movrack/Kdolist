@@ -105,7 +105,7 @@ app.controller('BodyController',['$rootScope', function($rootScope) {
         if ($("#preloader").length) {
             $('#status').fadeIn();
             $('#preloader').fadeIn();
-            $body.css({'overflow':'none'});
+            $body.css({'overflow':''});
         }
     });
     $rootScope.$on('cfpLoadingBar:completed', function() {
