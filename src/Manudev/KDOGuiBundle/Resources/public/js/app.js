@@ -105,14 +105,14 @@ app.controller('BodyController',['$rootScope', function($rootScope) {
         if ($("#preloader").length) {
             $('#status').fadeIn();
             $('#preloader').fadeIn();
-            $body.css({'overflow':''});
+            //$body.css({'overflow':''});
         }
     });
     $rootScope.$on('cfpLoadingBar:completed', function() {
         if ($("#preloader").length) {
             $('#status').fadeOut();
             $('#preloader').delay(300).fadeOut('slow');
-            $body.delay(300).css({'overflow':'visible'});
+            //$body.delay(300).css({'overflow':'visible'});
         }
     });
 
