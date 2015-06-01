@@ -100,7 +100,24 @@ app.config(['$routeProvider', 'cfpLoadingBarProvider', function($routeProvider, 
         .otherwise({ redirectTo: '/' });
     }
 ]);
+app.controller('BodyController',['$rootScope', function($rootScope) {
+    $rootScope.$on('cfpLoadingBar:started', function() {
+        if ($("#preloader").length) {
+            $('#status').fadeIn();
+            $('#preloader').fadeIn();
+            $body.css({'overflow':'none'});
+        }
+    });
+    $rootScope.$on('cfpLoadingBar:completed', function() {
+        if ($("#preloader").length) {
+            $('#status').fadeOut();
+            $('#preloader').delay(300).fadeOut('slow');
+            $body.delay(300).css({'overflow':'visible'});
+        }
+    });
 
+
+}]);
 app.controller('ContactController', function() {
     this.name = 'contact';
 });
