@@ -103,14 +103,14 @@ app.config(['$routeProvider', 'cfpLoadingBarProvider', function($routeProvider, 
 app.controller('BodyController',['$rootScope', function($rootScope) {
     $rootScope.$on('cfpLoadingBar:started', function() {
         if ($("#preloader").length) {
-            $('#status').fadeIn();
+            $('#giftLoader').fadeIn();
             $('#preloader').addClass('op8').fadeIn();
             //$body.css({'overflow':''});
         }
     });
     $rootScope.$on('cfpLoadingBar:completed', function() {
         if ($("#preloader").length) {
-            $('#status').fadeOut();
+            $('#giftLoader').fadeOut();
             $('#preloader').delay(300).fadeOut('slow').removeClass('op8');
             //$body.delay(300).css({'overflow':'visible'});
         }
