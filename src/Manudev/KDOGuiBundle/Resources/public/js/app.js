@@ -105,17 +105,22 @@ app.controller('BodyController',['$rootScope', function($rootScope) {
         if ($("#preloader").length) {
             $('#giftLoader').fadeIn();
             $('#preloader').addClass('op8').fadeIn();
-            //$body.css({'overflow':''});
         }
     });
     $rootScope.$on('cfpLoadingBar:completed', function() {
         if ($("#preloader").length) {
             $('#giftLoader').fadeOut();
             $('#preloader').delay(300).fadeOut('slow').removeClass('op8');
-            //$body.delay(300).css({'overflow':'visible'});
         }
     });
 
+    $win.load(function(){
+        if ($("#preloader").length) {
+            $('#giftLoader').fadeOut();
+            $('#preloader').delay(300).fadeOut('slow').removeClass('op8');
+            $body.delay(300).css({'overflow':'visible'});
+        }
+    });
 
 }]);
 app.controller('ContactController', function() {
