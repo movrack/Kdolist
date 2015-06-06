@@ -1,17 +1,17 @@
 <div class="progress">
 
     <div class="progress-label">
-         {{ '{{ gift.gived_parts}}' }}
+         [[gift.gived_parts]]
     </div>
     <div class="progress-bar"
          data-toggle="tooltip"
-         title="Parts offertes : {{ '{{ gift.gived_parts}}' }} / {{ '{{ gift.number_of_parts }}' }}"
+         title="Parts offertes : [[  gift.gived_parts ]]/[[gift.number_of_parts]]"
          data-bartype="gived"
          >
     </div>
     <div class="progress-bar progress-bar-danger progress-bar-striped progress-bar-animate active op7"
          data-toggle="tooltip"
-         title="Parts réservées&nbsp;:&nbsp;{{ '{{ gift.total_reserved}}' }}&nbsp;/&nbsp;{{ '{{ gift.number_of_parts }}' }}"
+         title="Parts réservées&nbsp;:&nbsp;[[ gift.total_reserved]]&nbsp;/&nbsp;[[gift.number_of_parts]]"
          data-bartype="reserved">
     </div>
 </div>

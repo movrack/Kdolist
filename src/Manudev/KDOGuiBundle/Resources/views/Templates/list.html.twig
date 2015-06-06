@@ -2,14 +2,14 @@
 
     <section id="giftListBaner" class="tp-banner section-intro">
         <div class="stellar bg-overlay" data-stellar-background-ratio="0.4"
-             backround-img="" data-img="{{ '{{ listCtrl.lists.picture.web_path }}' }}">
+             backround-img="" data-img="[[listCtrl.lists.picture.web_path ]]">
             <div class=" tp-dottedoverlay twoxtwo" ></div>
         </div>
 
         <div id="header-list-title" class="bg-overlay bg8 col-md-5 col-sm-8 mt20 mb20" style="z-index: 3">
-            <h1 class="list-intro-title">{{ '{{ listCtrl.lists.title }}' }}
-                <small><br />{{ '{{ listCtrl.lists.sub_title }}' }}</small></h1>
-            <div class="list-intro-text">{{ '{{ listCtrl.lists.description }}' }}</div>
+            <h1 class="list-intro-title">[[listCtrl.lists.title ]]
+                <small><br />[[listCtrl.lists.sub_title ]]</small></h1>
+            <div class="list-intro-text">[[listCtrl.lists.description ]]</div>
             <div class="list-intro-share mt10">
                 <ul class="social-icon social-bg circle">
                     <li data-toggle="tooltip" data-placement="bottom" data-original-title="Partager sur Facebook" data-title="Partager sur Facebook">
@@ -132,7 +132,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                    <h4 class="modal-title" id="modal-label">{{ '{{ listCtrl.currentGift.name }}' }}</h4>
+                    <h4 class="modal-title" id="modal-label">[[listCtrl.currentGift.name]]</h4>
                 </div>
                 <div class="modal-body">
                     <div class="row">
@@ -140,7 +140,7 @@
                             <div class="row">
 
                                 <div class="col-md-6 col-sm12">
-                                     <img ng-src="{{ '{{ listCtrl.currentGift.picture.web_path }}' }}"
+                                     <img ng-src="[[listCtrl.currentGift.picture.web_path]]"
                                              width="100%">
                                 </div>
 
@@ -150,13 +150,13 @@
                                             <div style="text-align: justify">
                                                 <i class="fa fa-quote-left"></i>
                                                 <i class="fa fa-quote-right"></i>
-                                                {{ '{{ listCtrl.currentGift.description }}' }}
+                                                [[listCtrl.currentGift.description ]]
                                             </div>
                                         </div>
                                         <div class="divider d4"><span><i class="fa fa-gift"></i></span></div>
 
-                                        {{ '{{ listCtrl.currentGift.price }}' }} €
-                                        ({{ '{{ listCtrl.currentGift.number_of_parts }}' }} <i class="fa fa-pie-chart"></i> parts de 200 €)<br />
+                                        [[ listCtrl.currentGift.price ]]€
+                                        ([[ listCtrl.currentGift.number_of_parts ]] <i class="fa fa-pie-chart"></i> parts de [[ listCtrl.currentGift.part_value ]] €)<br />
 
                                         <d-progress-bar gift="listCtrl.currentGift"></d-progress-bar>
 
@@ -165,7 +165,7 @@
 
                             </div>
                             <div class="row mt20"
-                                 ng-show="listCtrl.currentGift.percent_done + listCtrl.currentGift.percent_reserved >= 100"
+                                ng-show="listCtrl.currentGift.percent_done + listCtrl.currentGift.percent_reserved >= 100"
                                 ng-hide="listCtrl.currentGift.percent_done + listCtrl.currentGift.percent_reserved < 100">
                                 <div class="col-md-12">
 
@@ -196,45 +196,120 @@
                                                     Personne d'autre ne pourra alors l'offrir.
                                                 </p>
                                             </div>
-                                            <div id="formOffer" class="col-md-5">
-                                                <form name="form" method="post" action="" class="form-horizontal">
-                                                    <div class="form-group">
-                                                        <div class="col-sm-6" id="formFirstName">
-                                                            <input type="text" id="form_firstName" name="form[firstName]" required="required" placeholder="Prénom" class="form-control">
-                                                        </div>
-                                                        <div class="col-sm-6" id="formLastName">
-                                                            <input type="text" id="form_lastName" name="form[lastName]" required="required" placeholder="Nom" class="form-control">
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <div class="col-sm-12" id="formEmail">
-                                                            <input type="email" id="form_email" name="form[email]" required="required" placeholder="Email" class="form-control">
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label class="col-sm-5 control-label lef">Nombre de parts</label>
-                                                        <div class="col-sm-7" id="formNumberOfParts">
-                                                            <input type="number" id="form_numberOfParts" name="form[numberOfParts]" required="required" min="1" max="8" class="form-control" value="1">
-                                                        </div>
+                                            <div class="col-md-5">
+                                                <form id="formGiveGift" name="formGiveGift" method="post" action=""
+                                                      ng-submit="sendGift()"
+                                                      class="form-horizontal" novalidate>
+                                                    {#
+                                                    <div ng-message="required">Champ requis</div>
+                                                    <div ng-message="email">E-mail non valide</div>
+                                                    <div ng-message="number">Caractères alphabétiques non autorisés</div>
+                                                    #}
+                                                    {#
+                                                    [[ formGiveGift.firstName.$valid ]]
+                                                    [[ formGiveGift.firstName.$invalid ]]
+                                                    [[ formGiveGift.firstName.$pristine ]]
+                                                    [[ formGiveGift.firstName.$dirty ]]
 
+                                                    <pre>erreur = [[ formGiveGift.firstName.$error | json ]]</pre>
+
+                                                    <div ng-messages="formGiveGift.firstName.$error"
+                                                         ng-messages-include="erreurs.html"></div>
+                                                    #}
+                                                    <div class="row">
+                                                        <div class="col-sm-6">
+                                                            <div class="col-sm-12">
+                                                                <div class="form-group"
+                                                                     ng-class="{'has-error':formGiveGift.firstName.$dirty && formGiveGift.firstName.$invalid,
+                                                                                'has-success':formGiveGift.firstName.$valid}">
+                                                                    <input type="text" name="firstName" placeholder="Prénom"
+                                                                           class="form-control"
+                                                                           required
+                                                                           ng-minlength="3"
+                                                                           ng-model="listCtrl.givedGift.firstName">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <div class="col-sm-12">
+                                                                <div class="form-group"
+                                                                     ng-class="{'has-error':formGiveGift.lastName.$dirty && formGiveGift.lastName.$invalid,
+                                                                                'has-success':formGiveGift.lastName.$valid}">
+                                                                    <input type="text"name="lastName" placeholder="Nom"
+                                                                           class="form-control"
+                                                                           required
+                                                                           ng-minlength="3"
+                                                                           ng-model="listCtrl.givedGift.lastName">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
                                                         <div class="col-sm-12">
-                                                            Prix total : 200 €<br>
-                                                            Prix d'une part : 25 €<br>
-                                                            Nombre de part disponibles : 8<br>
+                                                            <div class="col-sm-12">
+                                                                <div class="form-group"
+                                                                     ng-class="{'has-error':formGiveGift.email.$dirty && formGiveGift.email.$invalid,
+                                                                                'has-success':formGiveGift.email.$valid}">
+                                                                    <input type="email" name="email" placeholder="Email"
+                                                                           class="form-control"
+                                                                           required
+                                                                           ng-pattern="/^[a-zA-Z]+[a-zA-Z0-9._]+@[a-z]+\.[a-z.]{2,5}$/"
+                                                                           ng-model="listCtrl.givedGift.email">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <div class="form-group"
+                                                                 ng-class="{'has-error':formGiveGift.numberOfParts.$dirty && formGiveGift.numberOfParts.$invalid,
+                                                                                'has-success':formGiveGift.numberOfParts.$valid}">
+                                                                <label class="col-sm-5 control-label lef">Nombre de parts</label>
+                                                                <div class="col-sm-7" id="formNumberOfParts">
+                                                                    <input type="number" name="numberOfParts"
+                                                                           min="1"
+                                                                           max="[[ listCtrl.currentGift.available_parts ]]"
+                                                                           integer
+                                                                           required
+                                                                           class="form-control"
+                                                                           value="[[listCtrl.givedGift.number]]"
+                                                                           ng-pattern="/^[0-9]+$/"
+                                                                           ng-model="listCtrl.givedGift.number">
+                                                                        <span class="help-block"
+                                                                              ng-show="formGiveGift.numberOfParts.$dirty && formGiveGift.numberOfParts.$invalid">
+                                                                            Min : 1<br />Max : [[ listCtrl.currentGift.available_parts ]]
+                                                                        </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            Prix total : [[ listCtrl.currentGift.price]]€<br>
+                                                            Prix d'une part : [[ listCtrl.currentGift.part_value ]]€<br>
+                                                            Nombre de part disponibles : [[listCtrl.currentGift.get_available_parts ]]<br>
                                                             Prix calculé :
                                                             <strong>
-                                                                <spanc id="counter" data-counter="25">1</spanc>
-                                                                * 25€
-                                                                = <span id="counter-value">25</span>€
+                                                                <span ng-show="formGiveGift.numberOfParts.$valid">[[listCtrl.givedGift.number ]]</span>
+                                                                <span ng-show="formGiveGift.numberOfParts.$invalid">0</span>
+                                                                * [[listCtrl.currentGift.part_value ]]€
+                                                                = <span ng-show="formGiveGift.numberOfParts.$valid">[[ listCtrl.givedGift.number * listCtrl.currentGift.part_value ]]€</span>
+                                                                  <span ng-show="formGiveGift.numberOfParts.$invalid">0€</span>
                                                             </strong>
                                                         </div>
                                                     </div>
-                                                    <input type="hidden" id="form__token" name="form[_token]" class="form-control" value="nkRJIC-7k-5Dv_NIa0FfJBeL9gXQAka5GB4HaAQv_uA">
-                                                    <div class="form-group">
+
+                                                    <div class="row">
                                                         <div class="col-sm-12">
-                                                            <button id="submitFormOffer" type="button" class="btn btn-primary btn-block">
-                                                                <i class="fa fa-gift"></i> Offrir
-                                                            </button>
+                                                            <div class="col-sm-12">
+                                                                <div class="form-group">
+                                                                    <button id="submitFormOffer" type="button" class="btn btn-primary btn-block"
+                                                                            ng-disabled="formGiveGift.$invalid">
+                                                                        <i class="fa fa-gift"></i> Offrir
+                                                                    </button>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </form>
@@ -255,59 +330,4 @@
         </div>
     </div>
 </section>
-{#
-<div class="modal-dialog modal-lg">
-    <div class="modal-content">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-            <h4 class="modal-title" id="myModalLabel">2 Toilettes</h4>
-        </div>
-        <div class="modal-body">
-            <div class="row">
-                <div class="col-md-6">
-                    <div style="text-align: center">
-                        <img src="/uploads/pictures/6c469ecdf34eca21dda4f1050aafbfebf4741dd1ac764cccf2922859631687bb.jpeg" class="img-rounded img-thumbnail" width="100%">
-                        <br>
-                    </div>
-
-                </div>
-                <div class="col-md-6">
-
-                    <div class="panel panel-primary bottom">
-                        <div class="panel-heading">
-                            Détails
-                        </div>
-                        <div class="panel-body">
-                            <div>
-                                <i class="fa fa-quote-left"></i>
-                                <i class="fa fa-quote-right"></i>
-                                <div style="text-align: justify">Dans notre maison, nous aurons besoin de deux toilettes, une normale, et une spéciale pour que manu puisse y lire ses BD lapin-crétin.</div>
-                                <br>
-                                <br>
-                            </div>
-                        </div>
-                        <div class="panel-footer">
-
-                            <i class="fa fa-money"></i> 200 €
-                            (par part de 25 €)
-                            <div class="progress">
-                                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;" data-toggle="tooltip" data-placement="top" title="Parts déjà offertes">
-                                    0 / 8 <i class="fa fa-pie-chart"></i>
-                                </div>
-                                <div class="progress-bar progress-bar-warning " role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;" data-toggle="tooltip" data-placement="top" title="Parts réservées">
-                                    0 <i class="fa fa-pie-chart"></i>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <br>
-
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
-        </div>
-    </div>#}
 </div>

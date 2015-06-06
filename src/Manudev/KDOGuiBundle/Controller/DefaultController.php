@@ -17,4 +17,12 @@ class DefaultController extends Controller
         return array();
     }
 
+    /**
+     * @Route("/error")
+     * @Template()
+     */
+    public function errorAction()
+    {
+        return array();
+    }
 }

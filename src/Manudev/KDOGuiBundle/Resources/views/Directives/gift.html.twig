@@ -1,21 +1,21 @@
     <div class="gift-item" data-toggle="modal" data-target="#modal"  ng-click="setModal()">
         <div class="gift-image" >
-            <img ng-src="{{ '{{ gift.picture.web_path}}' }}" alt="{{ '{{ gift.name}}' }}">
+            <img ng-src="[[gift.picture.web_path]]" alt="[[gift.name]]">
         </div>
 
         <div class="gift-caption">
-            <h3 class="post-title">{{ '{{ gift.name}}' }}</h3>
+            <h3 class="post-title">[[gift.name]]</h3>
             <p>
                 <i class="fa fa-quote-left"></i>
                 <i class="fa fa-quote-right"></i>
-                {{ '{{ gift.description | limitTo:100}}' }}
+                [[gift.description | limitTo:100]]
                 <span ng-show="gift.description.length > 100">...</span>
                 <a class="inlineblock">(<i class="fa fa-search"></i>&nbsp;Voir&nbsp;plus)</a>
             </p>
 
             <div>
-                {{ '{{ gift.price }}' }} €
-                ({{ '{{ gift.number_of_parts }}' }} <i class="fa fa-pie-chart"></i> parts de 200 €)<br />
+                [[  gift.price  ]]€
+                ([[  gift.number_of_parts  ]] <i class="fa fa-pie-chart"></i> parts de [[  gift.part_value ]] €)<br />
                 <d-progress-bar gift="gift"></d-progress-bar>
             </div>
         </div>

@@ -3,8 +3,8 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>{% block title %}{{ '{{htmlCtrl.head.siteTitle}}' }}{% endblock %}</title>
-    <meta name="description" content="{{ '{{htmlCtrl.head.siteDescription}}' }}">
+    <title>{% block title %}[[htmlCtrl.head.siteTitle]]{% endblock %}</title>
+    <meta name="description" content="[[htmlCtrl.head.siteDescription]]">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -84,6 +84,7 @@
 <script src="{{ asset('assets/libs/js/angular/ui-bootstrap.js') }}"></script>
 <script src="{{ asset('assets/libs/js/angular/angular-animate.js') }}"></script>
 <script src="{{ asset('assets/libs/js/angular/loading-bar.js') }}"></script>
+<script src="{{ asset('assets/libs/js/angular/angular-messages.js') }}"></script>
 
 <!-- Main JS file -->
 <script src="{{ asset('assets/js/app.js') }}"></script>

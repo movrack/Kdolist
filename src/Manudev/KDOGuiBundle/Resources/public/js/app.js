@@ -41,7 +41,12 @@ var ie = (function(){
 }());
 
 
-var app = angular.module('app', ['ngRoute', 'ui.bootstrap', 'angular-loading-bar', 'ngAnimate']);
+var app = angular.module('app', ['ngRoute', 'ui.bootstrap', 'angular-loading-bar', 'ngAnimate'],
+    function($interpolateProvider) {
+        $interpolateProvider.startSymbol('[[');
+        $interpolateProvider.endSymbol(']]');
+    }
+);
 
 var rootUrl = '/app_dev.php';
 app.config(['$routeProvider', 'cfpLoadingBarProvider', function($routeProvider, cfpLoadingBarProvider) {
@@ -232,6 +237,7 @@ app.controller('ListController', ['$rootScope', '$scope', '$routeParams', '$http
             percent_done: 25,
             percent_reserved: 0
         };
+        self.givedGift = {'number': 1};
 
         self.setData = function(newData) {
             self.lists = newData;

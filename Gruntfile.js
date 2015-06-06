@@ -126,6 +126,12 @@ module.exports = function(grunt) {
                     },
                     {
                         expand: true,
+                        cwd: 'bower_modules/angular-messages',
+                        dest: 'web/assets/src/libs/angular/js',
+                        src: ['angular-messages.js']
+                    },
+                    {
+                        expand: true,
                         cwd: 'bower_modules/jquery.appear',
                         dest: 'web/assets/src/libs/jquery/js',
                         src: ['jquery.appear.js']

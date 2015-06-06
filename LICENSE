@@ -1,3 +1,30 @@
+Kdolist
+Copyright (c) 2015 Manuel Servais
+  servais.manuel@gmail.com
+
+For logical part of Kdolist (everything excepted the design)
+  Can be used, modified and redistributed (freely).
+  Name of the original author must be present.
+  Kdolist can not be used for commercial project.
+  This licence is like Creative Commone BY-NC-SA
+
+Web Design (named Palas) of kdolist can not be used at all.
+Kdolist use a private licenced design based on twitter bootstrap.
+So you can remove it to replace it by twitter bootstrap.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+
+==============================================================
+
+
+Symfony Framework
 Copyright (c) 2004-2014 Fabien Potencier
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
