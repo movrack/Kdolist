@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="no-js" lang="{{ app.request.locale }}" ng-app="app"  ng-controller="HtmlController as htmlCtrl">
+<html class="no-js" lang="{{ app.request.locale }}"  ng-controller="HtmlController as htmlCtrl">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -12,17 +12,19 @@
     <link rel="stylesheet" href="{{ asset('assets/css/normalize.css') }}">
 #}
     <!-- CSS files -->
+
     <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:100,300,400,600,700,900,400italic|Montserrat:400,700' rel='stylesheet'>
     <link rel="stylesheet" href="/assets/libs/palas/plugins/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/assets/libs/palas/plugins/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="/assets/libs/palas/plugins/elegant_font/html_css/style.css">
     <link rel="stylesheet" href="/assets/libs/palas/plugins/rs-plugin/css/settings.css" media="screen">
     <link rel="stylesheet" href="/assets/libs/palas/plugins/owl-carousel/owl.carousel.css">
 
-    <link rel="stylesheet" href="/assets/libs/palas/css/style.css">
-    <link rel="stylesheet" href="/assets/libs/palas/css/colors/yellow.css">
-    <!-- Angular CSS file -->
+        <link rel="stylesheet" href="/assets/libs/palas/css/style.css">
+        <link rel="stylesheet" href="/assets/libs/palas/css/colors/yellow.css">
+        <!-- Angular CSS file -->
     <link rel="stylesheet" href="/assets/libs/css/angular/loading-bar.css">
+    <link rel="stylesheet" href="/assets/libs/palas/plugins/font-awesome/css/font-awesome.min.css">
+
     <!-- Main CSS file -->
     <link rel="stylesheet" href="/assets/css/main.css">
 
@@ -52,19 +54,19 @@
 
     {% include ('ManudevKDOGuiBundle:base:footer.html.twig') %}
 </div>
-
+{#
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.3.3/underscore-min.js"></script>
-{#<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>#}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+#}{#<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>#}
+{#<script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
 
 <script>window.Modernizr || document.write('<script src="{{ asset('assets/libs/js/modernizr.js') }}"><\/script>')</script>
 <script>window.$ || document.write('<script src="{{ asset('assets/libs/js/jquery.js') }}"><\/script>')</script>
 <script>window._ || document.write('<script src="{{ asset('assets/libs/js/underscore.js') }}"><\/script>')</script>
-
+#}
 <!-- Jquery JS file -->
 {#<script src="{{ asset('assets/libs/js/jquery/jquery.appear.js') }}"></script>#}
-
+{#
 <!-- Palas JS file -->
 <script src="{{ asset('assets/libs/palas/plugins/bootstrap/js/bootstrap.min.js') }}"></script>
 <script src="{{ asset('assets/libs/palas/plugins/rs-plugin/js/jquery.themepunch.tools.min.js') }}"></script>
@@ -77,8 +79,9 @@
 <script src="{{ asset('assets/libs/palas/plugins/isotope/isotope.pkgd.min.js') }}"></script>
 <script src="{{ asset('assets/libs/palas/plugins/isotope/imagesloaded.pkgd.min.js') }}"></script>
 <script src="{{ asset('assets/libs/palas/palas.js') }}"></script>
-
+#}
 <!-- Angular JS file -->
+{#
 <script src="{{ asset('assets/libs/js/angular/angular.js') }}"></script>
 <script src="{{ asset('assets/libs/js/angular/angular-route.js') }}"></script>
 <script src="{{ asset('assets/libs/js/angular/ui-bootstrap.js') }}"></script>
@@ -87,14 +90,15 @@
 <script src="{{ asset('assets/libs/js/angular/angular-messages.js') }}"></script>
 
 <!-- Main JS file -->
-<script src="{{ asset('assets/js/app.js') }}"></script>
 {#
+<script src="{{ asset('assets/js/app.js') }}"></script>
+
 <script type="text/javascript" src="{{ asset('assets/libs/js/require.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/js/require.js') }}"></script>
 #}
-<!-- Go to www.addthis.com/dashboard to customize your tools -->
-<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-4faacb2332279149" async="async"></script>
-
+<script type="text/javascript"
+        src="{{ asset('assets/js/libs/require.js') }}"
+        data-main="{{ asset('assets/js/main.js') }}"></script>
 
 
 <!-- Google Analytic -->

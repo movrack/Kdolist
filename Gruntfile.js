@@ -41,7 +41,7 @@ module.exports = function(grunt) {
                     {
                         expand: true,
                         cwd: 'bower_modules/jquery/dist',
-                        dest: 'web/assets/src/libs/js',
+                        dest: 'web/assets/src/libs/js/jquery',
                         src: ['jquery.js']
                     },
                     {
@@ -133,9 +133,21 @@ module.exports = function(grunt) {
                     {
                         expand: true,
                         cwd: 'bower_modules/jquery.appear',
-                        dest: 'web/assets/src/libs/jquery/js',
+                        dest: 'web/assets/src/libs/js/jquery',
                         src: ['jquery.appear.js']
                     },
+                    {
+                        expand: true,
+                        cwd: 'bower_modules/owlcarousel/owl-carousel',
+                        dest: 'web/assets/src/libs/js/jquery',
+                        src: ['owl.carousel.js']
+                    },
+                    {
+                        expand: true,
+                        cwd: 'bower_modules/owlcarousel/owl-carousel',
+                        dest: 'web/assets/src/libs/css/jquery',
+                        src: ['owl.*.css']
+                    }
                 ]
             }
         },
@@ -212,19 +224,19 @@ module.exports = function(grunt) {
                         expand: true,
                         cwd: 'web/assets/src/libs/js',
                         src: '**/*.js',
-                        dest: 'web/assets/libs/js'
+                        dest: 'web/assets/js/libs'
                     },
                     {
                         expand: true,
                         cwd: 'web/assets/src/libs/angular/js',
                         src: '**/*.js',
-                        dest: 'web/assets/libs/js/angular'
+                        dest: 'web/assets/js/libs/angular'
                     },
                     {
                         expand: true,
                         cwd: 'web/assets/src/libs/jquery/js',
                         src: '**/*.js',
-                        dest: 'web/assets/libs/js/jquery'
+                        dest: 'web/assets/js/libs/jquery'
                     },
                     /*
                     {

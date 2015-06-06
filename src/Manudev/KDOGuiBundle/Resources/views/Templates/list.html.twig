@@ -158,7 +158,7 @@
                                         [[ listCtrl.currentGift.price ]]€
                                         ([[ listCtrl.currentGift.number_of_parts ]] <i class="fa fa-pie-chart"></i> parts de [[ listCtrl.currentGift.part_value ]] €)<br />
 
-                                        <d-progress-bar gift="listCtrl.currentGift"></d-progress-bar>
+                                        <progress-bar gift="listCtrl.currentGift"></progress-bar>
 
                                     </div>
                                 </div>
@@ -190,6 +190,34 @@
                                         </h5>
                                         <div class="row panel-body">
                                             <div class="col-md-7">
+
+
+                                                <div class="row" ng-show="listCtrl.formSend">
+                                                    <div class="col-sm-12">
+                                                        <div class="alert alert-success alert-dismissable animate-show">
+                                                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                                            <strong><i class="fa fa-send"></i>Merci [[listCtrl.givedGift.firstName]]</strong><br />
+                                                            <p>
+                                                                Votre réservation de cadeau est envoyée.<br />
+                                                                Vous allez recevoir dans quelques secondes un email de confirmation sur
+                                                                <strong>[[listCtrl.givedGift.email]]</strong>.
+                                                            </p>
+                                                        </div>
+                                                        <div class="alert alert-info alert-dismissable animate-show"
+                                                             ng-show="listCtrl.formSend">
+                                                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                                            <p>
+                                                                <i class="fa fa-envelope"></i>
+                                                                Ouvrir ma boite
+                                                                <strong><a href="http://[[listCtrl.emailLink]]" target="_blank">
+                                                                    [[listCtrl.emailLink]]
+                                                                </a></strong>
+                                                                dans une nouvelle page.
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
                                                 <p class="text-align: justify">
                                                     Afin d'offrir un cadeau, un email va vous être envoyé.<br>
                                                     Dans celui-ci, vous devrez confirmer votre cadeau et celui-ci sera alors enlevé de la liste des souhaits.<br>
@@ -197,25 +225,10 @@
                                                 </p>
                                             </div>
                                             <div class="col-md-5">
-                                                <form id="formGiveGift" name="formGiveGift" method="post" action=""
-                                                      ng-submit="sendGift()"
+                                                <form id="formGiveGift" name="formGiveGift"
+                                                      ng-submit="listCtrl.sendGift()"
                                                       class="form-horizontal" novalidate>
-                                                    {#
-                                                    <div ng-message="required">Champ requis</div>
-                                                    <div ng-message="email">E-mail non valide</div>
-                                                    <div ng-message="number">Caractères alphabétiques non autorisés</div>
-                                                    #}
-                                                    {#
-                                                    [[ formGiveGift.firstName.$valid ]]
-                                                    [[ formGiveGift.firstName.$invalid ]]
-                                                    [[ formGiveGift.firstName.$pristine ]]
-                                                    [[ formGiveGift.firstName.$dirty ]]
 
-                                                    <pre>erreur = [[ formGiveGift.firstName.$error | json ]]</pre>
-
-                                                    <div ng-messages="formGiveGift.firstName.$error"
-                                                         ng-messages-include="erreurs.html"></div>
-                                                    #}
                                                     <div class="row">
                                                         <div class="col-sm-6">
                                                             <div class="col-sm-12">
@@ -226,7 +239,12 @@
                                                                            class="form-control"
                                                                            required
                                                                            ng-minlength="3"
-                                                                           ng-model="listCtrl.givedGift.firstName">
+                                                                           ng-model="listCtrl.givedGift.firstName"
+                                                                           data-container="body" data-toggle="popover" data-trigger="focus"
+                                                                           data-placement="left"
+                                                                           data-original-title="Prénom"
+                                                                           data-content="Le prénom est requis et dois contenir au moins 3 caractères."
+                                                                            >
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -239,7 +257,11 @@
                                                                            class="form-control"
                                                                            required
                                                                            ng-minlength="3"
-                                                                           ng-model="listCtrl.givedGift.lastName">
+                                                                           ng-model="listCtrl.givedGift.lastName"
+                                                                           data-container="body" data-toggle="popover" data-trigger="focus"
+                                                                           data-placement="right"
+                                                                           data-original-title="Nom"
+                                                                           data-content="Le nom est requis et dois contenir au moins 3 caractères.">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -254,7 +276,11 @@
                                                                            class="form-control"
                                                                            required
                                                                            ng-pattern="/^[a-zA-Z]+[a-zA-Z0-9._]+@[a-z]+\.[a-z.]{2,5}$/"
-                                                                           ng-model="listCtrl.givedGift.email">
+                                                                           ng-model="listCtrl.givedGift.email"
+                                                                           data-container="body" data-toggle="popover" data-trigger="focus"
+                                                                           data-placement="right"
+                                                                           data-original-title="Email"
+                                                                           data-content="L'email est requis.">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -275,7 +301,11 @@
                                                                            class="form-control"
                                                                            value="[[listCtrl.givedGift.number]]"
                                                                            ng-pattern="/^[0-9]+$/"
-                                                                           ng-model="listCtrl.givedGift.number">
+                                                                           ng-model="listCtrl.givedGift.number"
+                                                                           data-container="body" data-toggle="popover" data-trigger="focus"
+                                                                           data-placement="left"
+                                                                           data-original-title="Nombre de part"
+                                                                           data-content="Le nombre de parts varie entre 1 et [[ listCtrl.currentGift.available_parts ]].">
                                                                         <span class="help-block"
                                                                               ng-show="formGiveGift.numberOfParts.$dirty && formGiveGift.numberOfParts.$invalid">
                                                                             Min : 1<br />Max : [[ listCtrl.currentGift.available_parts ]]
@@ -304,8 +334,8 @@
                                                         <div class="col-sm-12">
                                                             <div class="col-sm-12">
                                                                 <div class="form-group">
-                                                                    <button id="submitFormOffer" type="button" class="btn btn-primary btn-block"
-                                                                            ng-disabled="formGiveGift.$invalid">
+                                                                    <button id="submitFormOffer" type="submit" class="btn btn-primary btn-block"
+                                                                            ng-disabled="formGiveGift.$invalid || listCtrl.avoidDoubleClick">
                                                                         <i class="fa fa-gift"></i> Offrir
                                                                     </button>
                                                                 </div>
