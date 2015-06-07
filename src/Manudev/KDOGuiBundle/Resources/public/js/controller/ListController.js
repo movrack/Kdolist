@@ -40,9 +40,9 @@ define(['app', 'utils'], function (app, utils) {
             $scope.$on('modalGift', function (event, args) {
                 self.currentGift = args;
             });
-            loadStellar();
-            loadTooltip();
-            loadPopover();
+            utils.fn.loadStellar();
+            utils.fn.loadTooltip();
+            utils.fn.loadPopover();
         }
     ]);
 });

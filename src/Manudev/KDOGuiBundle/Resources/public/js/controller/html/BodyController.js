@@ -15,8 +15,8 @@ define(['app', 'utils', 'jquery'], function (app, utils, $) {
 
         angular.element(utils.const.$body).ready(function () {
             $('#giftLoader').fadeOut();
-            $('#preloader').delay(300).fadeOut('slow').removeClass('op8');
-            utils.const.$body.delay(300).css({'overflow': 'visible'});
+            $('#preloader').fadeOut('slow').removeClass('op8');
+            utils.const.$body.css({'overflow': 'visible'});
         });
 
     }]);

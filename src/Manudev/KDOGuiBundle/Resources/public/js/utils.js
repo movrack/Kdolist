@@ -63,9 +63,9 @@ define("utils", ['jquery', 'underscore'], function ($, _) {
     };
 
     self.fn.loadStellar = function () {
-        if (($(".stellar").length) && self.const.$win.width() > 767) {
+        if ($().stellar && ($(".stellar").length) && self.const.$win.width() > 767) {
 
-            $body.stellar({
+            $('body').stellar({
                 horizontalScrolling: false,
                 verticalOffset: 0,
                 horizontalOffset: 0,

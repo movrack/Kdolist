@@ -32,5 +32,8 @@
   "bugs": {
     "url": "https://github.com/movrack/Kdolist/issues"
   },
-  "homepage": "https://github.com/movrack/Kdolist"
+  "homepage": "https://github.com/movrack/Kdolist",
+  "dependencies": {
+    "grunt-font-awesome-vars": "^1.0.1"
+  }
 }
