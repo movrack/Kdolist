@@ -9,7 +9,6 @@ define(['app'], function (app) {
     app.controller('HtmlController', function ($scope) {
         var self = this;
         self.head = defaultHeadParameters;
-
         $scope.$on('$routeChangeStart', function () {
             self.head.siteDescription = defaultHeadParameters.siteDescription;
             self.head.siteTitle = defaultHeadParameters.siteTitle;

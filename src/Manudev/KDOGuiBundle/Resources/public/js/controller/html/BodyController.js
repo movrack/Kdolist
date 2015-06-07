@@ -1,4 +1,4 @@
-define(['app', 'utils'], function (app, utils) {
+define(['app', 'utils', 'jquery'], function (app, utils, $) {
     app.controller('BodyController', ['$rootScope', function ($rootScope) {
         $rootScope.$on('cfpLoadingBar:started', function () {
             if ($("#preloader").length) {
@@ -13,12 +13,11 @@ define(['app', 'utils'], function (app, utils) {
             }
         });
 
-        utils.const.$win.load(function () {
-            if ($("#preloader").length) {
-                $('#giftLoader').fadeOut();
-                $('#preloader').delay(300).fadeOut('slow').removeClass('op8');
-                utils.const.$body.delay(300).css({'overflow': 'visible'});
-            }
+        angular.element(utils.const.$body).ready(function () {
+            $('#giftLoader').fadeOut();
+            $('#preloader').delay(300).fadeOut('slow').removeClass('op8');
+            utils.const.$body.delay(300).css({'overflow': 'visible'});
         });
+
     }]);
 });

@@ -87,5 +87,6 @@ require.config({
         'PriceCtrl',
         'SigninCtrl',
         'SignupCtrl',
-        'TermsCtrl']
+        'TermsCtrl',
+        'app']
 });

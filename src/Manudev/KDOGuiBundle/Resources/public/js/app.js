@@ -1,16 +1,14 @@
-define(['angularAMD', 'angular-route', 'loading-bar', 'ui-bootstrap', 'angular-animate', 'jquery', 'underscore', 'utils'],
-    function (angularAMD) {
-    'use strict';
-    var rootUrl = '/app_dev.php';
+define(['angularAMD', 'utils' , 'angular-route', 'loading-bar', 'ui-bootstrap',
+        'angular-animate', 'jquery', 'underscore'],
+        function (angularAMD, utils) {
 
+    var rootUrl = utils.const.rootUrl;
 
     var app = angular.module('app', ['ngRoute', 'ui.bootstrap', 'angular-loading-bar', 'ngAnimate'],
-
         function($interpolateProvider) {
             $interpolateProvider.startSymbol('[[');
             $interpolateProvider.endSymbol(']]');
         }
-
     );
 
 
@@ -60,6 +58,7 @@ define(['angularAMD', 'angular-route', 'loading-bar', 'ui-bootstrap', 'angular-a
                 templateUrl: rootUrl+'/template/403',
                 controller: 'Error403Controller',
                 controllerAs: 'e403Ctrl' } )
+
             .when('/', {
                 templateUrl: rootUrl+'/template/home',
                 controller: 'HomeController',

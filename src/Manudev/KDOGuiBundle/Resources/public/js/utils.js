@@ -1,6 +1,7 @@
 define("utils", ['jquery', 'underscore'], function ($, _) {
     var self = {const:{}, fn:{}};
 
+    self.const.rootUrl = '/app_dev.php';
     self.const.$win = $(window);
     self.const.$body = $('body');
 

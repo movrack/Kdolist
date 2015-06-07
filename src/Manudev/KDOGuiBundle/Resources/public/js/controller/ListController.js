@@ -1,4 +1,5 @@
-define(['app'], function (app) {
+define(['app', 'utils'], function (app, utils) {
+    var rootUrl = utils.const.rootUrl;
     app.controller('ListController', ['$rootScope', '$scope', '$routeParams', '$http', '$timeout',
         function ($rootScope, $scope, $routeParams, $http, $timeout) {
 
