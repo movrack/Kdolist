@@ -298,7 +298,7 @@ module.exports = function(grunt) {
 
         uglify: {
             options: {
-                beautify: true,
+                beautify: false,
                 mangle: false,
                 sourceMap: true,
                 compress: true,
