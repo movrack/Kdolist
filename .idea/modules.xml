@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/kdolist.iml" filepath="$PROJECT_DIR$/kdolist.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/Kdolist.iml" filepath="$PROJECT_DIR$/.idea/Kdolist.iml" />
+      <module fileurl="file://$PROJECT_DIR$/server/server.iml" filepath="$PROJECT_DIR$/server/server.iml" />
+      <module fileurl="file://$PROJECT_DIR$/webapp/webapp.iml" filepath="$PROJECT_DIR$/webapp/webapp.iml" />
     </modules>
   </component>
 </project>

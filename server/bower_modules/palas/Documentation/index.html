@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Documentation | Palas</title>
+	<meta name="author" content="abusinesstheme">
+	<meta name="description" content="Documentation">
+
+  	<meta name="viewport" content="width=device-width, initial-scale=1">
+ 	
+
+  	<!-- CSS files -->
+	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,400italic,600">
+	<link rel="stylesheet" href="assets/css/font-awesome.min.css">
+	<link rel="stylesheet" href="assets/css/style.css">
+
+</head>
+<body>
+
+<!-- Global Wrapper -->
+<div id="wrapper">
+
+
+	<section class="elements-content">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-12">
+					<section class="elements-section mt20">
+						<h2 class="section-title-2">Palas - Documentation</h2>
+						<div class="content">
+							<p class="mb30">First of all, I want to thank you for purchasing our item. We know that you want the work to be done as fast as possible and without problems, and maybe sometimes, well, you're "not in the mood" to read a whole documentation, thinking that you already know how to "play" with a template, but we strongly advise you to read this documentation thoroughly because a template it's not the same as another.</p> 
+							<h3 class="section-title-3">Support</h3>
+							<p class="mb40">If you experience difficulties in some areas or if you have any questions that are beyond the scope of this documentation, feel free to open a <strong><a href="http://abusinesstheme.freshdesk.com" >Support Ticket</a></strong> and make sure to read our <strong><a href="https://abusinesstheme.freshdesk.com/support/solutions/articles/5000513511-support-policy" title="Support Policy">Support Policy</a></strong>. No guarantees, but we'll do our best to assist you! If you have a more general question relating to the themes/templates on ThemeForest, you might consider visiting the forums and asking your question in the "Item Discussion" section.</p>
+							<h3 class="section-title-3">Rate this item</h3>
+							<p class="mb40">If you like our template and enjoy "playing" with it, please consider rating it 5 stars. It will help us a lot!</p>
+							<h3 class="section-title-3 mb0">Get item notifications and new product releases via:</h3>
+							<p class="mb30">
+								<a href="https://twitter.com/abusinesstheme" class="btn voyo-btn-2 twitter" target="_blank"><i class="fa fa-twitter"></i> Twitter</a>
+								<a href="http://themeforest.net/user/abusinesstheme/follow" class="btn voyo-btn-2 envato" target="_blank"><i class="fa fa-thumbs-up"></i> Envato</a>
+								<a href="http://abusinesstheme.com/subscribe.html" class="btn voyo-btn-2 email" target="_blank"><i class="fa fa-envelope"></i> Subscribe</a>
+							</p>
+						</div>
+					</section>
+					<section class="elements-section">
+						<h2 id="update" class="section-title-2">Content Structure</h2>
+						<div class="content">
+							<ol class="content-structure">
+								<li><a href="#overview">Overview</a></li>
+								<li><a href="#files">Files Structure</a></li>
+								<li><a href="#html">HTML Structure</a></li>
+								<li><a href="#css">CSS Structure</a></li>
+								<li><a href="#javascript">Javascript Structure</a></li>
+								<li><a href="#elements">Shortcodes (Elements)</a></li>
+								<li><a href="#sections">Sections</a></li>
+								<li><a href="#slider">Slider</a></li>
+								<li><a href="#header">Header (Navigation Menu)</a></li>
+								<li><a href="#logo">Logo</a></li>
+								<li><a href="#helper">Helper Classes</a></li>
+								<li><a href="#grid">Grid System</a></li>
+								<li><a href="#bgimg">Background images</a></li>
+								<li><a href="#layout">Layout Type</a></li>
+								<li><a href="#dark">Dark Version</a></li>
+								<li><a href="#colors">Colors</a></li>
+								<li><a href="#patterns">Background Patterns</a></li>
+								<li><a href="#menu">Static menu</a></li>
+								<li><a href="#share">Share</a></li>
+								<li><a href="#contact">Contact Form</a></li>
+								<li><a href="#subscribe">Subscribe Form</a></li>
+								<li><a href="#flickr">Flickr Feed</a></li>
+								<li><a href="#twitter">Twitter Feed</a></li>
+								<li><a href="#sidebar">Right Sidebars</a></li>
+								<li><a href="#notes">Final notes</a></li>
+								<li><a href="#credits">Credits</a></li>
+								<li><a href="#changelog">Changelog</a></li>
+							</ol>
+						</div>
+					</section>
+					<section class="elements-section">
+						<h2 id="overview" class="section-title-2">Overview</h2>
+						<div class="content">
+							<p>This template is built with the Bootstrap framework and it uses jQuery, a javascript library to handle some of the actions throughout the template, and in order to be able to easily work with the template, you need to know HTML and CSS, and at least the basics of these two frameworks, but it is not necessary. </p>
+							<p>However, if you want to make some major changes in the template, some knowledges of the Bootstrap framework (grid system mainly) are required.</p>
+							<p>Also, we used some third party plugins in this template like isotope, owl-carousel etc (we will enumerate them later in this documentation ) and there may be some situations where you will need or want to make some changes. e.g. If you want some new carousels in your site, you'll need to initialize the owl-carousel.js plugin, and therefore you have to know how to do that. But, don't worry, we will explain what every plugin does and where you could get more informations about them. So, let's get started.</p>
+						</div>
+					</section>
+					<section class="elements-section">
+						<h2 id="files" class="section-title-2">Files Structure</h2>
+						<div class="content">
+							<p>Once downloaded, unzip the compressed folder to see the structure of the template.  Plugins folder includes all third party plugins while css, js and php folders includes only files created by us.</p>
+							<p>We strongly advise you not make your customizations in these files, as you may need to replace these files in the future updates. If you want to add something to your site, or if you want to change something (styles or scripts), please put your code in separated files (e.g. user_style.css).</p>
+
+                            <p><strong>Files Structure</strong></p>
+                            <div class="files-structure mb40">
+                            	<ul>
+									<li>css
+										<ul>
+											<ul>
+												<li>colors</li>
+											</ul>
+                                            <li>colors.less</li>
+											<li>boxed.css</li>
+											<li>style.css (main stylesheet)</li>
+										</ul>
+									</li>
+									<li>images</li>
+									<li>js
+										<ul>
+											<li>script.js (main script)</li>
+										</ul>
+									</li>
+									<li>php
+										<ul>
+											<li>contact.php</li>
+										</ul>
+									</li>
+                                    <li>plugins (third party plugins)</li>
+                                    <li>videos</li>
+									<li>*.html</li>
+								</ul>
+                            </div>
+						</div>
+					</section>
+					<section class="elements-section">
+						<h2 id="html" class="section-title-2">HTML Structure</h2>
+						<div class="content">
+							<p>This template is based on a responsive layout and uses the boostrap grid system. The general structure is the same throughout the whole template.</p> 
+							<p>When you modify or create a page, make sure you have the required files included (plugin dependencies).</p> 
+							<p>Open some HTML files and take a look at some sections and try to make an idea of how this template is built, analyze the code for a little bit.</p> 
+							<p>The whole content is wrapped in a <code>#wrapper</code>.</p>
+							<p>For Home pages, the page usually starts with a header, then the slider, then some sections (services, about, team etc) and it ends with the footer.</p>
+							<p>For blog, shop, portfolio pages the page starts with the header, then an intro section (Title of the page and breadcrumbs), then a whole section page (content) and it ends with the footer.</p>
+							<p>The css files are loaded in the head tag and the javascript code is loaded at the bottom of the page and we recommend to let them there (performance benefits).</p>
+							<p>The HTML files are (we say) commented enough to understand the code. As I said at the beginning, it is important to take a look for a few minutes at some HTML files to analyze first how the elements are placed. Analyze the header (navigation menu), the slider and some home page sections and you'll have no problem changing the code.</p>
+							<p><strong>It is important to know the basics of the <a href="http://getbootstrap.com/css/#grid" target="_blank">Bootstrap Grid System</a> </strong>.</p>
+						</div>
+					</section>
+					<section class="elements-section">
+						<h2 id="css" class="section-title-2">CSS Structure</h2>
+						<div class="content">
+							<p>We have a single css file that handles all the content. It seems to be huge, but we created a table of content that helps you to find, faster and easier, every class name you want. Open style.css file and at the beginning you will se the structure of the content, the main colors used in the template, the main fonts and some notes. </p>
+							<p>To easily find a class name, you could use CTRL+F in any text editor.</p>
+							<p>Tip: If your text editor suports to "minimize a section", we included some comments (and the code is pushed with a tab) to easily minimize a section, and work with a file faster.</p>
+							<p><img src="assets/img/tip.png" class="img-rounded" alt=""></p>
+						</div>
+					</section>
+					<section class="elements-section">
+						<h2 id="javascript" class="section-title-2">Javascript Structure</h2>
+						<div class="content">
+							<p>The javascript structure is almost the same like the css tructure. We have a single file that handles all the content. Open script.js and at the beginning you will see the structure of the content.</p>
+						</div>
+					</section>
+					<section class="elements-section">
+						<h2 id="elements" class="section-title-2">Shortcodes</h2>
+						<div class="content">
+							<p>There are tons of shortcodes where you can choose from! Whether you want alerts, carousels or maps, you can create the page yourself by including any element you want.</p> 
+                            <p><strong>How to?</strong></p>
+                            <p>You know how copy-paste work, right? For example, if you want a button, you will have to open the shortcodes.html page and look for the desired button. It is better if you use a web developer tool ( Firebug or Chrome Developer Tools ) to easily locate an element.</p>
+                            <p>Please make sure when you copy a shortcode and it depends on a plugin, to include the plugin as well.</p>
+						</div>
+					</section>
+					<section class="elements-section">
+						<h2 id="sections" class="section-title-2">Sections</h2>
+						<div class="content">
+							<p>This template allows you to create your own custom page with the help of sections. For example, if you like index_2.html page as a whole but you don't like, let's say, services section, you could easily copy a favourite section ( or why not, build it with the help of shortcodes) and replace the old section. You can choose what sections you like and built your own custom page.</p>
+                            <p>When you copy a section from one page and paste it to another page, please make sure you include its plugin dependencies, if it's the case.</p>
+						</div>
+					</section>
+					<section class="elements-section">
+						<h2 id="slider" class="section-title-2">Slider</h2>
+						<div class="content">
+							<p>In this template I used Revolution Slider (Premium jQuery Plugin) for the intro sections. You have a full documentation of this slider (Revolution Slider documentation folder) explaining how to create and configure a slider. I tried to make some sliders that are easy to customize (you could make more "fancy" but complicated sliders). If you are an experienced user you could create more enhanced sliders (reading the documentation), but if you want a simple slider and it's difficult to create/change a slider, I recommend changing only the content of the slider (texts and images). </p>
+						</div>
+					</section>
+					<section class="elements-section">
+						<h2 id="header" class="section-title-2">Header - Navigation Menu</h2>
+						<div class="content">
+							<p>The best way to create a navigation menu is to copy the desired header from a home page and then change the content.</p>
+							<p>Useful classes:</p>
+							<p>Add <code>static-menu</code> class to <code>header-wrapper</code> to have a static menu (not fixed) (index_03).</p>
+							<p>Add <code>menu-light</code> class to <code>menu</code> to have a light menu (white) (index_03). </p>
+							<p>Add <code>menu-dark-transparent</code> class to <code>menu</code> so that the menu will be a little transparent (index_06). </p>
+						</div>
+					</section>
+					<section class="elements-section">
+						<h2 id="logo" class="section-title-2">Logo</h2>
+						<div class="content">
+							<p>Note that we didnt use an <code>img</code> tag for the logo image, but a <code>background-image</code> property because there are moments when you will need a light and a dark logo (light for desktops and dark for mobiles, or light for transparent Header and dark for the sticky menu - when you scroll, the logo changes from light to dark). The easiest way to add a logo, is to name the light version <code>logo-light.png</code> and the dark version <code>logo.png</code> and place them in images folder, replacing the default ones. This way you will not need to change more css properties from style.css.</p>
+						</div>
+					</section>
+					<section class="elements-section">
+						<h2 id="helper" class="section-title-2">Helper Classes</h2>
+						<div class="content">
+							<p>For a better and quicker development we created some "helper classes". Throughout the HTML files you will find some classes like <code>mb20</code> <code>mt0</code> <code>pb0</code> <code>color-on-dark</code>. These classes are pretty self-explanatory and I will not explain them here one by one. You will find them in style.css file "Helper Classes" Section.</p>
+							<p>Mainly, we used classes like <code>mb50</code> <code>pt0</code> (margins and paddings) to solve some inconsistencies between sections. For example, if you want two background sections side by side, you will have to add <code>mb0</code> class (margin-bottom:0px) to the first one and <code>mt0</code> class (margin-top:0px) to the second one, because background sections (<code>section-bg</code>) have a vertical margin of 40px. This way you could fix some margin or padding issues without the need to create a new class or anything else.</p>
+						</div>
+					</section>
+					<section class="elements-section">
+						<h2 id="grid" class="section-title-2">Grid System</h2>
+						<div class="content">
+							<p>In order to easily work with the template you should know the basics of the <a href="http://getbootstrap.com/css/#grid" target="_blank">Bootstrap Grid System</a>. Please take a look at it before you make any changes related to containers, rows, columns etc in the template.</p>
+							<p>We want to explain some classes we used in the template that are related to a grid system.</p>
+							<p><code>row col-p0</code> - No paddings between columns (useful for columns with a background)</p>
+							<p><code>row col-p30</code> - 30px padding left and right between columns</p>
+							<p>Similar classes: col-p5, col-p10, col-p20. Add these classes to a row (class) to increase or decrease the padding between columns (15px padding is default)  </p>
+							<p><code>col-*-* xs-box</code> On mobiles, it will add a bottom padding of 30px (The default grid system doesn't add any margin when a column is pushed below)</p>
+							<p><code>col-*-* sm-box</code> On tablets, it will add a bottom padding of 30px</p>
+							<p>Similar classes: xs-box2, xs-box3, sm-box2, sm-box3 (box2 is 40px, and box3 is 50px) (bottom padding)</p>
+						</div>
+					</section>
+					<section class="elements-section">
+						<h2 id="bgimg" class="section-title-2">Background images</h2>
+						<div class="content">
+							<p>If you want to change the background image of a section you will have to open style.css (or user_style.css) and change the <code>bg01</code> class (or bg02, bg03, bg14 etc) with the path to your desired image.</p>
+							<p><img src="assets/img/bg_image.png" class="img-rounded" alt=""></p>
+							<p><img src="assets/img/parallax_bg.png" class="img-rounded" alt=""></p>
+							<p>
+								<code>bg-img</code> class is required (it sets some background properties) <br>
+								<code>bg03</code> class is the path to the image <br>
+								<code>bg-overlay</code> class is for light images (When you want a dark overlay background). Recomend to include it sometimes to have a dark overlay and change the opacity (op6, op4, op8 etc) so that the content inside to be visible and readable (when the text is white) <br>
+								<code>stellar</code> class is for parallax backgrounds (data-stellar-background-ratio is required)
+							</p>
+						</div>
+					</section>
+					<section class="elements-section">
+						<h2 id="layout" class="section-title-2">Layout Type</h2>
+						<div class="content">
+							<p>This template allows you to choose between boxed and wide (default) layout. If you want a boxed layout, you will have to add <code>&lt;link rel="stylesheet" href="css/boxed.css"&gt;</code> after the main style. See an example below:</p>
+							<img src="assets/img/boxed_layout.png" alt="" class="img-rounded">
+						</div>
+					</section>
+					<section class="elements-section">
+						<h2 id="dark" class="section-title-2">Dark version</h2>
+						<div class="content">
+							<p>If you want a dark layout, you will have to add <code>&lt;link rel="stylesheet" href="css/dark.css"&gt;</code> after the main style.</p>
+							<p><strong>Note:</strong >If you want at the same time to have a boxed layout and a dark template, please follow this order:</p>
+							<img src="assets/img/dark_version.png" alt="" class="img-rounded">
+						</div>
+					</section>
+					<section class="elements-section">
+						<h2 id="colors" class="section-title-2">Colors</h2>
+						<div class="content">
+							<p>If you want a different color than the default one, you just need to add a link to the css file after that main style. Replace blue.css with the favourite color scheme from assets/css/colors/ folder.</p>
+							<p><img src="assets/img/color.png" alt="" class="img-rounded"></p>
+							<p>OR, you can create your own color by changing one variable in the css/colors.less file and then compiling it into a css file (I will explain later how to do that). <br> Open colors.less file and change <code>#22aba6</code> to your favourite color.</p>
+							<p><img src="assets/img/color-less.png" alt="" class="img-rounded"></p>
+							<p>Now you have to go to <a href="http://less2css.org/" >less2css.org</a> and copy all the code from this less file in the less section ( left ), then copy all the code from css section ( right ) and paste it to new_color.css (You will have to crete it first) file and save it. Now you have to link new_color.css to your pages as I explained above.</p>
+						</div>
+					</section>
+					<section class="elements-section">
+						<h2 id="patterns" class="section-title-2">Background Patterns</h2>
+						<div class="content">
+							<p>If you want a boxed layout, you can set a background pattern ( image or color ) to the body. So, in order to do that, you will have to open boxed.css file and change the background property from the body tag selector. (Or, as I said at the begining, you could create a new css file and put your new styles there - user_style.css). You will find more background patterns in images/patterns. See an example below:</p>
+							<p><img src="assets/img/pattern.png" alt="" class="img-rounded"></p>
+						</div>
+					</section>
+					<section class="elements-section">
+						<h2 id="menu" class="section-title-2">Static Menu</h2>
+						<div class="content">
+							<p>This template allows you to position your menu to top (fixed) or you can change it to be static. If you want a static menu all you need to do is to add <code>static-menu</code> class to <code>header-wrapper</code>.</p>
+							<p><img src="assets/img/static_menu.png" alt="" class="img-rounded"></p>
+						</div>
+					</section>
+					<section class="elements-section">
+						<h2 id="share" class="section-title-2">Share</h2>
+						<div class="content">
+							<p>Blog post pages, Portfolio project pages and Shop product pages all have a working share widget in the intro section (currently supporting only facebook, twitter and google plus). All you have to do is to replace the <code>data-url</code> and <code>data-text</code> attributes.</p>
+							<p><img src="assets/img/share.png" alt="" class="img-rounded"></p>
+						</div>
+					</section>
+					<section class="elements-section">
+						<h2 id="contact" class="section-title-2">Contact Form</h2>
+						<div class="content">
+							<p>This template contains a fullys secure working contact form. All you need to do is to replace some lines of code. So, in order to receive messages you need to edit contact.php file from php folder and type in your own email address and your secret google captcha key (more info below).</p>
+							<p><img src="assets/img/contact.png" alt="" class="img-rounded"></p>
+							<div class="alert alert-danger br2">Please ensure that PHP mail() function is correctly configured on your server.</div>
+							<div class="mb20"></div>
+							<p>Google Captcha</p>
+							<p>1. Go to <a href="https://www.google.com/recaptcha/admin">https://www.google.com/recaptcha/admin</a> (if you're not logged in, please log with a google account) and click the blue Get reCAPTCHA button (top right).</p>
+							<p>2. Set a label and the domain you want to use the captcha.</p>
+							<p>3. Copy the secret key and paste it to contact.php (image above), then copy the site key and paste it to the contact form from page_contact.html (image below).</p>
+							<p><img src="assets/img/captcha.png" alt="" class="img-rounded"></p>
+						</div>
+					</section>
+					<section class="elements-section">
+						<h2 id="subscribe" class="section-title-2">Subscribe Form</h2>
+						<div class="content">
+							<p>This template includes a fully working MailChimp Subscribe form and there are some steps you need to follow to make it work.</p>
+							<p>Firstly, if you already know about MailChimp, you have an account and know how to obtain the form action link, all you have to do is to replace it in the subscribe form of the template.</p>
+							<p><img src="assets/img/action_link.png" alt="" class="img-rounded"></p>
+							<p>Now, if you don't have an account, go to <a href="http://mailchimp.com/">http://mailchimp.com/</a>, read its features and see if you really need it. If you don't like, or you prefer other  Email Marketing company, you have a similar form template (the same style without MailChimp id's and name's) in this documentation - <code>code/simple_subscribe_form.html</code>. Replace the Mailchimp form in the template with this one and integrate you're desired email marketer.</p>
+							<p>If you like mailchimp, create an account, create a list and so on. Details about how to create an account and make it functional, you'll find on the mailchimp knowledgebase.</p>
+							<p>Where to get the form action link?</p>
+							<p>Log in to mailchimp, go to <strong>Lists</strong> (assuming that you created a list), click on the desired/created list, click on the <strong>Sign up Forms</strong> button from the menu,
+							select <strong>Embedded Forms</strong>, and in the <strong>Copy/paste onto your site</strong> section, copy the action link and paste to you form in the template as we showed in the image above.</p>
+							<p><img src="assets/img/mailchimp_link.png" alt="" class="img-rounded"></p>
+						</div>
+					</section>
+					<section class="elements-section">
+						<h2 id="flickr" class="section-title-2">Flickr Feed</h2>
+						<div class="content">
+							<p>If you want to use flickr feed widget, you'll have to open script.js and in "Plugin configurations" section you'll find the flickr feed script. Change the id property to your flickr ID. See an example below.</p>
+							<p><img src="assets/img/flickr.png" alt="" class="img-rounded"></p>
+						</div>
+					</section>
+					<section class="elements-section">
+						<h2 id="twitter" class="section-title-2">Twitter Feed</h2>
+						<div class="content">
+							<p>Although we didn't include a working twiter feed widget in our preview (we didn't want to decrease the performance) we used the tweetie.js plugin so that our customers can have a working twitter feed widget with our template. We initialized the tweetie.js to match our template, but you have to change some php code to make it work. (We'll explain later)</p>
+							<p>Firstly, instead of the dummy tweeet content from the template, include <code>&lt;div class="twitter-feed"&gt;&lt;/div&gt;</code>.</p>
+							<p>Don't forget to insert the plugin at the bottom of the page you want the widget to run ( <code> &lt;script src="plugins/tweetie/tweetie.min.js"&gt;&lt;/script&gt; </code> )</p>
+							<p><img src="assets/img/tweetie.png" alt="" class="img-rounded"></p>
+							<p>Now, you need the consumer key and the secret key. Go to <a href="https://apps.twitter.com/">https://apps.twitter.com/</a>, log in if you're not, then include the requested details (label for the app, the site you want the widget to work etc). If all is good, click on the <strong>Keys and access tokens</strong> and from there you should be able to copy the secret keys and insert them in <code>plugins/tweetie/api.config.php</code> (4 variables.)</p>
+							<p><img src="assets/img/tweetie_api.png" alt="" class="img-rounded"></p>
+							<p>We tested the plugin with our secret keys and it's working. If you have encounter any troubles, take a look at the tweeti.js <a href="https://github.com/sonnyt/Tweetie">github page</a>. It exaplains in more details what you should do.</p>
+						</div>
+					</section>
+					<section class="elements-section">
+						<h2 id="sidebar" class="section-title-2">Right Sidebars</h2>
+						<div class="content">
+							<p>As you may noticed, this template has sidebars only on the left side, but you could easily move it to the right by removing a few classes. See an example below.</p>
+							<p>Sidebar left</p>
+							<p><img src="assets/img/sidebar_left.png" alt="" class="img-rounded"></p>
+							<div class="mb40"></div>
+							<p>Sidebar right</p>
+							<p><img src="assets/img/sidebar_right.png" alt="" class="img-rounded"></p>
+							<div class="mb40"></div>
+							<p>For short, you will have to replace <code>space-left</code> class with <code>space-right</code> class, and then remove all classes with <code>col-*-push-*</code> and <code>col-*-pull-*</code>.</p>
+						</div>
+					</section>
+					<section class="elements-section">
+						<h2 id="notes" class="section-title-2">Final notes</h2>
+						<div class="content">
+							<p>Although we tried as best as possible to describe, to make you understand how to use and customize this template, there may be some situations whre you want to make a change/customization and we didn't write how to do that. As I said at the beginning, feel free to contact us via our <strong><a href="http://abusinesstheme.freshdesk.com">Support System</a></strong> if you encounter problems.</p>
+							<p><strong>Don't forget to rate our template!</strong></p>
+						</div>
+					</section>
+					<section class="elements-section">
+						<h2 id="credits" class="section-title-2">Credits</h2>
+						<div class="content">
+							<p class="title-5">Javascript</p>
+							<ol class="mb30">
+								<li><a href="http://jquery.com/" >jQuery</a> &nbsp; --- &nbsp; Fast, small, and feature-rich JavaScript library. It reduces the amount of code that you must write.</li>
+								<li><a href="http://isotope.metafizzy.co/" >Isotope</a> &nbsp; --- &nbsp; It's an exquisite jQuery plugin for magical layouts used to filter and make use of the masonry layout for Blog, Portfolio, Shop Templates. Images Loaded is also included with Isotope. It detects when images have been loaded.</li>
+								<li><a href="https://github.com/jackmoore/zoom" >Zoom</a> &nbsp; --- &nbsp; A plugin to enlarge images on touch, click, or mouseover. It is used for images from shop templates.</li>
+								<li><a href="http://dimsemenov.com/plugins/magnific-popup/" >Magnific-popup</a> &nbsp; --- &nbsp; A responsive lightbox & dialog script with focus on performance and providing best experience for users with any device. It is is used to preview a full version of the images that are cut to fit the page.</li>
+								<li><a href="http://www.owlgraphic.com/owlcarousel/" >Owl-carousel</a> &nbsp; --- &nbsp; Touch enabled jQuery plugin that lets you create beautiful responsive carousel sliders.</li>
+								<li><a href="https://github.com/IonDen/ion.rangeSlider" >rangeSlider</a> &nbsp; --- &nbsp; A jQuery range slider plugin with skin support. Used for shop Templates.</li>
+								<li><a href="https://github.com/wbotelhos/raty" >raty</a> &nbsp; --- &nbsp; A star rating plugin. It is used for shop templates to rate a product.</li>
+								<li><a href="http://sharrre.com/" >sharrre</a> &nbsp; --- &nbsp; A jQuery plugin that allows you to create nice widgets sharing for Facebook, Twitter, Google Plus and more.</li>
+								<li><a href="https://github.com/bas2k/jquery.appear/" >Appear</a> &nbsp; --- &nbsp; jQuery plugin to call a function when an element appears. We used it for animations.</li>
+								<li><a href="https://github.com/mhuggins/jquery-countTo" >countTo</a> &nbsp; --- &nbsp; jQuery plugin that will count up (or down) to a target number at a specified speed, rendered within an HTML DOM element. Used for Stats sections.</li>
+								<li><a href="http://jqueryvalidation.org/" >Validate</a> &nbsp; --- &nbsp; It makes simple client-side form validation easy, offering plenty of customization options. Used for contact form.</li>
+								<li><a href="http://imulus.github.io/retinajs/" >Retina js</a> &nbsp; --- &nbsp; It is an open source script that makes it easy to serve high-resolution images to devices with retina displays</li>
+								<li><a href="http://www.newmediacampaigns.com/blog/a-jquery-flickr-feed-plugin">jFlickrFeed</a> &nbsp; --- &nbsp; This plugin works by pulling a JSON feed from Flickr and applying the data it gets back to a template. Used for flickr images from footer and more. </li>
+								<li><a href="https://github.com/mathiasbynens/jquery-placeholder">placeholder</a> &nbsp; --- &nbsp; Used to fix placeholder attribute on IE9</li>
+								<li><a href="https://github.com/garand/sticky">sticky.js</a> &nbsp; --- &nbsp; Used to make the menu sticky to top.</li>
+								<li><a href="https://github.com/sonnyt/Tweetie">tweetie.js</a> &nbsp; --- &nbsp; Twitter feed plugin.</li>
+							</ol>
+							<p class="title-5">CSS</p>
+							<ol class="mb30">
+								<li><a href="http://getbootstrap.com/" >Bootstrap</a> &nbsp; --- &nbsp; A sleek, intuitive, and powerful front-end framework for faster and easier web development, </li>
+							</ol>
+							<p class="title-5">Fonts</p>
+							<ol class="mb30">
+								<li><a href="http://fortawesome.github.io/Font-Awesome/">Font-Awesome</a> &nbsp; --- &nbsp; Scalable vector icons that can instantly be customized — size, color, drop shadow, etc. CSS Friendly.</li>
+								<li><a href="http://www.elegantthemes.com/blog/resources/elegant-icon-font" >ElegantFont</a> &nbsp; --- &nbsp;  Some modern and useful font icons.</li>
+								<li><a href="http://www.google.com/fonts/specimen/Open+Sans" >Open Sans</a> &nbsp; --- &nbsp; Web Font</li>
+								<li><a href="http://www.google.com/fonts/specimen/Raleway" >Raleway</a> &nbsp; --- &nbsp; Web Font</li>
+							</ol>
+                            <p class="title-5">Pattenrs</p>
+                            <ol>
+                            	<li><a href="http://subtlepatterns.com/" >Subtle Patterns</a>  &nbsp; --- &nbsp;  Background patterns for boxed layout.</li>
+                            </ol>
+						</div>
+					</section>
+					<section class="elements-section">
+						<h2 id="changelog" class="section-title-2">Changelog</h2>
+						<div class="content">
+							<p class="title-5">Version 1.3 [ 30 April 2015 ]</p>
+							<ul>
+								<li>Changed some js code (script.js)</li>
+							</ul>
+							<p class="title-5">Version 1.2 [ 01 April 2015 ]</p>
+							<ul>
+								<li>Fixed some margin issues on mobiles (style.css)</li>
+							</ul>
+							<p class="title-5">Version 1.1 [ 16 March 2015 ]</p>
+							<ul>
+								<li>Added 3 new simple page headers</li>
+								<li>fixed a bug with the menu on mobiles</li>
+							</ul>
+							<p class="title-5">Version 1.0 [ 12 March 2015 ]  Initial Release</p>
+						</div>
+					</section>
+				</div>
+			</div>
+		</div>
+	</section>
+	
+</div> <!-- END Global Wrapper -->
+
+
+	<script src="assets/js/jquery-2.1.0.min.js"></script>
+	<script src="assets/js/bootstrap.min.js"></script>
+
+
+	<script>
+		(function($) {
+			"use strict";
+
+			// Add target _blank to links
+			$("a[href^='http']").attr("target","_blank");
+
+			$(window).load(function() {
+				prettyPrint();
+			});
+
+		})(jQuery);
+	</script>
+
+</body>
+</html>

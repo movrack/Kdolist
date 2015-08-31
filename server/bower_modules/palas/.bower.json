@@ -1,0 +1,12 @@
+{
+  "name": "palas",
+  "_release": "dbe9418e6a",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "dbe9418e6aacce1d0326c473ff515ee92bf4a165"
+  },
+  "_source": "git@bitbucket.org:Movrack/palas.git",
+  "_target": "*",
+  "_originalSource": "git@bitbucket.org:Movrack/palas.git"
+}
