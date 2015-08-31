@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/KDOgui.iml" filepath="$PROJECT_DIR$/.idea/KDOgui.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/KDOserver.iml" filepath="$PROJECT_DIR$/.idea/KDOserver.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/Kdolist.iml" filepath="$PROJECT_DIR$/.idea/Kdolist.iml" />
+      <module fileurl="file://$PROJECT_DIR$/kdolist.iml" filepath="$PROJECT_DIR$/kdolist.iml" />
     </modules>
   </component>
 </project>

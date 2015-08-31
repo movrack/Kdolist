@@ -1,7 +1,7 @@
 {
   "name": "KDOlist",
   "version": "1.0.0",
-  "description": "Kdolist",
+  "description": "Kdolist server",
   "main": "index.js",
   "devDependencies": {
     "grunt": "~0.4.5",
