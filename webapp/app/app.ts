@@ -3,6 +3,7 @@
 declare function require(string): string;
 require("!style!css!less!../assets/less/app.less");
 
+
 import {Component, View, bootstrap} from 'angular2/angular2';
 
 
@@ -13,7 +14,7 @@ import {Component, View, bootstrap} from 'angular2/angular2';
 
 
 @View({
-  template: '<h1>Hello : {{ name }}</h1>'
+  template: '<h1>Hello me : {{ name }}</h1>'
 })
 
 // Component controller

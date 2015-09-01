@@ -8,7 +8,7 @@ module.exports = {
     devtools: 'source-map',
     resolve: {
         modulesDirectories: [ 'node_modules', 'app/vendor' ],
-        extensions: ['', '.less', '.webpack.js', '.web.js', '.ts', '.jsx', '.js']
+        extensions: ['', '.less', '.webpack.js', '.web.js', '.ts', '.js']
     },
     plugins: [
 
@@ -23,15 +23,14 @@ module.exports = {
 
     module: {
         loaders: [
+            //{
+            //    test: /\.jsx?$/,
+            //    exclude: /(node_modules|bower_components)/,
+            //    loader: 'babel'
+            //    //loader: 'babel?optional[]=runtime'
+            //},
             { test: /\.less$/, loader: "style!css!less"},
-            { test: /\.ts$/, loader: 'ts' },
-
-            {
-                test: /\.jsx?$/,
-                exclude: /(node_modules|bower_components)/,
-                loader: 'babel'
-                //loader: 'babel?optional[]=runtime'
-            }
+            { test: /\.ts$/, loader: 'ts' }
         ]
     }
 }
