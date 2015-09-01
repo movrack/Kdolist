@@ -7,6 +7,18 @@
   "installed": {
     "jquery/jquery.d.ts": {
       "commit": "e5de5c4daf8cdc33ed60704cd6e8021c99a89f92"
+    },
+    "es6-promise/es6-promise.d.ts": {
+      "commit": "af76bf46025371c760d8fe8c03cf874428da6124"
+    },
+    "rx/rx.d.ts": {
+      "commit": "af76bf46025371c760d8fe8c03cf874428da6124"
+    },
+    "angular2/angular2.d.ts": {
+      "commit": "af76bf46025371c760d8fe8c03cf874428da6124"
+    },
+    "rx/rx-lite.d.ts": {
+      "commit": "af76bf46025371c760d8fe8c03cf874428da6124"
     }
   }
 }

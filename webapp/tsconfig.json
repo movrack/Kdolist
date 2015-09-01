@@ -2,16 +2,11 @@
   "compilerOptions": {
     "module": "commonjs",
     "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
     "sourceMap": true,
     "target": "es5"
   },
   "files": [
-    "app/app.ts",
-    "typings/tsd.d.ts",
-
-    "typings/angular2/angular2.d.ts",
-    "typings/jquery/jquery.d.ts",
-    "typings/es6-promise/es6-promise.d.ts",
-    "typings/rx/rx.d.ts"
+    "app/app.ts"
   ]
 }

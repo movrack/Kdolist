@@ -48,6 +48,7 @@ vendor/
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio
 
 *.iml
+/webapp/app/app.js
 
 ## Directory-based project format:
 .idea/

@@ -5,7 +5,7 @@ var BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 module.exports = {
     entry: './app/app.ts',
     output: { filename: 'app/app.js' }, //path: path.resolve(__dirname, './build'), filename: '[name].js' },
-    //devtools: 'source-map',
+    devtools: 'source-map',
     resolve: {
         modulesDirectories: [ 'node_modules', 'app/vendor' ],
         extensions: ['', '.less', '.webpack.js', '.web.js', '.ts', '.jsx', '.js']

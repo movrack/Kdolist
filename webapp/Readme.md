@@ -30,7 +30,11 @@ WebApp module is the frontend of Kdolist.
 Install
 ========
 
-`npm install`
+```
+npm install
+tsd install
+```
+
 
 Development
 ===========
